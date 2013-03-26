@@ -39,15 +39,18 @@
   		<button class = "btn btn-warning dropdown-toggle" data-toggle="dropdown">
    		 <span class="caret"></span></button>
   		<ul class="dropdown-menu span3" role="menu" aria-labelledby="dLabel">
+  			<s:iterator value="categoryList">
+  				<li><a tabindex="-1" href="#"><s:property /></a></li>
+  				
+  			</s:iterator>
     		<li class="dropdown-submenu">
-   			<a tabindex="-1" href="#">More options</a>
+   			<a tabindex="-1" href="#">More options <span class="label label-important">NEW</span></a>
     			<ul class="dropdown-menu">
     				<li><a tabindex="-1" href="#">Action</a></li>
     				<li><a tabindex="-1" href="#">Another action</a></li>
     				<li><a tabindex="-1" href="#">Something else here</a></li>
     			</ul>
-    	 	</li>
-    		<li class="divider"></li>
+    	 	</li>		
  		</ul></div> <!-- dropdown end here -->&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
  		<s:form action="search" method="get" theme="simple" cssClass="form-inline" style="display: inline;">
   			<div class="input-append">
