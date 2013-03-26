@@ -35,7 +35,6 @@ public class HomeAction extends ActionSupport {
 
 	public String execute() {
 		MyLog.log("Inside HomeAction execute function");
-		
 		//get all categories from category table to populate the search box
 		HomeModel hm = new HomeModel();
 		categoryList = hm.getCategoryList();
