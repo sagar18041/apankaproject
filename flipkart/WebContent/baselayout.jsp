@@ -19,65 +19,61 @@
 <link href="ViewResources/css/bootstrap.css" rel="stylesheet">
 <link href="ViewResources/css/font-awesome.css" rel="stylesheet">
 
-
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 <style>
 #subheading {
-    -moz-border-radius-topleft: 5px;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    padding-left:5px;
-    padding-right:5px;
-    padding-top:5px;
-    padding-bottom:5px;
-
+	-moz-border-radius-topleft: 5px;
+	-webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 </style>
 
 <script>
+	function GetCurrentPageName() {
+		var PageURL = document.location.href;
+		var PageName = PageURL.substring(PageURL.lastIndexOf('/') + 1);
 
-function GetCurrentPageName() { 
-	var PageURL = document.location.href; 
-	var PageName = PageURL.substring(PageURL.lastIndexOf('/') + 1); 
-
-	return PageName ;
-}
-
-$(document).ready(function(){	
-	var CurrPage = GetCurrentPageName();
-	console.log(CurrPage);
-	
-	switch(CurrPage){
-		case 'home':
-	  		$('#li_home').addClass('active') ;
-	  		break;
-		case 'accountPage':
-			$('#li_account').addClass('active') ;
-	  		break;
-		case 'passwordPage':
-			$('#li_account').addClass('active') ;
-	  		break;	  		
+		return PageName;
 	}
-});
 
+	$(document).ready(function() {
+		var CurrPage = GetCurrentPageName();
+		console.log(CurrPage);
+
+		switch (CurrPage) {
+		case 'home':
+			$('#li_home').addClass('active');
+			break;
+		case 'accountPage':
+			$('#li_account').addClass('active');
+			break;
+		case 'passwordPage':
+			$('#li_account').addClass('active');
+			break;
+		}
+	});
 </script>
 </head>
 <body>
-	
-		<div style="background-color: #005475;">
-			<div  class = "container" style="width: 900;">
-			<tiles:insertAttribute name="header" />
-			</div>
-			<hr size="6" color="#C8EBF7"/>
-		</div>
-		<div class="container">
-		<tiles:insertAttribute name="body" />
-	
 
-	<hr />
+	<div style="background-color: #005475;">
+		<div class="container" style="width: 900;">
+			<tiles:insertAttribute name="header" />
+		</div>
+		<hr size="6" color="#C8EBF7" />
 	</div>
-	<div class = "container" >
-	<tiles:insertAttribute name="footer" />
+	<div class="container">
+		<tiles:insertAttribute name="body" />
+
+
+		<hr />
+	</div>
+	<div class="container">
+		<tiles:insertAttribute name="footer" />
 	</div>
 </body>
 
