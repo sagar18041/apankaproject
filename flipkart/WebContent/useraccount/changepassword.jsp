@@ -65,7 +65,7 @@
 <body>
 	<div class=container-fluid>
 		<ul class="breadcrumb">
-			<li><a href="home">Home</a> <span class="divider">></span></li><li><a href="accountPage">My Account</a> <span class="divider">></span></li>
+			<li><a href="home">Home</a> <span class="divider">></span></li><li><a href="accountpage">My Account</a> <span class="divider">></span></li>
 			<li class="active">Change Password</li>
 		</ul>
 		<div class="row-fluid">
@@ -93,7 +93,7 @@
 
 						<li class="nav-heading">&nbsp;&nbsp;Settings</li>
 						<li class="dividertop"></li>
-						<li ><a href='accountPage'>Personal
+						<li ><a href='accountpage'>Personal
 								Information</a></li>
 						<li class="divider"></li>
 						<li class="active"><b>&nbsp;&nbsp;&nbsp;&nbsp;Change Password</b></li>
@@ -155,6 +155,17 @@
 						<div align="center">
 							<s:iterator value="actionMessages">
 								<div class="alert alert-success"> <br /><i class="icon-ok icon-2x"></i>&nbsp;&nbsp;<s:property />
+									<br /> <br />
+								</div>
+							</s:iterator>
+
+						</div>
+					</s:if>
+					
+					<s:if test="hasActionErrors()">
+						<div align="center">
+							<s:iterator value="actionErrors">
+								<div class="alert alert-error"> <br /><i class="icon-remove icon-2x"></i>&nbsp;&nbsp;<s:property />
 									<br /> <br />
 								</div>
 							</s:iterator>
