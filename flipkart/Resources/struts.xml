@@ -2,18 +2,16 @@
 <!DOCTYPE struts PUBLIC
    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
    "http://struts.apache.org/dtds/struts-2.3.dtd">
-   
-<struts>
 
+<struts>
 	<constant name="struts.ui.theme" value="simple" />
-	<constant name="struts.enable.DynamicMethodInvocation"
-		value="false" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="false" />
 	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
 	<constant name="struts.multipart.maxSize" value="1024000" />
 
 	<package name="default" extends="struts-default" namespace="/">
-	
+
 		<result-types>
 			<result-type name="tiles"
 				class="org.apache.struts2.views.tiles.TilesResult" />
@@ -25,47 +23,56 @@
 		<!-- ****************** End of Main Page ********************** -->
 
 		<!-- ****************** Place Order ********************** -->
-		
+
 		<action name="emaillogin" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="fetchEmailID">
 			<result name="success" type="tiles">/emaillogin.tiles</result>
 		</action>
-		
+
 		<action name="shippingaddress" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="fetchShippingAddr">
 			<result name="success" type="tiles">/shippingaddress.tiles</result>
 		</action>
-		
+
+		<action name="payment" class="com.flipkart.action.placeorder.PlaceOrderAction"
+			method="goToPayment">
+			<result name="success" type="tiles">/paymentoptions.tiles</result>
+			<result name="error" type="redirectAction">
+				<param name="actionName">shippingaddress</param>
+				<param name="errorMsg">${errorMsg}</param>
+			</result>
+		</action>
+
 		<!-- ************** End of Place Order ******************** -->
-		
+
 
 		<!-- ********************************* Account Information ********************************** -->
-		
+
 		<!-- ================================== Personal Information =============================== -->
 		<action name="accountpage"
-			class="com.flipkart.action.accountmanagement.PersonalInformationAction" 
+			class="com.flipkart.action.accountmanagement.PersonalInformationAction"
 			method="displayPersonalInformation">
 			<result name="success" type="tiles">/accountpage.tiles</result>
 		</action>
-		
+
 		<action name="modifypersonalinformation"
-			class="com.flipkart.action.accountmanagement.PersonalInformationAction" 
+			class="com.flipkart.action.accountmanagement.PersonalInformationAction"
 			method="modifyPersonalInformation">
 			<result name="success" type="tiles">/accountpage.tiles</result>
 			<result name="error" type="tiles">/accountpage.tiles</result>
 		</action>
 		<!-- ================================ End of Personal Information =============================== -->
-		
+
 		<!-- ================================ Change Password ================================ -->
 		<action name="passwordpage"
-			class="com.flipkart.action.accountmanagement.PasswordChangeAction" 
+			class="com.flipkart.action.accountmanagement.PasswordChangeAction"
 			method="loadPage">
 			<result name="success" type="tiles">/passwordpage.tiles</result>
 		</action>
-		
+
 		<!-- ================================ End of Change Password ================================ -->
-		
+
 		<!-- ******************************* End of Account Information ********************************** -->
 	</package>
-	
+
 </struts>
