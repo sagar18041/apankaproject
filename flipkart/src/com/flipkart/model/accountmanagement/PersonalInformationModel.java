@@ -19,11 +19,9 @@ public class PersonalInformationModel {
 		PersonalInformation pi = new PersonalInformation();
 		sqlQuery = "select firstName, lastName, contactNumber, gender from flipkart_userinfo where userID = ?;";
 		try{
-			MyLog.log("SQL = " + sqlQuery);
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
 			ps.setInt(1, userId);
-			MyLog.log("after prepared statement");
 			rs=ps.executeQuery();
 			
 			while(rs.next()){
@@ -33,7 +31,6 @@ public class PersonalInformationModel {
 				pi.setGender(rs.getString(4));
 			}
 			
-			MyLog.log("after adding personal info in the PersonalInformation object");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -44,7 +41,7 @@ public class PersonalInformationModel {
 		int result=0;
 		sqlQuery = "update flipkart_userinfo set firstName = ?, lastName = ?, contactNumber = ?, gender = ? where userID = ?;";
 		try{
-			MyLog.log("SQL = " + sqlQuery);
+			
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
 			ps.setString(1, pi.getFirstName());
@@ -52,10 +49,9 @@ public class PersonalInformationModel {
 			ps.setString(3, pi.getMobileNumber());
 			ps.setString(4, pi.getGender());
 			ps.setInt(5, userId);
-			MyLog.log("after prepared statement");
+			
 			result = ps.executeUpdate();
 			
-			MyLog.log("after changing personal info in the PersonalInformation object");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
