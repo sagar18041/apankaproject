@@ -71,13 +71,13 @@
 			selected : 3,
 			select : function(event, ui) {
 				if (ui.index == 0) {
-					window.location = "emailLogin";
+					window.location = "emaillogin";
 				}
 				else if (ui.index == 1) {
-					window.location = "shippingAddr";
+					window.location = "shippingaddress";
 				}
 				else if (ui.index == 2) {
-					window.location = "shippingAddr";
+					window.location = "shippingaddress";
 				}
 			}
 		});
