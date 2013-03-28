@@ -30,7 +30,7 @@
 	</definition>
 	
 	<!-- ================================== Shipping Address =============================== -->
-	<definition name="/shippingaddr.tiles" extends="baselayout">
+	<definition name="/shippingaddress.tiles" extends="baselayout">
 		<put-attribute name="title"
 			value="Flipkart.com: Secure Payment: Login > Select Shipping Address > Review Order > Place Order" />
 		<put-attribute name="body" value="/placeorder/shippingaddress.jsp" />
