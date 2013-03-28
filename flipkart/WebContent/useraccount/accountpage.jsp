@@ -146,7 +146,7 @@
 									<td
 										style='text-align: left; vertical-align: middle; font-size: 14px'>
 										<s:select theme="simple" list="#{'1':'Male', '2':'Female'}"
-											name="gender" />
+											name="gender" value="genderFlag" />
 									</td>
 								</tr>
 							</tbody>
