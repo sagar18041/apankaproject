@@ -14,22 +14,51 @@ public class UserPasswordModel {
 	static String sqlQuery="";
 	static Connection conn = null;
 	
-	public static int updateUserPassword(PersonalInformation pi, int userId){
-		int result=0;
-		sqlQuery = "update flipkart_userinfo set firstName = ?, lastName = ?, contactNumber = ?, gender = ? where userID = ?;";
+	public static String getUserEmailAddress(int userId){
+		String email="";
+		sqlQuery = "select emailAddress from flipkart_userinfo where userID = ?;";
 		try{
-			MyLog.log("SQL = " + sqlQuery);
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
-			ps.setString(1, pi.getFirstName());
-			ps.setString(2, pi.getLastName());
-			ps.setString(3, pi.getMobileNumber());
-			ps.setString(4, pi.getGender());
-			ps.setInt(5, userId);
-			MyLog.log("after prepared statement");
+			ps.setInt(1, userId);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				email=rs.getString(1);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return email;
+	}
+	
+	public static String getUserPassword(int userId){
+		String password="";
+		sqlQuery = "select password from flipkart_userinfo where userID = ?;";
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, userId);
+			rs = ps.executeQuery();
+			while(rs.next()){
+				password=rs.getString(1);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return password;
+	}
+	
+	public static int updateUserPassword(String password, int userId){
+		int result=0;
+		sqlQuery = "update flipkart_userinfo set password = ? where userID = ?;";
+		try{
+			
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setString(1, password);
+			ps.setInt(2, userId);
 			result = ps.executeUpdate();
 			
-			MyLog.log("after changing personal info in the PersonalInformation object");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
