@@ -2,6 +2,7 @@ package com.flipkart.model.placeorder;
 
 public class ShippingAddress {
 
+	private int addressID; 
 	private String name;
 	private String streetAddress;
 	private String landmark;
@@ -10,6 +11,12 @@ public class ShippingAddress {
 	private String pincode;
 	private String phoneNumber;
 	
+	public int getAddressID() {
+		return addressID;
+	}
+	public void setAddressID(int addressID) {
+		this.addressID = addressID;
+	}
 	public String getName() {
 		return name;
 	}
