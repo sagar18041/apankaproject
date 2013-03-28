@@ -1,7 +1,6 @@
 package com.flipkart.action.accountmanagement;
 import com.flipkart.model.accountmanagement.PersonalInformation;
 import com.flipkart.model.accountmanagement.PersonalInformationModel;
-import com.flipkart.util.MyLog;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class PersonalInformationAction extends ActionSupport{
@@ -98,9 +97,11 @@ public class PersonalInformationAction extends ActionSupport{
 		pi.setLastName(lastName);
 		if(Integer.valueOf(gender)==1){
 			pi.setGender("Male");
+			setGenderFlag(1);
 		}
 		else{
 			pi.setGender("Female");
+			setGenderFlag(2);
 		}
 		
 		pi.setMobileNumber(mobileNumber);
