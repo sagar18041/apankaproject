@@ -51,14 +51,20 @@
 	
 	<!-- ================================== Personal Information =============================== -->
     <definition name="/accountpage.tiles" extends="baselayout">
-        <put-attribute name="title" value="Home" />
+        <put-attribute name="title" value="Flipkart.com: Account Settings" />
         <put-attribute name="body" value="/useraccount/accountpage.jsp" />
     </definition>
     
     <!-- ================================ Change Password ================================ -->
     <definition name="/passwordpage.tiles" extends="baselayout">
-        <put-attribute name="title" value="Home" />
+        <put-attribute name="title" value="Flipkart.com: Change Password" />
         <put-attribute name="body" value="/useraccount/changepassword.jsp" />
+    </definition>
+    
+     <!-- ================================ Manage Addresses ================================ -->
+    <definition name="/addresspage.tiles" extends="baselayout">
+        <put-attribute name="title" value="Flipkart.com: Addresses" />
+        <put-attribute name="body" value="/useraccount/addresses.jsp" />
     </definition>
     
     <!-- ******************************* End of Account Information ********************************** -->
