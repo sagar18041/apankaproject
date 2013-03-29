@@ -34,9 +34,12 @@
 				<li id="li_home"><a href="home" style="color: white;">Home</a></li>
 				<li id="li_account"><a href="accountpage" style="color: white;">Account</a></li>
 				<li><a href="#" style="color: white;">Wishlist</a></li>
-				<li><a data-toggle="modal" href="#example"
-					style="color: white;" onclick="show('forgotpassword','signup','login')">Login</a></li>
-				<li><a href="#" style="color: white;">Signup</a></li>
+				<li><a data-toggle="modal" href="#loginmodal"
+					style="color: white;"
+					onclick="show('forgotpassword','signup','login')">Login</a></li>
+				<li><a data-toggle="modal" href="#loginmodal"
+					style="color: white;"
+					onclick="show('forgotpassword','login','signup')">Signup</a></li>
 
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown" style="color: white;">Dropdown<b
@@ -49,7 +52,7 @@
 		</div>
 
 		<!-- Aamir Start -->
-		<div id="example" class="modal-aamir" style="display: none;">
+		<div id="loginmodal" class="modal-aamir" style="display: none;">
 			<div class="modal-body">
 
 				<s:form action="#">
