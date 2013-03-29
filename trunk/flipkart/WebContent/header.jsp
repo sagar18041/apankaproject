@@ -56,72 +56,78 @@
 		<div id="loginmodal" class="modal-aamir" style="display: none;">
 			<div class="modal-body">
 
-				<s:form action="#">
-					<div id="login">
-						<a class="close" data-dismiss="modal"><b>x</b></a> <font size="3"><b>Login</b></font><br />
-						<br />
-						<table>
-							<tr>
-								<td><font size="2">Email</font></td>
-								<td><input type="text" name="emailID" /></td>
-							</tr>
-							<tr>
-								<td width="100"><font size="2">Password</font></td>
-								<td><input type="password" name="password" /></td>
-							</tr>
-							<tr>
-								<td width="100"></td>
-								<td><button class="btn btn-primary pull-left" type="submit">Login</button>
-									<font size="2"><a href="#" class="pull-right"
-										onclick="toggle('forgotpassword')">Forgot your password?</a></font></td>
-							</tr>
-						</table>
-						<br /> <font size="2">Don't have an account?<a href="#"
-							onclick="show('login','forgotpassword','signup')"> Create
-								One!</a></font> <br />
-					</div>
-					<div id="signup">
-						<a class="close" data-dismiss="modal"><b>x</b></a> <font size="3"><b>
-								New User? Sign Up</b></font><br /> <br />
-						<table>
-							<tr>
-								<td><font size="2">Email Address</font></td>
-								<td><input type="text" name="emailID" /></td>
-							</tr>
-							<tr>
-								<td width="100"><font size="2">Password</font></td>
-								<td><input type="password" name="password" /></td>
-							</tr>
-							<tr>
-								<td width="100"><font size="2">Repeat</font></td>
-								<td><input type="password" name="repeat" /></td>
-							</tr>
-							<tr>
-								<td width="100"></td>
-								<td><button class="btn btn-success pull-left" type="submit">Sign
-										Up Now!</button></td>
-							</tr>
-						</table>
-						<br /> <font size="2">Already have an account? <a href="#"
-							onclick="show('signup','forgotpassword','login')"> Login! </a></font> <br />
-					</div>
-					<div id="forgotpassword">
-						<font size="2"><b>Forgot your Password? </b></font> <br /> <font
-							size="1">Enter your Email Address here to receive a link
-							to change password. </font>
-						<table>
-							<tr height="10"></tr>
-							<tr>
-								<td width="100"><font size="2">Email</font></td>
-								<td><input type="text" name="emailID" /></td>
-							</tr>
-							<tr>
-								<td width="100"></td>
-								<td><button class="btn btn-primary pull-left" type="submit">Send
-										mail</button></td>
-							</tr>
-						</table>
-					</div>
+				<s:form action="#" id="login">
+					<a class="close" data-dismiss="modal"><b>x</b></a>
+					<font size="3"><b>Login</b></font>
+					<br />
+					<br />
+					<table>
+						<tr>
+							<td><font size="2">Email</font></td>
+							<td><input type="text" name="emailID" /></td>
+						</tr>
+						<tr>
+							<td width="100"><font size="2">Password</font></td>
+							<td><input type="password" name="password" /></td>
+						</tr>
+						<tr>
+							<td width="100"></td>
+							<td><button class="btn btn-primary pull-left" type="submit">Login</button>
+								<font size="2"><a href="#" class="pull-right"
+									onclick="toggle('forgotpassword')">Forgot your password?</a></font></td>
+						</tr>
+					</table>
+					<br />
+					<font size="2">Don't have an account?<a href="#"
+						onclick="show('login','forgotpassword','signup')"> Create One!</a></font>
+					<br />
+				</s:form>
+				<s:form id="signup" action="signup">
+					<a class="close" data-dismiss="modal"><b>x</b></a>
+					<font size="3"><b> New User? Sign Up</b></font>
+					<br />
+					<br />
+					<table>
+						<tr>
+							<td><font size="2">Email Address</font></td>
+							<td><input type="text" name="emailAddress" /></td>
+						</tr>
+						<tr>
+							<td width="100"><font size="2">Password</font></td>
+							<td><input type="password" name="password" /></td>
+						</tr>
+						<tr>
+							<td width="100"><font size="2">Repeat</font></td>
+							<td><input type="password" name="repeat" /></td>
+						</tr>
+						<tr>
+							<td width="100"></td>
+							<td><button class="btn btn-success pull-left" type="submit">Sign
+									Up Now!</button></td>
+						</tr>
+					</table>
+					<br />
+					<font size="2">Already have an account? <a href="#"
+						onclick="show('signup','forgotpassword','login')"> Login! </a></font>
+					<br />
+				</s:form>
+				<s:form id="forgotpassword" action="forgotpassword">
+					<font size="2"><b>Forgot your Password? </b></font>
+					<br />
+					<font size="1">Enter your Email Address here to receive a
+						link to change password. </font>
+					<table>
+						<tr height="10"></tr>
+						<tr>
+							<td width="100"><font size="2">Email</font></td>
+							<td><input type="text" name="emailID" /></td>
+						</tr>
+						<tr>
+							<td width="100"></td>
+							<td><button class="btn btn-primary pull-left" type="submit">Send
+									mail</button></td>
+						</tr>
+					</table>
 				</s:form>
 			</div>
 			<div class="modal-footer-aamir">
