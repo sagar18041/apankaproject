@@ -41,14 +41,15 @@
 				<li><a data-toggle="modal" href="#loginmodal"
 					style="color: white;"
 					onclick="show('forgotpassword','login','signup')">Signup</a></li>
-
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" style="color: white;">Dropdown<b
-						class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Menu 1</a></li>
-						<li><a href="#">Menu 2</a></li>
-					</ul></li>
+				<s:if test="#session['login']==true">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" style="color: white;"><s:property value="#session['emailAddress']"/><b
+							class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="logout">Logout</a></li>
+							<li><a href="#">Menu 2</a></li>
+						</ul></li>
+				</s:if>
 			</ul>
 		</div>
 
@@ -56,7 +57,7 @@
 		<div id="loginmodal" class="modal-aamir" style="display: none;">
 			<div class="modal-body">
 
-				<s:form action="#" id="login">
+				<s:form action="login" id="login">
 					<a class="close" data-dismiss="modal"><b>x</b></a>
 					<font size="3"><b>Login</b></font>
 					<br />
@@ -64,7 +65,7 @@
 					<table>
 						<tr>
 							<td><font size="2">Email</font></td>
-							<td><input type="text" name="emailID" /></td>
+							<td><input type="text" name="emailAddress" /></td>
 						</tr>
 						<tr>
 							<td width="100"><font size="2">Password</font></td>
@@ -192,8 +193,10 @@
 				</div>
 			</div>
 		</s:form>
-		&nbsp; &nbsp; &nbsp; <a href="#" ><button class="fk-button-blue pull-right"><span
-			class="cart-icon" ></span> Cart (value)</button></a>
+		&nbsp; &nbsp; &nbsp; <a href="#"><button
+				class="fk-button-blue pull-right">
+				<span class="cart-icon"></span> Cart (value)
+			</button></a>
 	</div>
 
 </body>
