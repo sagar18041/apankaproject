@@ -11,6 +11,7 @@
 <meta name="keywords" content="shopping">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
+<link rel='shortcut icon' href='ViewResources/img/favicon.ico' />
 <link rel="stylesheet"
 	href="ViewResources/jQuery/css/smoothness/jquery-ui-1.9.2.custom.css" />
 <script src="ViewResources/jQuery/js/jquery-1.8.3.js"></script>
