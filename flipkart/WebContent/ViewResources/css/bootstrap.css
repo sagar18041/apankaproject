@@ -5629,3 +5629,121 @@ button.close {
     overflow: visible !important;
   }
 }
+
+/* Dips css */
+
+.fk-button-blue {
+	cursor: pointer;
+	color: #fff !important;
+	display: block;
+	padding: 5px 15px;
+	background: #3881a7;
+	background: -webkit-gradient(linear, left top, left bottom, from(#3881a7),
+		to(#245a77) );
+	background: -moz-linear-gradient(top, #3881a7, #245a77);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3881a7',
+		endColorstr='#245a77' );
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+	text-decoration: none;
+	border: 0;
+	font-weight: bold;
+	font-size: 13px;
+	font-family: inherit;
+	line-height: normal !important;
+	*display: inline;
+	zoom: 1;
+	*overflow: visible;
+	*width: auto;
+}
+
+.fk-button:hover {
+	text-decoration: none;
+}
+
+.acct {
+	background-color: white;
+	border: 1px solid #E0E0EB;
+	-moz-box-shadow: 3px 3px 5px #888888; /* Old Firefox */
+	box-shadow: 3px 3px 5px #888888;
+}
+
+.nav-heading {
+	width: auto;
+	padding: 5px;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 20px;
+	color: black;
+	background-color: #E0E0EB;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	font-size: 16px;
+	padding: 5px;
+	font-size: 16px;
+}
+
+.nav-head {
+	padding: 5px 5px 5px 9px;
+	font-size: 18px;
+	font-weight: bold;
+	background: #014a72 url('../img/menutile.png') repeat scroll
+		top left;
+	color: #fff
+}
+
+.nav-list .dividertop {
+	*width: 100%;
+	height: 1px;
+	margin: 0px 0px;
+	*margin: 0px 0 0px;
+	overflow: hidden;
+	background-color: #e5e5e5;
+	border-bottom: 1px solid #ffffff;
+	border-bottom-width: 10px;
+}
+
+.nav-list .dividerbottom {
+	*width: 100%;
+	height: 1px;
+	margin: 0px 1px;
+	*margin: 0px 0 0px;
+	overflow: hidden;
+	background-color: #e5e5e5;
+	border-top: 1px solid #ffffff;
+	border-top-width: 10px;
+}
+
+.cartbutton {
+   display: block;
+   border-top: 1px solid #001e30;
+   background: #0d2a3d;
+   background: -webkit-gradient(linear, left top, left bottom, from(#0f3a57), to(#0d2a3d));
+   background: -webkit-linear-gradient(top, #0f3a57, #0d2a3d);
+   background: -moz-linear-gradient(top, #0f3a57, #0d2a3d);
+   background: -ms-linear-gradient(top, #0f3a57, #0d2a3d);
+   background: -o-linear-gradient(top, #0f3a57, #0d2a3d);
+   padding: 5px 10px;
+   -webkit-border-radius: 8px;
+   -moz-border-radius: 8px;
+   border-radius: 8px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: #fcfcfc;
+   font-size: 14px;
+   font-family: Helvetica, Arial, Sans-Serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.cartbutton:hover {
+   border-top-color: #08324d;
+   background: #08324d;
+   color: #ccc;
+   }
+.cartbutton:active {
+   border-top-color: #1b435e;
+   background: #1b435e;
+   }
