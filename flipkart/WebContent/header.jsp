@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 
 <html>
+
 <script type="text/javascript">
 	function toggle(id) {
 		if (document.getElementById(id).style.display == "block") {
@@ -185,8 +186,8 @@
 				</div>
 			</div>
 		</s:form>
-		&nbsp; &nbsp; &nbsp; <a href="#" class="btn btn-primary pull-right"><i
-			class="icon-shopping-cart"></i> Cart (value)</a>
+		&nbsp; &nbsp; &nbsp; <a href="#" ><button class="fk-button-blue pull-right"><span
+			class="cart-icon" ></span> Cart (value)</button></a>
 	</div>
 
 </body>
