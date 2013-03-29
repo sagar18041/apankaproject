@@ -102,6 +102,16 @@
 			<result name="success" type="chain">home</result>
 			<result name="error" type="chain">home</result>
 		</action>
+		<action name="login" class="com.flipkart.action.authentication.LoginAction"
+			method="login">
+			<result name="success" type="chain">home</result>
+			<result name="error" type="chain">home</result>
+		</action>
+		<action name="logout" class="com.flipkart.action.authentication.LoginAction"
+			method="logout">
+			<result name="success" type="chain">home</result>
+			<result name="error" type="chain">home</result>
+		</action>
 		<!--*************************************End Of Authentication****************************************** -->
 	</package>
 
