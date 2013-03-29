@@ -30,6 +30,8 @@
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
+
+
 </style>
 
 <script>
@@ -60,7 +62,9 @@
 </head>
 <body>
 
-	<div style="background-color: #005475;">
+	<div style="background: rgb(0,35,50);
+background: -moz-linear-gradient(top, rgba(0,35,50,1) 0%, rgba(0,83,115,1) 15%, rgba(0,85,119,1) 50%, rgba(0,83,115,1) 50%, rgba(0,83,115,1) 76%, rgba(0,47,60,1) 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,35,50,1)), color-stop(15%,rgba(0,83,115,1)), color-stop(50%,rgba(0,85,119,1)), color-stop(50%,rgba(0,83,115,1)), color-stop(76%,rgba(0,83,115,1)), color-stop(100%,rgba(0,47,60,1)));">
 		<div class="container" style="width: 900;">
 			<tiles:insertAttribute name="header" />
 		</div>
