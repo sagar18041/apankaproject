@@ -5715,35 +5715,13 @@ button.close {
 	border-top-width: 10px;
 }
 
-.cartbutton {
-   display: block;
-   border-top: 1px solid #001e30;
-   background: #0d2a3d;
-   background: -webkit-gradient(linear, left top, left bottom, from(#0f3a57), to(#0d2a3d));
-   background: -webkit-linear-gradient(top, #0f3a57, #0d2a3d);
-   background: -moz-linear-gradient(top, #0f3a57, #0d2a3d);
-   background: -ms-linear-gradient(top, #0f3a57, #0d2a3d);
-   background: -o-linear-gradient(top, #0f3a57, #0d2a3d);
-   padding: 5px 10px;
-   -webkit-border-radius: 8px;
-   -moz-border-radius: 8px;
-   border-radius: 8px;
-   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
-   box-shadow: rgba(0,0,0,1) 0 1px 0;
-   text-shadow: rgba(0,0,0,.4) 0 1px 0;
-   color: #fcfcfc;
-   font-size: 14px;
-   font-family: Helvetica, Arial, Sans-Serif;
-   text-decoration: none;
-   vertical-align: middle;
-   }
-.cartbutton:hover {
-   border-top-color: #08324d;
-   background: #08324d;
-   color: #ccc;
-   }
-.cartbutton:active {
-   border-top-color: #1b435e;
-   background: #1b435e;
-   }
+.cart-icon {
+	background: url(../img/hf-icons-sprite-7e4c8132.png) no-repeat -1px -5px;
+	height: 18px;
+	width: 20px;
+	margin-top: 2px;
+	display: inline-block;
+	margin-right: 6px;
+	vertical-align: top;
+	*background-position: 0 -4px !important
+}
