@@ -121,7 +121,7 @@
 						<tr height="10"></tr>
 						<tr>
 							<td width="100"><font size="2">Email</font></td>
-							<td><input type="text" name="emailID" /></td>
+							<td><input type="text" name="emailAddress" /></td>
 						</tr>
 						<tr>
 							<td width="100"></td>
