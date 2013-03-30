@@ -19,6 +19,64 @@
 		document.getElementById(id3).style.display = "block";
 	}
 </script>
+<script type="text/javascript">
+	function LoginFormValidator() {
+
+		if (login.emailAddress.value == "") {
+			alert("Please enter email address !");
+			login.emailAddress.focus();
+			return (false);
+		}
+
+		if (login.password.value == "") {
+			alert("Please enter password !");
+			login.password.focus();
+			return (false);
+		}
+
+		return (true);
+	}
+</script>
+<script type="text/javascript">
+	function signUpFormValidator() {
+
+		if (signup.emailAddress.value == "") {
+			alert("Please enter email address !");
+			signup.emailAddress.focus();
+			return (false);
+		}
+
+		if (signup.password.value == "") {
+			alert("Please enter password !");
+			signup.password.focus();
+			return (false);
+		}
+
+		if (signup.repeat.value == "") {
+			alert("Please re-enter password !");
+			signup.repeat.focus();
+			return (false);
+		}
+
+		if (signup.password.value != signup.repeat.value) {
+			alert("The given passwords do not match !");
+			return (false);
+		}
+
+		return (true);
+	}
+</script>
+<script type="text/javascript">
+	function forgotPasswordFormValidator() {
+
+		if (forgotpassword.emailAddress.value == "") {
+			alert("Please enter email address !");
+			forgotpassword.emailAddress.focus();
+			return (false);
+		}
+		return (true);
+	}
+</script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 </head>
@@ -43,8 +101,8 @@
 					onclick="show('forgotpassword','login','signup')">Signup</a></li>
 				<s:if test="#session['login']==true">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" style="color: white;"><s:property value="#session['emailAddress']"/><b
-							class="caret"></b></a>
+						data-toggle="dropdown" style="color: white;"><s:property
+								value="#session['emailAddress']" /><b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="logout">Logout</a></li>
 							<li><a href="#">Menu 2</a></li>
@@ -57,7 +115,8 @@
 		<div id="loginmodal" class="modal-aamir" style="display: none;">
 			<div class="modal-body">
 
-				<s:form action="login" id="login">
+				<s:form action="login" id="login"
+					onsubmit="return LoginFormValidator()">
 					<a class="close" data-dismiss="modal"><b>x</b></a>
 					<font size="3"><b>Login</b></font>
 					<br />
@@ -83,7 +142,8 @@
 						onclick="show('login','forgotpassword','signup')"> Create One!</a></font>
 					<br />
 				</s:form>
-				<s:form id="signup" action="signup">
+				<s:form id="signup" action="signup"
+					onsubmit="return signUpFormValidator()">
 					<a class="close" data-dismiss="modal"><b>x</b></a>
 					<font size="3"><b> New User? Sign Up</b></font>
 					<br />
@@ -112,7 +172,8 @@
 						onclick="show('signup','forgotpassword','login')"> Login! </a></font>
 					<br />
 				</s:form>
-				<s:form id="forgotpassword" action="forgotpassword">
+				<s:form id="forgotpassword" action="forgotpassword"
+					onsubmit="return forgotPasswordFormValidator()">
 					<font size="2"><b>Forgot your Password? </b></font>
 					<br />
 					<font size="1">Enter your Email Address here to receive a
