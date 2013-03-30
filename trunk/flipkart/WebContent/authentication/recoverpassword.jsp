@@ -1,121 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-     <script>
- function searchAction()
- {
-	 if(event.keyCode == 13)
-	 	{
-		 alert(document.getElementById("search").value);
-	 	}
- }
- </script>
- 
-    <title>Home</title>
-    </head>
-  <body>  
-	<div class="row">
-	<div class="span3">
-		<ul class="thumbnails">
- 		<li class="span3">
-    	<div align="center" class="thumbnail">
-    	<h5>Product Category</h5>
-      	<img src="ViewResources/img/1.jpg" alt=""><br />
-     	<a href="#">Item Name</a><br /><font color="#B40404"><b>Rs. 500</b></font><br />
-     	<a href="#">Link to product category &rsaquo;&rsaquo;</a>
-    	</div>
-  		</li>
-  		<li class="span3">
-    	<div align="center" class="thumbnail">
-    	<h5>Product Category</h5>
-      	<img src="ViewResources/img/2.jpg" alt=""><br />
-     	<a href="#">Item Name</a><br /><font color="#B40404"><b>Rs. 500</b></font><br />
-     	<a href="#">Link to product category &rsaquo;&rsaquo;</a>
-    	</div>
-  		</li>
-		</ul>
-	</div>
-	<div class="span9">
-	<div class="row">
-	<!-- Offer Product Slide Show Start-->
-	<div class="span9">
-		
-		<div id="myCarousel" class="carousel slide">
-               
-                <div class="carousel-inner">
-                  <div class="item active">
-                    <img src="ViewResources/img/1.jpg" alt="">
-                    <div class="carousel-caption">
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="ViewResources/img/2.jpg" alt="">
-                    <div class="carousel-caption">
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="ViewResources/img/3.jpg" alt="">
-                    <div class="carousel-caption">
-                    </div>
-                  </div>
-                </div>
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-              </div>
-              </div>
-  <!-- Offer Product Slide Show End-->
-</div>
-<div>
-<div style="background-color:#E9E9E9; padding:2px 5px 5px 5px; height:30px; border-bottom-style:solid; border-bottom-width:5px; border-bottom-color:#C78407;">
-<div><h5><a href="">Category Name</a></h5></div>
-</div>
-<div class="span9" style="margin-top:10px; margin-bottom:10px">
-<div class="span2">
-      	<img src="ViewResources/img/2.jpg" alt=""><br />
-     	<a href="#">Item Name</a><br /><font color="#B40404"><b>Rs. 500</b></font><br />
-     	<ul>
-     	<li>some featres</li>
-     	<li>some featres</li>
-     	<li>some featres</li>
-     	</ul>
-</div>
-<div class="span2">zxcz</div>
-<div class="span2">zxcz</div>
-<div class="span2">zxcz</div>
-</div>
-<div><span style="background-color:#E9E9E9;">Featured: <a href="">Best Seller </a>|<a href=""> Android </a>|</span></div>
-</div>
-<br /><br />
-<div>
-<div style="background-color:#E9E9E9; padding:2px 5px 5px 5px; height:30px; border-bottom-style:solid; border-bottom-width:5px; border-bottom-color:#C78407;">
-<div><h5><a href="">Category Name</a></h5></div>
-</div>
-<div class="span9" style="margin-top:10px; margin-bottom:10px">
-<div class="span2">
-      	<img src="ViewResources/img/2.jpg" alt=""><br />
-     	<a href="#">Item Name</a><br /><font color="#B40404"><b>Rs. 500</b></font><br />
-     	<ul>
-     	<li>some featres</li>
-     	<li>some featres</li>
-     	<li>some featres</li>
-     	</ul>
-</div>
-<div class="span2">zxcz</div>
-<div class="span2">zxcz</div>
-<div class="span2">zxcz</div>
-</div>
-<div><span style="background-color:#E9E9E9;">Featured: <a href="">Best Seller </a>|<a href=""> Android </a>|</span></div>
-</div>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script type="text/javascript">
+	function Validator() {
 
-</div>
-</div>
-<br /><br />
-<div style="border-style:solid; border-color:#E9E9E9; border-width:1px;" class="row">
-recomendation will here
-</div>
-  </body>
+		if (resetpassword.newPassword.value == "") {
+			alert("Please enter new password !");
+			resetpassword.newPassword.focus();
+			return (false);
+		}
+
+		if (resetpassword.retypeNewPassword.value == "") {
+			alert("Please retype new password !");
+			resetpassword.retypeNewPassword.focus();
+			return (false);
+		}
+
+		if (resetpassword.newPassword.value != resetpassword.retypeNewPassword.value) {
+			alert("The given passwords do not match !");			
+			return (false);
+		}
+
+		return (true);
+	}
+</script>
+</head>
+<body>
+	<div class="span5 offset4">
+		<s:form action="resetpassword" onsubmit="return Validator()">
+			<s:hidden name="emailAddress" value="%{emailAddress}" />
+			<table>
+				<tr height="40">
+					<td width="150">Email Address</td>
+					<td><s:property value="emailAddress" /></td>
+				</tr>
+				<tr height="40">
+					<td width="150">New Password</td>
+					<td><input type="password" name="newPassword"
+						class="input-large" /></td>
+				</tr>
+				<tr height="40">
+					<td width="150">Retype New Password</td>
+					<td><input type="password" name="retypeNewPassword"
+						class="input-large" /></td>
+				</tr>
+				<tr height="20">
+					<td width="150"></td>
+					<td><button class="btn btn-small btn-primary pull-left"
+							type="submit">Change Password</button></td>
+				</tr>
+			</table>
+		</s:form>
+	</div>
+
+</body>
 </html>
