@@ -73,7 +73,7 @@
 		<tiles:insertAttribute name="body" />
 
 
-		<hr />
+		
 	</div>
 	<div class="container">
 		<hr />
