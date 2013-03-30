@@ -32,7 +32,7 @@ public class SignUpAction extends ActionSupport {
 		if (SignUpModel.checkUser(emailAddress)) {
 			addActionError("An account already exists with the same email address."
 					+ " Login or create an account with another email address.");
-			MyLog.log("An account already exists with the same email address"
+			MyLog.log("An account already exists with the same email address."
 					+ " Login or create an account with another email address.");
 			return ERROR;
 		} else
