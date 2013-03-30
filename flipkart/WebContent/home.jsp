@@ -114,8 +114,11 @@
 </div>
 </div>
 <br /><br />
-<div style="border-style:solid; border-color:#E9E9E9; border-width:1px;" class="row">
-recomendation will here
+<div class="row-fluid" style="border-style:solid; border-color:#6E6E6E; border-width:1px;" >
+<div class="span4" style="border-right:thin dotted #6E6E6E;"><b>You Recently Viewed</b></div>
+<div class="span8"><b>Recommendations Based On Your Browsing History</b></div>
 </div>
+<hr size="3" color="#6E6E6E" />
+<hr size="3" color="#6E6E6E" />
   </body>
 </html>
