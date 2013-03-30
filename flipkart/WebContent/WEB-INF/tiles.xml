@@ -3,7 +3,7 @@
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-       
+
 <tiles-definitions>
 
 	<definition name="baselayout" template="/baselayout.jsp">
@@ -13,60 +13,93 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/footer.jsp" />
 	</definition>
-	
+
 	<definition name="/home.tiles" extends="baselayout">
 		<put-attribute name="title" value="Home" />
 		<put-attribute name="body" value="/home.jsp" />
 	</definition>
 
+	<!-- added by Suvadra : Admin Layout -->
+	<definition name="adminlayout" template="/adminlayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/adminheader.jsp" />
+		<put-attribute name="menu" value="/menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/adminfooter.jsp" />
+	</definition>
+	<!-- end of Admin Layout -->
 
 	<!-- ***************************Place Order********************************** -->
-	
+
 	<!-- ================================== Email Login =============================== -->
 	<definition name="/emaillogin.tiles" extends="baselayout">
 		<put-attribute name="title"
 			value="Flipkart.com: Secure Payment: Login > Select Shipping Address > Review Order > Place Order" />
 		<put-attribute name="body" value="/placeorder/emaillogin.jsp" />
 	</definition>
-	
+
 	<!-- ================================== Shipping Address =============================== -->
 	<definition name="/shippingaddress.tiles" extends="baselayout">
 		<put-attribute name="title"
 			value="Flipkart.com: Secure Payment: Login > Select Shipping Address > Review Order > Place Order" />
 		<put-attribute name="body" value="/placeorder/shippingaddress.jsp" />
 	</definition>
-	
+
 	<!-- ================================== Payment Options =============================== -->
 	<definition name="/paymentoptions.tiles" extends="baselayout">
 		<put-attribute name="title"
 			value="Flipkart.com: Secure Payment: Login > Select Shipping Address > Review Order > Place Order" />
 		<put-attribute name="body" value="/placeorder/paymentoptions.jsp" />
 	</definition>
-	
+
 	<!-- ***************************End of Place Order********************************** -->
-	
-	
-	
+
+
+
 	<!-- ********************************* Account Information ********************************** -->
-	
+
 	<!-- ================================== Personal Information =============================== -->
-    <definition name="/accountpage.tiles" extends="baselayout">
-        <put-attribute name="title" value="Flipkart.com: Account Settings" />
-        <put-attribute name="body" value="/useraccount/accountpage.jsp" />
-    </definition>
-    
-    <!-- ================================ Change Password ================================ -->
-    <definition name="/passwordpage.tiles" extends="baselayout">
-        <put-attribute name="title" value="Flipkart.com: Change Password" />
-        <put-attribute name="body" value="/useraccount/changepassword.jsp" />
-    </definition>
-    
-     <!-- ================================ Manage Addresses ================================ -->
-    <definition name="/addresspage.tiles" extends="baselayout">
-        <put-attribute name="title" value="Flipkart.com: Addresses" />
-        <put-attribute name="body" value="/useraccount/addresses.jsp" />
-    </definition>
-    
-    <!-- ******************************* End of Account Information ********************************** -->
-    
+	<definition name="/accountpage.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Account Settings" />
+		<put-attribute name="body" value="/useraccount/accountpage.jsp" />
+	</definition>
+
+	<!-- ================================ Change Password ================================ -->
+	<definition name="/passwordpage.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Change Password" />
+		<put-attribute name="body" value="/useraccount/changepassword.jsp" />
+	</definition>
+
+	<!-- ================================ Manage Addresses ================================ -->
+	<definition name="/addresspage.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Addresses" />
+		<put-attribute name="body" value="/useraccount/addresses.jsp" />
+	</definition>
+
+	<!-- ******************************* End of Account Information ********************************** -->
+
+	<!-- ================================== System Administration =============================== -->
+
+	<definition name="/adminhome.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Admin Home Page" />
+		<put-attribute name="body" value="/systemadmin/adminhome.jsp" />
+	</definition>
+
+	<definition name="/adminviewcategory.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Category" />
+		<put-attribute name="body" value="/systemadmin/viewcategory.jsp" />
+	</definition>
+
+	<definition name="/adminaddcategory.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Category" />
+		<put-attribute name="body" value="/systemadmin/addcategory.jsp" />
+	</definition>
+
+	<definition name="/adminmodifycategory.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Category" />
+		<put-attribute name="body" value="/systemadmin/modifycategory.jsp" />
+	</definition>
+
+	<!-- ============================== End of System Administration =========================== -->
+
 </tiles-definitions>

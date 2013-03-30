@@ -102,17 +102,43 @@
 			<result name="success" type="chain">home</result>
 			<result name="error" type="chain">home</result>
 		</action>
+
 		<action name="login" class="com.flipkart.action.authentication.LoginAction"
 			method="login">
 			<result name="success" type="chain">home</result>
 			<result name="error" type="chain">home</result>
 		</action>
+
 		<action name="logout" class="com.flipkart.action.authentication.LoginAction"
 			method="logout">
 			<result name="success" type="chain">home</result>
 			<result name="error" type="chain">home</result>
 		</action>
 		<!--*************************************End Of Authentication****************************************** -->
+
+		<!-- ================================== System Administration =============================== -->
+
+		<action name="adminhome" class="com.flipkart.action.systemadmin.AdminHomeAction">
+			<result name="success" type="tiles">/adminhome.tiles</result>
+		</action>
+
+		<action name="adminviewcategory"
+			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="fetchCategoryList">
+			<result name="success" type="tiles">/adminviewcategory.tiles</result>
+		</action>
+
+		<action name="adminaddcategory"
+			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="insertNewCategory">
+			<result name="success" type="tiles">/adminaddcategory.tiles</result>
+		</action>
+		
+		<action name="adminmodifycategory"
+			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="modifyCategory">
+			<result name="success" type="tiles">/adminmodifycategory.tiles</result>
+		</action>
+
+		<!-- ============================== End of System Administration =========================== -->
+
 	</package>
 
 </struts>
