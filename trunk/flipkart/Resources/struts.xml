@@ -146,13 +146,19 @@
 		<action name="adminaddcategory"
 			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="insertNewCategory">
 			<result name="success" type="tiles">/adminaddcategory.tiles</result>
+			<result name="error" type="tiles">/adminaddcategory.tiles</result>
 		</action>
 		
-		<action name="adminmodifycategory"
-			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="modifyCategory">
-			<result name="success" type="tiles">/adminmodifycategory.tiles</result>
+		<action name="adminverifycategory"
+			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="fetchVerificationCategory">
+			<result name="success" type="tiles">/adminverifycategory.tiles</result>
 		</action>
 
+		<action name="adminchangestatuscategory"
+			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="changeStatusCategory">
+			<result name="success" type="tiles">/adminverifycategory.tiles</result>
+			<result name="error" type="tiles">/adminverifycategory.tiles</result>
+		</action>
 		<!-- ============================== End of System Administration =========================== -->
 				<!-- ************************************** Search Page *********************************************** -->
 		<action name="searchPage"

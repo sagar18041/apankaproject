@@ -37,7 +37,7 @@ public class AdminCategoryModel {
 			while(rs.next()){
 				AdminCategory category = new AdminCategory();
 				category.setCategoryName(rs.getString(1));
-				category.setStatus(rs.getString(2));
+				category.setStatus(rs.getInt(2));
 				categoryList.add(category);
 			}
 		}catch(Exception e){
@@ -62,7 +62,7 @@ public class AdminCategoryModel {
 			ps=conn.prepareStatement(sqlQuery);
 			
 			ps.setString(1, categoryname);
-			ps.setString(2, "PENDING");
+			ps.setInt(2, 0);  /* 0=pending, 1=active, 2=inactive*/
 			ps.setString(3, "Admin");
 			ps.setString(4, "Admin");
 			ps.setInt(5, 0);
@@ -74,4 +74,59 @@ public class AdminCategoryModel {
 			e.printStackTrace();
 		}
 	}		
+
+	/**
+	 * This method fetches category names, id and their status
+	 * for all the pending activations
+	 * @return category list
+	 */
+	public static ArrayList<AdminCategory> fetchVerificationCategory() {
+
+		ArrayList<AdminCategory> categoryList = new ArrayList<AdminCategory>();
+
+		sqlQuery = "SELECT categoryName, status, categoryID FROM flipkart_category WHERE status=0";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				AdminCategory category = new AdminCategory();
+				category.setCategoryName(rs.getString(1));
+				category.setStatus(rs.getInt(2));
+				category.setCategoryID(rs.getInt(3));
+				categoryList.add(category);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return categoryList;
+	}
+	
+	
+	/**
+	 * This method updates the status of a
+	 * pending activation
+	 * @return category list
+	 */
+	public static void changeStatusCategory(int categoryID) {
+
+		sqlQuery = " UPDATE flipkart_category SET status=1 WHERE categoryID=?; ";
+		
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			
+			ps.setInt(1, categoryID);
+			
+			ps.executeUpdate();
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}	
+	
 }

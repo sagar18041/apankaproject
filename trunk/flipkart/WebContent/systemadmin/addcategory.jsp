@@ -14,7 +14,7 @@
 				if (ui.index == 0) {
 					window.location = "adminviewcategory";
 				} else if (ui.index == 2) {
-					window.location = "adminmodifycategory";
+					window.location = "adminverifycategory";
 				}
 			}
 		});
@@ -23,36 +23,43 @@
 
 </head>
 <body>
-<div id="option">
-	<ul class="nav nav-tabs">
-		<li><a href="#tabs-viewCategory">View
-				Categories</a></li>
-		<li class="active"><a href="#tabs-addCategory">Add Product Category</a></li>
-		<li><a href="#tabs-modifyCategory">Modify Categories</a></li>
-	</ul>
+	<div id="option">
+		<ul class="nav nav-tabs">
+			<li><a href="#tabs-viewCategory">View Categories</a></li>
+			<li class="active"><a href="#tabs-addCategory">Add Product
+					Category</a></li>
+			<li><a href="#tabs-verifyCategory">Verify Categories</a></li>
+		</ul>
 
-	<div id="tabs-addCategory">
+		<div id="tabs-addCategory">
 
-		<s:if test="hasActionErrors()">
-				<s:actionerror />
-		</s:if>
+			<s:if test="hasActionErrors()">
+				<br />
+				<s:iterator value="actionErrors">
+					<div class="alert alert-warning">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<s:property />
+					</div>
+				</s:iterator>
+			</s:if>
+			<br />
 
-		<s:form action="adminaddcategory" theme="simple">
+			<s:form action="adminaddcategory" theme="simple">
 
-			<table class="table table-bordered table-hover">
-				<tr>
-					<td>Category Name</td>
-					<td><s:textfield name="categoryName" theme="simple"
-							placeholder="Please enter Category Name" cssClass="input-xlarge" /></td>
-				</tr>
-			</table>
+				<table class="table table-bordered table-hover">
+					<tr>
+						<td>Category Name</td>
+						<td><s:textfield name="categoryName" theme="simple"
+								placeholder="Please enter Category Name" cssClass="input-xlarge" /></td>
+					</tr>
+				</table>
+				
+				<s:submit value="ADD CATEGORY" cssClass="btn btn-primary"
+					theme="simple" />
 
-			<s:submit value="ADD CATEGORY" cssClass="btn btn-primary"
-				theme="simple" />
+			</s:form>
 
-		</s:form>
-
+		</div>
 	</div>
-</div>
 </body>
 </html>
