@@ -10,7 +10,7 @@
 	<div class=container-fluid>
 		<div class="row-fluid">
 			<div class="span8">
-				<a href="adminviewcategory.action">View/Add/Modify Categories</a><br/>
+				<a href="adminviewcategory.action">View/Add/Verify Categories</a><br/>
 			</div>
 		</div>
 	</div>

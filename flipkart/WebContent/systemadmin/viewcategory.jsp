@@ -14,7 +14,7 @@
 				if (ui.index == 1) {
 					window.location = "adminaddcategory";
 				} else if (ui.index == 2) {
-					window.location = "adminmodifycategory";
+					window.location = "adminverifycategory";
 				}
 			}
 		});
@@ -28,7 +28,7 @@
 			<li class="active"><a href="#tabs-viewCategory">View
 					Categories</a></li>
 			<li><a href="#tabs-addCategory">Add Product Category</a></li>
-			<li><a href="#tabs-modifyCategory">Modify Categories</a></li>
+			<li><a href="#tabs-verifyCategory">Verify Categories</a></li>
 		</ul>
 
 		<div id="tabs-viewCategory">
@@ -41,19 +41,21 @@
 					<s:iterator value="categoryList">
 						<tr>
 							<td><s:property value="categoryName" /></td>
-							<td><s:if test="%{status == 'ACTIVE'}">
-									<span style="color: green"><s:property value="status" /></span>
-								</s:if> <s:elseif test="%{status == 'INACTIVE'}">
-									<span style="color: grey"><s:property value="status" /></span>
-								</s:elseif> <s:elseif test="%{status == 'PENDING'}">
-									<span style="color: red"><s:property value="status" /></span>
+						
+						<!-- /* 0=pending, 1=active, 2=inactive*/ -->
+							<td><s:if test="%{status == 1}">
+									<span style="color: green">ACTIVE</span>
+								</s:if> <s:elseif test="%{status == 2}">
+									<span style="color: grey">INACTIVE</span>
+								</s:elseif> <s:elseif test="%{status == 0}">
+									<span style="color: red">PENDING</span>
 								</s:elseif> <s:else>
 									<s:property value="status" />
 								</s:else></td>
 						</tr>
 					</s:iterator>
 				</table>
-			</s:form>
+			</s:form>  
 		</div>
 	</div>
 </body>

@@ -80,25 +80,30 @@
 
 	<!-- ================================== System Administration =============================== -->
 
-	<definition name="/adminhome.tiles" extends="baselayout">
+	<definition name="/adminhome.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Admin Home Page" />
 		<put-attribute name="body" value="/systemadmin/adminhome.jsp" />
 	</definition>
 
-	<definition name="/adminviewcategory.tiles" extends="baselayout">
+	<definition name="/adminviewcategory.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Category" />
 		<put-attribute name="body" value="/systemadmin/viewcategory.jsp" />
 	</definition>
 
-	<definition name="/adminaddcategory.tiles" extends="baselayout">
+	<definition name="/adminaddcategory.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Category" />
 		<put-attribute name="body" value="/systemadmin/addcategory.jsp" />
 	</definition>
 
-	<definition name="/adminmodifycategory.tiles" extends="baselayout">
+	<definition name="/adminverifycategory.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body" value="/systemadmin/modifycategory.jsp" />
+		<put-attribute name="body" value="/systemadmin/verifycategory.jsp" />
 	</definition>
+<!-- 
+	<definition name="/adminchangestatuscategory.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Category" />
+		<put-attribute name="body" value="/systemadmin/verifycategory.jsp" />
+	</definition> -->
 
 	<!-- ============================== End of System Administration =========================== -->
 	 <!-- ================================Search ================================ -->
