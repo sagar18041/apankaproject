@@ -101,5 +101,12 @@
 	</definition>
 
 	<!-- ============================== End of System Administration =========================== -->
+	 <!-- ================================Search ================================ -->
+    <definition name="/search.tiles" extends="baselayout">
+        <put-attribute name="title" value="Search" />
+        <put-attribute name="body" value="/searchAndBrowse/search.jsp" />
+    </definition>
+     <!-- ******************************* End of Search ********************************** -->
+	
 
 </tiles-definitions>
