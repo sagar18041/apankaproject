@@ -202,64 +202,47 @@
 
 	</div>
 	<div id="subheading" style="background-color: #0EBCE4;">
-		<div class="btn-group ">
-			<button class="btn btn-warning span3">
-				<b>See All Categories</b>
-			</button>
-			<button class="btn btn-warning dropdown-toggle"
-				data-toggle="dropdown">
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu span3" role="menu" aria-labelledby="dLabel">
-				<s:iterator value="categoryList">
-					<li><a tabindex="-1" href="#"><s:property /></a></li>
-
-				</s:iterator>
-				<li class="dropdown-submenu"><a tabindex="-1" href="#">More
-						options <span class="label label-important">NEW</span>
-				</a>
-					<ul class="dropdown-menu">
-						<li><a tabindex="-1" href="#">Action</a></li>
-						<li><a tabindex="-1" href="#">Another action</a></li>
-						<li><a tabindex="-1" href="#">Something else here</a></li>
-					</ul></li>
-			</ul>
-		</div>
-		<!-- dropdown end here -->
-		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-		<s:form action="search" method="get" theme="simple"
-			cssClass="form-inline" style="display: inline;">
-			<div class="input-append">
-				<s:textfield name="searchString" cssClass="span5"
-					placeholder="Search for items" />
-				<div class="btn-group">
-					<button class="btn" tabindex="-1" name="searchBy"
-						value="All Category">
-						<i class="icon-search"> </i><font color="gray"> in</font> All
-						Category
-					</button>
-					<button class="btn dropdown-toggle" name="all"
-						data-toggle="dropdown" tabindex="-1">
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<s:iterator value="categoryList">
-							<li><button class="btn btn-link" name="searchBy"
-									value="<s:property/>">
-									<i class="icon-search"> </i><font color="gray"> in</font>
-									<s:property />
-								</button></li>
-						</s:iterator>
-					</ul>
-				</div>
-			</div>
+	<div class="btn-group ">
+  		<button class="btn btn-warning span3"><b>See All Categories</b></button>
+  		<button class = "btn btn-warning dropdown-toggle" data-toggle="dropdown">
+   		 <span class="caret"></span></button>
+  		<ul class="dropdown-menu span3" role="menu" aria-labelledby="dLabel">
+  			<s:iterator value="categoryList">
+  				<li><a tabindex="-1" href="#"><s:property /></a></li>
+  				
+  			</s:iterator>
+    		<li class="dropdown-submenu">
+   			<a tabindex="-1" href="#">More options <span class="label label-important">NEW</span></a>
+    			<ul class="dropdown-menu">
+    				<li><a tabindex="-1" href="#">Action</a></li>
+    				<li><a tabindex="-1" href="#">Another action</a></li>
+    				<li><a tabindex="-1" href="#">Something else here</a></li>
+    			</ul>
+    	 	</li>		
+ 		</ul></div> <!-- dropdown end here -->&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+ 		<s:form action="searchPage" method="get" theme="simple" cssClass="form-inline" style="display: inline;">
+  			<div class="input-append">
+  				<input type="text" data-provide="typeahead" class="span4" 
+  				placeholder="Search for items" id="search" 
+  				 data-source='<s:property value="autoCompleteList"/>' onkeypress="callSearch()" />
+  			
+    				 
+    			<div class="btn-group">
+              
+               <select class="selectpicker" id="categorySel">
+               		<option></i><font color="gray">  in</font> All Category</option>
+               	<s:iterator value="categoryList">
+               		<option></i><font color="gray">  in</font> <s:property/></option>
+               	</s:iterator>
+               </select>
+                
+               <span class="add-on" ><i class="icon-search"></i></span>
+              </div>
+  			</div>
 		</s:form>
-		&nbsp; &nbsp; &nbsp; <a href="#"><button
-				class="fk-button-blue pull-right">
-				<span class="cart-icon"></span> Cart (value)
-			</button></a>
-	</div>
-
+		&nbsp; &nbsp; &nbsp; 
+			<a href="#" class="btn btn-primary pull-right"><i class="icon-shopping-cart"></i> Cart (value)</a>
+		</div>
 </body>
 </html>
 
