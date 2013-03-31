@@ -112,6 +112,12 @@
         <put-attribute name="body" value="/searchAndBrowse/search.jsp" />
     </definition>
      <!-- ******************************* End of Search ********************************** -->
-	
+	<!-- ******************************* Cart Management by Ritu*********************************** -->
+    <definition name="/viewcart.tiles" extends="baselayout">
+        <put-attribute name="title" value="Cart" />
+        <put-attribute name="body" value="/cart/viewcart.jsp" />
+    </definition>
+    
+    <!-- ********************************* End of Cart Management ******************************** -->
 
 </tiles-definitions>

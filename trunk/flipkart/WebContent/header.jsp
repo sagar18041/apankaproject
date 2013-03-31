@@ -231,19 +231,38 @@
   		<button class = "btn btn-warning dropdown-toggle" data-toggle="dropdown">
    		 <span class="caret"></span></button>
   		<ul class="dropdown-menu span3" role="menu" aria-labelledby="dLabel">
-  			<s:iterator value="categoryList">
-  				<li><a tabindex="-1" href="#"><s:property /></a></li>
-  				
-  			</s:iterator>
-    		<li class="dropdown-submenu">
-   			<a tabindex="-1" href="#">More options <span class="label label-important">NEW</span></a>
-    			<ul class="dropdown-menu">
-    				<li><a tabindex="-1" href="#">Action</a></li>
-    				<li><a tabindex="-1" href="#">Another action</a></li>
-    				<li><a tabindex="-1" href="#">Something else here</a></li>
-    			</ul>
-    	 	</li>		
- 		</ul></div> <!-- dropdown end here -->&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+				<s:iterator value="catalogueList" var ="catList">
+					<s:if test="%{#catList.catalogueLevel==0}">
+					<li class="dropdown-submenu"><a href="#"><s:property value="#catList.catalogueName"/></a>
+						<ul class="dropdown-menu">
+						<s:iterator value="catalogueList" var ="subcatList">
+						<s:if test="%{#catList.catalogueParentID==#subcatList.catalogueID && #subcatList.catalogueLevel==1}">
+							<li class="dropdown-submenu"><a href="#"><s:property value="#subcatList.catalogueName" /></a>
+								<ul class="dropdown-menu">
+									<s:iterator value="catalogueList" var="subsubcatList">
+										<s:if test="%{#subsubcatList.catalogueID==#subcatList.catalogueParentID && #subsubcatList.catalogueLevel==2}">
+											<li>
+												<a href="#"><s:property value="#subsubcatList.catalogueName" /></a>
+											</li>
+										</s:if>
+									</s:iterator>
+								</ul>
+							</li>
+						</s:if>
+						</s:iterator>
+						</ul>
+					</li>
+					</s:if>
+				</s:iterator>
+				<li class="dropdown-submenu"><a href="#">More
+						options <span class="label label-important">NEW</span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a tabindex="-1" href="#">Action</a></li>
+						<li><a tabindex="-1" href="#">Another action</a></li>
+						<li><a tabindex="-1" href="#">Something else here</a></li>
+					</ul></li>
+			</ul></div> <!-- dropdown end here -->&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
  		<s:form action="searchPage" method="post" theme="simple" cssClass="form-inline" style="display: inline;">
   			<div class="input-append">
   				<input type="text" data-provide="typeahead" class="span4" 
@@ -265,7 +284,7 @@
   			</div>
 		</s:form>
 		&nbsp; &nbsp; &nbsp; 
-			<a href="#" class="btn btn-primary pull-right"><i class="icon-shopping-cart"></i> Cart (value)</a>
+			<a href="displayCart.action" class="btn btn-primary pull-right"><i class="icon-shopping-cart"></i> Cart (value)</a>
 		</div>
 </body>
 </html>
