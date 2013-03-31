@@ -139,6 +139,7 @@ if(window.history.forward(1) != null)
 								<th style="text-align: center">Price</th>
 								<th style="text-align: center">Qty</th>
 								<th style="text-align: center">Subtotal</th>
+								<th></th>
 
 							</tr>
 							<s:iterator value="cartItems" status="i">
