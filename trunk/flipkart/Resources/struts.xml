@@ -154,6 +154,16 @@
 		</action>
 
 		<!-- ============================== End of System Administration =========================== -->
+				<!-- ************************************** Search Page *********************************************** -->
+		<action name="searchPage"
+			class="com.flipkart.action.searchitem.SearchItemAction">
+				<result name="success" type="redirect">searchHome</result>
+		</action>
+		<action name="searchHome" 
+			class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/search.tiles</result>
+		</action>
+		<!-- ================================ End of search Page ===================================== -->
 
 	</package>
 
