@@ -97,6 +97,7 @@ public class ForgotPasswordAction extends ActionSupport {
 		MyLog.log("emailAddress: " + emailAddress);
 		MyLog.log("password: " + newPassword);
 		ForgotPasswordModel.resetPassword(emailAddress, newPassword);
+		ForgotPasswordModel.deleteIfPresent(emailAddress);
 		return SUCCESS;
 
 	}
