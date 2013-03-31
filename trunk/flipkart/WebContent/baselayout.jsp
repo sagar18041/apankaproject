@@ -17,8 +17,10 @@
 <script src="ViewResources/jQuery/js/jquery-1.8.3.js"></script>
 <script src="ViewResources/jQuery/js/jquery-ui-1.9.2.custom.js"></script>
 <script src="ViewResources/js/bootstrap.js"></script>
+<script src="ViewResources/js/bootstrap-select.js"></script>
 <link href="ViewResources/css/bootstrap.css" rel="stylesheet">
 <link href="ViewResources/css/font-awesome.css" rel="stylesheet">
+<link href="ViewResources/css/bootstrap-select.css" rel="stylesheet">
 
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 <style>
