@@ -37,7 +37,6 @@
 			value="Flipkart.com: Secure Payment: Login > Select Shipping Address > Review Order > Place Order" />
 		<put-attribute name="body" value="/placeorder/emaillogin.jsp" />
 	</definition>
-
 	<!-- ================================== Shipping Address =============================== -->
 	<definition name="/shippingaddress.tiles" extends="baselayout">
 		<put-attribute name="title"
@@ -78,46 +77,42 @@
 
 	<!-- ******************************* End of Account Information ********************************** -->
 
+	<!-- ********************************Authentication*********************************************** -->
+	<!-- =======================================Recover Password====================================== -->
+	<definition name="/recoverpassword.tiles" extends="baselayout">
+		<put-attribute name="title" value="Recover Password" />
+		<put-attribute name="body"
+			value="/authentication/recoverpassword.jsp" />
+	</definition>
+	<definition name="/recoverpassworderror.tiles" extends="baselayout">
+		<put-attribute name="title" value="Recover Password Error" />
+		<put-attribute name="body"
+			value="/authentication/recoverpassworderror.jsp" />
+	</definition>
+	<!-- *****************************End of Authentication******************************************* -->
+
 	<!-- ================================== System Administration =============================== -->
 
-	<definition name="/adminhome.tiles" extends="adminlayout">
+	<definition name="/adminhome.tiles" extends="baselayout">
 		<put-attribute name="title" value="Flipkart.com: Admin Home Page" />
 		<put-attribute name="body" value="/systemadmin/adminhome.jsp" />
 	</definition>
 
-	<definition name="/adminviewcategory.tiles" extends="adminlayout">
+	<definition name="/adminviewcategory.tiles" extends="baselayout">
 		<put-attribute name="title" value="Flipkart.com: Category" />
 		<put-attribute name="body" value="/systemadmin/viewcategory.jsp" />
 	</definition>
 
-	<definition name="/adminaddcategory.tiles" extends="adminlayout">
+	<definition name="/adminaddcategory.tiles" extends="baselayout">
 		<put-attribute name="title" value="Flipkart.com: Category" />
 		<put-attribute name="body" value="/systemadmin/addcategory.jsp" />
 	</definition>
 
-	<definition name="/adminverifycategory.tiles" extends="adminlayout">
+	<definition name="/adminmodifycategory.tiles" extends="baselayout">
 		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body" value="/systemadmin/verifycategory.jsp" />
+		<put-attribute name="body" value="/systemadmin/modifycategory.jsp" />
 	</definition>
-<!-- 
-	<definition name="/adminchangestatuscategory.tiles" extends="adminlayout">
-		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body" value="/systemadmin/verifycategory.jsp" />
-	</definition> -->
 
 	<!-- ============================== End of System Administration =========================== -->
-	 <!-- ================================Search ================================ -->
-    <definition name="/search.tiles" extends="baselayout">
-        <put-attribute name="title" value="Search" />
-        <put-attribute name="body" value="/searchAndBrowse/search.jsp" />
-    </definition>
-     <!-- ******************************* End of Search ********************************** -->
-	<!-- ******************************* Cart Management by Ritu*********************************** -->
-    <definition name="/viewcart.tiles" extends="baselayout">
-        <put-attribute name="title" value="Cart" />
-        <put-attribute name="body" value="/cart/viewcart.jsp" />
-    </definition>
-    
-    <!-- ********************************* End of Cart Management ******************************** -->
 
 </tiles-definitions>
