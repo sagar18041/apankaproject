@@ -284,7 +284,7 @@
   			</div>
 		</s:form>
 		&nbsp; &nbsp; &nbsp; 
-			<a href="displayCart.action" class="btn btn-primary pull-right"><i class="icon-shopping-cart"></i> Cart (value)</a>
+			<a href="cartDisplay.action" class="btn btn-primary pull-right"><i class="icon-shopping-cart"></i> Cart (value)</a>
 		</div>
 </body>
 </html>
