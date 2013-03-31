@@ -102,15 +102,31 @@
 			<result name="success" type="chain">home</result>
 			<result name="error" type="chain">home</result>
 		</action>
-
 		<action name="login" class="com.flipkart.action.authentication.LoginAction"
 			method="login">
 			<result name="success" type="chain">home</result>
 			<result name="error" type="chain">home</result>
 		</action>
-
 		<action name="logout" class="com.flipkart.action.authentication.LoginAction"
 			method="logout">
+			<result name="success" type="chain">home</result>
+			<result name="error" type="chain">home</result>
+		</action>
+		<action name="forgotpassword"
+			class="com.flipkart.action.authentication.ForgotPasswordAction"
+			method="getLink">
+			<result name="success" type="chain">home</result>
+			<result name="error" type="chain">home</result>
+		</action>
+		<action name="recoverpassword"
+			class="com.flipkart.action.authentication.ForgotPasswordAction"
+			method="validateLink">
+			<result name="success" type="tiles">/recoverpassword.tiles</result>
+			<result name="error" type="tiles">/recoverpassworderror.tiles</result>
+		</action>
+		<action name="resetpassword"
+			class="com.flipkart.action.authentication.ForgotPasswordAction"
+			method="resetPassword">
 			<result name="success" type="chain">home</result>
 			<result name="error" type="chain">home</result>
 		</action>
