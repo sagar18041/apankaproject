@@ -77,8 +77,32 @@
 		return (true);
 	}
 </script>
+
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!--  *** Added By Neha to call Search Action*** -->
+<script>
+ $('.selectpicker').selectpicker({
+     style: 'btn-info',
+     size: 4
+ });
+ 
+ function callSearch()
+ {
+	 setInterval(function(){ if(event.keyCode == 13)
+	 {
+	 
+	 var search = document.getElementById("search").value;
+	// alert("Search " + search);
+	 var catId = document.getElementById("categorySel");
+	 var category = catId.options[catId.selectedIndex].value;
+	// alert(category);
+	 window.location = "searchPage?searchText=" + search + "&categorySel=" + category;
+	 }}, 5000);
+ }
+ </script>
+ <!-- **** END **** -->
 </head>
 
 <body>
@@ -220,16 +244,16 @@
     			</ul>
     	 	</li>		
  		</ul></div> <!-- dropdown end here -->&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
- 		<s:form action="searchPage" method="get" theme="simple" cssClass="form-inline" style="display: inline;">
+ 		<s:form action="searchPage" method="post" theme="simple" cssClass="form-inline" style="display: inline;">
   			<div class="input-append">
   				<input type="text" data-provide="typeahead" class="span4" 
-  				placeholder="Search for items" id="search" 
+  				placeholder="Search for items" id="search" name="searchText"
   				 data-source='<s:property value="autoCompleteList"/>' onkeypress="callSearch()" />
   			
     				 
     			<div class="btn-group">
               
-               <select class="selectpicker" id="categorySel">
+               <select class="selectpicker" id="categorySel" name="categorySel">
                		<option></i><font color="gray">  in</font> All Category</option>
                	<s:iterator value="categoryList">
                		<option></i><font color="gray">  in</font> <s:property/></option>
