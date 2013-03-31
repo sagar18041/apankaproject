@@ -170,7 +170,28 @@
 			<result name="success" type="tiles">/search.tiles</result>
 		</action>
 		<!-- ================================ End of search Page ===================================== -->
-
+		
+		<!-- ******************************* Cart Management by Ritu ***************************************** -->
+		<action name="cartDisplay" 
+			class="com.flipkart.action.cartmanagement.CartAction" method="displayCart">
+			<result name="success" type="tiles">/viewcart.tiles</result>
+		</action>
+		
+		<action name="updateCart" 
+			class="com.flipkart.action.cartmanagement.CartAction" method="updateCart">
+			<result name="success" type="tiles">/viewcart.tiles</result>
+		</action>
+		
+		<action name="deleteCart" 
+			class="com.flipkart.action.cartmanagement.CartAction" method="deleteCart">
+			<result name="success" type="tiles">/viewcart.tiles</result>
+		</action>
+		
+		<action name="moveToWishlist" 
+			class="com.flipkart.action.cartmanagement.CartAction" method="moveWishlist">
+			<result name="success" type="tiles">/viewcart.tiles</result>
+		</action>
+		<!-- ******************************* End of Cart Management ********************************** -->
 	</package>
 
 </struts>
