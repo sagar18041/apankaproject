@@ -83,7 +83,6 @@
 			<result name="success" type="tiles">/accountpage.tiles</result>
 			<result name="error" type="tiles">/accountpage.tiles</result>
 		</action>
-		<!-- ================================ End of Personal Information =============================== -->
 
 		<!-- ================================ Change Password ================================ -->
 		<action name="passwordpage"
@@ -92,8 +91,33 @@
 			<result name="success" type="tiles">/passwordpage.tiles</result>
 		</action>
 
-		<!-- ================================ End of Change Password ================================ -->
+		<action name="modifypassword"
+			class="com.flipkart.action.accountmanagement.PasswordChangeAction" 
+			method="modifyPassword">
+			<result name="success" type="tiles">/passwordpage.tiles</result>
+			<result name="error" type="tiles">/passwordpage.tiles</result>
+		</action>
+		
+		<!-- ================================ Manage Addresses ================================ -->
+		<action name="addresspage"
+			class="com.flipkart.action.accountmanagement.AddressManagementAction"
+			method="loadPage">
+			<result name="success" type="tiles">/addresspage.tiles</result>
+		</action>
 
+
+		<action name="addaddress" class="com.flipkart.action.accountmanagement.AddressManagementAction"
+			method="addAddress">
+			<result name="success" type="tiles">/addresspage.tiles</result>
+			<result name="error" type="tiles">/addresspage.tiles</result>
+		</action>
+		
+		<action name="deleteaddress" class="com.flipkart.action.accountmanagement.AddressManagementAction"
+			method="deleteAddress">
+			<result name="success" type="tiles">/addresspage.tiles</result>
+			<result name="error" type="tiles">/addresspage.tiles</result>
+		</action>
+		
 		<!-- ******************************* End of Account Information ********************************** -->
 
 		<!--*************************************Authentication************************************************ -->
@@ -192,6 +216,7 @@
 			<result name="success" type="tiles">/viewcart.tiles</result>
 		</action>
 		<!-- ******************************* End of Cart Management ********************************** -->
+
 	</package>
 
 </struts>
