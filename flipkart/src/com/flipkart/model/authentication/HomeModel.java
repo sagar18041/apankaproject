@@ -3,6 +3,7 @@ package com.flipkart.model.authentication;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import com.flipkart.util.DbConnection;
 import com.flipkart.util.MyLog;
@@ -42,6 +43,37 @@ public class HomeModel {
 		return categoryList;
 	}
 	
-	
 
+	/**
+	 * To fetch list of categories and subcategories
+	 * @return catalogue list
+	 * @throws SQLException 
+	 */
+	public ArrayList<Catalogue> getCatalogueList() throws SQLException {
+		ArrayList<Catalogue> catalogueList = new ArrayList<Catalogue>();
+		sqlQuery = "select fc.categoryName, fp.categoryID, fp.parentID, fp.level " +
+				"from flipkart_category fc, flipkart_path fp where fc.categoryID = fp.categoryID;";
+		try{
+			MyLog.log("SQL = " + sqlQuery);
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			MyLog.log("after prepared statement");
+			rs=ps.executeQuery();
+			while(rs.next()){
+				
+				//sets value to catalogue POJO class object
+				Catalogue catalogueDetails = new Catalogue();
+				catalogueDetails.setCatalogueName(rs.getString(1));
+				catalogueDetails.setCatalogueParentID(rs.getInt(2));
+				catalogueDetails.setCatalogueID(rs.getInt(3));
+				catalogueDetails.setCatalogueLevel(rs.getInt(4));
+				
+				//add object to arraylist
+				catalogueList.add(catalogueDetails);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return catalogueList;
+	}
 }
