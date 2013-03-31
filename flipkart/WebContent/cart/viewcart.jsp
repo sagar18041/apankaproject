@@ -11,12 +11,45 @@
 	width: 5px;
 	min-height: 30px;
 }
+.ritumodal {
+  position: fixed;
+  top: 50%;
+  left: 41%;
+  z-index: 1050;
+  width: 800px;
+  margin: -250px 0 0 -280px;
+  background-color: #ffffff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  /* IE6-7 */
+
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+  outline: none;
+}
+.modal.fade {
+  -webkit-transition: opacity .3s linear, top .3s ease-out;
+  -moz-transition: opacity .3s linear, top .3s ease-out;
+  -o-transition: opacity .3s linear, top .3s ease-out;
+  transition: opacity .3s linear, top .3s ease-out;
+  top: -25%;
+}
+
+
 </style>
 <script type="text/javascript">
 if(window.history.forward(1) != null)
     window.history.forward(1);
 	jQuery(document).ready(function($) {
-		$('#myModal').modal({
+		$('#ritumodal').modal({
 			
 			'show' : true,
 			'backdrop' : 'static',
@@ -60,7 +93,7 @@ if(window.history.forward(1) != null)
 		</div>
 
 		<form name="myForm">
-			<div id="myModal" class="modal hide fade">
+			<div id="ritumodal" class="ritumodal hide fade">
 				<div class="modal-header">
 
 					<h3 id="myModalLabel">
