@@ -34,6 +34,22 @@
 		<div id="tabs-verifyCategory">
 
 			<s:form theme="simple">
+				<s:if test="hasActionErrors()">
+					<br />
+					<s:iterator value="actionErrors">
+						<div class="alert alert-warning">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<s:property />
+						</div>
+					</s:iterator>
+				</s:if>
+				<s:if test="%{checkVerification == 1}">
+					<div class="alert alert-success" id="successMsg">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						<strong>Success!</strong> The selected categories were activated.
+					</div>
+				</s:if>
+
 				<table cellpadding="5" class="table table-bordered">
 					<tr>
 						<th>Select</th>
@@ -57,21 +73,11 @@
 						</tr>
 					</s:iterator>
 				</table>
+
+				<!-- 'Submit' button -->
+				<s:submit cssClass="btn btn-primary" value="ACTIVATE" align="left"
+					action="adminchangestatuscategory" />
 			</s:form>
-
-			<s:if test="hasActionErrors()">
-				<br />
-				<s:iterator value="actionErrors">
-					<div class="alert alert-warning">
-						<button type="button" class="close" data-dismiss="alert">&times;</button>
-						<s:property />
-					</div>
-				</s:iterator>
-			</s:if>
-			
-			<!-- 'Submit' button -->
-			<s:submit cssClass="btn btn-primary" value="ACTIVATE" align="left" action="adminchangestatuscategory" />
-
 		</div>
 	</div>
 </body>

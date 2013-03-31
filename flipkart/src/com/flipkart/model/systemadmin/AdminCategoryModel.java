@@ -1,5 +1,7 @@
 package com.flipkart.model.systemadmin;
 
+import com.flipkart.model.authentication.ForgotPasswordModel;
+import com.flipkart.model.authentication.SignUpModel;
 import com.flipkart.model.placeorder.*;
 
 import java.sql.Connection;
@@ -9,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.flipkart.util.DbConnection;
+import com.flipkart.util.EmailManager;
+import com.flipkart.util.MyLog;
+import com.flipkart.util.RuntimeSettings;
 import com.opensymphony.xwork2.ActionContext;
 
 public class AdminCategoryModel {
@@ -48,11 +53,13 @@ public class AdminCategoryModel {
 	}
 	
 
+	
 	/**
 	 * This method is used to insert a new category into database
 	 * @param categoryname- name of the new category
+	 * @return 0 - success, -1 - error
 	 */
-	public static void insertNewCategory(String categoryname) {
+	public static int insertNewCategory(String categoryname) {
 
 		sqlQuery = "INSERT INTO flipkart_category(categoryName, status, createdBy, modifiedBy, level) " +
 				"VALUES (?,?,?,?,?);";
@@ -72,7 +79,9 @@ public class AdminCategoryModel {
 		}
 		catch(Exception e){
 			e.printStackTrace();
+			return -1;
 		}
+		return 0;
 	}		
 
 	/**
@@ -129,4 +138,4 @@ public class AdminCategoryModel {
 		}
 	}	
 	
-}
+	}
