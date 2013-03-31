@@ -19,10 +19,23 @@
 			}
 		});
 	});
-</script>
+
+	/* 
+	function showSuccessMsg() {
+		var check = document.getElementById("checkContent").value;
+
+		
+		if (check == 1) {
+			document.getElementById("successMsg").style.display = 'none';
+		} else {
+			document.getElementById("successMsg").style.display = 'block';
+		}
+	}*/
+ 
+ </script>
 
 </head>
-<body>
+<body><!--  onload="showSuccessMsg()" -->
 	<div id="option">
 		<ul class="nav nav-tabs">
 			<li><a href="#tabs-viewCategory">View Categories</a></li>
@@ -42,7 +55,16 @@
 					</div>
 				</s:iterator>
 			</s:if>
-			<br />
+			
+			<s:if test="%{check == 1}">
+				<div class="alert alert-success" id="successMsg">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<strong>Success!</strong> The new category was added successfully.
+					A notification mail has been sent to the Admin.
+				</div>
+			</s:if>
+
+			<%-- <s:set name="checkContent" value="%{check}" /> --%>
 
 			<s:form action="adminaddcategory" theme="simple">
 
@@ -53,7 +75,7 @@
 								placeholder="Please enter Category Name" cssClass="input-xlarge" /></td>
 					</tr>
 				</table>
-				
+
 				<s:submit value="ADD CATEGORY" cssClass="btn btn-primary"
 					theme="simple" />
 
