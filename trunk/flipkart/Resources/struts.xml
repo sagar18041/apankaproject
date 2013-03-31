@@ -4,133 +4,232 @@
    "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-	<constant name="struts.ui.theme" value="simple" />
-	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
-	<constant name="struts.devMode" value="false" />
-	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
-	<constant name="struts.multipart.maxSize" value="1024000" />
+        <constant name="struts.ui.theme" value="simple" />
+        <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+        <constant name="struts.devMode" value="false" />
+        <constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+        <constant name="struts.multipart.maxSize" value="1024000" />
 
-	<package name="default" extends="struts-default" namespace="/">
+        <package name="default" extends="struts-default" namespace="/">
 
-		<result-types>
-			<result-type name="tiles"
-				class="org.apache.struts2.views.tiles.TilesResult" />
-		</result-types>
+                <result-types>
+                        <result-type name="tiles"
+                                class="org.apache.struts2.views.tiles.TilesResult" />
+                </result-types>
 
-		<!-- ******************Login Intercepter************************* -->
-		<interceptors>
-			<interceptor name="nlogin"
-				class="com.flipkart.interceptor.LoginInterceptor" />
-			<interceptor-stack name="loginStack">
-				<interceptor-ref name="servletConfig" />
-				<interceptor-ref name="params" />
-				<interceptor-ref name="nlogin" />
-				<interceptor-ref name="prepare" />
-				<interceptor-ref name="chain" />
-				<interceptor-ref name="modelDriven" />
-				<interceptor-ref name="fileUpload" />
-				<interceptor-ref name="staticParams" />
-				<interceptor-ref name="params" />
-				<interceptor-ref name="conversionError" />
-				<interceptor-ref name="validation" />
-				<interceptor-ref name="workflow" />
-			</interceptor-stack>
-		</interceptors>
-		<!-- ******************End of Login Intercepter************************* -->
+                <!-- ******************Login Intercepter************************* -->
+               
+                <interceptors>
+                        <interceptor name="nlogin"
+                                class="com.flipkart.interceptor.LoginInterceptor" />
+                        <interceptor-stack name="loginStack">
+                                <interceptor-ref name="servletConfig" />
+                                <interceptor-ref name="params" />
+                                <interceptor-ref name="nlogin" />
+                                <interceptor-ref name="prepare" />
+                                <interceptor-ref name="chain" />
+                                <interceptor-ref name="modelDriven" />
+                                <interceptor-ref name="fileUpload" />
+                                <interceptor-ref name="staticParams" />
+                                <interceptor-ref name="params" />
+                                <interceptor-ref name="conversionError" />
+                                <interceptor-ref name="validation" />
+                                <interceptor-ref name="workflow" />
+                        </interceptor-stack>
+                </interceptors>
+               
+                <!-- ******************End of Login Intercepter************************* -->
 
-		<!-- ****************** Main Page ********************** -->
-		<action name="home" class="com.flipkart.action.authentication.HomeAction">
-			<result name="success" type="tiles">/home.tiles</result>
-		</action>
-		<!-- ****************** End of Main Page ********************** -->
+                <!-- ****************** Main Page ********************** -->
+               
+                <action name="home" class="com.flipkart.action.authentication.HomeAction">
+                        <result name="success" type="tiles">/home.tiles</result>
+                </action>
+               
+                <!-- ****************** End of Main Page ********************** -->
 
-		<!-- ****************** Place Order ********************** -->
+                <!-- ****************** Place Order ********************** -->
 
-		<action name="emaillogin" class="com.flipkart.action.placeorder.PlaceOrderAction"
-			method="fetchEmailID">
-			<result name="success" type="tiles">/emaillogin.tiles</result>
-		</action>
+                <action name="emaillogin" class="com.flipkart.action.placeorder.PlaceOrderAction"
+                        method="fetchEmailID">
+                        <result name="success" type="tiles">/emaillogin.tiles</result>
+                </action>
 
-		<action name="shippingaddress" class="com.flipkart.action.placeorder.PlaceOrderAction"
-			method="fetchShippingAddr">
-			<result name="success" type="tiles">/shippingaddress.tiles</result>
-		</action>
+                <action name="shippingaddress" class="com.flipkart.action.placeorder.PlaceOrderAction"
+                        method="fetchShippingAddr">
+                        <result name="success" type="tiles">/shippingaddress.tiles</result>
+                </action>
 
-		<action name="payment" class="com.flipkart.action.placeorder.PlaceOrderAction"
-			method="goToPayment">
-			<result name="success" type="tiles">/paymentoptions.tiles</result>
-			<result name="error" type="redirectAction">
-				<param name="actionName">shippingaddress</param>
-				<param name="errorMsg">${errorMsg}</param>
-			</result>
-		</action>
+                <action name="payment" class="com.flipkart.action.placeorder.PlaceOrderAction"
+                        method="goToPayment">
+                        <result name="success" type="tiles">/paymentoptions.tiles</result>
+                        <result name="error" type="redirectAction">
+                                <param name="actionName">shippingaddress</param>
+                                <param name="errorMsg">${errorMsg}</param>
+                        </result>
+                </action>
 
-		<!-- ************** End of Place Order ******************** -->
+                <!-- ********************************* End of Place Order *********************************** -->
+
+                <!-- ********************************* Account Information ********************************** -->
+
+                <!-- ================================== Personal Information =============================== -->
+               
+                <action name="accountpage"
+                        class="com.flipkart.action.accountmanagement.PersonalInformationAction"
+                        method="displayPersonalInformation">
+                        <result name="success" type="tiles">/accountpage.tiles</result>
+                </action>
+
+                <action name="modifypersonalinformation"
+                        class="com.flipkart.action.accountmanagement.PersonalInformationAction"
+                        method="modifyPersonalInformation">
+                        <result name="success" type="tiles">/accountpage.tiles</result>
+                        <result name="error" type="tiles">/accountpage.tiles</result>
+                </action>
+
+                <!-- ================================ Change Password ================================ -->
+               
+                <action name="passwordpage"
+                        class="com.flipkart.action.accountmanagement.PasswordChangeAction"
+                        method="loadPage">
+                        <result name="success" type="tiles">/passwordpage.tiles</result>
+                </action>
+
+                <action name="modifypassword"
+                        class="com.flipkart.action.accountmanagement.PasswordChangeAction"
+                        method="modifyPassword">
+                        <result name="success" type="tiles">/passwordpage.tiles</result>
+                        <result name="error" type="tiles">/passwordpage.tiles</result>
+                </action>
+               
+                <!-- ================================ Manage Addresses ================================ -->
+               
+                <action name="addresspage"
+                        class="com.flipkart.action.accountmanagement.AddressManagementAction"
+                        method="loadPage">
+                        <result name="success" type="tiles">/addresspage.tiles</result>
+                </action>
 
 
-		<!-- ********************************* Account Information ********************************** -->
+                <action name="addaddress" class="com.flipkart.action.accountmanagement.AddressManagementAction"
+                        method="addAddress">
+                        <result name="success" type="tiles">/addresspage.tiles</result>
+                        <result name="error" type="tiles">/addresspage.tiles</result>
+                </action>
+               
+                <action name="deleteaddress" class="com.flipkart.action.accountmanagement.AddressManagementAction"
+                        method="deleteAddress">
+                        <result name="success" type="tiles">/addresspage.tiles</result>
+                        <result name="error" type="tiles">/addresspage.tiles</result>
+                </action>
+               
+                <!-- ******************************* End of Account Information ********************************** -->
 
-		<!-- ================================== Personal Information =============================== -->
-		<action name="accountpage"
-			class="com.flipkart.action.accountmanagement.PersonalInformationAction"
-			method="displayPersonalInformation">
-			<result name="success" type="tiles">/accountpage.tiles</result>
-		</action>
+                <!--*************************************Authentication************************************************ -->
+               
+                <action name="signup" class="com.flipkart.action.authentication.SignUpAction"
+                        method="createAccount">
+                        <result name="success" type="chain">home</result>
+                        <result name="error" type="chain">home</result>
+                </action>
+                <action name="login" class="com.flipkart.action.authentication.LoginAction"
+                        method="login">
+                        <result name="success" type="chain">home</result>
+                        <result name="error" type="chain">home</result>
+                </action>
+                <action name="logout" class="com.flipkart.action.authentication.LoginAction"
+                        method="logout">
+                        <result name="success" type="chain">home</result>
+                        <result name="error" type="chain">home</result>
+                </action>
+                <action name="forgotpassword"
+                        class="com.flipkart.action.authentication.ForgotPasswordAction"
+                        method="getLink">
+                        <result name="success" type="chain">home</result>
+                        <result name="error" type="chain">home</result>
+                </action>
+                <action name="recoverpassword"
+                        class="com.flipkart.action.authentication.ForgotPasswordAction"
+                        method="validateLink">
+                        <result name="success" type="tiles">/recoverpassword.tiles</result>
+                        <result name="error" type="tiles">/recoverpassworderror.tiles</result>
+                </action>
+                <action name="resetpassword"
+                        class="com.flipkart.action.authentication.ForgotPasswordAction"
+                        method="resetPassword">
+                        <result name="success" type="chain">home</result>
+                        <result name="error" type="chain">home</result>
+                </action>
+               
+                <!--*************************************End Of Authentication****************************************** -->
 
-		<action name="modifypersonalinformation"
-			class="com.flipkart.action.accountmanagement.PersonalInformationAction"
-			method="modifyPersonalInformation">
-			<result name="success" type="tiles">/accountpage.tiles</result>
-			<result name="error" type="tiles">/accountpage.tiles</result>
-		</action>
-		<!-- ================================ End of Personal Information =============================== -->
+                <!-- ================================== System Administration =============================== -->
 
-		<!-- ================================ Change Password ================================ -->
-		<action name="passwordpage"
-			class="com.flipkart.action.accountmanagement.PasswordChangeAction"
-			method="loadPage">
-			<result name="success" type="tiles">/passwordpage.tiles</result>
-		</action>
+                <action name="adminhome" class="com.flipkart.action.systemadmin.AdminHomeAction">
+                        <result name="success" type="tiles">/adminhome.tiles</result>
+                </action>
 
-		<!-- ================================ End of Change Password ================================ -->
+                <action name="adminviewcategory"
+                        class="com.flipkart.action.systemadmin.AdminCategoryAction" method="fetchCategoryList">
+                        <result name="success" type="tiles">/adminviewcategory.tiles</result>
+                </action>
 
-		<!-- ******************************* End of Account Information ********************************** -->
+                <action name="adminaddcategory"
+                        class="com.flipkart.action.systemadmin.AdminCategoryAction" method="insertNewCategory">
+                        <result name="success" type="tiles">/adminaddcategory.tiles</result>
+                        <result name="error" type="tiles">/adminaddcategory.tiles</result>
+                </action>
+               
+                <action name="adminverifycategory"
+                        class="com.flipkart.action.systemadmin.AdminCategoryAction" method="fetchVerificationCategory">
+                        <result name="success" type="tiles">/adminverifycategory.tiles</result>
+                </action>
 
-		<!--*************************************Authentication************************************************ -->
-		<action name="signup" class="com.flipkart.action.authentication.SignUpAction"
-			method="createAccount">
-			<result name="success" type="chain">home</result>
-			<result name="error" type="chain">home</result>
-		</action>
-		<action name="login" class="com.flipkart.action.authentication.LoginAction"
-			method="login">
-			<result name="success" type="chain">home</result>
-			<result name="error" type="chain">home</result>
-		</action>
-		<action name="logout" class="com.flipkart.action.authentication.LoginAction"
-			method="logout">
-			<result name="success" type="chain">home</result>
-			<result name="error" type="chain">home</result>
-		</action>
-		<action name="forgotpassword"
-			class="com.flipkart.action.authentication.ForgotPasswordAction"
-			method="getLink">
-			<result name="success" type="chain">home</result>
-			<result name="error" type="chain">home</result>
-		</action>
-		<action name="recoverpassword"
-			class="com.flipkart.action.authentication.ForgotPasswordAction"
-			method="validateLink">
-			<result name="success" type="tiles">/recoverpassword.tiles</result>
-			<result name="error" type="tiles">/recoverpassworderror.tiles</result>
-		</action>
-		<action name="resetpassword"
-			class="com.flipkart.action.authentication.ForgotPasswordAction"
-			method="resetPassword">
-			<result name="success" type="chain">home</result>
-			<result name="error" type="chain">home</result>
-		</action>
-		<!--*************************************End Of Authentication****************************************** -->
-	</package>
-
+                <action name="adminchangestatuscategory"
+                        class="com.flipkart.action.systemadmin.AdminCategoryAction" method="changeStatusCategory">
+                        <result name="success" type="tiles">/adminverifycategory.tiles</result>
+                        <result name="error" type="tiles">/adminverifycategory.tiles</result>
+                </action>
+               
+                <!-- ============================== End of System Administration =========================== -->
+               
+                <!-- ************************************** Search Page ************************************ -->
+               
+                <action name="searchPage"
+                        class="com.flipkart.action.searchitem.SearchItemAction">
+                                <result name="success" type="redirect">searchHome</result>
+                </action>
+                <action name="searchHome"
+                        class="com.flipkart.action.authentication.HomeAction">
+                        <result name="success" type="tiles">/search.tiles</result>
+                </action>
+               
+                <!-- ================================ End of search Page ===================================== -->
+               
+                <!-- ******************************* Cart Management by Ritu ********************************* -->
+               
+                <action name="cartDisplay"
+                        class="com.flipkart.action.cartmanagement.CartAction" method="displayCart">
+                        <result name="success" type="tiles">/viewcart.tiles</result>
+                </action>
+               
+                <action name="updateCart"
+                        class="com.flipkart.action.cartmanagement.CartAction" method="updateCart">
+                        <result name="success" type="tiles">/viewcart.tiles</result>
+                </action>
+               
+                <action name="deleteCart"
+                        class="com.flipkart.action.cartmanagement.CartAction" method="deleteCart">
+                        <result name="success" type="tiles">/viewcart.tiles</result>
+                </action>
+               
+                <action name="moveToWishlist"
+                        class="com.flipkart.action.cartmanagement.CartAction" method="moveWishlist">
+                        <result name="success" type="tiles">/viewcart.tiles</result>
+                </action>
+               
+                <!-- ******************************* End of Cart Management ********************************** -->
+               
+        </package>
 </struts>
