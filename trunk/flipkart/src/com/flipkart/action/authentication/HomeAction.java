@@ -3,12 +3,14 @@
  */
 package com.flipkart.action.authentication;
 
+import com.flipkart.model.authentication.Catalogue;
 import com.flipkart.model.authentication.HomeModel;
 import com.flipkart.model.authentication.SearchList;
 import com.flipkart.model.authentication.SearchListModel;
 import com.flipkart.util.MyLog;
 import com.opensymphony.xwork2.ActionSupport;
 
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -17,7 +19,9 @@ import java.util.*;
  */
 public class HomeAction extends ActionSupport {
 	private ArrayList<String> categoryList  = new ArrayList<String>();
-	ArrayList<SearchList> sl = new ArrayList<SearchList>();
+	private ArrayList<SearchList> sl = new ArrayList<SearchList>();
+	private ArrayList<Catalogue> catalogueList = new ArrayList<Catalogue>();
+	
 	String searchBy;
 	String autoCompleteList;
 	
@@ -56,11 +60,15 @@ public class HomeAction extends ActionSupport {
 		this.categoryList = categoryList;
 	}
 
-	public String execute() {
+	public String execute() throws SQLException {
+		
 		MyLog.log("Inside HomeAction execute function");
 		//get all categories from category table to populate the search box
 		HomeModel hm = new HomeModel();
 		categoryList = hm.getCategoryList();
+		
+		//get all catalogue details to populate menu list
+		catalogueList = hm.getCatalogueList();
 		
 		/*
 		 * For searchList
@@ -72,11 +80,15 @@ public class HomeAction extends ActionSupport {
 			autoCompleteList = autoCompleteList + sl.get(i).fieldValue + "\",\"";
 		}
 		autoCompleteList = autoCompleteList + "\"]";
-	//	autoCompleteList = new String[sl.size()];
-		//autoCompleteList =sl.toArray();
-		//System.out.println("Debug array = " + autoCompleteList.length);
-		
-		//System.out.println(searchBy);
+	
 		return SUCCESS;
+	}
+
+	public ArrayList<Catalogue> getCatalogueList() {
+		return catalogueList;
+	}
+
+	public void setCatalogueList(ArrayList<Catalogue> catalogueList) {
+		this.catalogueList = catalogueList;
 	}
 }
