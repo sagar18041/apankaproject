@@ -112,6 +112,10 @@
 		<put-attribute name="title" value="Flipkart.com: Category" />
 		<put-attribute name="body" value="/systemadmin/modifycategory.jsp" />
 	</definition>
+	<definition name="/adminverifycategory.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Category" />
+		<put-attribute name="body" value="/systemadmin/verifycategory.jsp" />
+	</definition>
 
 	<!-- ============================== End of System Administration =========================== -->
 
