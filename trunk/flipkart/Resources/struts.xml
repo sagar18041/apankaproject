@@ -18,6 +18,7 @@
 		</result-types>
 
 		<!-- ******************Login Intercepter************************* -->
+		
 		<interceptors>
 			<interceptor name="nlogin"
 				class="com.flipkart.interceptor.LoginInterceptor" />
@@ -36,12 +37,15 @@
 				<interceptor-ref name="workflow" />
 			</interceptor-stack>
 		</interceptors>
+		
 		<!-- ******************End of Login Intercepter************************* -->
 
 		<!-- ****************** Main Page ********************** -->
+		
 		<action name="home" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/home.tiles</result>
 		</action>
+		
 		<!-- ****************** End of Main Page ********************** -->
 
 		<!-- ****************** Place Order ********************** -->
@@ -67,10 +71,10 @@
 
 		<!-- ********************************* End of Place Order *********************************** -->
 
-
 		<!-- ********************************* Account Information ********************************** -->
 
 		<!-- ================================== Personal Information =============================== -->
+		
 		<action name="accountpage"
 			class="com.flipkart.action.accountmanagement.PersonalInformationAction"
 			method="displayPersonalInformation">
@@ -85,6 +89,7 @@
 		</action>
 
 		<!-- ================================ Change Password ================================ -->
+		
 		<action name="passwordpage"
 			class="com.flipkart.action.accountmanagement.PasswordChangeAction"
 			method="loadPage">
@@ -99,6 +104,7 @@
 		</action>
 		
 		<!-- ================================ Manage Addresses ================================ -->
+		
 		<action name="addresspage"
 			class="com.flipkart.action.accountmanagement.AddressManagementAction"
 			method="loadPage">
@@ -121,6 +127,7 @@
 		<!-- ******************************* End of Account Information ********************************** -->
 
 		<!--*************************************Authentication************************************************ -->
+		
 		<action name="signup" class="com.flipkart.action.authentication.SignUpAction"
 			method="createAccount">
 			<result name="success" type="chain">home</result>
@@ -154,6 +161,7 @@
 			<result name="success" type="chain">home</result>
 			<result name="error" type="chain">home</result>
 		</action>
+		
 		<!--*************************************End Of Authentication****************************************** -->
 
 		<!-- ================================== System Administration =============================== -->
@@ -183,8 +191,11 @@
 			<result name="success" type="tiles">/adminverifycategory.tiles</result>
 			<result name="error" type="tiles">/adminverifycategory.tiles</result>
 		</action>
+		
 		<!-- ============================== End of System Administration =========================== -->
-				<!-- ************************************** Search Page *********************************************** -->
+		
+		<!-- ************************************** Search Page ************************************ -->
+		
 		<action name="searchPage"
 			class="com.flipkart.action.searchitem.SearchItemAction">
 				<result name="success" type="redirect">searchHome</result>
@@ -193,9 +204,11 @@
 			class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/search.tiles</result>
 		</action>
+		
 		<!-- ================================ End of search Page ===================================== -->
 		
-		<!-- ******************************* Cart Management by Ritu ***************************************** -->
+		<!-- ******************************* Cart Management by Ritu ********************************* -->
+		
 		<action name="cartDisplay" 
 			class="com.flipkart.action.cartmanagement.CartAction" method="displayCart">
 			<result name="success" type="tiles">/viewcart.tiles</result>
@@ -215,8 +228,8 @@
 			class="com.flipkart.action.cartmanagement.CartAction" method="moveWishlist">
 			<result name="success" type="tiles">/viewcart.tiles</result>
 		</action>
+		
 		<!-- ******************************* End of Cart Management ********************************** -->
-
+		
 	</package>
-
 </struts>
