@@ -283,8 +283,8 @@
               </div>
   			</div>
 		</s:form>
-		&nbsp; &nbsp; &nbsp; 
-			<a href="cartDisplay.action" class="btn btn-primary pull-right"><i class="icon-shopping-cart"></i> Cart (value)</a>
+			&nbsp; &nbsp; &nbsp; <a href="cartDisplay" ><button class="fk-button-blue pull-right"><span
+			class="cart-icon" ></span> Cart (value)</button></a>
 		</div>
 </body>
 </html>
