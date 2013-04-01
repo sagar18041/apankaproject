@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
 <!DOCTYPE html>
 
 <html>
-
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!-- Aamir (Start) -->
 <script type="text/javascript">
 	function toggle(id) {
 		if (document.getElementById(id).style.display == "block") {
@@ -77,32 +80,32 @@
 		return (true);
 	}
 </script>
-
-
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!-- Aamir (End) -->
 <!--  *** Added By Neha to call Search Action*** -->
 <script>
- $('.selectpicker').selectpicker({
-     style: 'btn-info',
-     size: 4
- });
- 
- function callSearch()
- {
-	 setInterval(function(){ if(event.keyCode == 13)
-	 {
-	 
-	 var search = document.getElementById("search").value;
-	// alert("Search " + search);
-	 var catId = document.getElementById("categorySel");
-	 var category = catId.options[catId.selectedIndex].value;
-	// alert(category);
-	 window.location = "searchPage?searchText=" + search + "&categorySel=" + category;
-	 }}, 5000);
- }
- </script>
- <!-- **** END **** -->
+	$('.selectpicker').selectpicker({
+		style : 'btn-info',
+		size : 4
+	});
+
+	$('#loginmodal').modal(show);
+
+	function callSearch() {
+		setInterval(function() {
+			if (event.keyCode == 13) {
+
+				var search = document.getElementById("search").value;
+				// alert("Search " + search);
+				var catId = document.getElementById("categorySel");
+				var category = catId.options[catId.selectedIndex].value;
+				// alert(category);
+				window.location = "searchPage?searchText=" + search
+						+ "&categorySel=" + category;
+			}
+		}, 5000);
+	}
+</script>
+<!-- **** END **** -->
 </head>
 
 <body>
@@ -135,7 +138,8 @@
 			</ul>
 		</div>
 
-		<!-- Aamir Start -->
+		<!--*************************** Aamir (Start) ********************************-->
+		
 		<div id="loginmodal" class="modal-aamir" style="display: none;">
 			<div class="modal-body">
 
@@ -221,71 +225,86 @@
 					window x</a>
 			</div>
 		</div>
-		<!-- Aamir End -->
+		<!-- ***********************************Aamir (End)*************************************** -->
 
 
 	</div>
 	<div id="subheading" style="background-color: #0EBCE4;">
-	<div class="btn-group ">
-  		<button class="btn btn-warning span3"><b>See All Categories</b></button>
-  		<button class = "btn btn-warning dropdown-toggle" data-toggle="dropdown">
-   		 <span class="caret"></span></button>
-  		<ul class="dropdown-menu span3" role="menu" aria-labelledby="dLabel">
-				<s:iterator value="catalogueList" var ="catList">
+		<div class="btn-group ">
+			<button class="btn btn-warning span3">
+				<b>See All Categories</b>
+			</button>
+			<button class="btn btn-warning dropdown-toggle"
+				data-toggle="dropdown">
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu span3" role="menu" aria-labelledby="dLabel">
+				<s:iterator value="catalogueList" var="catList">
 					<s:if test="%{#catList.catalogueLevel==0}">
-					<li class="dropdown-submenu"><a href="#"><s:property value="#catList.catalogueName"/></a>
-						<ul class="dropdown-menu">
-						<s:iterator value="catalogueList" var ="subcatList">
-						<s:if test="%{#catList.catalogueParentID==#subcatList.catalogueID && #subcatList.catalogueLevel==1}">
-							<li class="dropdown-submenu"><a href="#"><s:property value="#subcatList.catalogueName" /></a>
-								<ul class="dropdown-menu">
-									<s:iterator value="catalogueList" var="subsubcatList">
-										<s:if test="%{#subsubcatList.catalogueID==#subcatList.catalogueParentID && #subsubcatList.catalogueLevel==2}">
-											<li>
-												<a href="#"><s:property value="#subsubcatList.catalogueName" /></a>
-											</li>
-										</s:if>
-									</s:iterator>
-								</ul>
-							</li>
-						</s:if>
-						</s:iterator>
-						</ul>
-					</li>
+						<li class="dropdown-submenu"><a href="#"><s:property
+									value="#catList.catalogueName" /></a>
+							<ul class="dropdown-menu">
+								<s:iterator value="catalogueList" var="subcatList">
+									<s:if
+										test="%{#catList.catalogueParentID==#subcatList.catalogueID && #subcatList.catalogueLevel==1}">
+										<li class="dropdown-submenu"><a href="#"><s:property
+													value="#subcatList.catalogueName" /></a>
+											<ul class="dropdown-menu">
+												<s:iterator value="catalogueList" var="subsubcatList">
+													<s:if
+														test="%{#subsubcatList.catalogueID==#subcatList.catalogueParentID && #subsubcatList.catalogueLevel==2}">
+														<li><a href="#"><s:property
+																	value="#subsubcatList.catalogueName" /></a></li>
+													</s:if>
+												</s:iterator>
+											</ul></li>
+									</s:if>
+								</s:iterator>
+							</ul></li>
 					</s:if>
 				</s:iterator>
-				<li class="dropdown-submenu"><a href="#">More
-						options <span class="label label-important">NEW</span>
+				<li class="dropdown-submenu"><a href="#">More options <span
+						class="label label-important">NEW</span>
 				</a>
 					<ul class="dropdown-menu">
 						<li><a tabindex="-1" href="#">Action</a></li>
 						<li><a tabindex="-1" href="#">Another action</a></li>
 						<li><a tabindex="-1" href="#">Something else here</a></li>
 					</ul></li>
-			</ul></div> <!-- dropdown end here -->&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
- 		<s:form action="searchPage" method="post" theme="simple" cssClass="form-inline" style="display: inline;">
-  			<div class="input-append">
-  				<input type="text" data-provide="typeahead" class="span4" 
-  				placeholder="Search for items" id="search" name="searchText"
-  				 data-source='<s:property value="autoCompleteList"/>' onkeypress="callSearch()" />
-  			
-    				 
-    			<div class="btn-group">
-              
-               <select class="selectpicker" id="categorySel" name="categorySel">
-               		<option></i><font color="gray">  in</font> All Category</option>
-               	<s:iterator value="categoryList">
-               		<option></i><font color="gray">  in</font> <s:property/></option>
-               	</s:iterator>
-               </select>
-                
-               <span class="add-on" ><i class="icon-search"></i></span>
-              </div>
-  			</div>
-		</s:form>
-			&nbsp; &nbsp; &nbsp; <a href="cartDisplay" ><button class="fk-button-blue pull-right"><span
-			class="cart-icon" ></span> Cart (value)</button></a>
+			</ul>
 		</div>
+		<!-- dropdown end here -->
+		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+		<s:form action="searchPage" method="post" theme="simple"
+			cssClass="form-inline" style="display: inline;">
+			<div class="input-append">
+				<input type="text" data-provide="typeahead" class="span4"
+					placeholder="Search for items" id="search" name="searchText"
+					data-source='<s:property value="autoCompleteList"/>'
+					onkeypress="callSearch()" />
+
+
+				<div class="btn-group">
+
+					<select class="selectpicker" id="categorySel" name="categorySel">
+						<option>
+							</i><font color="gray"> in</font> All Category
+						</option>
+						<s:iterator value="categoryList">
+							<option>
+								</i><font color="gray"> in</font>
+								<s:property />
+							</option>
+						</s:iterator>
+					</select> <span class="add-on"><i class="icon-search"></i></span>
+				</div>
+			</div>
+		</s:form>
+		&nbsp; &nbsp; &nbsp; <a href="cartDisplay"><button
+				class="fk-button-blue pull-right">
+				<span class="cart-icon"></span> Cart (value)
+			</button></a>
+	</div>
 </body>
 </html>
 
