@@ -230,6 +230,11 @@
                 </action>
                
                 <!-- ******************************* End of Cart Management ********************************** -->
-               
+                <!-- ******************************* Product Page by Ananda ********************************** -->
+                <action name="displayitem"
+                        class="com.flipkart.action.browseitem.ProductAction" method="displayItem">
+                        <result name="success" type="tiles">/displayitem.tiles</result>
+                </action>
+                <!-- ******************************* End of Product Page by ********************************** -->
         </package>
 </struts>
