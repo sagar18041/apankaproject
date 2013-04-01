@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<!-- Aamir (Start) -->
+<!-- ***********************************Aamir (Start) ************************************-->
 <script type="text/javascript">
 	function toggle(id) {
 		if (document.getElementById(id).style.display == "block") {
@@ -80,7 +80,7 @@
 		return (true);
 	}
 </script>
-<!-- Aamir (End) -->
+<!--******************************************* Aamir (End) *****************************************-->
 <!--  *** Added By Neha to call Search Action*** -->
 <script>
 	$('.selectpicker').selectpicker({
