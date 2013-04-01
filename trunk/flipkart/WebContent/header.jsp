@@ -88,8 +88,6 @@
 		size : 4
 	});
 
-	$('#loginmodal').modal(show);
-
 	function callSearch() {
 		setInterval(function() {
 			if (event.keyCode == 13) {
@@ -139,7 +137,7 @@
 		</div>
 
 		<!--*************************** Aamir (Start) ********************************-->
-		
+
 		<div id="loginmodal" class="modal-aamir" style="display: none;">
 			<div class="modal-body">
 
