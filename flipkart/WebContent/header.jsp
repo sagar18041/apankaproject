@@ -239,6 +239,36 @@
 			<ul class="dropdown-menu span3" role="menu" aria-labelledby="dLabel">
 				<s:iterator value="catalogueList" var="catList">
 					<s:if test="%{#catList.catalogueLevel==0}">
+<<<<<<< .mine
+					<s:url action="displaycategory.action" var="dispCat" >
+					<s:param name="categoryID"><s:property value = "#catList.catalogueID"/></s:param>
+					</s:url>
+					<li class="dropdown-submenu"><a href="<s:property value="#dispCat" />"><s:property value="#catList.catalogueName"/></a>
+						<ul class="dropdown-menu">
+						<s:iterator value="catalogueList" var ="subcatList">
+						<s:if test="%{#catList.catalogueParentID==#subcatList.catalogueID && #subcatList.catalogueLevel==1}">
+							<s:url action="displaycategory.action" var="dispsubCat" >
+							<s:param name="categoryID"><s:property value = "#subcatList.catalogueParentID"/></s:param>
+							</s:url>
+							<li class="dropdown-submenu"><a href="<s:property value="#dispsubCat" />"><s:property value="#subcatList.catalogueName" /></a>
+								<ul class="dropdown-menu">
+									<s:iterator value="catalogueList" var="subsubcatList">
+									<s:url action="displaycategory.action" var="dispsubsubCat" >
+									<s:param name="categoryID"><s:property value = "#subsubcatList.catalogueParentID"/></s:param>
+									</s:url>
+										<s:if test="%{#subsubcatList.catalogueID==#subcatList.catalogueParentID && #subsubcatList.catalogueLevel==2}">
+											<li>
+												<a href="<s:property value="#dispsubsubCat" />"><s:property value="#subsubcatList.catalogueName" /></a>
+											</li>
+										</s:if>
+									</s:iterator>
+								</ul>
+							</li>
+						</s:if>
+						</s:iterator>
+						</ul>
+					</li>
+=======
 						<li class="dropdown-submenu"><a href="#"><s:property
 									value="#catList.catalogueName" /></a>
 							<ul class="dropdown-menu">
@@ -259,6 +289,7 @@
 									</s:if>
 								</s:iterator>
 							</ul></li>
+>>>>>>> .r98
 					</s:if>
 				</s:iterator>
 				<li class="dropdown-submenu"><a href="#">More options <span
