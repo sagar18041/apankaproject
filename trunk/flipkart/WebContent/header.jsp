@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!-- ***********************************Aamir (Start) ************************************-->
+
 <script type="text/javascript">
 	function toggle(id) {
 		if (document.getElementById(id).style.display == "block") {
@@ -31,6 +32,13 @@
 			return (false);
 		}
 
+		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+		if (reg.test(login.emailAddress.value) == false) {
+			alert('Please enter a valid email address.');
+			return false;
+		}
+
 		if (login.password.value == "") {
 			alert("Please enter password !");
 			login.password.focus();
@@ -47,6 +55,13 @@
 			alert("Please enter email address !");
 			signup.emailAddress.focus();
 			return (false);
+		}
+
+		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+		if (reg.test(signup.emailAddress.value) == false) {
+			alert('Please enter a valid email address.');
+			return false;
 		}
 
 		if (signup.password.value == "") {
@@ -77,7 +92,33 @@
 			forgotpassword.emailAddress.focus();
 			return (false);
 		}
+
+		var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+		if (reg.test(forgotpassword.emailAddress.value) == false) {
+			alert('Please enter a valid email address.');
+			return false;
+		}
 		return (true);
+	}
+
+	function showModal() {
+		var hasErrors = '${hasErrors}';
+		var errorForm = '${errorForm}';
+		if (hasErrors == 1) {
+			$('#loginmodal').modal('show');
+			if (errorForm == "login") {
+				show('forgotpassword', 'signup', 'login');
+			}
+
+			if (errorForm == "signup") {
+				show('forgotpassword', 'login', 'signup');
+			}
+
+			if (errorForm == "forgotpassword") {
+				show('signup', 'signup', 'forgotpassword');
+			}
+		}
 	}
 </script>
 <!--******************************************* Aamir (End) *****************************************-->
@@ -106,7 +147,7 @@
 <!-- **** END **** -->
 </head>
 
-<body>
+<body onload="showModal()">
 	<div class="container-fluid">
 		<div class="pull-left" style="padding-top: 10px;">
 			<a href="home.action"><img
@@ -118,12 +159,14 @@
 				<li id="li_home"><a href="home" style="color: white;">Home</a></li>
 				<li id="li_account"><a href="accountpage" style="color: white;">Account</a></li>
 				<li><a href="#" style="color: white;">Wishlist</a></li>
-				<li><a data-toggle="modal" href="#loginmodal"
-					style="color: white;"
-					onclick="show('forgotpassword','signup','login')">Login</a></li>
-				<li><a data-toggle="modal" href="#loginmodal"
-					style="color: white;"
-					onclick="show('forgotpassword','login','signup')">Signup</a></li>
+				<s:if test="#session['login']==null">
+					<li><a data-toggle="modal" href="#loginmodal"
+						style="color: white;"
+						onclick="show('forgotpassword','signup','login')">Login</a></li>
+					<li><a data-toggle="modal" href="#loginmodal"
+						style="color: white;"
+						onclick="show('forgotpassword','login','signup')">Signup</a></li>
+				</s:if>
 				<s:if test="#session['login']==true">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" style="color: white;"><s:property
@@ -147,6 +190,14 @@
 					<font size="3"><b>Login</b></font>
 					<br />
 					<br />
+
+					<s:if test="#session['errorForm']=='login'">
+						<div class="alert alert-error">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<s:property value="#session['errorMsg']" />
+						</div>
+					</s:if>
+
 					<table>
 						<tr>
 							<td><font size="2">Email</font></td>
@@ -174,6 +225,13 @@
 					<font size="3"><b> New User? Sign Up</b></font>
 					<br />
 					<br />
+					<s:if test="#session['errorForm']=='signup'">
+						<div class="alert alert-error">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<s:property value="#session['errorMsg']" />
+						</div>
+					</s:if>
+
 					<table>
 						<tr>
 							<td><font size="2">Email Address</font></td>
@@ -204,6 +262,13 @@
 					<br />
 					<font size="1">Enter your Email Address here to receive a
 						link to change password. </font>
+					<s:if test="#session['errorForm']=='forgotpassword'">
+						<div class="alert alert-error">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<s:property value="#session['errorMsg']" />
+						</div>
+					</s:if>
+
 					<table>
 						<tr height="10"></tr>
 						<tr>
@@ -222,6 +287,10 @@
 				<a href="#" class="btn btn-mini-aamir" data-dismiss="modal">Close
 					window x</a>
 			</div>
+			<%
+				session.setAttribute("hasErrors", 0);
+				session.setAttribute("errorForm", "");
+			%>
 		</div>
 		<!-- ***********************************Aamir (End)*************************************** -->
 
