@@ -29,14 +29,20 @@ public class SearchCategoryModel {
 		ArrayList<SearchCategory> searchCat = new ArrayList<SearchCategory>();
 		
 		sqlQuery = "select categoryName , count(itemID) as noOfItems from fielditemview where upper(itemName) like upper('%" +
-		searchText + "%')";
+		searchText + "%') group by categoryName";
 		
 		System.out.println("SQL query is " + sqlQuery);
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
 			rs=ps.executeQuery();
-			
+			while(rs.next()){
+				SearchCategory sc = new SearchCategory();
+				sc.setCategoryName(rs.getString("categoryName"));
+				sc.setNoOfItems(rs.getInt("noOfItems"));
+				
+				searchCat.add(sc);
+			}
 		}
 		catch(Exception ex){
 			ex.printStackTrace();
