@@ -20,11 +20,21 @@ public class SearchListModel {
 	static String sqlQuery="";
 	static Connection conn = null;
 	
-	public static ArrayList<SearchList> fetchList(){
+	public static ArrayList<SearchList> fetchList(String category){
 		ArrayList<SearchList> serList = new ArrayList<SearchList>();
 		
-		sqlQuery = "SELECT itemName AS field FROM flipkart_item UNION SELECT value AS field FROM flipkart_itemattributes";
-		
+		System.out.println("Coming to query");
+		System.out.println("Parameter is " + category);
+		if(category == null)
+			{	System.out.println("Query for null value");
+				sqlQuery = "SELECT itemName AS field FROM fielditemview";
+			}
+		else 
+		{System.out.println("Query for parameters");
+			sqlQuery = "SELECT itemName AS field FROM fielditemview where categoryName = '" + category + "'";
+	
+		}
+			
 		System.out.println("SQL query is " + sqlQuery);
 		try{
 			conn=DbConnection.getConnection();
