@@ -1,10 +1,13 @@
 package com.flipkart.action.authentication;
 
+import java.util.Map;
+
 import com.flipkart.model.authentication.ForgotPasswordModel;
 import com.flipkart.model.authentication.SignUpModel;
 import com.flipkart.util.EmailManager;
 import com.flipkart.util.MyLog;
 import com.flipkart.util.RuntimeSettings;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 @SuppressWarnings("serial")
@@ -37,10 +40,14 @@ public class ForgotPasswordAction extends ActionSupport {
 		this.emailAddress = emailAddress;
 	}
 
+	
+	@SuppressWarnings("unchecked")
 	public String getLink() {
 
 		System.out.println("inside ForgotPasswordAction: getLink()");
 		System.out.println("emailAddress: " + emailAddress);
+		
+		Map session = ActionContext.getContext().getSession();
 
 		if (SignUpModel.checkUser(emailAddress)) {
 
@@ -70,11 +77,17 @@ public class ForgotPasswordAction extends ActionSupport {
 			} else {
 				MyLog.log("Error in sending email.");
 				System.out.println("returning error 1");
+				session.put("hasErrors", 1);
+				session.put("errorForm", "forgotpassword");
+				session.put("errorMsg", "Error! please try again.");
 				return ERROR;
 			}
 		}
 
 		System.out.println("returning error 2");
+		session.put("hasErrors", 1);
+		session.put("errorForm", "forgotpassword");
+		session.put("errorMsg", "The given email address does not exist.");
 		return ERROR;
 
 	}

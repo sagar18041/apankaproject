@@ -29,12 +29,16 @@ public class LoginAction extends ActionSupport {
 		this.password = password;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	
+	@SuppressWarnings("rawtypes")
+	Map session = ActionContext.getContext().getSession();
+	
+	@SuppressWarnings("unchecked")
 	public String login() {
 		MyLog.log("LoginAction: login()");
 		if (LoginModel.isAuthentic(emailAddress,
 				MyUtilityFunctions.generateMD5(password))) {
-			Map session = ActionContext.getContext().getSession();
+			
 			session.put("login", true);
 			session.put("userID", LoginModel.getUserID(emailAddress));
 			session.put("emailAddress", emailAddress);
@@ -42,6 +46,9 @@ public class LoginAction extends ActionSupport {
 		} else {
 			MyLog.log("Incorrect email address/password.");
 			addActionError("Incorrect email address/password.");
+			session.put("hasErrors", 1);
+			session.put("errorForm", "login");
+			session.put("errorMsg", "Incorrect email address/password.");
 			return ERROR;
 		}
 	}
