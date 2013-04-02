@@ -71,13 +71,13 @@
 						<li class="nav-head">&nbsp;Select a Category</li>
 						<li class="nav-heading">&nbsp;&nbsp;All Categories</li>
 						<li class="dividertop"></li>
-						<li><a href='#'>Books</a></li>
-						<li class="divider"></li>
-						<li><a href='#'>e-Books</a></li>
-						<li class="divider"></li>
-						<li><a href='#'>Posters</a></li>
+						<li><s:iterator value="searchCatg">
+							<li class="divider"></li>
+							<li><a href='#'><s:property value="categoryName"/> ( <s:property value="noOfItems"/> ) </a></li>
+							<li class="divider"></li>
+						</s:iterator>
+						</li>
 						<li class="dividerbottom"></li>
-
 						
 					</ul>
 				</div>
