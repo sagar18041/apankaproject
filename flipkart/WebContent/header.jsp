@@ -143,6 +143,14 @@
 			}
 		}, 5000);
 	}
+	
+function changeSearch()
+{
+	var catId = document.getElementById("categorySel");
+	var category = catId.options[catId.selectedIndex].value;
+	var categoryList = category.split(" ");
+	window.location = "home?&categorySel=" + categoryList[1];
+}
 </script>
 <!-- **** END **** -->
 </head>
@@ -370,7 +378,7 @@
 
 				<div class="btn-group">
 
-					<select class="selectpicker" id="categorySel" name="categorySel">
+					<select class="selectpicker" id="categorySel" name="categorySel" onchange="changeSearch()">
 						<option>
 							</i><font color="gray"> in</font> All Category
 						</option>
