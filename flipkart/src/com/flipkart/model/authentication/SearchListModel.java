@@ -27,11 +27,11 @@ public class SearchListModel {
 		System.out.println("Parameter is " + category);
 		if(category == null)
 			{	System.out.println("Query for null value");
-				sqlQuery = "SELECT itemName AS field FROM fielditemview";
+				sqlQuery = "SELECT distinct itemName AS field FROM fielditemview";
 			}
 		else 
 		{System.out.println("Query for parameters");
-			sqlQuery = "SELECT itemName AS field FROM fielditemview where categoryName = '" + category + "'";
+			sqlQuery = "SELECT distinct itemName AS field FROM fielditemview where categoryName = '" + category + "'";
 	
 		}
 			
