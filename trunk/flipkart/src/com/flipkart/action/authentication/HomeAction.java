@@ -24,9 +24,17 @@ public class HomeAction extends ActionSupport {
 	
 	String searchBy;
 	String autoCompleteList;
+	public String categorySel;
 	
 	
-	
+
+	public String getCategorySel() {
+		return categorySel;
+	}
+
+	public void setCategorySel(String categorySel) {
+		this.categorySel = categorySel;
+	}
 
 	public String getAutoCompleteList() {
 		return autoCompleteList;
@@ -64,6 +72,8 @@ public class HomeAction extends ActionSupport {
 		
 		MyLog.log("Inside HomeAction execute function");
 		//get all categories from category table to populate the search box
+		
+		System.out.println("Category is " + getCategorySel());
 		HomeModel hm = new HomeModel();
 		categoryList = hm.getCategoryList();
 		
@@ -73,7 +83,7 @@ public class HomeAction extends ActionSupport {
 		/*
 		 * For searchList
 		 */
-		sl = SearchListModel.fetchList();
+		sl = SearchListModel.fetchList(getCategorySel());
 		System.out.println("SearchList size " + sl.size());
 		autoCompleteList = "[\"";
 		for(int i = 0 ; i < sl.size() ; i++){
