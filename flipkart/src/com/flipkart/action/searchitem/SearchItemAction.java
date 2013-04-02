@@ -33,7 +33,8 @@ public class SearchItemAction extends ActionSupport{
  */
 	public String execute() {
 		System.out.println("in search action.....");
-		
+		System.out.println("Category = " + getCategorySel());
+		System.out.println("text = " + getSearchText());
 		return SUCCESS;
 	}
 }
