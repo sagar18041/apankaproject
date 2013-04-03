@@ -146,6 +146,7 @@
 	
 function changeSearch()
 {
+	// Error
 	var catId = document.getElementById("categorySel");
 	var category = catId.options[catId.selectedIndex].value;
 	var categoryList = category.split(" ");
@@ -373,22 +374,33 @@ function changeSearch()
 				<input type="text" data-provide="typeahead" class="span4"
 					placeholder="Search for items" id="search" name="searchText"
 					data-source='<s:property value="autoCompleteList"/>'
-					onkeypress="callSearch()" />
+					onkeypress="callSearch()" value="<s:property value="searchText"/>"/>
 
 
 				<div class="btn-group">
-
-					<select class="selectpicker" id="categorySel" name="categorySel" onchange="changeSearch()">
+					<s:set var="categoryText" value="categorySel"/>
+					<select class="selectpicker" id="categorySel" name="categorySel"
+					 onchange="changeSearch()">
 						<option>
 							</i><font color="gray"> in</font> All Category
 						</option>
-						<s:iterator value="categoryList">
+						<s:iterator value="categoryList" var="categoryField">
+							<s:if test="%{#categoryField == #categoryText}">
+							<option selected>
+								</i><font color="gray"> in</font>
+								<s:property />
+							</option>
+							</s:if>
+							<s:else>
 							<option>
 								</i><font color="gray"> in</font>
 								<s:property />
 							</option>
+							</s:else>
 						</s:iterator>
-					</select> <span class="add-on"><i class="icon-search"></i></span>
+					</select>
+					
+					 <span class="add-on"><i class="icon-search"></i></span>
 				</div>
 			</div>
 		</s:form>
