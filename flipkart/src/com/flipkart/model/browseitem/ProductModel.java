@@ -76,4 +76,31 @@ public class ProductModel {
 		}
 		return attrib;
 	}	
+	
+	/**
+	 * function to fetch specific attributes with priority 1 and 2
+	 * @param itemID
+	 * @return
+	 */
+	public ArrayList<Attributes> getSpecificProductAttributes(Integer itemID) {
+		ArrayList<Attributes> attrib  = new ArrayList<Attributes>();
+		sqlQuery = "SELECT attribute, value FROM flipkart_itemattributes WHERE itemID = ? AND priorityLevel IN ( 1, 2 );";
+		try{
+			MyLog.log("SQL = " + sqlQuery);
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, itemID);
+			MyLog.log("after prepared statement");
+			rs=ps.executeQuery();
+			while(rs.next()){
+				Attributes attribute = new Attributes();
+				attribute.setAttribute(rs.getString(1));
+				attribute.setValue(rs.getString(2));
+				attrib.add(attribute);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return attrib;
+	}	
 }
