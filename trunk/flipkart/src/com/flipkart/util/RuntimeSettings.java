@@ -20,4 +20,10 @@ public class RuntimeSettings {
 	public static String driverClass = "com.mysql.jdbc.Driver";
 	public static String smtpFrom = "flipkart.iiitb@gmail.com";
 	public static String smtpPassword = "iiitb.password";
+	
+	//Attributes Priorities
+	public static Integer highPriority = 2;
+	public static Integer mediumPriority = 1;
+	public static Integer lowPriority = 0;
+	
 }
