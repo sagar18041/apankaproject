@@ -120,11 +120,19 @@
 </div>
 <hr />
 <!-- Display Product Review -->
+<s:iterator value = "review" >
 <div class="row-fluid">
-	<div class="span9">
-	Reviews will go here
+	<div class="span2">
+	<b><s:property value="userName" /></b><br />
+	<s:property value="reviewDate" />
+	</div>
+	<div class="span7">
+	<b><s:property value = "reviewTitle" /></b>
+	<br /><s:property value = "reviewText" />
 	</div>
 </div>
+<hr />
+</s:iterator>
 <!-- End of Product Review -->
 <!-- End of Product Display -->
 
