@@ -78,7 +78,7 @@ public class ProductModel {
 	}	
 	
 	/**
-	 * function to fetch specific attributes with priority 1 and 2
+	 * function to fetch specific attributes with priority 1 and 2 to display on browse page
 	 * @param itemID
 	 * @return
 	 */
@@ -102,5 +102,62 @@ public class ProductModel {
 			e.printStackTrace();
 		}
 		return attrib;
+	}
+
+	/**
+	 * function to fetch the reviews of product
+	 * @param productID
+	 * @return reviews (arrayList)
+	 */
+	public ArrayList<Review> getProductReview(Integer productID) {
+		ArrayList<Review> reviews  = new ArrayList<Review>();
+		sqlQuery = "SELECT rw.reviewTitle, rw.reviewText, rw.reviewDate, user.firstName FROM flipkart_productreview rw, " +
+				"flipkart_userinfo user WHERE productID = ? AND rw.userID = user.userID;";
+		try{
+			MyLog.log("SQL = " + sqlQuery);
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, productID);
+			MyLog.log("after prepared statement");
+			rs=ps.executeQuery();
+			while(rs.next()){
+				Review rw = new Review();
+				rw.setReviewTitle(rs.getString(1));
+				rw.setReviewText(rs.getString(2));
+				rw.setReviewDate(rs.getDate(3));
+				rw.setUserName(rs.getString(4));
+				reviews.add(rw);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return reviews;
+		
+	}
+
+	
+	/** 
+	 * functon to fetch productID of item
+	 * @param itemID
+	 * @return productID
+	 */
+	public Integer getProductID(Integer itemID) {
+		Integer productID = null;
+		sqlQuery = "select productID from flipkart_item where itemID = ?;";
+		try{
+			MyLog.log("SQL = " + sqlQuery);
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, itemID);
+			MyLog.log("after prepared statement");
+			rs=ps.executeQuery();
+			
+			if(rs.next()){
+				productID = rs.getInt(1);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return productID;
 	}	
 }
