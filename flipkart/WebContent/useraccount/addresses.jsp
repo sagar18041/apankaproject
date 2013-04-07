@@ -41,14 +41,11 @@
 						<li><a href='#'>Order Status</a></li>
 						<li class="dividerbottom"></li>
 
-						<li class="nav-heading">&nbsp;&nbsp;Payments</li>
-						<li class="dividertop"></li>
-						<li><a href='#'>Wallet</a></li>
-						<li class="dividerbottom"></li>
-
 						<li class="nav-heading">&nbsp;&nbsp;My Stuff</li>
 						<li class="dividertop"></li>
 						<li><a href='#'>My Wishlist</a></li>
+						<li class="divider"></li>
+						<li><a href='#'>My Ratings</a></li>
 						<li class="dividerbottom"></li>
 
 						<li class="nav-heading">&nbsp;&nbsp;Settings</li>
@@ -59,7 +56,7 @@
 						<li class="divider"></li>
 						<li class="active"><b>&nbsp;&nbsp;&nbsp;&nbsp;Addresses</b></li>
 						<li class="divider"></li>
-						<li><a href='#'>Update Email</a></li>
+						<li><a href='emailpage'>Update Email</a></li>
 						<li class="dividerbottom"></li>
 					</ul>
 				</div>
@@ -113,22 +110,28 @@
 						<s:submit value="Save Changes" theme="simple"
 							style="margin-left: 0px" cssClass="fk-button-blue" />
 					</s:form>
-					
-						<s:if test="hasActionMessages()">
+
+					<s:if test="hasActionMessages()">
 						<div align="center">
 							<s:iterator value="actionMessages">
-								<div class="alert alert-success"> <br /><i class="icon-ok icon-2x"></i>&nbsp;&nbsp;<s:property />
+								<div class="alert alert-success">
+									<br />
+									<i class="icon-ok icon-2x"></i>&nbsp;&nbsp;
+									<s:property />
 									<br /> <br />
 								</div>
 							</s:iterator>
 
 						</div>
 					</s:if>
-					
+
 					<s:if test="hasActionErrors()">
 						<div align="center">
 							<s:iterator value="actionErrors">
-								<div class="alert alert-error"> <br /><i class="icon-remove icon-2x"></i>&nbsp;&nbsp;<s:property />
+								<div class="alert alert-error">
+									<br />
+									<i class="icon-remove icon-2x"></i>&nbsp;&nbsp;
+									<s:property />
 									<br /> <br />
 								</div>
 							</s:iterator>
@@ -137,28 +140,24 @@
 					</s:if>
 				</div>
 				<hr style="border-style: dotted; border-color: #CBCBCB;">
-				<b>&nbsp;&nbsp;&nbsp;&nbsp;Your Saved Addresses</b> <br /> <br /> <s:iterator value="addressList">
-						<div class="span5" id="<s:property value="addressID" />">
-							<div class="well" style="height: 250px; width: 180px;">
-								<font
-					style="font-size: 12px" >
-								<b><s:property value="name" /></b> <br/>
-								<s:property value="streetAddress" /> <br/>
-								<s:property value="landmark" /> 
-								<s:property value="city" /> <br/>						
-								<s:property value="stateName" /> <br/>						
-								<s:property value="pincode" /> <br/>				
-								<s:property value="phoneNumber" />
-								<hr style="border-style: dotted; border-color: #CBCBCB;">
-								<a
-									href="javascript:timedRedirect('<s:property value="addressID" />')"
-									style="text-decoration: none; padding-left: 40px">Delete
-									Address</a><br/>
+				<b>&nbsp;&nbsp;&nbsp;&nbsp;Your Saved Addresses</b> <br /> <br />
+				<s:iterator value="addressList">
+					<div class="span5" id="<s:property value="addressID" />">
+						<div class="well" style="height: 250px; width: 180px;">
+							<font style="font-size: 12px"> <b><s:property
+										value="name" /></b> <br /> <s:property value="streetAddress" />
+								<br /> <s:property value="landmark" /> <s:property value="city" />
+								<br /> <s:property value="stateName" /> <br /> <s:property
+									value="pincode" /> <br /> <s:property value="phoneNumber" />
+								<hr style="border-style: dotted; border-color: #CBCBCB;"> <a
+								href="javascript:timedRedirect('<s:property value="addressID" />')"
+								style="text-decoration: none; padding-left: 40px">Delete
+									Address</a><br />
 							</font>
-							</div>
 						</div>
-					</s:iterator>
-				 
+					</div>
+				</s:iterator>
+
 			</div>
 		</div>
 	</div>
