@@ -7,7 +7,7 @@
 <meta name="viewport"
 	content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1">
 <meta name="description" content="">
-<meta name="author" content="Team 404">
+<meta name="author" content="Team 403">
 <meta name="keywords" content="shopping">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
@@ -73,7 +73,6 @@
 	</div>
 	<div class="container">
 		<tiles:insertAttribute name="body" />
-
 	</div>
 	<div class="container">
 	<hr />
