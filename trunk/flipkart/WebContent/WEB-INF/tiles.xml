@@ -81,8 +81,21 @@
 		<put-attribute name="title" value="Flipkart.com: Addresses" />
 		<put-attribute name="body" value="/useraccount/addresses.jsp" />
 	</definition>
+	
+	<!-- ================================ Update Email ================================ -->
+	<definition name="/emailpage.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Update Email" />
+		<put-attribute name="body" value="/useraccount/emailupdate.jsp" />
+	</definition>
+	
+	<definition name="/emailresetpage.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Email Update" />
+		<put-attribute name="body" value="/useraccount/emailreset.jsp" />
+	</definition>
 
 	<!-- ******************************* End of Account Information ********************************** -->
+	
+	
 
 	<!-- ********************************Authentication*********************************************** -->
 	<!-- =======================================Recover Password====================================== -->
@@ -138,5 +151,13 @@
         <put-attribute name="body" value="/searchandbrowse/search.jsp" />
     </definition>
      <!-- ******************************* End of Search ********************************** -->
+     
+     <!-- ******************************* Cart Management by Ritu*********************************** -->
+    <definition name="/viewcart.tiles" extends="baselayout">
+        <put-attribute name="title" value="Cart" />
+        <put-attribute name="body" value="/cart/viewcart.jsp" />
+    </definition>
+    
+    <!-- ********************************* End of Cart Management ******************************** -->
 	
 </tiles-definitions>
