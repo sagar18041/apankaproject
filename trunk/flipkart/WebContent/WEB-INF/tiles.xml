@@ -44,6 +44,13 @@
 		<put-attribute name="body" value="/placeorder/shippingaddress.jsp" />
 	</definition>
 
+	<!-- ================================== Order Summary =============================== -->
+	<definition name="/ordersummary.tiles" extends="baselayout">
+		<put-attribute name="title"
+			value="Flipkart.com: Secure Payment: Login > Select Shipping Address > Review Order > Place Order" />
+		<put-attribute name="body" value="/placeorder/ordersummary.jsp" />
+	</definition>
+	
 	<!-- ================================== Payment Options =============================== -->
 	<definition name="/paymentoptions.tiles" extends="baselayout">
 		<put-attribute name="title"
