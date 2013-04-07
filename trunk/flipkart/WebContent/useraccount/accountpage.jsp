@@ -26,16 +26,13 @@
 						<li><a href='#'>Order Status</a></li>
 						<li class="dividerbottom"></li>
 
-						<li class="nav-heading">&nbsp;&nbsp;Payments</li>
-						<li class="dividertop"></li>
-						<li><a href='#'>Wallet</a></li>
-						<li class="dividerbottom"></li>
-
 						<li class="nav-heading">&nbsp;&nbsp;My Stuff</li>
 						<li class="dividertop"></li>
 						<li><a href='#'>My Wishlist</a></li>
+						<li class="divider"></li>
+						<li><a href='#'>My Ratings</a></li>
 						<li class="dividerbottom"></li>
-
+						
 						<li class="nav-heading">&nbsp;&nbsp;Settings</li>
 						<li class="dividertop"></li>
 						<li class="active"><b>&nbsp;&nbsp;&nbsp;&nbsp;Personal
@@ -45,7 +42,7 @@
 						<li class="divider"></li>
 						<li><a href='addresspage'>Addresses</a></li>
 						<li class="divider"></li>
-						<li><a href='#'>Update Email</a></li>
+						<li><a href='emailpage'>Update Email</a></li>
 						<li class="dividerbottom"></li>
 					</ul>
 				</div>
