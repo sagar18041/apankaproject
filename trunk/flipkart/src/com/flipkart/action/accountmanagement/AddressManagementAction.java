@@ -1,9 +1,11 @@
 package com.flipkart.action.accountmanagement;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.flipkart.model.accountmanagement.UserAddress;
 import com.flipkart.model.accountmanagement.UserAddressModel;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class AddressManagementAction extends ActionSupport{
@@ -20,7 +22,7 @@ public class AddressManagementAction extends ActionSupport{
 	private String shippingState;
 	private String shippingCode;
 	private String shippingPhone;
-	
+	Map sess=ActionContext.getContext().getSession();
 	
 	public int getUserID() {
 		return userID;
@@ -120,13 +122,13 @@ public class AddressManagementAction extends ActionSupport{
 	
 	
 	public String loadPage(){
-		setUserID(1);
+		setUserID(Integer.valueOf(sess.get("userID").toString()));
 		loadDetails();		
 		return SUCCESS;
 	}
 
 	public String addAddress(){
-		setUserID(1);
+		setUserID(Integer.valueOf(sess.get("userID").toString()));
 		if(!shippingName.equals("") && !shippingAddr.equals("") && !shippingCity.equals("") 
 				&& !shippingPhone.equals("") && !shippingCode.equals("") && !shippingState.equals("-1")) {
 			UserAddress ua = new UserAddress();
@@ -159,7 +161,7 @@ public class AddressManagementAction extends ActionSupport{
 	}
 	
 	public String deleteAddress(){
-		setUserID(1);
+		setUserID(Integer.valueOf(sess.get("userID").toString()));
 		int result = 0;
 		result = UserAddressModel.deleteShippingAddress(addressID, userID);
 		if(result!=0){
@@ -168,6 +170,7 @@ public class AddressManagementAction extends ActionSupport{
 		}
 		else{
 			loadDetails();
+			addActionError("Sorry the address selected by you currently has an order for which payment has not been received.");
 			return ERROR;
 		}
 	}
