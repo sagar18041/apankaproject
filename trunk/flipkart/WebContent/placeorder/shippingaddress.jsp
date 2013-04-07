@@ -24,6 +24,10 @@
 	width: 148px;
 }
 
+.custspan2 {
+  width: 200px;
+}
+
 .customdiv {
 	border-top: 1px solid #999999;
 	border-right: 1px solid #999999;
@@ -135,7 +139,7 @@
 					<hr />
 					<br />
 
-					<s:form action="payment">
+					<s:form action="ordersummary">
 
 						<s:if test="%{#checkContent==0}">
 
@@ -146,7 +150,7 @@
 								<div class="span4">
 									<font style="font-size: 12px"> <s:iterator
 											value="addressList" status="tick">
-											<a href="payment?addressid=<s:property value="addressID" />"
+											<a href="ordersummary?addressid=<s:property value="addressID" />"
 												style="text-decoration: none">
 												<div class="customdiv2"
 													onload="deactivateTick(<s:property value="#tick.count" />)"
@@ -280,13 +284,13 @@
 				Shopping Guarantee</font>
 		</div>
 
-		<div class="span2">
+		<div class="custspan2">
 			<div class="customdiv">
 				<font style="font-size: 14px; margin-left: 10px;"><b>Order
 						Summary</b>
-					<hr /> Items <font style="margin-left: 50px">:</font>&nbsp;1<br />
-					Sub Total <font style="margin-left: 22px">:</font>&nbsp;Rs. 449<br />
-					Grand Total<font style="margin-left: 12px">:</font>&nbsp;Rs. 449 </font>
+					<hr /> Items <font style="margin-left: 50px">:</font>&nbsp;<s:property value="%{noOfItems}" /><br />
+					Sub Total <font style="margin-left: 22px">:</font>&nbsp;Rs.&nbsp;<s:property value="%{subTotal}" /><br />
+					Grand Total<font style="margin-left: 12px">:</font>&nbsp;Rs.&nbsp;<s:property value="%{grandTotal}" /></font>
 			</div>
 		</div>
 	</div>
