@@ -1,8 +1,11 @@
 package com.flipkart.action.accountmanagement;
 
+import java.util.Map;
+
 import com.flipkart.model.accountmanagement.PersonalInformationModel;
 import com.flipkart.model.accountmanagement.UserPassword;
 import com.flipkart.model.accountmanagement.UserPasswordModel;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.flipkart.util.MyUtilityFunctions;
 
@@ -13,7 +16,8 @@ public class PasswordChangeAction extends ActionSupport {
 	private String oldPassword;
 	private String newPassword;
 	private String retypedPassword;
-
+	Map sess=ActionContext.getContext().getSession();
+	
 	public int getUserID() {
 		return userID;
 	}
@@ -55,14 +59,14 @@ public class PasswordChangeAction extends ActionSupport {
 	}
 
 	public String loadPage(){
-		setUserID(1);
+		setUserID(Integer.valueOf(sess.get("userID").toString()));
 		setEmailAddress(UserPasswordModel.getUserEmailAddress(userID));
 		return SUCCESS;
 	}
 
 	public String modifyPassword(){
 
-		setUserID(1);
+		setUserID(Integer.valueOf(sess.get("userID").toString()));
 		setEmailAddress(UserPasswordModel.getUserEmailAddress(userID));
 		if(oldPassword.equals("") || newPassword.equals("") || retypedPassword.equals("")){
 			addActionError("Password cannot be left empty.");

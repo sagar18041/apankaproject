@@ -1,6 +1,9 @@
 package com.flipkart.action.accountmanagement;
+import java.util.Map;
+
 import com.flipkart.model.accountmanagement.PersonalInformation;
 import com.flipkart.model.accountmanagement.PersonalInformationModel;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class PersonalInformationAction extends ActionSupport{
@@ -11,7 +14,7 @@ public class PersonalInformationAction extends ActionSupport{
 	private String mobileNumber;
 	private String gender;
 	private int genderFlag;
-	
+	Map sess=ActionContext.getContext().getSession();
 	
 	public String getFirstName() {
 		return firstName;
@@ -73,7 +76,7 @@ public class PersonalInformationAction extends ActionSupport{
 
 
 	public String displayPersonalInformation(){
-		setUserID(1);
+		setUserID(Integer.valueOf(sess.get("userID").toString()));
 		PersonalInformation pi = new PersonalInformation();
 		pi = PersonalInformationModel.getUserInformation(userID);
 		
@@ -92,7 +95,7 @@ public class PersonalInformationAction extends ActionSupport{
 	
 	public String modifyPersonalInformation(){
 		PersonalInformation pi = new PersonalInformation();
-		setUserID(1);
+		setUserID(Integer.valueOf(sess.get("userID").toString()));
 		pi.setFirstName(firstName);
 		pi.setLastName(lastName);
 		if(Integer.valueOf(gender)==1){
