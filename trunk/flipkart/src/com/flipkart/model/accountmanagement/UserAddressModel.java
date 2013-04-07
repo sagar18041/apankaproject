@@ -9,33 +9,33 @@ import com.flipkart.model.accountmanagement.UserAddress;
 import com.flipkart.util.DbConnection;
 
 public class UserAddressModel {
-	
+
 	static PreparedStatement ps=null;
 	static ResultSet rs=null;
 	static String sqlQuery="";
 	static Connection conn = null;
 
 	public static String getUserName(int userId) {
-		
+
 		String name="";
-		
+
 		sqlQuery = "select concat(firstName,' ',lastName) from flipkart_userinfo where userID=?;";
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
 			ps.setInt(1, userId);
 			rs=ps.executeQuery();
-			
+
 			while(rs.next()){
 				name=rs.getString(1);
 			}
-			
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return name;
 	}
-	
+
 	public static ArrayList<UserAddress> fetchAddrList(int userId) {
 
 		ArrayList<UserAddress> addrList = new ArrayList<UserAddress>();
@@ -127,19 +127,37 @@ public class UserAddressModel {
 		}
 		return result;
 	}
-	
+
 	public static int deleteShippingAddress(int addressId, int userId) {
 
 		int result=0;
-		sqlQuery = "delete from flipkart_shippingaddress where addressID = ? and userID = ? ;";
+
+		sqlQuery = "select orderID from flipkart_order where addressID = ? and status not in ('Payment received');";
 		try{
+			System.out.println("here");
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, addressId);
+
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				System.out.println("result set");
+				System.out.println(rs.getInt(1));
+				if((rs.getInt(1))!=0){
+					System.out.println("cant delete");
+					result=0;
+					return result;
+				}
+
+			}
+			sqlQuery = "delete from flipkart_shippingaddress where addressID = ? and userID = ? ;";
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
 			ps.setInt(1, addressId);
 			ps.setInt(2, userId);
 
 			result=ps.executeUpdate();
-
 		}catch(Exception e){
 			e.printStackTrace();
 		}
