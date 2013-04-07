@@ -74,13 +74,9 @@
 	<div class="container">
 		<tiles:insertAttribute name="body" />
 
-
-		
 	</div>
 	<div class="container">
-		<hr />
-	</div>
-	<div class="container">
+	<hr />
 		<tiles:insertAttribute name="footer" />
 	</div>
 </body>
