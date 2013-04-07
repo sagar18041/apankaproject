@@ -1,10 +1,11 @@
 package com.flipkart.action.placeorder;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.flipkart.model.cartmanagement.Cart;
 import com.flipkart.model.placeorder.Order;
+import com.flipkart.model.placeorder.OrderModel;
 import com.flipkart.model.placeorder.ShippingAddress;
 import com.flipkart.model.placeorder.ShippingAddressModel;
 import com.opensymphony.xwork2.ActionContext;
@@ -12,16 +13,25 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class PlaceOrderAction extends ActionSupport {
 
-	Map sess=ActionContext.getContext().getSession();
+	Map sess = ActionContext.getContext().getSession();
+	
+	/* used for email tab */
+	ArrayList<Cart> cartList = new ArrayList<Cart>();
 	private String emailID;
+	
+	/* used for right-side order-summary display */
+	private int noOfItems = 0;
+	private double subTotal = 0.0;
+	private double grandTotal = 0.0;
+	
+	/* used for shipping-address tab */
 	private ArrayList<ShippingAddress> addressList;
 	private ArrayList<String> existingAddrList;
 	private ArrayList<String> stateList;
-	private String addressid="0";
+	private String addressid = "0";
 	private int check = 0;
 	private String errorMsg = "";
-	
-	
+
 	/* used to save newly entered shipping address */
 	private String shippingName;
 	private String shippingAddr;
@@ -30,10 +40,13 @@ public class PlaceOrderAction extends ActionSupport {
 	private String shippingState;
 	private String shippingCode;
 	private String shippingPhone;
+
+	/* used for order summary tab */
+	private String deliveryCharge;
+	private float amountPayable = 0;
+
 	
-	
-	
-	/*****************later to be removed*************************/
+	/***************** later to be removed *************************/
 	private ArrayList<String> productList;
 
 	public ArrayList<String> getProductList() {
@@ -43,6 +56,7 @@ public class PlaceOrderAction extends ActionSupport {
 	public void setProductList(ArrayList<String> productList) {
 		this.productList = productList;
 	}
+
 	/***************************************************************/
 
 	public String getEmailID() {
@@ -77,6 +91,14 @@ public class PlaceOrderAction extends ActionSupport {
 		this.stateList = stateList;
 	}
 
+	public ArrayList<Cart> getCartList() {
+		return cartList;
+	}
+
+	public void setCartList(ArrayList<Cart> cartList) {
+		this.cartList = cartList;
+	}
+
 	public String getAddressid() {
 		return addressid;
 	}
@@ -99,6 +121,30 @@ public class PlaceOrderAction extends ActionSupport {
 
 	public void setErrorMsg(String errorMsg) {
 		this.errorMsg = errorMsg;
+	}
+
+	public int getNoOfItems() {
+		return noOfItems;
+	}
+
+	public double getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(double subTotal) {
+		this.subTotal = subTotal;
+	}
+
+	public double getGrandTotal() {
+		return grandTotal;
+	}
+
+	public void setGrandTotal(double grandTotal) {
+		this.grandTotal = grandTotal;
+	}
+
+	public void setNoOfItems(int noOfItems) {
+		this.noOfItems = noOfItems;
 	}
 
 	public String getShippingName() {
@@ -157,77 +203,147 @@ public class PlaceOrderAction extends ActionSupport {
 		this.shippingPhone = shippingPhone;
 	}
 
+	public String getDeliveryCharge() {
+		return deliveryCharge;
+	}
+
+	public void setDeliveryCharge(String deliveryCharge) {
+		this.deliveryCharge = deliveryCharge;
+	}
+
+	public float getAmountPayable() {
+		return amountPayable;
+	}
+
+	public void setAmountPayable(float amountPayable) {
+		this.amountPayable = amountPayable;
+	}
+
+	
+
 	/**********************************************************
-	 * This method is used to fetch email address of the
-	 * registered user and display the email login tab of
-	 * Place Order module.
+	 * This method is used to fetch email address of the registered user and
+	 * display the email login tab of Place Order module.
 	 **********************************************************/
 	public String fetchEmailID() {
-		
-		sess.put("emailID", "avipsa.nayak@gmail.com");
-		sess.put("userID", "1");
-		ArrayList<Integer> itemID = new ArrayList<Integer>();
-		
-		itemID.add(3);
-		sess.put("itemID", itemID);
 
-		emailID = sess.get("emailID").toString();
+		/*
+		 * to check, later to be removed
+		 */
+		sess.put("emailAddress", "avipsa.nayak@gmail.com");
+		sess.put("userID", "1");
+		ArrayList<Cart> item = new ArrayList<Cart>();
+
+		Cart cart1 = new Cart();
+		cart1.setItemID(1);
+		cart1.setQuantity(2);
+		item.add(cart1);
+
+		Cart cart2 = new Cart();
+		cart2.setItemID(2);
+		cart2.setQuantity(1);
+		item.add(cart2);
+
+		sess.put("cartItems", item);
+		/*
+		 * end of checking
+		 */
+
+		emailID = sess.get("emailAddress").toString();
+
+		// to display the right-side order summary on each tab
+		cartList.clear();
+		cartList = (ArrayList<Cart>) sess.get("cartItems");
+		for (int i = 0; i < cartList.size(); i++) {
+			noOfItems += cartList.get(i).getQuantity();
+		}
+		subTotal = OrderModel.calculateSubTotal(cartList);
+		grandTotal = subTotal;
+		if (subTotal < 500) {
+			grandTotal += 50;
+		}
 
 		return SUCCESS;
 	}
 
 	/**********************************************************
-	 * This method is used to fetch the list of all shipping
-	 * addresses of the registered user and display the shipping
-	 * address tab of the Place Order module.
+	 * This method is used to fetch the list of all shipping addresses of the
+	 * registered user and display the shipping address tab of the Place Order
+	 * module.
 	 **********************************************************/
 	public String fetchShippingAddr() {
 		int uid = Integer.parseInt(sess.get("userID").toString());
-		
+
+		// to display the right-side order summary on each tab
+		cartList.clear();
+		cartList = (ArrayList<Cart>) sess.get("cartItems");
+		for (int i = 0; i < cartList.size(); i++) {
+			noOfItems += cartList.get(i).getQuantity();
+		}
+		subTotal = OrderModel.calculateSubTotal(cartList);
+		grandTotal = subTotal;
+		if (subTotal < 500) {
+			grandTotal += 50;
+		}
+
 		addressList = new ArrayList<ShippingAddress>();
 		stateList = new ArrayList<String>();
-		existingAddrList = new ArrayList<String>();
-		
-		productList = new ArrayList<String>();
 
 		addressList = ShippingAddressModel.fetchAddrList(uid);
 		stateList = ShippingAddressModel.fetchStateList();
 
 		/*
-		 * merging the entire shipping details of the user to
-		 * show as a single string in MOS
+		 * merging the entire shipping details of the user to show as a single
+		 * string in MOS
 		 */
-		for(int i=0; i<addressList.size(); i++) {
-			existingAddrList.add(addressList.get(i).getName()+", "+addressList.get(i).getStreetAddress()+
-					", "+addressList.get(i).getCity()+", "+
-					addressList.get(i).getStateName()+", India, "+addressList.get(i).getPincode()+", "+addressList.get(i).getPhoneNumber());
+		existingAddrList = new ArrayList<String>();
+		for (int i = 0; i < addressList.size(); i++) {
+			existingAddrList.add(addressList.get(i).getName() + ", "
+					+ addressList.get(i).getStreetAddress() + ", "
+					+ addressList.get(i).getCity() + ", "
+					+ addressList.get(i).getStateName() + ", India, "
+					+ addressList.get(i).getPincode() + ", "
+					+ addressList.get(i).getPhoneNumber());
 		}
-		
+
+		productList = new ArrayList<String>();
 		productList.add("Product1");
 		productList.add("Product2");
 		productList.add("Product3");
 
-		if(!errorMsg.equals(""))
+		if (!errorMsg.equals(""))
 			addActionError(errorMsg);
-		
+
 		return SUCCESS;
 	}
 
 	/**************************************************************
-	 * This method is used save a newly entered address(if any),
-	 * save the items against their shipping addresses and redirect
-	 * to order review page.
+	 * This method is used to save a newly entered address(if any), and redirect
+	 * to order summary page.
 	 **************************************************************/
-	public String goToPayment() {
-		
+	public String fetchOrderSummary() {
+
+		// to display the right-side order summary on each tab
+		cartList.clear();
+		cartList = (ArrayList<Cart>) sess.get("cartItems");
+		for (int i = 0; i < cartList.size(); i++) {
+			noOfItems += cartList.get(i).getQuantity();
+		}
+		subTotal = OrderModel.calculateSubTotal(cartList);
+		grandTotal = subTotal;
+		if (subTotal < 500) {
+			grandTotal += 50;
+		}
+
 		/*
-		 * check if no existing shipping addresses have been selected,
-		 * ie, a new shipping address has been entered
+		 * check if no existing shipping addresses have been selected, ie, a new
+		 * shipping address has been entered
 		 */
-		if(addressid.equals("0")) {
-			if(!shippingName.equals("") && !shippingAddr.equals("") && !shippingCity.equals("") 
-					&& !shippingPhone.equals("") && !shippingCode.equals("") && !shippingState.equals("-1")) {
-				
+		if (addressid.equals("0")) {
+			if (!shippingName.equals("") && !shippingAddr.equals("")
+					&& !shippingCity.equals("") && !shippingPhone.equals("")
+					&& !shippingCode.equals("") && !shippingState.equals("-1")) {
+
 				ShippingAddress newAddr = new ShippingAddress();
 				newAddr.setName(shippingName);
 				newAddr.setStreetAddress(shippingAddr);
@@ -236,37 +352,62 @@ public class PlaceOrderAction extends ActionSupport {
 				newAddr.setStateName(shippingState);
 				newAddr.setPincode(shippingCode);
 				newAddr.setPhoneNumber(shippingPhone);
-				
+
 				/*
 				 * insert the newly entered address in the database
 				 */
-				addressid = ShippingAddressModel.insertShippingAddress(newAddr)+"";
-				
-			}
-			else {
-				
-				
+				addressid = ShippingAddressModel.insertShippingAddress(newAddr)
+						+ "";
+			} else {
 				errorMsg = "Please provide all details";
-				
+
 				return ERROR;
 			}
 		}
-		
-		int rand = 1000000 + (int)(Math.random() * ((100000000 - 1000000) + 1));
-		String orderNum = "OD"+rand;
-		
-		System.out.println("****order number****"+orderNum);
-		ArrayList<Integer> itemIDs = (ArrayList<Integer>)sess.get("itemID");
-		
-		Order newOrder = new Order();
-		newOrder.setOrderNumber(orderNum);
-		newOrder.setItemID(itemIDs.get(0));
-		newOrder.setEmailAddress(sess.get("emailID").toString());
-		newOrder.setAddressID(Integer.parseInt(addressid));
-		newOrder.setStatus("Payment not received");
-		
-		ShippingAddressModel.insertOrder(newOrder);
-		
+
+		createOrder();
+
+		for (int i = 0; i < cartList.size(); i++) {
+			amountPayable += cartList.get(i).getSubTotal();
+		}
+		if (amountPayable >= 500) {
+			setDeliveryCharge("Free");
+		} else {
+			setDeliveryCharge("50");
+		}
+
+		emailID = sess.get("emailAddress").toString();
+
+		return SUCCESS;
+	}
+
+	/**************************************************************
+	 * This method is used to save the items against their shipping addresses
+	 * and create a new order thereby.
+	 **************************************************************/
+	public void createOrder() {
+
+		/*
+		 * insert the order in the database if selected for the first time, or
+		 * update it's entry with the new shipping address if already existing
+		 */
+
+		int rand = 1000000 + (int) (Math.random() * ((100000000 - 1000000) + 1));
+		String orderNum = "OD" + rand;
+
+		for (int i = 0; i < cartList.size(); i++) {
+			Order newOrder = new Order();
+			newOrder.setOrderNumber(orderNum);
+			newOrder.setItemID(cartList.get(i).getItemID());
+			newOrder.setEmailAddress(sess.get("emailAddress").toString());
+			newOrder.setAddressID(Integer.parseInt(addressid));
+			newOrder.setStatus("Payment not received");
+
+			ShippingAddressModel.insertOrder(newOrder);
+		}
+	}
+
+	public String goToPayment() {
 		return SUCCESS;
 	}
 }
