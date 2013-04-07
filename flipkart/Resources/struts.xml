@@ -59,7 +59,6 @@
 			method="fetchShippingAddr">
 			<result name="success" type="tiles">/shippingaddress.tiles</result>
 		</action>
-
 		<action name="ordersummary" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="fetchOrderSummary">
 			<result name="success" type="tiles">/ordersummary.tiles</result>
@@ -226,6 +225,37 @@
 			method="updateCart">
 			<result name="success" type="tiles">/viewcart.tiles</result>
 		</action>
+		<action name="adminchangestatuscategory"
+			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="changeStatusCategory">
+			<result name="success" type="tiles">/adminverifycategory.tiles
+			</result>
+			<result name="error" type="tiles">/adminverifycategory.tiles</result>
+		</action>
+
+		<!-- ============================== End of System Administration =========================== -->
+
+		<!-- ************************************** Search Page ************************************ -->
+
+		<action name="searchPage" class="com.flipkart.action.searchitem.SearchItemAction">
+			<result name="success" type="chain">searchHome</result>
+		</action>
+		<action name="searchHome" class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/search.tiles</result>
+		</action>
+
+		<!-- ================================ End of search Page ===================================== -->
+
+		<!-- ******************************* Cart Management by Ritu ********************************* -->
+
+		<action name="cartDisplay" class="com.flipkart.action.cartmanagement.CartAction"
+			method="displayCart">
+			<result name="success" type="tiles">/viewcart.tiles</result>
+		</action>
+
+		<action name="updateCart" class="com.flipkart.action.cartmanagement.CartAction"
+			method="updateCart">
+			<result name="success" type="tiles">/viewcart.tiles</result>
+		</action>
 
 		<action name="deleteCart" class="com.flipkart.action.cartmanagement.CartAction"
 			method="deleteCart">
@@ -238,11 +268,30 @@
 		</action>
 
 		<!-- ******************************* End of Cart Management ********************************** -->
+
 		<!-- ******************************* Product Page by Ananda ********************************** -->
 		<action name="displayitem" class="com.flipkart.action.browseitem.ProductAction"
 			method="displayItem">
 			<result name="success" type="tiles">/displayitem.tiles</result>
 		</action>
 		<!-- ******************************* End of Product Page by ********************************** -->
-	</package>
+
+	<action name="deleteCart" class="com.flipkart.action.cartmanagement.CartAction"
+		method="deleteCart">
+		<result name="success" type="tiles">/viewcart.tiles</result>
+	</action>
+
+	<action name="moveToWishlist" class="com.flipkart.action.cartmanagement.CartAction"
+		method="moveWishlist">
+		<result name="success" type="tiles">/viewcart.tiles</result>
+	</action>
+
+	<!-- ******************************* End of Cart Management ********************************** -->
+	<!-- ******************************* Product Page by Ananda ********************************** -->
+	<action name="displayitem" class="com.flipkart.action.browseitem.ProductAction"
+		method="displayItem">
+		<result name="success" type="tiles">/displayitem.tiles</result>
+	</action>
+	<!-- ******************************* End of Product Page by ********************************** -->
+</package>
 </struts>
