@@ -131,7 +131,39 @@
 			<result name="error" type="tiles">/addresspage.tiles</result>
 		</action>
 
+
+		<!-- ================================ Update Email ================================ -->
+
+		<action name="emailpage"
+			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
+			method="loadPage">
+			<result name="success" type="tiles">/emailpage.tiles</result>
+		</action>
+
+		<action name="modifyemail"
+			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
+			method="sendResetLink">
+			<result name="success" type="tiles">/emailpage.tiles</result>
+			<result name="error" type="tiles">/emailpage.tiles</result>
+		</action>
+
+		<action name="emailupdate"
+			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
+			method="loadResetPage">
+			<result name="success" type="tiles">/emailresetpage.tiles</result>
+			<result name="error" type="tiles">/emailresetpage.tiles</result>
+		</action>
+
+		<action name="emailreset"
+			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
+			method="resetEmail">
+			<result name="success" type="tiles">/emailresetpage.tiles</result>
+			<result name="error" type="tiles">/emailresetpage.tiles</result>
+		</action>
+
 		<!-- ******************************* End of Account Information ********************************** -->
+		
+		
 
 		<!--*************************************Authentication************************************************ -->
 
@@ -182,12 +214,6 @@
 			<result name="success" type="tiles">/adminviewcategory.tiles</result>
 		</action>
 
-		<action name="adminaddcategory"
-			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="insertNewCategory">
-			<result name="success" type="tiles">/adminaddcategory.tiles</result>
-			<result name="error" type="tiles">/adminaddcategory.tiles</result>
-		</action>
-
 		<action name="adminverifycategory"
 			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="fetchVerificationCategory">
 			<result name="success" type="tiles">/adminverifycategory.tiles
@@ -201,7 +227,17 @@
 			<result name="error" type="tiles">/adminverifycategory.tiles</result>
 		</action>
 
+		<action name="adminaddcategory"
+			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="insertNewCategory">
+			<result name="success" type="tiles">/adminaddcategory.tiles</result>
+			<result name="error" type="tiles">/adminaddcategory.tiles</result>
+		</action>
 		<!-- ============================== End of System Administration =========================== -->
+
+
+
+
+
 
 		<!-- ************************************** Search Page ************************************ -->
 
@@ -275,23 +311,22 @@
 			<result name="success" type="tiles">/displayitem.tiles</result>
 		</action>
 		<!-- ******************************* End of Product Page by ********************************** -->
+		<action name="deleteCart" class="com.flipkart.action.cartmanagement.CartAction"
+			method="deleteCart">
+			<result name="success" type="tiles">/viewcart.tiles</result>
+		</action>
 
-	<action name="deleteCart" class="com.flipkart.action.cartmanagement.CartAction"
-		method="deleteCart">
-		<result name="success" type="tiles">/viewcart.tiles</result>
-	</action>
+		<action name="moveToWishlist" class="com.flipkart.action.cartmanagement.CartAction"
+			method="moveWishlist">
+			<result name="success" type="tiles">/viewcart.tiles</result>
+		</action>
 
-	<action name="moveToWishlist" class="com.flipkart.action.cartmanagement.CartAction"
-		method="moveWishlist">
-		<result name="success" type="tiles">/viewcart.tiles</result>
-	</action>
-
-	<!-- ******************************* End of Cart Management ********************************** -->
-	<!-- ******************************* Product Page by Ananda ********************************** -->
-	<action name="displayitem" class="com.flipkart.action.browseitem.ProductAction"
-		method="displayItem">
-		<result name="success" type="tiles">/displayitem.tiles</result>
-	</action>
-	<!-- ******************************* End of Product Page by ********************************** -->
-</package>
+		<!-- ******************************* End of Cart Management ********************************** -->
+		<!-- ******************************* Product Page by Ananda ********************************** -->
+		<action name="displayitem" class="com.flipkart.action.browseitem.ProductAction"
+			method="displayItem">
+			<result name="success" type="tiles">/displayitem.tiles</result>
+		</action>
+		<!-- ******************************* End of Product Page by ********************************** -->
+	</package>
 </struts>
