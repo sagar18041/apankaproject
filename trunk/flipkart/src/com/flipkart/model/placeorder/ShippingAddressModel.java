@@ -84,6 +84,7 @@ public class ShippingAddressModel {
 	 * This method is used to insert shipping address for a
 	 * particular user.
 	 * @param addr shipping address
+	 * @return addressID of the newly added address
 	 ***********************************************************/
 	public static int insertShippingAddress(ShippingAddress addr) {
 
@@ -102,8 +103,6 @@ public class ShippingAddressModel {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-
-		System.out.println("**********stateid****"+stateid);
 
 		sqlQuery = "insert into flipkart_shippingaddress(name, streetAddress, landmark, city, stateID, pincode, phoneNumber, userID) " +
 				"values(?,?,?,?,?,?,?,?);";
@@ -146,20 +145,40 @@ public class ShippingAddressModel {
 
 	public static void insertOrder(Order order) {
 
-		
-		sqlQuery = "insert into flipkart_order(orderNumber, itemID, emailAddress, addressID, status) " +
-				"values(?,?,?,?,?);";
+		sqlQuery = "select orderNumber from flipkart_order where itemID=? and emailAddress=? and status='Payment not received'";
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
-			ps.setString(1, order.getOrderNumber());
-			ps.setInt(2, order.getItemID());
-			ps.setString(3, order.getEmailAddress());
-			ps.setInt(4, order.getAddressID());
-			ps.setString(5, order.getStatus());
+			ps.setInt(1, order.getItemID());
+			ps.setString(2, order.getEmailAddress());
+			rs=ps.executeQuery();
 
-			ps.executeUpdate();
+			if(rs.next()) {
+				order.setOrderNumber(rs.getString(1));
+				sqlQuery = "update flipkart_order set addressID=? ";
 
+				conn=DbConnection.getConnection();
+				ps=conn.prepareStatement(sqlQuery);
+				ps.setInt(1, order.getAddressID());
+
+				ps.executeUpdate();
+
+			}
+			else {
+				sqlQuery = "insert into flipkart_order(orderNumber, itemID, emailAddress, addressID, status) " +
+						"values(?,?,?,?,?);";
+
+				conn=DbConnection.getConnection();
+				ps=conn.prepareStatement(sqlQuery);
+				ps.setString(1, order.getOrderNumber());
+				ps.setInt(2, order.getItemID());
+				ps.setString(3, order.getEmailAddress());
+				ps.setInt(4, order.getAddressID());
+				ps.setString(5, order.getStatus());
+
+				ps.executeUpdate();
+
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
