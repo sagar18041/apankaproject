@@ -31,26 +31,54 @@ public class AdminCategoryAction extends ActionSupport{
 	}
 
 	public String insertNewCategory(){
-		
+
 		check=0;
-		
+
 		if ( !getCategoryName().equals("") && !getCategoryName().equals(null))
 		{
-			int ret= AdminCategoryModel.insertNewCategory(getCategoryName());
-			setCategoryName("");
 
-			/*
-			 * if there was no error in insert, then send mail to Admin,
-			 * else dont send mail.
-			 */
-			if(ret == -1){
-				addActionError("Sorry some error occurred. The new category was not added.");
+			int ret;  
+			ret= AdminCategoryModel.checkExistingCategory(getCategoryName());
+
+			if(ret == 0)
+			{
+				ret= AdminCategoryModel.insertNewCategory(getCategoryName());
+				setCategoryName("");
+
+				/*
+				 * if there was no error in insert, then send mail to Admin,
+				 * else dont send mail.
+				 */
+				if(ret == -1){
+					addActionError("Sorry some error occurred. The new category was not added.");
+					check=0;
+					return ERROR;
+				}
+				else if (ret == 0){
+					check=1;
+					ret= AdminCategoryModel.insertNewCategoryPath(getCategoryName());
+					
+					if(ret == -1){
+						/* in case you were not able to insert path, 
+						 * remove category table entry too 
+						 * */
+						AdminCategoryModel.removeNewCategory(getCategoryName());
+						
+						addActionError("Sorry some error occurred. The new category was not added.");
+						check=0;
+						return ERROR;
+					}
+					else{
+						/* if the inserts were successful send the mail to admin*/
+						sendMailCategoryAddition();
+					}
+				}
+
+			}
+			else{
+				addActionError("This category already exists. Please enter another category.");
 				check=0;
 				return ERROR;
-			}
-			else if (ret == 0){
-				check=1;
-				sendMailCategoryAddition();
 			}
 		}
 		else{
@@ -80,7 +108,7 @@ public class AdminCategoryAction extends ActionSupport{
 		 * status one by one (if any selection was made)
 		 */
 		checkVerification=0;
-		
+
 		if(checkCategory != null){
 			for(int i=0;i<checkCategory.length;i++){
 				try{
