@@ -15,6 +15,10 @@
 	width: 148px;
 }
 
+.custspan2 {
+  width: 200px;
+}
+
 .customdiv {
 	border-top: 1px solid #999999;
 	border-right: 1px solid #999999;
@@ -71,13 +75,13 @@
 				Shopping Guarantee</font>
 		</div>
 
-		<div class="span2">
+		<div class="custspan2">
 			<div class="customdiv">
 				<font style="font-size: 14px; margin-left: 10px;"><b>Order
 						Summary</b>
-					<hr /> Items <font style="margin-left: 68px">:</font>&nbsp;1<br />
-					Sub Total <font style="margin-left: 40px">:</font>&nbsp;Rs. 449<br />
-					Amount Payable<font style="margin-left: 2px">:</font>&nbsp;Rs. 449 </font>
+					<hr /> Items <font style="margin-left: 68px">:</font>&nbsp;<s:property value="%{noOfItems}" /><br />
+					Sub Total <font style="margin-left: 40px">:</font>&nbsp;Rs.&nbsp;<s:property value="%{subTotal}" /><br />
+					Amount Payable<font style="margin-left: 2px">:</font>&nbsp;Rs.&nbsp;<s:property value="%{grandTotal}" /></font>
 			</div>
 		</div>
 	</div>
