@@ -57,4 +57,17 @@ public class LoginModel {
 		return 0;
 	}
 
+	public static void setStatus(int userID) {
+		sqlQuery = "UPDATE `flipkart`.`flipkart_userinfo` SET `status`= ? WHERE `userID`= ?;";
+		conn = DbConnection.getConnection();
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setInt(1, 1);
+			ps.setInt(2, userID);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
