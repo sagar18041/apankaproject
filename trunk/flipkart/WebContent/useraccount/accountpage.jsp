@@ -32,7 +32,7 @@
 						<li class="divider"></li>
 						<li><a href='#'>My Ratings</a></li>
 						<li class="dividerbottom"></li>
-						
+
 						<li class="nav-heading">&nbsp;&nbsp;Settings</li>
 						<li class="dividertop"></li>
 						<li class="active"><b>&nbsp;&nbsp;&nbsp;&nbsp;Personal
@@ -43,6 +43,8 @@
 						<li><a href='addresspage'>Addresses</a></li>
 						<li class="divider"></li>
 						<li><a href='emailpage'>Update Email</a></li>
+						<li class="divider"></li>
+						<li><a href='deactivateaccountpage'>Deactivate Account</a></li>
 						<li class="dividerbottom"></li>
 					</ul>
 				</div>
