@@ -14,7 +14,7 @@
 		redirectURL = "deleteaddress?addressID=" + value;
 		document.getElementById(value).innerHTML = "<div class='span5' align='center' style='background-color: #D4EFF8; width: 220px; height: 290px;font-size: 16px'><br><br><br><br><br><b>Deleting...</b></div>";
 		setTimeout("location.href = redirectURL;", redirectTime);
-		
+
 	}
 </script>
 
@@ -57,6 +57,8 @@
 						<li class="active"><b>&nbsp;&nbsp;&nbsp;&nbsp;Addresses</b></li>
 						<li class="divider"></li>
 						<li><a href='emailpage'>Update Email</a></li>
+						<li class="divider"></li>
+						<li><a href='deactivateaccountpage'>Deactivate Account</a></li>
 						<li class="dividerbottom"></li>
 					</ul>
 				</div>
@@ -115,8 +117,7 @@
 						<div align="center">
 							<s:iterator value="actionMessages">
 								<div class="alert alert-success">
-									<br />
-									<i class="icon-ok icon-2x"></i>&nbsp;&nbsp;
+									<br /> <i class="icon-ok icon-2x"></i>&nbsp;&nbsp;
 									<s:property />
 									<br /> <br />
 								</div>
@@ -129,8 +130,7 @@
 						<div align="center">
 							<s:iterator value="actionErrors">
 								<div class="alert alert-error">
-									<br />
-									<i class="icon-remove icon-2x"></i>&nbsp;&nbsp;
+									<br /> <i class="icon-remove icon-2x"></i>&nbsp;&nbsp;
 									<s:property />
 									<br /> <br />
 								</div>
@@ -146,9 +146,10 @@
 						<div class="well" style="height: 250px; width: 180px;">
 							<font style="font-size: 12px"> <b><s:property
 										value="name" /></b> <br /> <s:property value="streetAddress" />
-								<br /> <s:property value="landmark" /> <s:property value="city" />
-								<br /> <s:property value="stateName" /> <br /> <s:property
-									value="pincode" /> <br /> <s:property value="phoneNumber" />
+								<br /> <s:property value="landmark" /> <s:property
+									value="city" /> <br /> <s:property value="stateName" /> <br />
+								<s:property value="pincode" /> <br /> <s:property
+									value="phoneNumber" />
 								<hr style="border-style: dotted; border-color: #CBCBCB;"> <a
 								href="javascript:timedRedirect('<s:property value="addressID" />')"
 								style="text-decoration: none; padding-left: 40px">Delete
