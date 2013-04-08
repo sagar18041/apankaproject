@@ -161,9 +161,24 @@
 			<result name="error" type="tiles">/emailresetpage.tiles</result>
 		</action>
 
+		<!-- ================================ Deactivate Account ================================ -->
+		<action name="deactivateaccountpage"
+			class="com.flipkart.action.accountmanagement.DeactivateAccountAction"
+			method="init">
+			<result name="success" type="tiles">/deactivateaccount.tiles</result>
+			<result name="error" type="tiles">/deactivateaccount.tiles</result>
+		</action>
+		
+		<action name="deactivateaccount"
+			class="com.flipkart.action.accountmanagement.DeactivateAccountAction"
+			method="deactivateAccount">
+			<result name="success" type="chain">logout</result>
+			<result name="error" type="tiles">/deactivateaccount.tiles</result>
+		</action>
+
 		<!-- ******************************* End of Account Information ********************************** -->
-		
-		
+
+
 
 		<!--*************************************Authentication************************************************ -->
 
@@ -205,36 +220,40 @@
 
 		<!-- ================================== System Administration =============================== -->
 
-		<action name="adminhome" class="com.flipkart.action.systemadmincategory.AdminHomeAction">
+		<action name="adminhome"
+			class="com.flipkart.action.systemadmincategory.AdminHomeAction">
 			<result name="success" type="tiles">/adminhome.tiles</result>
 		</action>
 
 		<action name="adminviewcategory"
-			class="com.flipkart.action.systemadmincategory.AdminCategoryAction" method="fetchCategoryList">
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="fetchCategoryList">
 			<result name="success" type="tiles">/adminviewcategory.tiles</result>
 		</action>
-
 		<action name="adminaddcategory"
-			class="com.flipkart.action.systemadmincategory.AdminCategoryAction" method="insertNewCategory">
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="insertNewCategory">
 			<result name="success" type="tiles">/adminaddcategory.tiles</result>
 			<result name="error" type="tiles">/adminaddcategory.tiles</result>
 		</action>
-
 		<action name="adminverifycategory"
-			class="com.flipkart.action.systemadmincategory.AdminCategoryAction" method="fetchVerificationCategory">
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="fetchVerificationCategory">
 			<result name="success" type="tiles">/adminverifycategory.tiles
 			</result>
 		</action>
 
 		<action name="adminchangestatuscategory"
-			class="com.flipkart.action.systemadmincategory.AdminCategoryAction" method="changeStatusCategory">
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="changeStatusCategory">
 			<result name="success" type="tiles">/adminverifycategory.tiles
 			</result>
 			<result name="error" type="tiles">/adminverifycategory.tiles</result>
 		</action>
 
 		<action name="adminaddcategory"
-			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="insertNewCategory">
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="insertNewCategory">
 			<result name="success" type="tiles">/adminaddcategory.tiles</result>
 			<result name="error" type="tiles">/adminaddcategory.tiles</result>
 		</action>
@@ -268,7 +287,8 @@
 			<result name="success" type="tiles">/viewcart.tiles</result>
 		</action>
 		<action name="adminchangestatuscategory"
-			class="com.flipkart.action.systemadmincategory.AdminCategoryAction" method="changeStatusCategory">
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="changeStatusCategory">
 			<result name="success" type="tiles">/adminverifycategory.tiles
 			</result>
 			<result name="error" type="tiles">/adminverifycategory.tiles</result>
