@@ -6,7 +6,7 @@ import com.flipkart.model.placeorder.Order;
 import com.flipkart.model.placeorder.ShippingAddress;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.flipkart.model.systemadmin.*;
+import com.flipkart.model.systemadmincategory.*;
 import com.flipkart.util.EmailManager;
 import com.flipkart.util.MyLog;
 import com.flipkart.util.RuntimeSettings;
