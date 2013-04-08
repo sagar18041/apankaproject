@@ -205,23 +205,29 @@
 
 		<!-- ================================== System Administration =============================== -->
 
-		<action name="adminhome" class="com.flipkart.action.systemadmin.AdminHomeAction">
+		<action name="adminhome" class="com.flipkart.action.systemadmincategory.AdminHomeAction">
 			<result name="success" type="tiles">/adminhome.tiles</result>
 		</action>
 
 		<action name="adminviewcategory"
-			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="fetchCategoryList">
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction" method="fetchCategoryList">
 			<result name="success" type="tiles">/adminviewcategory.tiles</result>
 		</action>
 
+		<action name="adminaddcategory"
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction" method="insertNewCategory">
+			<result name="success" type="tiles">/adminaddcategory.tiles</result>
+			<result name="error" type="tiles">/adminaddcategory.tiles</result>
+		</action>
+
 		<action name="adminverifycategory"
-			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="fetchVerificationCategory">
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction" method="fetchVerificationCategory">
 			<result name="success" type="tiles">/adminverifycategory.tiles
 			</result>
 		</action>
 
 		<action name="adminchangestatuscategory"
-			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="changeStatusCategory">
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction" method="changeStatusCategory">
 			<result name="success" type="tiles">/adminverifycategory.tiles
 			</result>
 			<result name="error" type="tiles">/adminverifycategory.tiles</result>
@@ -262,7 +268,7 @@
 			<result name="success" type="tiles">/viewcart.tiles</result>
 		</action>
 		<action name="adminchangestatuscategory"
-			class="com.flipkart.action.systemadmin.AdminCategoryAction" method="changeStatusCategory">
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction" method="changeStatusCategory">
 			<result name="success" type="tiles">/adminverifycategory.tiles
 			</result>
 			<result name="error" type="tiles">/adminverifycategory.tiles</result>
