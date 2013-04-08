@@ -44,6 +44,8 @@
 						<li class="divider"></li>
 						<li class="active"><b>&nbsp;&nbsp;&nbsp;&nbsp;Update
 								Email</b></li>
+						<li class="divider"></li>
+						<li><a href='deactivateaccountpage'>Deactivate Account</a></li>
 						<li class="dividerbottom"></li>
 					</ul>
 				</div>
@@ -112,12 +114,14 @@
 				</div>
 
 				<div class="span 6">
-					<br/><br/>
+					<br />
+					<br />
 					<h5>
 						<b>What happens when the Email ID is updated?</b>
 					</h5>
 					<ul>
-						<li><font style="size: 10px">Wallet balance is transferred to the new account</font></li>
+						<li><font style="size: 10px">Wallet balance is
+								transferred to the new account</font></li>
 						<li>Your order history is available under the new account</li>
 						<li>Your wishlist items are associated with the new account's
 							URL. The list's previous hyperlink is cleared</li>
