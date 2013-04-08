@@ -29,19 +29,19 @@ public class LoginAction extends ActionSupport {
 		this.password = password;
 	}
 
-	
 	@SuppressWarnings("rawtypes")
 	Map session = ActionContext.getContext().getSession();
-	
+
 	@SuppressWarnings("unchecked")
 	public String login() {
 		MyLog.log("LoginAction: login()");
 		if (LoginModel.isAuthentic(emailAddress,
 				MyUtilityFunctions.generateMD5(password))) {
-			
+
 			session.put("login", true);
 			session.put("userID", LoginModel.getUserID(emailAddress));
 			session.put("emailAddress", emailAddress);
+			LoginModel.setStatus(LoginModel.getUserID(emailAddress));
 			return SUCCESS;
 		} else {
 			MyLog.log("Incorrect email address/password.");
