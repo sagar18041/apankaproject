@@ -45,6 +45,8 @@
 						<li><a href='addresspage'>Addresses</a></li>
 						<li class="divider"></li>
 						<li><a href='emailpage'>Update Email</a></li>
+						<li class="divider"></li>
+						<li><a href='deactivateaccountpage'>Deactivate Account</a></li>
 						<li class="dividerbottom"></li>
 					</ul>
 				</div>
