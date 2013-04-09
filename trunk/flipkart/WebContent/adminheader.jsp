@@ -33,7 +33,6 @@
 			<ul class="nav nav-pills">
 				<s:if test="#session['login']==null">
 					<li><a href="adminlogininit" style="color: white;">Login</a></li>
-					<li><a href="#" style="color: white;">Signup</a></li>
 				</s:if>
 				<s:if test="#session['login']==true">
 					<li id="li_home"><a href="adminhome" style="color: white;">Home</a></li>
