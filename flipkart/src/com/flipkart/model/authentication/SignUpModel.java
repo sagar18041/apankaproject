@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.flipkart.util.DbConnection;
-import com.flipkart.util.MyLog;
 
 public class SignUpModel {
 
@@ -23,12 +22,10 @@ public class SignUpModel {
 
 		sqlQuery = "select emailAddress from flipkart.flipkart_userinfo "
 				+ "where emailAddress = ?;";
-		MyLog.log("Query: " + sqlQuery);
 		conn = DbConnection.getConnection();
 		try {
 			ps = conn.prepareStatement(sqlQuery);
 			ps.setString(1, emailAddress);
-			MyLog.log("after prepared statement");
 			rs = ps.executeQuery();
 			if (rs.next())
 				return true;
@@ -43,14 +40,12 @@ public class SignUpModel {
 	public static void createAccount(String emailAddress, String password) {
 		sqlQuery = "INSERT INTO `flipkart`.`flipkart_userinfo`"
 				+ " (`password`, `emailAddress`, `role`) VALUES (?,?,?);";
-		MyLog.log("Query: " + sqlQuery);
 		conn = DbConnection.getConnection();
 		try {
 			ps = conn.prepareStatement(sqlQuery);
 			ps.setString(1, password);
 			ps.setString(2, emailAddress);
 			ps.setInt(3, 0);
-			MyLog.log("after prepared statement");
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
