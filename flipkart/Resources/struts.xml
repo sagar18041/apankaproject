@@ -165,7 +165,8 @@
 			<result name="success" type="tiles">/emailresetpage.tiles</result>
 			<result name="error" type="tiles">/emailresetpage.tiles</result>
 		</action>
-
+		
+		
 		<!-- ================================ Deactivate Account ================================ -->
 		<action name="deactivateaccountpage"
 			class="com.flipkart.action.accountmanagement.DeactivateAccountAction"
@@ -181,6 +182,29 @@
 			<result name="error" type="tiles">/deactivateaccount.tiles</result>
 		</action>
 
+
+		<!-- ================================ Order History ================================ -->
+		<action name="vieworders"
+			class="com.flipkart.action.accountmanagement.OrderHistoryAction"
+			method="loadPage">
+			<result name="success" type="tiles">/orderhistorypage.tiles</result>
+		</action>
+		
+		<!-- ================================ Order Status ================================ -->
+		<action name="vieworderstatus"
+			class="com.flipkart.action.accountmanagement.OrderDetailsAction"
+			method="loadStatusPage">
+			<result name="success" type="tiles">/orderstatuspage.tiles</result>
+		</action>
+		
+		<!-- ================================ Order Details ================================ -->
+		<action name="vieworderdetails"
+			class="com.flipkart.action.accountmanagement.OrderDetailsAction"
+			method="loadPage">
+			<result name="success" type="tiles">/orderdetailspage.tiles</result>
+			<result name="error" type="tiles">/orderstatuspage.tiles</result>
+		</action>
+		
 		<!-- ******************************* End of Account Information ********************************** -->
 
 
