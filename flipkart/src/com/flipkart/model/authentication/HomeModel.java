@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.flipkart.util.DbConnection;
-import com.flipkart.util.MyLog;
 
 /**
  * @author bril
@@ -27,11 +26,11 @@ public class HomeModel {
 		ArrayList<String> categoryList  = new ArrayList<String>();
 		sqlQuery = "select categoryName from flipkart_category where level = ?;";
 		try{
-			MyLog.log("SQL = " + sqlQuery);
+			//MyLog.log("SQL = " + sqlQuery);
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
 			ps.setInt(1, 0);
-			MyLog.log("after prepared statement");
+			//MyLog.log("after prepared statement");
 			rs=ps.executeQuery();
 			
 			while(rs.next()){
@@ -54,10 +53,8 @@ public class HomeModel {
 		sqlQuery = "select fc.categoryName, fp.categoryID, fp.parentID, fp.level " +
 				"from flipkart_category fc, flipkart_path fp where fc.categoryID = fp.categoryID;";
 		try{
-			MyLog.log("SQL = " + sqlQuery);
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
-			MyLog.log("after prepared statement");
 			rs=ps.executeQuery();
 			while(rs.next()){
 				
