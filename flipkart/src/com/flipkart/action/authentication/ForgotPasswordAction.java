@@ -5,7 +5,6 @@ import java.util.Map;
 import com.flipkart.model.authentication.ForgotPasswordModel;
 import com.flipkart.model.authentication.SignUpModel;
 import com.flipkart.util.EmailManager;
-import com.flipkart.util.MyLog;
 import com.flipkart.util.RuntimeSettings;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -72,10 +71,8 @@ public class ForgotPasswordAction extends ActionSupport {
 			if (EmailManager.sendMail(emailAddress, messageSubject,
 					messageBody, RuntimeSettings.smtpFrom,
 					RuntimeSettings.smtpPassword)) {
-				MyLog.log("Email Sent.");
 				return SUCCESS;
 			} else {
-				MyLog.log("Error in sending email.");
 				System.out.println("returning error 1");
 				session.put("hasErrors", 1);
 				session.put("errorForm", "forgotpassword");
@@ -94,11 +91,8 @@ public class ForgotPasswordAction extends ActionSupport {
 
 	public String validateLink() {
 
-		MyLog.log("inside validateLink: " + requestID);
-
 		if (ForgotPasswordModel.isValidLink(requestID)) {
 			emailAddress = ForgotPasswordModel.getEmailAddress(requestID);
-			MyLog.log("inside validateLink: " + emailAddress);
 			return SUCCESS;
 		}
 		return ERROR;
@@ -106,9 +100,6 @@ public class ForgotPasswordAction extends ActionSupport {
 	}
 
 	public String resetPassword() {
-		MyLog.log("Inside resetPassword:");
-		MyLog.log("emailAddress: " + emailAddress);
-		MyLog.log("password: " + newPassword);
 		ForgotPasswordModel.resetPassword(emailAddress, newPassword);
 		ForgotPasswordModel.deleteIfPresent(emailAddress);
 		return SUCCESS;
