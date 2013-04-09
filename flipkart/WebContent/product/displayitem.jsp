@@ -66,19 +66,19 @@
 					<span
 						class="rating-static rating-<s:property value="finalRating"/>0"></span>
 					<img src="ViewResources/img/wishlist.png" />
-					<a href="#" />Add to wishlist link here</a>
-					<hr />
+					<a href="#" />Add to wishlist</a>
+					
 					<!-- Product ID<s:property value="productID"/><br />  -->
 					<s:hidden name="itemID" value="%{itemID}" />
 					<s:hidden name="itemName" value="%{itemName}" />
 
 				</s:iterator>
 
-				<hr />
+				
 				<s:iterator value="attrib" var="attrwarranty">
 					<s:if test="%{#attrwarranty.attribute=='warrantydetails'}">
 						<hr />
-						<s:property value="#attrwarranty.value" />
+						<font size="2"><s:property value="#attrwarranty.value" /></font>
 						<hr />
 					</s:if>
 
@@ -122,19 +122,18 @@
 								value="Buy This Now"></s:submit>
 						</div>
 					</div>
-					<div class="span3">
+					<!--  <div class="span3">
 						<div class="well">
 							<font size="2" color="#848484">with an option to pay <br />
 								<b>Cash on Delivery</b></font>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
-
+	
 
 
 			<!-- End of Product Main Details -->
-		</div>
 		<hr />
 
 		<div class="row-fluid">
