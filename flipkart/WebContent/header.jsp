@@ -424,7 +424,7 @@ function changeSearch()
 					</select>
 					
 					 <span class="add-on" ><i class="icon-search"></i></span>
-					</select> <span class="add-on"><i class="icon-search"></i></span>
+					
 				</div>
 			</div>
 		</s:form>
