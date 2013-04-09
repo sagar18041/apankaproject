@@ -268,13 +268,26 @@
 			method="init">
 			<result name="success" type="tiles">/adminlogin.tiles</result>
 		</action>
-		
+
 		<action name="adminlogin"
 			class="com.flipkart.action.systemadminauthentication.AdminLoginAction"
 			method="login">
 			<result name="success" type="chain">adminhome</result>
 			<result name="error" type="tiles">/adminlogin.tiles</result>
 		</action>
+
+		<!-- ============================== Bank Begin (Aamir) =========================== -->
+
+		<action name="netbankingviewentries" class="com.flipkart.action.bank.NetBankingAction"
+			method="viewEntries">
+			<result name="success" type="tiles">/netbankingviewentries.tiles
+			</result>
+			<result name="error" type="tiles">/netbankingviewentries.tiles
+			</result>
+		</action>
+
+		<!-- ============================== Bank End (Aamir) =========================== -->
+
 		<!-- ============================== End of System Administration =========================== -->
 
 
@@ -321,41 +334,35 @@
 
 		<!-- ============================== End of System Administration =========================== -->
 
-		       <!-- ************************************** Search Page ************************************ -->
-               
-                <action name="searchPage"
-                        class="com.flipkart.action.searchitem.SearchItemAction">
-                                <result name="success" type="chain">searchHome</result>
-                                <result name="error" type="chain">searchErrorHome</result>
-                                
-                </action>
-                <action name="searchHome"
-                        class="com.flipkart.action.authentication.HomeAction">
-                        <result name="success" type="tiles">/search.tiles</result>
-                </action>
-                <action name="searchErrorHome"
-                        class="com.flipkart.action.authentication.HomeAction">
-                        <result name="success" type="tiles">/searchError.tiles</result>
-                </action>
-                
-               
-                <!-- ================================ End of search Page ===================================== -->
-                <!-- ************************************** Browse Page ************************************ -->
-                <action name="browseCategory"
-                        class="com.flipkart.action.browseitem.BrowseItemsAction"
-                        method="browseOnCategory">
-                                <result name="success" type="chain">searchBrowse</result>   
-                </action>
-                <action name="searchBrowse"
-                        class="com.flipkart.action.authentication.HomeAction">
-                        <result name="success" type="tiles">/browse.tiles</result>
-                </action>
-                <action name="browseSubCategory"
-                        class="com.flipkart.action.browseitem.BrowseItemsAction"
-                        method="browseOnSubCategory">
-                                <result name="success" type="chain">searchBrowse</result>   
-                </action>
-                 <!-- ================================ End of Browse Page ===================================== -->
+		<!-- ************************************** Search Page ************************************ -->
+
+		<action name="searchPage" class="com.flipkart.action.searchitem.SearchItemAction">
+			<result name="success" type="chain">searchHome</result>
+			<result name="error" type="chain">searchErrorHome</result>
+
+		</action>
+		<action name="searchHome" class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/search.tiles</result>
+		</action>
+		<action name="searchErrorHome" class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/searchError.tiles</result>
+		</action>
+
+
+		<!-- ================================ End of search Page ===================================== -->
+		<!-- ************************************** Browse Page ************************************ -->
+		<action name="browseCategory" class="com.flipkart.action.browseitem.BrowseItemsAction"
+			method="browseOnCategory">
+			<result name="success" type="chain">searchBrowse</result>
+		</action>
+		<action name="searchBrowse" class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/browse.tiles</result>
+		</action>
+		<action name="browseSubCategory" class="com.flipkart.action.browseitem.BrowseItemsAction"
+			method="browseOnSubCategory">
+			<result name="success" type="chain">searchBrowse</result>
+		</action>
+		<!-- ================================ End of Browse Page ===================================== -->
 
 		<!-- ******************************* Cart Management by Ritu ********************************* -->
 
@@ -411,6 +418,6 @@
 			<result name="success" type="tiles">/displayitem.tiles</result>
 		</action>
 		<!-- ******************************* End of Product Page by ********************************** -->
-		
+
 	</package>
 </struts>
