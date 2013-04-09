@@ -21,7 +21,7 @@
 						<li class="nav-head">&nbsp;My Account</li>
 						<li class="nav-heading">&nbsp;&nbsp;Orders</li>
 						<li class="dividertop"></li>
-						<li><a href='#'>My Orders</a></li>
+						<li><a href='vieworders'>My Orders</a></li>
 						<li class="divider"></li>
 						<li><a href='#'>Order Status</a></li>
 						<li class="dividerbottom"></li>
@@ -89,7 +89,7 @@
 
 									<td
 										style='text-align: left; vertical-align: middle; font-size: 14px'>
-										<s:select theme="simple" list="#{'1':'Male', '2':'Female'}"
+										<s:select theme="simple" list="#{'0':'Select','1':'Male', '2':'Female'}"
 											name="gender" value="genderFlag" />
 									</td>
 								</tr>
