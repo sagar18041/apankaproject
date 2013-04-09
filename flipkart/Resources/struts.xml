@@ -168,7 +168,7 @@
 			<result name="success" type="tiles">/deactivateaccount.tiles</result>
 			<result name="error" type="tiles">/deactivateaccount.tiles</result>
 		</action>
-		
+
 		<action name="deactivateaccount"
 			class="com.flipkart.action.accountmanagement.DeactivateAccountAction"
 			method="deactivateAccount">
@@ -256,6 +256,19 @@
 			method="insertNewCategory">
 			<result name="success" type="tiles">/adminaddcategory.tiles</result>
 			<result name="error" type="tiles">/adminaddcategory.tiles</result>
+		</action>
+
+		<action name="adminlogininit"
+			class="com.flipkart.action.systemadminauthentication.AdminLoginAction"
+			method="init">
+			<result name="success" type="tiles">/adminlogin.tiles</result>
+		</action>
+		
+		<action name="adminlogin"
+			class="com.flipkart.action.systemadminauthentication.AdminLoginAction"
+			method="login">
+			<result name="success" type="chain">adminhome</result>
+			<result name="error" type="tiles">/adminlogin.tiles</result>
 		</action>
 		<!-- ============================== End of System Administration =========================== -->
 
