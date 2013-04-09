@@ -121,17 +121,17 @@
 
 	<definition name="/adminhome.tiles" extends="baselayout">
 		<put-attribute name="title" value="Flipkart.com: Admin Home Page" />
-		<put-attribute name="body" value="/systemadmin/adminhome.jsp" />
+		<put-attribute name="body" value="/systemadminCategory/adminhome.jsp" />
 	</definition>
 
 	<definition name="/adminviewcategory.tiles" extends="baselayout">
 		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body" value="/systemadmin/viewcategory.jsp" />
+		<put-attribute name="body" value="/systemadminCategory/viewcategory.jsp" />
 	</definition>
 
 	<definition name="/adminaddcategory.tiles" extends="baselayout">
 		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body" value="/systemadmin/addcategory.jsp" />
+		<put-attribute name="body" value="/systemadminCategory/addcategory.jsp" />
 	</definition>
 
 	<definition name="/adminmodifycategory.tiles" extends="baselayout">
@@ -140,7 +140,7 @@
 	</definition>
 	<definition name="/adminverifycategory.tiles" extends="baselayout">
 		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body" value="/systemadmin/verifycategory.jsp" />
+		<put-attribute name="body" value="/systemadminCategory/verifycategory.jsp" />
 	</definition>
 
 	<!-- ============================== End of System Administration =========================== -->
