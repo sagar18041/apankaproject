@@ -68,6 +68,11 @@
 			</result>
 		</action>
 
+		<action name="deleteitem" class="com.flipkart.action.placeorder.PlaceOrderAction"
+			method="deleteItemFromCart">
+			<result name="success" type="tiles">/ordersummary.tiles</result>
+		</action>
+
 		<action name="payment" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="goToPayment">
 			<result name="success" type="tiles">/paymentoptions.tiles</result>
@@ -290,14 +295,21 @@
 
 		<!-- ******************************* Cart Management by Ritu ********************************* -->
 
+		<action name="addToCart" class="com.flipkart.action.cartmanagement.CartAction"
+			method="addToCart">
+			<result name="success" type="chain">cartDisplay</result>
+			<result name="error" type="tiles">/carterror.tiles</result>
+		</action>
+
 		<action name="cartDisplay" class="com.flipkart.action.cartmanagement.CartAction"
 			method="displayCart">
 			<result name="success" type="tiles">/viewcart.tiles</result>
+			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
 
 		<action name="updateCart" class="com.flipkart.action.cartmanagement.CartAction"
 			method="updateCart">
-			<result name="success" type="tiles">/viewcart.tiles</result>
+			<result name="success" type="chain">cartDisplay</result>
 		</action>
 		<action name="adminchangestatuscategory"
 			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
@@ -359,15 +371,39 @@
 
 		<action name="deleteCart" class="com.flipkart.action.cartmanagement.CartAction"
 			method="deleteCart">
-			<result name="success" type="tiles">/viewcart.tiles</result>
+			<result name="success" type="chain">cartDisplay</result>
 		</action>
 
 		<action name="moveToWishlist" class="com.flipkart.action.cartmanagement.CartAction"
 			method="moveWishlist">
-			<result name="success" type="tiles">/viewcart.tiles</result>
+			<result name="success" type="chain">cartDisplay</result>
+		</action>
+		<action name="viewwishlist" class="com.flipkart.action.wishlist.WishlistAction"
+			method="viewWishlist">
+			<result name="success" type="tiles">/viewWishlist.tiles</result>
+			<result name="error" type="tiles">/carterror.tiles</result>
+		</action>
+		<action name="removeFromwishlist" class="com.flipkart.action.wishlist.WishlistAction"
+			method="removeFromWishlist">
+			<result name="success" type="redirect">viewwishlist</result>
+		</action>
+		<action name="addToWishlist" class="com.flipkart.action.wishlist.WishlistAction"
+			method="addToWishlist">
+			<result name="success" type="chain">viewwishlist</result>
+			<result name="error" type="tiles">/carterror.tiles</result>
+		</action>
+		<action name="addToCartFromWishlist" class="com.flipkart.action.cartmanagement.CartAction"
+			method="addToCartFromWishlist">
+			<result name="success" type="chain">cartDisplay</result>
+		</action>
+		<action name="sortByValue" class="com.flipkart.action.wishlist.WishlistAction"
+			method="viewWishlist">
+			<result name="success" type="chain">viewwishlist</result>
 		</action>
 
+
 		<!-- ******************************* End of Cart Management ********************************** -->
+
 
 		<!-- ******************************* Product Page by Ananda ********************************** -->
 		<action name="displayitem" class="com.flipkart.action.browseitem.ProductAction"
@@ -375,22 +411,6 @@
 			<result name="success" type="tiles">/displayitem.tiles</result>
 		</action>
 		<!-- ******************************* End of Product Page by ********************************** -->
-		<action name="deleteCart" class="com.flipkart.action.cartmanagement.CartAction"
-			method="deleteCart">
-			<result name="success" type="tiles">/viewcart.tiles</result>
-		</action>
-
-		<action name="moveToWishlist" class="com.flipkart.action.cartmanagement.CartAction"
-			method="moveWishlist">
-			<result name="success" type="tiles">/viewcart.tiles</result>
-		</action>
-
-		<!-- ******************************* End of Cart Management ********************************** -->
-		<!-- ******************************* Product Page by Ananda ********************************** -->
-		<action name="displayitem" class="com.flipkart.action.browseitem.ProductAction"
-			method="displayItem">
-			<result name="success" type="tiles">/displayitem.tiles</result>
-		</action>
-		<!-- ******************************* End of Product Page by ********************************** -->
+		
 	</package>
 </struts>
