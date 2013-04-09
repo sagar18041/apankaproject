@@ -3,7 +3,6 @@ package com.flipkart.action.authentication;
 import java.util.Map;
 
 import com.flipkart.model.authentication.LoginModel;
-import com.flipkart.util.MyLog;
 import com.flipkart.util.MyUtilityFunctions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -34,7 +33,6 @@ public class LoginAction extends ActionSupport {
 
 	@SuppressWarnings("unchecked")
 	public String login() {
-		MyLog.log("LoginAction: login()");
 		if (LoginModel.isAuthentic(emailAddress,
 				MyUtilityFunctions.generateMD5(password))) {
 
@@ -44,7 +42,6 @@ public class LoginAction extends ActionSupport {
 			LoginModel.setStatus(LoginModel.getUserID(emailAddress));
 			return SUCCESS;
 		} else {
-			MyLog.log("Incorrect email address/password.");
 			addActionError("Incorrect email address/password.");
 			session.put("hasErrors", 1);
 			session.put("errorForm", "login");
