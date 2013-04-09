@@ -26,10 +26,8 @@ public class DbManager {
 	 */
 	public static ResultSet selectFromDB(String sql){
 		try{
-			MyLog.log("SQL = " + sql);
 			conn = DbConnection.getConnection();
 			pst = conn.prepareStatement(sql);
-			MyLog.log("after prepared statement");
 			rs = pst.executeQuery();
 			return rs;
 		}
@@ -49,12 +47,10 @@ public class DbManager {
 	 * @throws SQLException
 	 */
 	public static int insertIntoDb(String sql) throws SQLException{
-		MyLog.log("insert into table");
 		 conn = null;
 		
 		int flag = 1;
 		try{
-			MyLog.log("SQL = " + sql);
 			conn = DbConnection.getConnection();
 			pst = conn.prepareStatement(sql);
 			pst.executeUpdate();
@@ -77,11 +73,9 @@ public class DbManager {
 	 * @throws SQLException
 	 */
 	public static int updateTable(String sql) throws SQLException{
-		MyLog.log("update table");
 		 conn = null;
 		int flag = 1;
 		try{
-			MyLog.log("SQL = " + sql);
 			conn = DbConnection.getConnection();
 			pst = conn.prepareStatement(sql);
 			pst.executeUpdate();
@@ -90,7 +84,6 @@ public class DbManager {
 		catch(Exception ex){
 			ex.printStackTrace();
 			flag = 0;
-			MyLog.log("update exception occured");
 			return flag;
 		}
 	}
