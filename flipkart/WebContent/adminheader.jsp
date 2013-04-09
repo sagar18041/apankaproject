@@ -32,7 +32,7 @@
 		<div class="pull-right">
 			<ul class="nav nav-pills">
 				<s:if test="#session['login']==null">
-					<li><a href="#" style="color: white;">Login</a></li>
+					<li><a href="adminlogininit" style="color: white;">Login</a></li>
 					<li><a href="#" style="color: white;">Signup</a></li>
 				</s:if>
 				<s:if test="#session['login']==true">
