@@ -18,7 +18,7 @@
 	function Blank_TextField_Validator() {
 
 		if (InsertNetBankingEntry.accountNumber.value == "") {
-			alert("Please select account number from the lookup.");			
+			alert("Please select account number from the lookup.");
 			return (false);
 		}
 
@@ -34,11 +34,17 @@
 </head>
 <body onload="hide()">
 	<br />
-	<br />
+
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span10 offset1">
-				<font size="5"><b>Net Banking Customers</b></font> <br /> <br />
+
+				<div align="center">
+					<font size="5"><b>Net Banking Customers</b></font> <br /> <br />
+				</div>
+
+				<br />
+
 				<table
 					class="table table-bordered table-condensed table-hover table-striped">
 					<tr>
@@ -48,7 +54,7 @@
 								Number</font></th>
 						<th style="text-align: center"><font size="3">Balance</font></th>
 						<th style="text-align: center"><font size="3">Delete</font></th>
-						<th style="text-align: center"><font size="3">Edit</font></th>
+						<th style="text-align: center"><font size="3">Reset</font></th>
 					</tr>
 					<s:iterator value="recordList">
 						<tr>
@@ -63,9 +69,9 @@
 									<i class="icon-trash"></i>
 							</a></td>
 							<td style="text-align: center"><a
-								href="EditNetBankingEntry?accountNumber=<s:property
+								href="ResetNetBankingEntry?accountNumber=<s:property
 									value="accountNumber" />">
-									<i class="icon-edit"></i>
+									<i class="icon-repeat"></i>
 							</a></td>
 						</tr>
 					</s:iterator>
