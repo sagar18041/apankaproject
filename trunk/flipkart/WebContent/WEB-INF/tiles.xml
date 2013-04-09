@@ -92,7 +92,7 @@
 		<put-attribute name="title" value="Flipkart.com: Email Update" />
 		<put-attribute name="body" value="/useraccount/emailreset.jsp" />
 	</definition>
-	
+
 	<!-- ================================ Deactivate Account ================================ -->
 	<definition name="/deactivateaccount.tiles" extends="baselayout">
 		<put-attribute name="title" value="Flipkart.com: Deactivate Account" />
@@ -126,12 +126,14 @@
 
 	<definition name="/adminviewcategory.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body" value="/systemadminCategory/viewcategory.jsp" />
+		<put-attribute name="body"
+			value="/systemadminCategory/viewcategory.jsp" />
 	</definition>
 
 	<definition name="/adminaddcategory.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body" value="/systemadminCategory/addcategory.jsp" />
+		<put-attribute name="body"
+			value="/systemadminCategory/addcategory.jsp" />
 	</definition>
 
 	<definition name="/adminmodifycategory.tiles" extends="adminlayout">
@@ -140,7 +142,13 @@
 	</definition>
 	<definition name="/adminverifycategory.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body" value="/systemadminCategory/verifycategory.jsp" />
+		<put-attribute name="body"
+			value="/systemadminCategory/verifycategory.jsp" />
+	</definition>
+
+	<definition name="/adminlogin.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Login" />
+		<put-attribute name="body" value="/SystemAdmin/adminlogin.jsp" />
 	</definition>
 
 	<!-- ============================== End of System Administration =========================== -->
