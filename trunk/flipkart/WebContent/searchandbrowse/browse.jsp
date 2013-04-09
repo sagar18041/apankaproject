@@ -64,63 +64,19 @@
 </style>
 </head>
 <body>
-
-
-<div class="row">
-	<div class="span3">
-	<div class="acct">
-					<!--  ************* Start of Side Category Box****************** -->
-					<ul class="nav nav-list">
-						<li class="nav-head">&nbsp;Select a Category</li>
-						<li class="nav-heading">&nbsp;&nbsp;All Categories</li>
-						<li class="dividertop"></li>
-						<li><s:iterator value="searchCatg">
-							<li><a href='#'><s:property value="categoryName"/> ( <s:property value="noOfItems"/> ) </a></li>
-							<li class="divider"></li>
-						</s:iterator>
-						</li>
-						<li class="dividerbottom"></li>
-						
-					</ul>
-				</div>
-				<!-- ************* End of category Box**************** -->
-				<br/>
-		<ul class="thumbnails">
- 		<li class="span3">
-    	<div align="center" class="thumbnail">
-    	<h5>Product Category</h5>
-      	<img src="ViewResources/img/1.jpg" alt=""><br />
-     	<a href="#">Item Name</a><br /><font color="#B40404"><b>Rs. 500</b></font><br />
-     	<a href="#">Link to product category &rsaquo;&rsaquo;</a>
-    	</div>
-  		</li>
-  		<li class="span3">
-    	<div align="center" class="thumbnail">
-    	<h5>Product Category</h5>
-      	<img src="ViewResources/img/2.jpg" alt=""><br />
-     	<a href="#">Item Name</a><br /><font color="#B40404"><b>Rs. 500</b></font><br />
-     	<a href="#">Link to product category &rsaquo;&rsaquo;</a>
-    	</div>
-  		</li>
-		</ul>
-	</div>
-	<div class="span9">
-	<div class="row">
-	
-</div>
-
+<div>
 <!-- ************ Code for Item Display **************** -->
-<div style="width:870px;">
-<s:iterator value="catItems">
+<div style="width:1170px;height:500px;">
+
 
  <div style="background-color:#E9E9E9; padding:2px 5px 5px 5px;
   height:30px; border-bottom-style:solid; border-bottom-width:5px; border-bottom-color:#C78407; ">
 <div><h5><a href=""><s:property value="key"/></a></h5></div>
 </div>
-<div  style="width:870px; overflow:auto;">
+<div  style="width:1170px; overflow:auto;">
 <table>
 	<tr>
-	<s:iterator value="value">
+	<s:iterator value="searchAttr">
 	<td>
 <div class="span3" style="margin-top:10px; margin-bottom:10px">
 <div class="span2">
@@ -140,18 +96,10 @@
 
 </div>
 <br /><br />
-</s:iterator>
+
 </div>
 
 <!-- ************ End Of Code for Item Display **************** -->
-
-
-</div>
-</div>
-
-<br /><br />
-<div style="border-style:solid; border-color:#E9E9E9; border-width:1px;" class="row">
-recomendation will here
 </div>
 </body>
 </html>
