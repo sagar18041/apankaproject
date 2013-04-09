@@ -14,16 +14,16 @@ import com.opensymphony.xwork2.ActionSupport;
 public class PlaceOrderAction extends ActionSupport {
 
 	Map sess = ActionContext.getContext().getSession();
-	
+
 	/* used for email tab */
 	ArrayList<Cart> cartList = new ArrayList<Cart>();
 	private String emailID;
-	
+
 	/* used for right-side order-summary display */
 	private int noOfItems = 0;
 	private double subTotal = 0.0;
 	private double grandTotal = 0.0;
-	
+
 	/* used for shipping-address tab */
 	private ArrayList<ShippingAddress> addressList;
 	private ArrayList<String> existingAddrList;
@@ -44,8 +44,9 @@ public class PlaceOrderAction extends ActionSupport {
 	/* used for order summary tab */
 	private String deliveryCharge;
 	private float amountPayable = 0;
+	private int itemID;
+	private String itemDeleted = "";
 
-	
 	/***************** later to be removed *************************/
 	private ArrayList<String> productList;
 
@@ -219,35 +220,27 @@ public class PlaceOrderAction extends ActionSupport {
 		this.amountPayable = amountPayable;
 	}
 
-	
+	public int getItemID() {
+		return itemID;
+	}
 
-	/**********************************************************
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
+	}
+
+	public String getItemDeleted() {
+		return itemDeleted;
+	}
+
+	public void setItemDeleted(String itemDeleted) {
+		this.itemDeleted = itemDeleted;
+	}
+
+	/************************************************************************
 	 * This method is used to fetch email address of the registered user and
 	 * display the email login tab of Place Order module.
-	 **********************************************************/
+	 ************************************************************************/
 	public String fetchEmailID() {
-
-		/*
-		 * to check, later to be removed
-		 */
-		sess.put("emailAddress", "avipsa.nayak@gmail.com");
-		sess.put("userID", "1");
-		ArrayList<Cart> item = new ArrayList<Cart>();
-
-		Cart cart1 = new Cart();
-		cart1.setItemID(1);
-		cart1.setQuantity(2);
-		item.add(cart1);
-
-		Cart cart2 = new Cart();
-		cart2.setItemID(2);
-		cart2.setQuantity(1);
-		item.add(cart2);
-
-		sess.put("cartItems", item);
-		/*
-		 * end of checking
-		 */
 
 		emailID = sess.get("emailAddress").toString();
 
@@ -266,11 +259,11 @@ public class PlaceOrderAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	/**********************************************************
+	/**************************************************************************
 	 * This method is used to fetch the list of all shipping addresses of the
 	 * registered user and display the shipping address tab of the Place Order
 	 * module.
-	 **********************************************************/
+	 **************************************************************************/
 	public String fetchShippingAddr() {
 		int uid = Integer.parseInt(sess.get("userID").toString());
 
@@ -317,12 +310,11 @@ public class PlaceOrderAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	/**************************************************************
+	/****************************************************************************
 	 * This method is used to save a newly entered address(if any), and redirect
 	 * to order summary page.
-	 **************************************************************/
+	 ****************************************************************************/
 	public String fetchOrderSummary() {
-
 		// to display the right-side order summary on each tab
 		cartList.clear();
 		cartList = (ArrayList<Cart>) sess.get("cartItems");
@@ -365,7 +357,17 @@ public class PlaceOrderAction extends ActionSupport {
 			}
 		}
 
-		createOrder();
+		boolean flag = false;
+		
+		if(sess.get("OrderNum") != null)
+			flag = deleteItemFromDB(sess.get("emailAddress").toString());
+
+		createOrder(flag);
+
+		for (int i = 0; i < cartList.size(); i++) {
+			cartList.get(i).setSubCategory(
+					OrderModel.fetchSubCategory(cartList.get(i).getItemID()));
+		}
 
 		for (int i = 0; i < cartList.size(); i++) {
 			amountPayable += cartList.get(i).getSubTotal();
@@ -385,29 +387,148 @@ public class PlaceOrderAction extends ActionSupport {
 	 * This method is used to save the items against their shipping addresses
 	 * and create a new order thereby.
 	 **************************************************************/
-	public void createOrder() {
+	public void createOrder(boolean flag) {
 
 		/*
 		 * insert the order in the database if selected for the first time, or
 		 * update it's entry with the new shipping address if already existing
 		 */
+		String orderNum = "";
+		if (!flag) {
+			int rand = 1000000 + (int) (Math.random() * ((100000000 - 1000000) + 1));
+			orderNum = "OD" + rand;
 
-		int rand = 1000000 + (int) (Math.random() * ((100000000 - 1000000) + 1));
-		String orderNum = "OD" + rand;
+			if (sess.get("OrderNum") == null) {
+				sess.put("OrderNum", orderNum);
+			}
+		} else {
+			orderNum = sess.get("OrderNum").toString();
+		}
 
 		for (int i = 0; i < cartList.size(); i++) {
 			Order newOrder = new Order();
 			newOrder.setOrderNumber(orderNum);
 			newOrder.setItemID(cartList.get(i).getItemID());
+			newOrder.setQuantity(cartList.get(i).getQuantity());
+			newOrder.setTotalPrice(cartList.get(i).getQuantity()
+					* cartList.get(i).getPrice());
 			newOrder.setEmailAddress(sess.get("emailAddress").toString());
 			newOrder.setAddressID(Integer.parseInt(addressid));
-			newOrder.setStatus("Payment not received");
+			newOrder.setStatus("Processing");
+			newOrder.setShippingCharge(grandTotal-subTotal);
 
 			ShippingAddressModel.insertOrder(newOrder);
 		}
 	}
 
+	/***************************************************************************
+	 * This method is used to delete those item entries from the Order table
+	 * which has been deleted from the cart/checkout.
+	 * 
+	 * @param emailID
+	 * @return true if any such entry is present
+	 ***************************************************************************/
+	public boolean deleteItemFromDB(String emailID) {
+		ArrayList<Integer> items = ShippingAddressModel.findAllOrders(emailID);
+
+		// find those items which are not there in cart anymore
+		for (int i = 0; i < items.size(); i++) {
+			boolean found = false;
+			for (int j = 0; j < cartList.size(); j++) {
+				if (items.get(i) == cartList.get(j).getItemID()) {
+					found = true;
+				}
+			}
+
+			if (!found) {
+				ShippingAddressModel.deleteItemOrder(items.get(i), emailID);
+			}
+		}
+
+		/*
+		 * return true, if any item entry exists in Order table for the
+		 * currently logged-in user
+		 */
+		if (items.size() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	/*************************************************************
+	 * This method is used to delete an item selected by the user from the
+	 * cart(session) and reload the order-summary page.
+	 *************************************************************/
+	public String deleteItemFromCart() {
+
+		cartList.clear();
+		cartList = (ArrayList<Cart>) sess.get("cartItems");
+		emailID = sess.get("emailAddress").toString();
+
+		/*
+		 * deleting the item selected from cart(session)
+		 */
+		for (int i = 0; i < cartList.size(); i++) {
+			if (cartList.get(i).getItemID() == itemID) {
+				setItemDeleted(cartList.get(i).getItemDescription());
+				cartList.remove(i);
+				break;
+			}
+		}
+
+		// delete the above deleted item entries from Order table
+		deleteItemFromDB(emailID);
+
+		// to display the right-side order summary on each tab
+		for (int i = 0; i < cartList.size(); i++) {
+			noOfItems += cartList.get(i).getQuantity();
+		}
+		subTotal = OrderModel.calculateSubTotal(cartList);
+		grandTotal = subTotal;
+		if (subTotal < 500 && subTotal != 0) {
+			grandTotal += 50;
+			setAmountPayable(getAmountPayable() + 50);
+		}
+
+		// to update cart count on the cart icon in header
+		sess.remove("cartCount");
+		sess.put("cartCount", cartList.size());
+
+		for (int i = 0; i < cartList.size(); i++) {
+			cartList.get(i).setSubCategory(
+					OrderModel.fetchSubCategory(cartList.get(i).getItemID()));
+		}
+
+		for (int i = 0; i < cartList.size(); i++) {
+			amountPayable += cartList.get(i).getSubTotal();
+		}
+		if (amountPayable >= 500) {
+			setDeliveryCharge("Free");
+		} else if (amountPayable != 0) {
+			setDeliveryCharge("50");
+		}
+
+		return SUCCESS;
+	}
+
+	/**********************************************************
+	 * This method is used to go to payment tab
+	 **********************************************************/
 	public String goToPayment() {
+		// to display the right-side order summary on each tab
+		cartList.clear();
+		cartList = (ArrayList<Cart>) sess.get("cartItems");
+		for (int i = 0; i < cartList.size(); i++) {
+			noOfItems += cartList.get(i).getQuantity();
+		}
+		subTotal = OrderModel.calculateSubTotal(cartList);
+		grandTotal = subTotal;
+		if (subTotal < 500) {
+			grandTotal += 50;
+		}
+
 		return SUCCESS;
 	}
 }
