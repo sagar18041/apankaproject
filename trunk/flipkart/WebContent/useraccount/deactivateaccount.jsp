@@ -23,9 +23,9 @@
 						<li class="nav-head">&nbsp;My Account</li>
 						<li class="nav-heading">&nbsp;&nbsp;Orders</li>
 						<li class="dividertop"></li>
-						<li><a href='#'>My Orders</a></li>
+						<li><a href='vieworders'>My Orders</a></li>
 						<li class="divider"></li>
-						<li><a href='#'>Order Status</a></li>
+						<li><a href='vieworderstatus'>Order Status</a></li>
 						<li class="dividerbottom"></li>
 
 						<li class="nav-heading">&nbsp;&nbsp;My Stuff</li>
