@@ -160,11 +160,21 @@
 	</definition>
 	<!-- ================================ End of Product Display ================================ -->
 	<!-- ================================Search ================================ -->
-	<definition name="/search.tiles" extends="baselayout">
-		<put-attribute name="title" value="Search" />
-		<put-attribute name="body" value="/searchandbrowse/search.jsp" />
-	</definition>
-	<!-- ******************************* End of Search ********************************** -->
+    <definition name="/search.tiles" extends="baselayout">
+        <put-attribute name="title" value="Search" />
+        <put-attribute name="body" value="/searchandbrowse/search.jsp" />
+    </definition>
+    <definition name="/searchError.tiles" extends="baselayout">
+        <put-attribute name="title" value="Search" />
+        <put-attribute name="body" value="/searchandbrowse/searchError.jsp" />
+    </definition>
+     <!-- ******************************* End of Search ********************************** -->
+     <!-- ================================Browse ================================ -->
+    <definition name="/browse.tiles" extends="baselayout">
+        <put-attribute name="title" value="Search" />
+        <put-attribute name="body" value="/searchandbrowse/browse.jsp" />
+    </definition>
+     <!-- ******************************* End of Browse ********************************** -->
 
 	<!-- ******************************* Cart Management by Ritu*********************************** -->
 	<definition name="/viewcart.tiles" extends="baselayout">
