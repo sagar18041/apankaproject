@@ -11,8 +11,18 @@
 	<div class=container-fluid>
 		<div class="row-fluid">
 			<div class="span4 offset4">
+
+				<s:if test="hasActionErrors()">
+					<s:iterator value="actionErrors">
+						<div class="alert alert-error">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<s:property />
+						</div>
+					</s:iterator>
+				</s:if>
+
 				<div class="well-aamir" align="center">
-					<s:form action="login" class="form-signin">
+					<s:form action="adminlogin" class="form-signin">
 
 						<h3 class="form-signin-heading" style="color: white;">
 							<i class="icon-user"></i> Login
@@ -25,8 +35,8 @@
 								<td height="40">
 									<div class="input-prepend">
 										<span class="add-on"><i class="icon-envelope"
-											style="color: black;"></i></span> <input type="text" name="emailID"
-											class="input-large" placeholder="Email Address">
+											style="color: black;"></i></span> <input type="text" name="userID"
+											class="input-large" placeholder="User Name">
 									</div>
 								</td>
 							</tr>
