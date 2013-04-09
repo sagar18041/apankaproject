@@ -4,9 +4,10 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+<!-- ================Custom CSS================ -->
 <style type="text/css">
 .verticalLine {
 	border-left: 1px solid black;
@@ -25,7 +26,7 @@
 }
 
 .custspan2 {
-  width: 200px;
+	width: 200px;
 }
 
 .customdiv {
@@ -63,6 +64,7 @@
 }
 </style>
 
+<!-- ================JavaScript and JQuery functions================ -->
 <script>
 
 	function change(orderType) {
@@ -91,6 +93,11 @@
 		m.innerHTML = 'Click to Select';
 	}
 	
+	function mapItemToAddress(id) {
+		var element = document.getElementById(id);
+		alert("hello ::"+id);
+	}
+	
 </script>
 
 </head>
@@ -110,11 +117,13 @@
 							style="font-size: 12px">Payment Options</font></a></li>
 				</ul>
 				<s:set name="checkContent" value="%{check}" />
+
+				<!-- ================Shipping Address tab content================ -->
 				<div id="tabs-2">
 					<p>
-						<%-- <s:radio label="Answer" name="yourAnswer" list="#{'1':'Single Order Shipping','2':'Multiple Order Shipping'}" value="1" cssClass="height: 15px;"/> --%>
 					<div style="margin-left: 10px;">
 
+						<!-- ================SOS Checked(by default)================ -->
 						<s:if test="%{#checkContent==0}">
 							<input type="radio" name="shippingorder" checked
 								onchange="change(0)"
@@ -124,6 +133,8 @@
 							<input type="radio" name="shippingorder" onchange="change(1)"
 								style="vertical-align: middle; margin-top: -2px;">Multiple
 						Order Shipping (MOS)</s:if>
+
+						<!-- ================MOS Checked(if clicked)================ -->
 						<s:if test="%{#checkContent==1}">
 							<input type="radio" name="shippingorder" onchange="change(0)"
 								style="vertical-align: middle; margin-top: -2px;"> Single
@@ -141,45 +152,64 @@
 
 					<s:form action="ordersummary">
 
+						<!-- ================SOS Content================ -->
 						<s:if test="%{#checkContent==0}">
 
-							<font style="font-size: 14px; margin-left: -10px">Select
-								from previous shipping addresses</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>OR</b>&nbsp;&nbsp;&nbsp;&nbsp;<font
-								style="font-size: 14px">Enter a new shipping addresses</font>
-							<div class="row-fluid">
-								<div class="span4">
-									<font style="font-size: 12px"> <s:iterator
-											value="addressList" status="tick">
-											<a href="ordersummary?addressid=<s:property value="addressID" />"
-												style="text-decoration: none">
-												<div class="customdiv2"
-													onload="deactivateTick(<s:property value="#tick.count" />)"
-													onmouseover="activateTick(<s:property value="#tick.count" />)"
-													onmouseout="deactivateTick(<s:property value="#tick.count" />)">
-													<b><s:property value="name" /></b><br />
-													<s:property value="streetAddress" />
-													<s:property value="landmark" />
-													<br />
-													<s:property value="city" />
-													<br />
-													<s:property value="stateName" />
-													<br />
-													<s:property value="pincode" />
-													<br />
-													<s:property value="phoneNumber" />
-													<br />
-													<h5 class="customnav"
-														id="<s:property value="#tick.count"/>">Click to
-														Select&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													</h5>
-												</div> <br />
-											</a>
-										</s:iterator>
-									</font>
-								</div>
-								<div
-									style="width: 1px; height: 700px; background-color: #000000; float: left; margin-left: 100px; margin-top: 20px"></div>
+							<!-- ===========Check if no existing addresses exist=========== -->
+							<s:set var="addrnums" value="%{existingAddrList.size}" />
+							<s:if test="%{#addrnums == 0}">
+								<font style="font-size: 14px; margin-left: 200px;">Enter
+									a new shipping addresses</font>
+								<br />
+								<br />
+							</s:if>
+							<s:elseif test="#addrnums > 0">
+								<font style="font-size: 14px; margin-left: -10px">Select
+									from previous shipping addresses</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>OR</b>&nbsp;&nbsp;&nbsp;&nbsp;<font
+									style="font-size: 14px">Enter a new shipping addresses</font>
+							</s:elseif>
 
+							<div class="row-fluid">
+
+								<!-- ================Display existing addresses================ -->
+
+								<s:if test="%{#addrnums > 0}">
+									<div class="span4">
+										<font style="font-size: 12px"><s:iterator
+												value="addressList" status="tick">
+												<a
+													href="ordersummary?addressid=<s:property value="addressID" />"
+													style="text-decoration: none">
+													<div class="customdiv2"
+														onload="deactivateTick(<s:property value="#tick.count" />)"
+														onmouseover="activateTick(<s:property value="#tick.count" />)"
+														onmouseout="deactivateTick(<s:property value="#tick.count" />)">
+														<b><s:property value="name" /></b><br />
+														<s:property value="streetAddress" />
+														<s:property value="landmark" />
+														<br />
+														<s:property value="city" />
+														<br />
+														<s:property value="stateName" />
+														<br />
+														<s:property value="pincode" />
+														<br />
+														<s:property value="phoneNumber" />
+														<br />
+														<h5 class="customnav"
+															id="<s:property value="#tick.count"/>">Click to
+															Select&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														</h5>
+													</div> <br />
+												</a>
+											</s:iterator> </font>
+									</div>
+									<div
+										style="width: 1px; height: 700px; background-color: #000000; float: left; margin-left: 100px; margin-top: 20px"></div>
+								</s:if>
+								<s:else>
+									<div class="span3"></div>
+								</s:else>
 								<div class="span6">
 
 									<s:if test="hasActionErrors()">
@@ -191,6 +221,8 @@
 											<br />
 										</s:iterator>
 									</s:if>
+
+									<!-- ================Display shipping address form================ -->
 									<table class="table">
 										<tr>
 											<td><font style="font-size: 12px;">Name</font>&nbsp;<font
@@ -245,22 +277,26 @@
 									</table>
 
 									<s:submit value="Save & Continue" theme="simple"
-										style="margin-left: 100px"
+										style="margin-left: 100px" name="sosBtn"
 										cssClass="btn btn-warning btn-large" />
 
 								</div>
 							</div>
 						</s:if>
+
+						<!-- ================MOS Content================ -->
 						<s:elseif test="%{#checkContent==1}">
 
 							<table class="table table-bordered">
-								<s:iterator value="productList" status="prodTick">
+								<s:iterator value="cartList" status="prodTick">
 									<tr>
-										<td><s:property /></td>
+										<td style="width: 50%;"><s:property
+												value="itemDescription" /></td>
 										<td><s:iterator value="existingAddrList"
 												status="addrTick">
 
-												<input type="radio"
+												<input type="radio" id="#prodTick.count"
+													onclick="mapItemToAddress(<s:property value="#addrTick.count" />)"
 													name="<s:property value="#prodTick.count" />"
 													style="vertical-align: middle; margin-top: -2px;" />
 
@@ -273,6 +309,10 @@
 									</tr>
 								</s:iterator>
 							</table>
+
+							<s:submit value="Save & Continue" theme="simple" name="mosBtn"
+								style="margin-left: 100px" cssClass="btn btn-warning btn-large" />
+
 						</s:elseif>
 					</s:form>
 					</p>
@@ -288,9 +328,12 @@
 			<div class="customdiv">
 				<font style="font-size: 14px; margin-left: 10px;"><b>Order
 						Summary</b>
-					<hr /> Items <font style="margin-left: 50px">:</font>&nbsp;<s:property value="%{noOfItems}" /><br />
-					Sub Total <font style="margin-left: 22px">:</font>&nbsp;Rs.&nbsp;<s:property value="%{subTotal}" /><br />
-					Grand Total<font style="margin-left: 12px">:</font>&nbsp;Rs.&nbsp;<s:property value="%{grandTotal}" /></font>
+					<hr /> Items <font style="margin-left: 50px">:</font>&nbsp;<s:property
+						value="%{noOfItems}" /><br /> Sub Total <font
+					style="margin-left: 22px">:</font>&nbsp;Rs.&nbsp;<s:property
+						value="%{subTotal}" /><br /> Grand Total<font
+					style="margin-left: 12px">:</font>&nbsp;Rs.&nbsp;<s:property
+						value="%{grandTotal}" /></font>
 			</div>
 		</div>
 	</div>
@@ -300,6 +343,12 @@
     $(function () {
         $("[rel='tooltip']").tooltip();
     });
+
+	
+
+	
+
+	
 
 	
 </script>
