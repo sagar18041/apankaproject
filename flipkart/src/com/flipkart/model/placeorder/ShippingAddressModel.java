@@ -236,7 +236,7 @@ public class ShippingAddressModel {
 
 				ps.executeUpdate();
 
-			} else {System.out.println("address-id:::"+order.getAddressID());
+			} else {
 				sqlQuery = "insert into flipkart_order(orderNumber, itemID, quantity, totalPrice, emailAddress, addressID, status, shippingCharge) "
 						+ "values(?,?,?,?,?,?,?,?);";
 
