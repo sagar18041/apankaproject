@@ -4,24 +4,31 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.flipkart.model.cartmanagement.Cart;
+import com.flipkart.model.wishlist.WishlistModel;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.sun.corba.se.impl.ior.NewObjectKeyTemplateBase;
 
-public class CartAction extends ActionSupport{
+public class CartAction extends ActionSupport {
+
 	private String fromCart;
 	private String deliveryCharge;
-	private float amountPayable=0;
-	private int cartCount=0;
-	private int itemID;
+	private float amountPayable = 0;
+	private int cartCount = 0;
+	private String itemName;
+	private Integer price;
+	private Integer itemID;
 	private int newQuantity;
-	String movedToWishlistName;
-
-	ArrayList<Cart>cartItems=new ArrayList<Cart>();
-	Map cartSession=ActionContext.getContext().getSession();
-	Map moveToWishlistCheck=ActionContext.getContext().getSession();
-	Cart dummyObject1=new Cart();
-	Cart dummyObject2=new Cart();
+	private static int firstItem = 0;
+	public static int divId1 = 100;
+	public static int divId2 = 200;
+	private String itemMovedToWishlist;
+	private String itemAddedToCart;
+	private String itemDeletedFromCart;
+	Cart c;
+	ArrayList<Cart> cartItems = new ArrayList<Cart>();
+	Map cartSession = ActionContext.getContext().getSession();
+	Map moveToWishlistCheck = ActionContext.getContext().getSession();
+	Map session = ActionContext.getContext().getSession();
 
 	public String getDeliveryCharge() {
 		return deliveryCharge;
@@ -33,6 +40,22 @@ public class CartAction extends ActionSupport{
 
 	public int getCartCount() {
 		return cartCount;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 
 	public void setCartCount(int cartCount) {
@@ -63,20 +86,36 @@ public class CartAction extends ActionSupport{
 		this.fromCart = fromCart;
 	}
 
-	public int getItemID() {
+	public Integer getItemID() {
 		return itemID;
 	}
 
-	public void setItemID(int itemID) {
+	public void setItemID(Integer itemID) {
 		this.itemID = itemID;
 	}
 
-	public String getMovedToWishlistName() {
-		return movedToWishlistName;
+	public String getItemMovedToWishlist() {
+		return itemMovedToWishlist;
 	}
 
-	public void setMovedToWishlistName(String movedToWishlistName) {
-		this.movedToWishlistName = movedToWishlistName;
+	public void setItemMovedToWishlist(String itemMovedToWishlist) {
+		this.itemMovedToWishlist = itemMovedToWishlist;
+	}
+
+	public String getItemAddedToCart() {
+		return itemAddedToCart;
+	}
+
+	public void setItemAddedToCart(String itemAddedToCart) {
+		this.itemAddedToCart = itemAddedToCart;
+	}
+
+	public String getItemDeletedFromCart() {
+		return itemDeletedFromCart;
+	}
+
+	public void setItemDeletedFromCart(String itemDeletedFromCart) {
+		this.itemDeletedFromCart = itemDeletedFromCart;
 	}
 
 	public int getNewQuantity() {
@@ -87,127 +126,194 @@ public class CartAction extends ActionSupport{
 		this.newQuantity = newQuantity;
 	}
 
-	public String displayCart(){
-		System.out.println("in cart action..."+fromCart);
-		dummyObject1.setItemDescription("Lotus Herbals Natural Kajal 4g (black)");
-		dummyObject1.setDeliveryTime("Delivered in 3-5 business days. ");
-		dummyObject1.setItemID(100);
-		dummyObject1.setPrice(125);
-		dummyObject1.setQuantity(2);
-		dummyObject1.setImgURL("kajal.jpg");
-		dummyObject1.setSubTotal(dummyObject1.getPrice()*dummyObject1.getQuantity());
-		dummyObject1.setStatus2(2001);
-		dummyObject1.setStatusQuantity(3001);
+	public Cart getC() {
+		return c;
+	}
 
-		dummyObject2.setItemDescription("Nokia Lumia 620 (White) ");
-		dummyObject2.setDeliveryTime("Delivered in 2-3 business days. ");
-		dummyObject2.setPrice(14999);
-		dummyObject2.setItemID(101);
-		dummyObject2.setQuantity(3);
-		dummyObject2.setImgURL("nokia.jpg");
-		dummyObject2.setSubTotal(dummyObject2.getPrice()*dummyObject2.getQuantity());
-		dummyObject2.setStatus2(2002);
-		dummyObject1.setStatusQuantity(3002);
+	public void setC(Cart c) {
+		this.c = c;
+	}
 
-		cartItems.add(dummyObject1);
-		cartItems.add(dummyObject2);
-		//moveToWishlistCheck.put("checkDisplay",false);
-		cartSession.put("cartItems",cartItems);
-		cartItems=(ArrayList<Cart>) cartSession.get("cartItems");
+	public Cart makeObject() {
+		c = new Cart();
+		c.setItemDescription(itemName);
+		c.setDeliveryTime("Delivered in 2-3 business days. ");
+		c.setPrice(price);
+		c.setItemID(itemID);
+		c.setQuantity(1);
+		c.setThumbnail("nokia.jpg");
+		c.setSubTotal(price * c.getQuantity());
+		c.setStatus2(divId1 + 1);
+		c.setStatusQuantity(divId2 + 1);
+		divId1++;
+		divId2++;
+		return c;
+	}
 
-		for(int i=0;i<cartItems.size();i++){
-			amountPayable+=cartItems.get(i).getSubTotal();
-			cartCount++;
+	@SuppressWarnings("unchecked")
+	public String addToCart() {
+		cartCount = 0;
+		setItemAddedToCart(itemName);
+		if (session.get("login") != null) {
+			moveToWishlistCheck.put("checkAddDisplay", "true");
+			setItemAddedToCart(itemName);
+			System.out.println("item name in add cart modified..."
+					+ getItemAddedToCart());
+			// System.out.println("wishlist to cart..."
+			// +itemName+"   "+price+"   "+itemID);
+			if (firstItem == 0) {
+				System.out.println("in if...");
+				cartItems.add(makeObject());
+				cartSession.put("cartItems", cartItems);
+				System.out.println("size of arraylist in add..."
+						+ cartItems.size());
+				firstItem = 1;
+			} else {
+				cartItems = (ArrayList<Cart>) cartSession.get("cartItems");
+				for (int i = 0; i < cartItems.size(); i++) {
+					if (cartItems.get(i).getItemID() == itemID) {
+						return SUCCESS;
+					}
+				}
+				cartItems.add(makeObject());
+				cartSession.put("cartItems", cartItems);
+				// System.out.println("size of arraylist in add..."+cartItems.size());
+			}
+
+			return SUCCESS;
+		} else {
+			System.out.println("in add cart return error !!!");
+			return ERROR;
 		}
-		if(amountPayable>300){
-			setDeliveryCharge("Free");
+	}
+
+	public String addToCartFromWishlist() {
+		cartCount = 0;
+		setItemAddedToCart(itemName);
+		moveToWishlistCheck.put("checkAddDisplay", "true");
+		// System.out.println("in add to cart from wishlist"
+		// +itemName+"   "+price+"   "+itemID);
+		if (firstItem == 0) {
+			System.out.println("in if...");
+			cartItems.add(makeObject());
+			cartSession.put("cartItems", cartItems);
+			System.out
+			.println("size of arraylist in add..." + cartItems.size());
+			firstItem = 1;
+		} else {
+			cartItems = (ArrayList<Cart>) cartSession.get("cartItems");
+			for (int i = 0; i < cartItems.size(); i++) {
+				if (cartItems.get(i).getItemID() == itemID) {
+					return SUCCESS;
+				}
+			}
+			cartItems.add(makeObject());
+			cartSession.put("cartItems", cartItems);
+			System.out
+			.println("size of arraylist in add..." + cartItems.size());
 		}
-		else{
-			setDeliveryCharge("50");
-		}
+
+		for (int i = 0; i < cartItems.size(); i++)
+			System.out.println("values in add.."
+					+ cartItems.get(i).getStatus2());
+		WishlistModel.deletefromWishlist(itemID);
 		return SUCCESS;
 	}
 
-	public String updateCart(){
-		System.out.println("in update cart..."+itemID+"....."+newQuantity);
+	public String displayCart() {
+		if (session.get("login") != null) {
+			cartCount = 0;
+			if(cartSession.get("cartItems") != null) {
+				cartItems = (ArrayList<Cart>) cartSession.get("cartItems");
+			}
 
-		cartItems=(ArrayList<Cart>) cartSession.get("cartItems");
-		for(int i=0;i<cartItems.size();i++){
-			if(cartItems.get(i).getItemID()==itemID){
-				cartItems.get(i).setSubTotal(cartItems.get(i).getPrice()*newQuantity);
+			// System.out.println("cart size in display..."+cartItems.size());
+			for (int i = 0; i < cartItems.size(); i++) {
+				amountPayable += cartItems.get(i).getSubTotal();
+				cartCount++;
+			}
+			cartSession.put("cartCount", cartCount);
+			if (amountPayable > 300) {
+				setDeliveryCharge("Free");
+			} else {
+				setDeliveryCharge("50");
+			}
+			/*
+			 * System.out.println("item name in display after add..."+
+			 * getItemAddedToCart());
+			 * System.out.println("item name in display after delete..."
+			 * +getItemDeletedFromCart());
+			 * System.out.println("item name in display after move to wishlist..."
+			 * +getItemMovedToWishlist());
+			 */
+			return SUCCESS;
+		} else {
+			System.out.println("in add cart return error !!!");
+			return ERROR;
+		}
+
+	}
+
+	public String updateCart() {
+		cartCount = 0;
+
+		System.out
+		.println("in update cart..." + itemID + "....." + newQuantity);
+
+		cartItems = (ArrayList<Cart>) cartSession.get("cartItems");
+		for (int i = 0; i < cartItems.size(); i++) {
+			/*
+			 * System.out.println("status.."+Cart.status2);
+			 * System.out.println("status.."+Cart.statusQuantity);
+			 */
+			if (cartItems.get(i).getItemID() == itemID) {
+				cartItems.get(i).setSubTotal(
+						cartItems.get(i).getPrice() * newQuantity);
 				cartItems.get(i).setQuantity(newQuantity);
 			}
 		}
-		for(int i=0;i<cartItems.size();i++){
-			amountPayable+=cartItems.get(i).getSubTotal();
-			cartCount++;
-		}
-		if(amountPayable>300){
-			setDeliveryCharge("Free");
-		}
-		else{
-			setDeliveryCharge("50");
-		}
+
 		return SUCCESS;
 	}
 
-	public String deleteCart(){
-		moveToWishlistCheck.put("checkDeleteDisplay","true");
-		System.out.println("in delete cart..."+moveToWishlistCheck.get("checkDisplay"));;
-		int index=0;
-		cartItems=(ArrayList<Cart>) cartSession.get("cartItems");
-		for(int i=0;i<cartItems.size();i++){
-			if(cartItems.get(i).getItemID()==itemID){
-				movedToWishlistName=cartItems.get(i).getItemDescription();
-				index=i;
+	public String deleteCart() {
+		cartCount = 0;
+		moveToWishlistCheck.put("checkDeleteDisplay", "true");
+		int index = 0;
+		cartItems = (ArrayList<Cart>) cartSession.get("cartItems");
+		for (int i = 0; i < cartItems.size(); i++) {
+			if (cartItems.get(i).getItemID() == itemID) {
+				setItemDeletedFromCart(cartItems.get(i).getItemDescription());
+				index = i;
 				break;
 			}
 		}
+		System.out.println("item name in delete cart modified..."
+				+ getItemDeletedFromCart());
 		cartItems.remove(index);
-		for(int i=0;i<cartItems.size();i++){
-			amountPayable+=cartItems.get(i).getSubTotal();
-			cartCount++;
-		}
-		if(amountPayable>300){
-			setDeliveryCharge("Free");
-		}
-		else{
-			setDeliveryCharge("50");
-		}
+
 		return SUCCESS;
 	}
-	public String moveWishlist(){
-		int index=0;
 
-		System.out.println("in move to wishlist before..."+itemID);
-		moveToWishlistCheck.put("checkDisplay","true");
+	public String moveWishlist() {
+		cartCount = 0;
+		int index = 0;
+		moveToWishlistCheck.put("checkDisplay", "true");
+		cartItems = (ArrayList<Cart>) cartSession.get("cartItems");
 
-		System.out.println("in move to wishlist..."+moveToWishlistCheck.get("checkDisplay"));
-		cartItems=(ArrayList<Cart>) cartSession.get("cartItems");
-
-		for(int i=0;i<cartItems.size();i++){
-			if(cartItems.get(i).getItemID()==itemID){
-				movedToWishlistName=cartItems.get(i).getItemDescription();
-				index=i;
+		for (int i = 0; i < cartItems.size(); i++) {
+			if (cartItems.get(i).getItemID() == itemID) {
+				setItemMovedToWishlist(cartItems.get(i).getItemDescription());
+				index = i;
 				break;
 			}
 		}
+		System.out.println("item name in move to wishlist cart modified..."
+				+ getItemMovedToWishlist());
 		cartItems.remove(index);
-		/*
-		 * 
-		 * insert item into wishlist table
-		 * 
-		 */
-		for(int i=0;i<cartItems.size();i++){
-			amountPayable+=cartItems.get(i).getSubTotal();
-			cartCount++;
-		}
-		if(amountPayable>300){
-			setDeliveryCharge("Free");
-		}
-		else{
-			setDeliveryCharge("50");
-		}
+
+		WishlistModel.addToWishlist(itemID);
 		return SUCCESS;
 	}
+
 }
