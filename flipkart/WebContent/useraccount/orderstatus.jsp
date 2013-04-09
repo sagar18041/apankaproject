@@ -6,14 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-
 </head>
 <body>
 	<div class=container-fluid>
 		<ul class="breadcrumb">
 			<li><a href="home">Home</a> <span class="divider">></span></li>
 			<li><a href="accountpage">My Account</a> <span class="divider">></span></li>
-			<li class="active">Change Password</li>
+			<li class="active">Order Status</li>
 		</ul>
 		<div class="row-fluid">
 			<div class="span3">
@@ -25,7 +24,8 @@
 						<li class="dividertop"></li>
 						<li><a href='vieworders'>My Orders</a></li>
 						<li class="divider"></li>
-						<li><a href='vieworderstatus'>Order Status</a></li>
+						<li class="active"><b>&nbsp;&nbsp;&nbsp;&nbsp;Order
+								Status</b></li>
 						<li class="dividerbottom"></li>
 
 						<li class="nav-heading">&nbsp;&nbsp;My Stuff</li>
@@ -39,8 +39,7 @@
 						<li class="dividertop"></li>
 						<li><a href='accountpage'>Personal Information</a></li>
 						<li class="divider"></li>
-						<li class="active"><b>&nbsp;&nbsp;&nbsp;&nbsp;Change
-								Password</b></li>
+						<li><a href='passwordpage'>Change Password</a></li>
 						<li class="divider"></li>
 						<li><a href='addresspage'>Addresses</a></li>
 						<li class="divider"></li>
@@ -52,71 +51,26 @@
 				</div>
 			</div>
 
-			<div class="span9">
-				<h3>Change Password</h3>
-
-
+			<div class="span7">
+				<h3>Order Status</h3>
+				
+				<h4>Check Order Status</h4>
+				<br /> Now you can track the progress of your order right here!<br />
+				Enter your Order ID below and click "GO" to view details of your
+				order.<br /> <br />
 				<div align="center">
-					<s:form action="modifypassword" method="post">
-						<table class="table">
-							<tbody>
-
-								<tr>
-									<td
-										style='text-align: left; vertical-align: middle; font-size: 14px'>Email
-										Address</td>
-									<td
-										style='text-align: left; vertical-align: middle; font-size: 14px'><s:property
-											value="emailAddress" /></td>
-								</tr>
-
-								<tr>
-									<td
-										style='text-align: left; vertical-align: middle; font-size: 14px'>Old
-										Password</td>
-									<td
-										style='text-align: left; vertical-align: middle; font-size: 14px'><s:password
-											name="oldPassword" cssClass="input-large" /></td>
-								</tr>
-
-								<tr>
-									<td
-										style='text-align: left; vertical-align: middle; font-size: 14px'>New
-										Password</td>
-									<td
-										style='text-align: left; vertical-align: middle; font-size: 14px'><s:password
-											name="newPassword" cssClass="input-large" /></td>
-								</tr>
-
-								<tr>
-									<td
-										style='text-align: left; vertical-align: middle; font-size: 14px'>Retype
-										New Password</td>
-									<td
-										style='text-align: left; vertical-align: middle; font-size: 14px'><s:password
-											name="retypedPassword" cssClass="input-large" /></td>
-								</tr>
-
-							</tbody>
-						</table>
-						<br />
-
-						<s:submit name="commandButton" value="Save Changes" align="center"
-							cssClass="fk-button-blue" />
-
-					</s:form>
-					<s:if test="hasActionMessages()">
-						<div align="center">
-							<s:iterator value="actionMessages">
-								<div class="alert alert-success">
-									<br /> <i class="icon-ok icon-2x"></i>&nbsp;&nbsp;
-									<s:property />
-									<br /> <br />
-								</div>
-							</s:iterator>
-
+					<s:form action="vieworderdetails" method="post">
+						<div class="row-fluid">
+							<div class="span2">
+								<s:textfield name="orderNo" />
+							</div>
+							<div class="span4 offset1" style="padding-top: 2px;">
+								<s:submit name="commandButton" value=" Go " align="center"
+									cssClass="fk-button-blue" theme="simple" />
+							</div>
 						</div>
-					</s:if>
+						<br />
+					</s:form>
 
 					<s:if test="hasActionErrors()">
 						<div align="center">
@@ -131,8 +85,8 @@
 						</div>
 					</s:if>
 				</div>
+
 			</div>
 		</div>
-	</div>
 </body>
 </html>
