@@ -43,7 +43,7 @@
 						data-toggle="dropdown" style="color: white;">Bank<b
 							class="caret"></b></a>
 						<ul class="dropdown-menu pull-right">
-							<li><a href="#">Net Banking</a></li>
+							<li><a href="netbankingviewentries">Net Banking</a></li>
 							<li><a href="#">Add link</a></li>
 							<li><a href="#">Add link</a></li>
 						</ul></li>
