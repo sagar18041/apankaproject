@@ -1,20 +1,11 @@
 package com.flipkart.model.systemadmincategory;
 
-import com.flipkart.model.authentication.ForgotPasswordModel;
-import com.flipkart.model.authentication.SignUpModel;
-import com.flipkart.model.placeorder.*;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Map;
 
 import com.flipkart.util.DbConnection;
-import com.flipkart.util.EmailManager;
-import com.flipkart.util.MyLog;
-import com.flipkart.util.RuntimeSettings;
-import com.opensymphony.xwork2.ActionContext;
 
 public class AdminCategoryModel {
 
