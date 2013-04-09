@@ -159,29 +159,38 @@
 		<put-attribute name="body" value="/product/displayitem.jsp" />
 	</definition>
 	<!-- ================================ End of Product Display ================================ -->
-	<!-- ================================Search ================================ -->
-    <definition name="/search.tiles" extends="baselayout">
-        <put-attribute name="title" value="Search" />
-        <put-attribute name="body" value="/searchandbrowse/search.jsp" />
-    </definition>
-    <definition name="/searchError.tiles" extends="baselayout">
-        <put-attribute name="title" value="Search" />
-        <put-attribute name="body" value="/searchandbrowse/searchError.jsp" />
-    </definition>
-     <!-- ******************************* End of Search ********************************** -->
-     <!-- ================================Browse ================================ -->
-    <definition name="/browse.tiles" extends="baselayout">
-        <put-attribute name="title" value="Search" />
-        <put-attribute name="body" value="/searchandbrowse/browse.jsp" />
-    </definition>
-     <!-- ******************************* End of Browse ********************************** -->
 
-	<!-- ******************************* Cart Management by Ritu*********************************** -->
+	<!-- ================================Search ================================ -->
+	<definition name="/search.tiles" extends="baselayout">
+		<put-attribute name="title" value="Search" />
+		<put-attribute name="body" value="/searchandbrowse/search.jsp" />
+	</definition>
+	<definition name="/searchError.tiles" extends="baselayout">
+		<put-attribute name="title" value="Search" />
+		<put-attribute name="body" value="/searchandbrowse/searchError.jsp" />
+	</definition>
+	<!-- ******************************* End of Search ********************************** -->
+	<!-- ================================Browse ================================ -->
+	<definition name="/browse.tiles" extends="baselayout">
+		<put-attribute name="title" value="Search" />
+		<put-attribute name="body" value="/searchandbrowse/browse.jsp" />
+	</definition>
+	<!-- ******************************* End of Browse ********************************** -->
+
+	<!-- ******************************* Cart and WishList ********************************** -->
 	<definition name="/viewcart.tiles" extends="baselayout">
 		<put-attribute name="title" value="Cart" />
 		<put-attribute name="body" value="/cart/viewcart.jsp" />
 	</definition>
 
-	<!-- ********************************* End of Cart Management ******************************** -->
+	<definition name="/viewWishlist.tiles" extends="baselayout">
+		<put-attribute name="title" value="Cart" />
+		<put-attribute name="body" value="/wishlist/viewwishlist.jsp" />
+	</definition>
+	<definition name="/carterror.tiles" extends="baselayout">
+		<put-attribute name="title" value="Cart" />
+		<put-attribute name="body" value="/cart/carterror.jsp" />
+	</definition>
+	<!-- ************************* End of Cart and WishList **************************** -->
 
 </tiles-definitions>
