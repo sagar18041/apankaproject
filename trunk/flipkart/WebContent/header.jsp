@@ -166,7 +166,7 @@
 				<li><a href="#" style="color: white;">Contact Us</a></li>
 				<li id="li_home"><a href="home" style="color: white;">Home</a></li>
 				<li id="li_account"><a href="accountpage" style="color: white;">Account</a></li>
-				<li><a href="#" style="color: white;">Wishlist</a></li>
+				<li><a href="viewwishlist" style="color: white;">Wishlist</a></li>
 				<s:if test="#session['login']==null">
 					<!--  <li><a data-toggle="modal" href="#loginmodal"
 						style="color: white;"
@@ -428,7 +428,9 @@
 		</s:form>
 		&nbsp; &nbsp; &nbsp; <a href="cartDisplay"><button
 				class="fk-button-blue pull-right">
-				<span class="cart-icon"></span> Cart (value)
+				<span class="cart-icon"></span> Cart (
+				<s:property value="%{#session.cartCount}" />
+				)
 			</button></a>
 	</div>
 </body>
