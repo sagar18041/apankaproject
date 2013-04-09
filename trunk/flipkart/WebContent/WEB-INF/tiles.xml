@@ -99,6 +99,24 @@
 		<put-attribute name="body" value="/useraccount/deactivateaccount.jsp" />
 	</definition>
 
+	<!-- ================================ Order History ================================ -->
+	<definition name="/orderhistorypage.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Your Order History" />
+		<put-attribute name="body" value="/useraccount/orderhistory.jsp" />
+	</definition>
+	
+	<!-- ================================ Order Status ================================ -->
+	<definition name="/orderstatuspage.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Order Status" />
+		<put-attribute name="body" value="/useraccount/orderstatus.jsp" />
+	</definition>
+	
+	<!-- ================================ Order Details ================================ -->
+	<definition name="/orderdetailspage.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Order Information" />
+		<put-attribute name="body" value="/useraccount/orderdetails.jsp" />
+	</definition>
+
 	<!-- ******************************* End of Account Information ********************************** -->
 
 
