@@ -143,15 +143,14 @@
 			}
 		}, 5000);
 	}
-	
-function changeSearch()
-{
-	// Error
-	var catId = document.getElementById("categorySel");
-	var category = catId.options[catId.selectedIndex].value;
-	var categoryList = category.split(" ");
-	window.location = "home?&categorySel=" + categoryList[1];
-}
+
+	function changeSearch() {
+		// Error
+		var catId = document.getElementById("categorySel");
+		var category = catId.options[catId.selectedIndex].value;
+		var categoryList = category.split(" ");
+		window.location = "home?&categorySel=" + categoryList[1];
+	}
 </script>
 <!-- **** END **** -->
 </head>
@@ -169,22 +168,38 @@ function changeSearch()
 				<li id="li_account"><a href="accountpage" style="color: white;">Account</a></li>
 				<li><a href="#" style="color: white;">Wishlist</a></li>
 				<s:if test="#session['login']==null">
-					<li><a data-toggle="modal" href="#loginmodal"
+					<!--  <li><a data-toggle="modal" href="#loginmodal"
 						style="color: white;"
-						onclick="show('forgotpassword','signup','login')">Login</a></li>
+						onclick="show('forgotpassword','signup','login')">Login</a></li>-->
+
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" style="color: white;">Login as<b
+							class="caret"></b></a>
+
+						<ul class="dropdown-menu pull-right">
+							<li><a data-toggle="modal" href="#loginmodal"
+								onclick="show('forgotpassword','signup','login')">User</a></li>
+
+							<li><a href="adminlogininit">Admin</a></li>
+
+						</ul></li>
+
 					<li><a data-toggle="modal" href="#loginmodal"
 						style="color: white;"
 						onclick="show('forgotpassword','login','signup')">Signup</a></li>
 				</s:if>
+
 				<s:if test="#session['login']==true">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" style="color: white;"><s:property
 								value="#session['emailAddress']" /><b class="caret"></b></a>
+
 						<ul class="dropdown-menu">
 							<li><a href="logout">Logout</a></li>
-							<li><a href="#">Menu 2</a></li>
 						</ul></li>
+
 				</s:if>
+
 			</ul>
 		</div>
 
@@ -319,36 +334,45 @@ function changeSearch()
 					<s:if test="%{#catList.catalogueLevel==0}">
 
 
-					<s:url action="displaycategory.action" var="dispCat" >
-					<s:param name="categoryID"><s:property value = "#catList.catalogueID"/></s:param>
-					</s:url>
-					<li class="dropdown-submenu"><a href="<s:property value="#dispCat" />"><s:property value="#catList.catalogueName"/></a>
-						<ul class="dropdown-menu">
-						<s:iterator value="catalogueList" var ="subcatList">
-						<s:if test="%{#catList.catalogueParentID==#subcatList.catalogueID && #subcatList.catalogueLevel==1}">
-							<s:url action="displaycategory.action" var="dispsubCat" >
-							<s:param name="categoryID"><s:property value = "#subcatList.catalogueParentID"/></s:param>
-							</s:url>
-							<li class="dropdown-submenu"><a href="<s:property value="#dispsubCat" />"><s:property value="#subcatList.catalogueName" /></a>
-								<ul class="dropdown-menu">
-									<s:iterator value="catalogueList" var="subsubcatList">
-									<s:url action="displaycategory.action" var="dispsubsubCat" >
-									<s:param name="categoryID"><s:property value = "#subsubcatList.catalogueParentID"/></s:param>
-									</s:url>
-										<s:if test="%{#subsubcatList.catalogueID==#subcatList.catalogueParentID && #subsubcatList.catalogueLevel==2}">
-											<li>
-												<a href="<s:property value="#dispsubsubCat" />"><s:property value="#subsubcatList.catalogueName" /></a>
-											</li>
-										</s:if>
-									</s:iterator>
-								</ul>
-							</li>
-						</s:if>
-						</s:iterator>
-						</ul>
-					</li>
+						<s:url action="displaycategory.action" var="dispCat">
+							<s:param name="categoryID">
+								<s:property value="#catList.catalogueID" />
+							</s:param>
+						</s:url>
+						<li class="dropdown-submenu"><a
+							href="<s:property value="#dispCat" />"><s:property
+									value="#catList.catalogueName" /></a>
+							<ul class="dropdown-menu">
+								<s:iterator value="catalogueList" var="subcatList">
+									<s:if
+										test="%{#catList.catalogueParentID==#subcatList.catalogueID && #subcatList.catalogueLevel==1}">
+										<s:url action="displaycategory.action" var="dispsubCat">
+											<s:param name="categoryID">
+												<s:property value="#subcatList.catalogueParentID" />
+											</s:param>
+										</s:url>
+										<li class="dropdown-submenu"><a
+											href="<s:property value="#dispsubCat" />"><s:property
+													value="#subcatList.catalogueName" /></a>
+											<ul class="dropdown-menu">
+												<s:iterator value="catalogueList" var="subsubcatList">
+													<s:url action="displaycategory.action" var="dispsubsubCat">
+														<s:param name="categoryID">
+															<s:property value="#subsubcatList.catalogueParentID" />
+														</s:param>
+													</s:url>
+													<s:if
+														test="%{#subsubcatList.catalogueID==#subcatList.catalogueParentID && #subsubcatList.catalogueLevel==2}">
+														<li><a href="<s:property value="#dispsubsubCat" />"><s:property
+																	value="#subsubcatList.catalogueName" /></a></li>
+													</s:if>
+												</s:iterator>
+											</ul></li>
+									</s:if>
+								</s:iterator>
+							</ul></li>
 
-						
+
 						<s:url action="displaycategory.action" var="dispCat">
 							<s:param name="categoryID">
 								<s:property value="#catList.catalogueID" />
@@ -374,33 +398,31 @@ function changeSearch()
 				<input type="text" data-provide="typeahead" class="span4"
 					placeholder="Search for items" id="search" name="searchText"
 					data-source='<s:property value="autoCompleteList"/>'
-					onkeypress="callSearch()" value="<s:property value="searchText"/>"/>
+					onkeypress="callSearch()" value="<s:property value="searchText"/>" />
 
 
 				<div class="btn-group">
-					<s:set var="categoryText" value="categorySel"/>
+					<s:set var="categoryText" value="categorySel" />
 					<select class="selectpicker" id="categorySel" name="categorySel"
-					 onchange="changeSearch()">
+						onchange="changeSearch()">
 						<option>
 							</i><font color="gray"> in</font> All Category
 						</option>
 						<s:iterator value="categoryList" var="categoryField">
 							<s:if test="%{#categoryField == #categoryText}">
-							<option selected>
-								</i><font color="gray"> in</font>
-								<s:property />
-							</option>
+								<option selected>
+									</i><font color="gray"> in</font>
+									<s:property />
+								</option>
 							</s:if>
 							<s:else>
-							<option>
-								</i><font color="gray"> in</font>
-								<s:property />
-							</option>
+								<option>
+									</i><font color="gray"> in</font>
+									<s:property />
+								</option>
 							</s:else>
 						</s:iterator>
-					</select>
-					
-					 <span class="add-on"><i class="icon-search"></i></span>
+					</select> <span class="add-on"><i class="icon-search"></i></span>
 				</div>
 			</div>
 		</s:form>
