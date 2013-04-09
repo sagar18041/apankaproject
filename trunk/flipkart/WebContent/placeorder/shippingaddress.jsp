@@ -93,9 +93,19 @@
 		m.innerHTML = 'Click to Select';
 	}
 	
-	function mapItemToAddress(id) {
-		var element = document.getElementById(id);
-		alert("hello ::"+id);
+	function mapItemToAddress(itemid,addrid) {
+		var str = document.getElementById('mapping');
+		
+		 if(str.value.charAt(0) == itemid) {
+			var temp = str.value.substring(0, 2)+addrid+str.value.substring(3);
+			str.value = temp;
+		}else if(str.value.charAt(4) == itemid) {
+			var temp = str.value.substring(0, 6)+addrid+str.value.substring(7);
+			str.value = temp;
+		} else {
+			str.value += itemid+'-'+addrid+',';
+		} 
+		
 	}
 	
 </script>
@@ -295,8 +305,8 @@
 										<td><s:iterator value="existingAddrList"
 												status="addrTick">
 
-												<input type="radio" id="#prodTick.count"
-													onclick="mapItemToAddress(<s:property value="#addrTick.count" />)"
+												<input type="radio"
+													onclick="mapItemToAddress(<s:property value="#prodTick.count" />,<s:property value="#addrTick.count" />)"
 													name="<s:property value="#prodTick.count" />"
 													style="vertical-align: middle; margin-top: -2px;" />
 
@@ -307,11 +317,14 @@
 												<br />
 											</s:iterator></td>
 									</tr>
-								</s:iterator>
-							</table>
 
-							<s:submit value="Save & Continue" theme="simple" name="mosBtn"
-								style="margin-left: 100px" cssClass="btn btn-warning btn-large" />
+								</s:iterator>
+
+							</table>
+							<input type="hidden" id="mapping" name="mapping" value="" />
+							<s:submit value="Save & Continue MOS" theme="simple"
+								name="mosBtn" style="margin-left: 100px"
+								cssClass="btn btn-warning btn-large" />
 
 						</s:elseif>
 					</s:form>
@@ -343,6 +356,8 @@
     $(function () {
         $("[rel='tooltip']").tooltip();
     });
+
+	
 
 	
 
