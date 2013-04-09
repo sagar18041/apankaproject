@@ -26,16 +26,24 @@
 <body>
 	<div class="container-fluid">
 		<div class="pull-left" style="padding-top: 10px;">
-			<a href="adminhome.action"><img
+			<a href="home.action"><img
 				src="ViewResources/img/flipkartlogo.png" /></a>
 		</div>
 		<div class="pull-right">
 			<ul class="nav nav-pills">
-
-				<li id="li_home"><a href="adminhome" style="color: white;">Home</a></li>
-				<li><a href="logout">Logout</a></li>
-			</ul>
-			</li>
+				<s:if test="#session['login']==null">
+					<li><a href="#" style="color: white;">Login</a></li>
+					<li><a href="#" style="color: white;">Signup</a></li>
+				</s:if>
+				<s:if test="#session['login']==true">
+					<li id="li_home"><a href="adminhome" style="color: white;">Home</a></li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" style="color: white;"><s:property
+								value="#session['emailAddress']" /><b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="logout">Logout</a></li>
+						</ul></li>
+				</s:if>
 			</ul>
 		</div>
 	</div>
