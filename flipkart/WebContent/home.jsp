@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -136,13 +137,48 @@
 	</div>
 	<br />
 	<br />
-	<div class="row-fluid" style="border-style:solid; border-color:#6E6E6E; border-width:1px;" >
-<div class="span4" style="padding:5px 5px 5px 5px; border-right:thin dotted #6E6E6E;"><b>You Recently Viewed</b>
-<br /> <br /> recomended products here
-</div>
-<div class="span8" style="padding:5px 5px 5px 5px;"><b>Recommendations Based On Your Browsing History</b>
-<br /> <br /> recomended products here
-</div>
-</div>
+	<div class="row-fluid"
+			style="border-style: solid; border-color: #6E6E6E; border-width: 1px;">
+			<div class="span4"
+				style="padding: 5px 5px 5px 5px; border-right: thin dotted #6E6E6E;">
+				<b>You Recently Viewed</b> <br /> <br />
+				<s:iterator value="recentlyViewedItems">
+					<div class="row-fluid">
+						<div class="span4">
+							<a
+								href="displayitem.action?itemID=<s:property value = "itemID"/>">
+								<img src="<s:property value = "thumbnail"/>" height="40px"
+								width="40px">
+							</a>
+						</div>
+						<div class="span8">
+							<a
+								href="displayitem.action?itemID=<s:property value = "itemID"/>"><s:property
+									value="itemName" /></a> <br /> <b><font size="1"
+								color="#B40404">Rs. <s:property value="price" /></font></b>
+						</div>
+					</div>
+					<br />
+				</s:iterator>
+			</div>
+			<div class="span8" style="padding: 5px 5px 5px 5px;">
+				<b>Recommendations Based On Your Browsing History</b> <br /> <br />
+				<div class="row-fluid">
+					<s:iterator value="browsingHistoryItems">
+						<div class="span4">
+							<a
+								href="displayitem.action?itemID=<s:property value = "itemID"/>">
+								<img src="<s:property value = "thumbnail"/>" height="100px"
+								width="80px">
+							</a> <br /> <a
+								href="displayitem.action?itemID=<s:property value = "itemID"/>"><s:property
+									value="itemName" /></a> <br /> <b><font size="1"
+								color="#B40404">Rs. <s:property value="price" /></font></b>
+						</div>
+					</s:iterator>
+				</div>
+
+			</div>
+		</div>
 </body>
 </html>
