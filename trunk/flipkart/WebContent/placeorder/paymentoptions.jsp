@@ -72,12 +72,11 @@
 			select : function(event, ui) {
 				if (ui.index == 0) {
 					window.location = "emaillogin";
-				}
-				else if (ui.index == 1) {
+				} else if (ui.index == 1) {
 					window.location = "shippingaddress";
-				}
-				else if (ui.index == 2) {
-					window.location = "shippingaddress";
+				} else if (ui.index == 2) {
+					var addr = $("#addressid").val();
+					window.location = "ordersummary?addressid="+addr;
 				}
 			}
 		});
@@ -103,8 +102,10 @@
 				</ul>
 				<div id="tabs-4">
 					<p>
-					<font style="font-size: 16px;">Choose your mode of payment</font><br/><br/>
-					<div id="subTab" style="margin-left: -20px; margin-top: -20px; width: 104%">
+						<font style="font-size: 16px;">Choose your mode of payment</font><br />
+						<br />
+					<div id="subTab"
+						style="margin-left: -20px; margin-top: -20px; width: 104%">
 						<ul>
 							<li><a href="#tabs-a">Credit Card</a></li>
 							<li><a href="#tabs-b">Debit Card</a></li>
@@ -115,6 +116,8 @@
 							<hr />
 							<h5>Enter your card details</h5>
 							<s:form action="post" method="ccEntry" theme="simple">
+								<s:hidden name="addressid" id="addressid" value="%{addressid}" />
+
 								<table cellpadding="5">
 									<tr>
 										<td>Card Number</td>
@@ -239,10 +242,12 @@
 			<div class="customdiv">
 				<font style="font-size: 14px; margin-left: 10px;"><b>Order
 						Summary</b>
-					<hr /> Items <font style="margin-left: 68px">:</font>&nbsp;1<br />
-					Sub Total <font style="margin-left: 40px">:</font>&nbsp;Rs. 449<br />
-					Amount Payable<font style="margin-left: 2px">:</font>&nbsp;Rs. 449
-				</font>
+					<hr /> Items <font style="margin-left: 50px">:</font>&nbsp;<s:property
+						value="%{noOfItems}" /><br /> Sub Total <font
+					style="margin-left: 22px">:</font>&nbsp;Rs.&nbsp;<s:property
+						value="%{subTotal}" /><br /> Grand Total<font
+					style="margin-left: 12px">:</font>&nbsp;Rs.&nbsp;<s:property
+						value="%{grandTotal}" /></font>
 			</div>
 		</div>
 	</div>

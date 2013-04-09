@@ -58,43 +58,6 @@
 	padding: 2px;
 	text-shadow: 0 1px 0 #000000;
 }
-
-.input-myText {
-	width: 5px;
-	min-height: 30px;
-}
-
-.ritumodal {
-	position: fixed;
-	top: 50%;
-	left: 41%;
-	z-index: 1050;
-	width: 800px;
-	margin: -250px 0 0 -280px;
-	background-color: #ffffff;
-	border: 1px solid #999;
-	border: 1px solid rgba(0, 0, 0, 0.3);
-	*border: 1px solid #999;
-	/* IE6-7 */
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
-	-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-	-moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-	box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
-	-webkit-background-clip: padding-box;
-	-moz-background-clip: padding-box;
-	background-clip: padding-box;
-	outline: none;
-}
-
-.modal.fade {
-	-webkit-transition: opacity .3s linear, top .3s ease-out;
-	-moz-transition: opacity .3s linear, top .3s ease-out;
-	-o-transition: opacity .3s linear, top .3s ease-out;
-	transition: opacity .3s linear, top .3s ease-out;
-	top: -25%;
-}
 </style>
 
 <script type="text/javascript">
@@ -111,6 +74,13 @@
 			}
 		});
 	});
+
+	function confirmDelete(itemID) {
+		var ans = confirm("Are you sure you want to delete this item?");
+		if (ans == true) {
+			window.location = "deleteitem?itemID=" + itemID;
+		}
+	}
 </script>
 
 </head>
@@ -130,77 +100,130 @@
 							style="font-size: 12px">Payment Options</font></a></li>
 				</ul>
 				<div id="tabs-3">
-					<p>
-					<div align="left">
-						<font style="font-size: 18px; font-family: Georgia;">Review
-							your Order</font>
-					</div>
-					<br />
-					<form name="myForm" action="payment">
-						<div>
-							<table class="table table-striped table-hover ">
-								<tr>
-									<td style="text-align: center"><font
-										style="font-size: 13px; font-weight: bold;">Type</font></td>
-									<td style="text-align: center"><font
-										style="font-size: 13px; font-weight: bold;">Item
-											Description</font></td>
-									<td style="text-align: center"><font
-										style="font-size: 13px; font-weight: bold;">Delivery
-											Time</font></td>
-									<td style="text-align: center"><font
-										style="font-size: 13px; font-weight: bold;">Price</font></td>
-									<td style="text-align: center"><font
-										style="font-size: 13px; font-weight: bold;">Qty.</font></td>
-									<td style="text-align: center"><font
-										style="font-size: 13px; font-weight: bold;">Subtotal</font></td>
-									<th></th>
-								</tr>
-								<s:iterator value="cartList" status="i">
-									<tr>
-										<td style="text-align: center">type</td>
-										<td style="text-align: center"><s:property
-												value="%{itemDescription}" /></td>
-										<td style="text-align: center"><s:property
-												value="%{deliveryTime}" /></td>
-										<td style="text-align: center">Rs.&nbsp;<s:property
-												value="%{price}" /></td>
-										<td style="text-align: center"><s:property value="1" /></td>
-
-										<td style="text-align: center">Rs.&nbsp;<s:property
-												value="%{subTotal}" /></td>
-										<td><a href="#" style="text-decoration: none;"><i
-												class="icon-remove-sign"></i></a></td>
-									</tr>
-								</s:iterator>
-							</table>
-							<br /> <br />
-							<hr style="height:1px; background-color: #999999; color: #999999"/>
-
-							<div class="row-fluid">
-								<div>
-									<b style="margin-left: 350px;">Amount Payable </b><b
-										style="margin-left: 110px;">Rs.&nbsp;<s:property
-											value="%{amountPayable}" /></font></b>
-								</div>
-							</div>
-							<hr style="height:1px; background-color: #999999; color: #999999"/>
-							<br />
-							<div class="row-fluid">
-								<font style="font-size: 12px; font-family: Georgia;">Order
-									Confirmation email alert to</font><font
-									style="font-size: 13px; font-family: Georgia; font-style: italic; font-weight: bold;">
-									<s:property value="%{emailID}" />
-								</font>
-								<div align="right">
-									<s:submit value="          Continue          " theme="simple"
-										style="margin-left: 100px"
-										cssClass="btn btn-warning btn-large" />
-								</div>
-							</div>
+					<s:set name="items" value="%{noOfItems}" />
+					<s:if test="%{#items==0}">
+						<p align="center">
+							There are no items in your checkout. <br /> <br /> <br /> <a
+								href="home" class="btn btn-large btn-warning"
+								style="color: #ffffff; font-size: 15px;">Continue Shopping</a>
+						</p>
+					</s:if>
+					<s:else>
+						<p>
+						<div align="left">
+							<font style="font-size: 18px; font-family: Georgia;">Review
+								your Order</font>
 						</div>
-					</form>
-					</p>
+						<br />
+
+						<s:set name="item" value="%{itemDeleted}" />
+						<s:if test="%{#item !=''}">
+							<div
+								style="background-color: #FFF6BF; padding-left: 10px; padding-top: 3px; border-top: 1px solid #FFD324; border-bottom: 1px solid #FFD324; height: 30px; font-size: 12px;">
+								The item
+								<s:property value="%{item}" />
+								has been removed from your checkout.
+							</div>
+							<br />
+						</s:if>
+
+						<form name="myForm" action="payment">
+							<s:hidden name="addressid" id="addressid" value="%{addressid}" />
+
+							<div>
+								<table class="table table-striped">
+									<tr>
+										<td style="background-color: #c7e7f0; width: 1px;"></td>
+										<td style="text-align: center"><font
+											style="font-size: 13px; font-weight: bold;">Type</font></td>
+										<td style="text-align: center"><font
+											style="font-size: 13px; font-weight: bold;">Item
+												Description</font></td>
+										<td style="text-align: center"><font
+											style="font-size: 13px; font-weight: bold;">Delivery
+												Time</font></td>
+										<td style="text-align: center"><font
+											style="font-size: 13px; font-weight: bold;">Price</font></td>
+										<td style="text-align: center"><font
+											style="font-size: 13px; font-weight: bold;">Qty.</font></td>
+										<td style="text-align: center"><font
+											style="font-size: 13px; font-weight: bold;">Subtotal</font></td>
+										<th></th>
+									</tr>
+									<s:iterator value="cartList">
+										<tr>
+											<td style="background-color: #c7e7f0; width: 1px;"></td>
+											<td
+												style="text-align: center; color: #999999; font-size: 13px;"><s:property
+													value="subCategory" /></td>
+											<td style="text-align: center; font-size: 13px;"><s:property
+													value="itemDescription" /></td>
+											<td style="text-align: center; font-size: 13px;"><s:property
+													value="deliveryTime" /></td>
+											<td style="text-align: center; font-size: 13px;">Rs.&nbsp;<s:property
+													value="price" /></td>
+											<td style="text-align: center; font-size: 13px;"><s:property
+													value="quantity" /></td>
+
+											<td style="text-align: center; font-size: 13px;">Rs.&nbsp;<s:property
+													value="subTotal" /></td>
+											<%-- <td><a
+												href="deleteitem?itemID=<s:property value="itemID"/>"
+												style="text-decoration: none;"><i
+													class="icon-remove-sign"></i></a></td> --%>
+											<td><a
+												href="javascript:confirmDelete(<s:property value="itemID"/>)"
+												style="text-decoration: none;"><i
+													class="icon-remove-sign"></i></a></td>
+										</tr>
+									</s:iterator>
+									<s:set name="total" value="%{subTotal}" />
+									<s:if test="%{#total < 500.0}">
+										<tr>
+											<td style="background-color: #c7e7f0; width: 1px;"></td>
+											<td
+												style="text-align: center; color: #999999; font-size: 13px;">Misc</td>
+											<td style="text-align: center; font-size: 13px;">Delivery
+												Charge</td>
+											<td></td>
+											<td style="text-align: center; font-size: 13px;">Rs.&nbsp;50.0</td>
+											<td></td>
+											<td style="text-align: center; font-size: 13px;">Rs.&nbsp;50.0</td>
+											<td></td>
+										</tr>
+									</s:if>
+
+								</table>
+								<br /> <br />
+								<hr
+									style="height: 1px; background-color: #999999; color: #999999" />
+
+								<div class="row-fluid">
+									<div>
+										<b style="margin-left: 350px;">Amount Payable </b><b
+											style="margin-left: 130px;">Rs.&nbsp;<s:property
+												value="%{amountPayable}" /></font></b>
+									</div>
+								</div>
+								<hr
+									style="height: 1px; background-color: #999999; color: #999999" />
+								<br />
+								<div class="row-fluid">
+									<font style="font-size: 12px; font-family: Georgia;">Order
+										Confirmation email alert to</font><font
+										style="font-size: 13px; font-family: Georgia; font-style: italic; font-weight: bold;">
+										<s:property value="%{emailID}" />
+									</font>
+									<div align="right">
+										<s:submit value="          Continue          " theme="simple"
+											style="margin-left: 100px"
+											cssClass="btn btn-warning btn-large" />
+									</div>
+								</div>
+							</div>
+						</form>
+						</p>
+					</s:else>
 				</div>
 			</div>
 			<br /> <br /> <i class="icon-lock"

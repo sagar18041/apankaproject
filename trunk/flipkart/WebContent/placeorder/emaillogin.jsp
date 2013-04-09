@@ -6,6 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title></title>
+
+<!-- ================Custom CSS================ -->
 <style type="text/css">
 .span0 {
 	width: 40px;
@@ -53,6 +55,8 @@
 					<li><a href="#tabs-4"><font style="font-size: 20px;">4</font>&nbsp;<font
 							style="font-size: 12px">Payment Options</font></a></li>
 				</ul>
+				
+				<!-- ================Email Login tab content================ -->
 				<div id="tabs-1">
 					<p>
 						<s:form action="shippingaddress">
@@ -75,6 +79,7 @@
 				Shopping Guarantee</font>
 		</div>
 
+		<!-- ================Right-side order summary================ -->
 		<div class="custspan2">
 			<div class="customdiv">
 				<font style="font-size: 14px; margin-left: 10px;"><b>Order
