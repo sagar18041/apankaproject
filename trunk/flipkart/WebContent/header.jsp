@@ -455,7 +455,9 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 		<!-- *****************End Search ********************************** -->
 		&nbsp; &nbsp; &nbsp; <a href="cartDisplay"><button
 				class="fk-button-blue pull-right">
-				<span class="cart-icon"></span> Cart (value)
+				<span class="cart-icon"></span> Cart (
+				<s:property value="%{#session.cartCount}" />
+				)
 			</button></a>
 	</div>
 </body>
