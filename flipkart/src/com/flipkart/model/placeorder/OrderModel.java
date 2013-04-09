@@ -52,4 +52,24 @@ public class OrderModel {
 
 		return subTotal;
 	}
+	
+	public static String fetchSubCategory(int itemID) {
+		String subCategory = "";
+		
+		sqlQuery = "select subCategory from fielditemview where itemID = ?";
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, itemID);
+			rs=ps.executeQuery();
+
+			if(rs.next()){
+				subCategory = rs.getString(1);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return subCategory;
+	}
 }
