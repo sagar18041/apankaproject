@@ -30,7 +30,7 @@
 
 						<li class="nav-heading">&nbsp;&nbsp;My Stuff</li>
 						<li class="dividertop"></li>
-						<li><a href='#'>My Wishlist</a></li>
+						<li><a href='viewwishlist'>My Wishlist</a></li>
 						<li class="divider"></li>
 						<li><a href='#'>My Ratings</a></li>
 						<li class="dividerbottom"></li>
