@@ -20,12 +20,26 @@
 	}
 </script>
 <title>Insert title here</title>
+<style type="text/css">
+.hrclass {
+	clear: both;
+	margin: 9px 0 9px 0;
+	display: block;
+}
+
+.brclass {
+	clear: both;
+	margin: 1px 0 1px 0;
+	display: block;
+}
+</style>
 </head>
 <body>
 	<div class=container-fluid>
 		<ul class="breadcrumb">
 			<li><a href="home">Home</a> <span class="divider">></span></li>
-			<li class="active">My Account</li>
+			<li><a href="accountpage">My Account</a> <span class="divider">></span></li>
+			<li class="active">Wishlist</li>
 		</ul>
 		<div class="row-fluid">
 			<div class="span3">
@@ -35,40 +49,38 @@
 						<li class="nav-head">&nbsp;My Account</li>
 						<li class="nav-heading">&nbsp;&nbsp;Orders</li>
 						<li class="dividertop"></li>
-						<li><a href='#'>My Orders</a></li>
+						<li><a href='vieworders'>My Orders</a></li>
 						<li class="divider"></li>
-						<li><a href='#'>Order Status</a></li>
-						<li class="dividerbottom"></li>
-
-						<li class="nav-heading">&nbsp;&nbsp;Payments</li>
-						<li class="dividertop"></li>
-						<li><a href='#'>Wallet</a></li>
+						<li><a href='vieworderstatus'>Order Status</a></li>
 						<li class="dividerbottom"></li>
 
 						<li class="nav-heading">&nbsp;&nbsp;My Stuff</li>
 						<li class="dividertop"></li>
-						<li><a href='#'>My Wishlist</a></li>
+						<li class="active"><b>&nbsp;&nbsp;&nbsp;&nbsp;My Wishlist</b></li>
+						<li class="divider"></li>
+						<li><a href='#'>My Ratings</a></li>
 						<li class="dividerbottom"></li>
 
 						<li class="nav-heading">&nbsp;&nbsp;Settings</li>
 						<li class="dividertop"></li>
-						<li class="active"><b>&nbsp;&nbsp;&nbsp;&nbsp;Personal
-								Information</b></li>
+						<li><a href='accountpage'>Personal
+								Information</a></li>
 						<li class="divider"></li>
 						<li><a href='passwordpage'>Change Password</a></li>
 						<li class="divider"></li>
 						<li><a href='addresspage'>Addresses</a></li>
 						<li class="divider"></li>
-						<li><a href='#'>Update Email</a></li>
+						<li><a href='emailpage'>Update Email</a></li>
+						<li class="divider"></li>
+						<li><a href='deactivateaccountpage'>Deactivate Account</a></li>
 						<li class="dividerbottom"></li>
 					</ul>
 				</div>
 			</div>
 
-			<div class="span9" style="padding-left: 20px;">
-				<b><font style="font-size: 23px;"> My Wishlist </font></b>(
-				<s:property value="wishlistCount" />
-				Items) <br />
+			<div class="span9">
+				<br/>
+				<b><font style="font-size: 23px;"> My Wishlist </font></b><font style="font-size: 16px;">(<s:property value="wishlistCount" /> Items)</font> 
 				<br />
 				<div align="right">
 					<s:select name="sortBy" list="sortBy" id="sortById" headerKey="0"
@@ -76,13 +88,13 @@
 						cssStyle="font-size:13px;" style="width:130px"
 						onChange="getSortByValue()" />
 				</div>
-				<hr>
+				<hr class="hrclass" size="3" color="#CCCCCC">
 				<s:set name="count" value="%{wishlistCount}" />
 				<s:if test="%{#count==0}">
 					<div align="center">
 						There are no items in your wishlist.<br /> <br /> <a href="home"
 							class="btn btn-small btn-primary">Continue Shopping</a>
-						<hr>
+						<hr class="hrclass" size="3" color="#CCCCCC">
 					</div>
 				</s:if>
 				<s:iterator value="wishlistItems" status="i">
@@ -104,6 +116,7 @@
 								href="displayitem?itemID=<s:property value="%{itemID}" />">
 									<s:property value="%{itemName}" />
 							</a>
+							<hr class="brclass" style="visibility:hidden;" size="4"/>
 								<div style="background-color: #F2F2F2; padding-left: 0px;">
 
 									<br /> <b><font style="color: red;">Rs <s:property
@@ -115,7 +128,7 @@
 									<s:if test="%{#priceValue>500}">
 											 Free Home Delivery.
 											 </s:if>
-								</div> <br />
+								</div><hr class="brclass" style="visibility:hidden;" />
 								<div
 									style="background-color: #F2F2F2; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;">
 
@@ -129,9 +142,9 @@
 
 					</div>
 					<!-- <hr style="border:dashed #999999; border-width:1px 0 0; height:0;"> -->
-					<hr>
+					<hr class="hrclass" size="3" color="#CCCCCC">
 				</s:iterator>
-				Total value of items on this page: <b>Rs <s:property
+				Total value of items on this page: <b>Rs. <s:property
 						value="totalAmount" /></b>
 			</div>
 		</div>
