@@ -3,10 +3,12 @@ package com.flipkart.model.browseitem;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.w3c.dom.Attr;
 
+import com.flipkart.model.recommendation.RecentlyViewed;
 import com.flipkart.util.DbConnection;
 import com.flipkart.util.MyLog;
 import com.sun.org.apache.bcel.internal.classfile.Attribute;
@@ -29,7 +31,7 @@ public class ProductModel {
 	 */
 	public Product getProductDetails(Integer itemID) {
 		Product prod = new Product();
-		sqlQuery = "select itemID, itemName, productID from flipkart_item where itemID = ?;";
+		sqlQuery = "select itemID, itemName, productID, thumbnail from flipkart_item where itemID = ?;";
 		try{
 			MyLog.log("SQL = " + sqlQuery);
 			conn=DbConnection.getConnection();
@@ -42,6 +44,7 @@ public class ProductModel {
 				prod.setItemID(rs.getInt(1));
 				prod.setItemName(rs.getString(2));
 				prod.setProductID(rs.getInt(3));
+				prod.setThumbnail(rs.getString(4));
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -159,5 +162,123 @@ public class ProductModel {
 			e.printStackTrace();
 		}
 		return productID;
+	}
+
+	public ArrayList<Rating> getProductRating(Integer productID) {
+		ArrayList<Rating> rating  = new ArrayList<Rating>();
+		sqlQuery = "SELECT rat.ratingStar, user.firstName FROM flipkart_productrating rat, " +
+				"flipkart_userinfo user WHERE productID = ? AND rat.userID = user.userID;";
+		try{
+			MyLog.log("SQL = " + sqlQuery);
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, productID);
+			MyLog.log("after prepared statement");
+			rs=ps.executeQuery();
+			while(rs.next()){
+				Rating rt = new Rating();
+				rt.setRatingStar(rs.getInt(1));
+				rt.setUserName(rs.getString(2));
+				rating.add(rt);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return rating;
+	}
+
+	public void putBrowingHistory(String ipAddr, Integer itemID) {
+		sqlQuery = "INSERT INTO `flipkart`.`flipkart_browsinghistory`"
+				+ " (`ipAddress`, `itemID`) VALUES (?,?);";
+		MyLog.log("Query: " + sqlQuery);
+		conn = DbConnection.getConnection();
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, ipAddr);
+			ps.setInt(2, itemID);
+			MyLog.log("after prepared statement");
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public ArrayList<Integer> getRecentlyViewedItems(String ipAddr) {
+		ArrayList<Integer> itemIDS  = new ArrayList<Integer>();
+		sqlQuery = "SELECT DISTINCT itemID from flipkart_browsinghistory WHERE ipAddress = ? " +
+				"ORDER BY browseTime DESC LIMIT 2";
+		try{
+			MyLog.log("SQL = " + sqlQuery);
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setString(1, ipAddr);
+			MyLog.log("after prepared statement");
+			rs=ps.executeQuery();
+			while(rs.next()){
+				itemIDS.add(rs.getInt(1));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return itemIDS;
+	}
+
+	public ArrayList<RecentlyViewed> getRecentlyViewedItems(
+			ArrayList<Integer> itemIDsForRecentlyViewedItems) throws SQLException {
+			ArrayList<RecentlyViewed> recentlyViewedItems = new ArrayList<RecentlyViewed>();
+			for (int i= 0; i< itemIDsForRecentlyViewedItems.size(); i++) {
+				PreparedStatement ps=null;
+				ResultSet rs=null;
+				String sqlQuery="";
+				Connection conn = null;
+				
+			sqlQuery = "SELECT itm.itemID, itm.itemName, itm.thumbnail, attrib.value FROM flipkart_item itm, " +
+					"flipkart_itemattributes attrib WHERE itm.itemID = attrib.itemID AND itm.itemID = ? AND attrib.attribute = 'price';";
+			try{
+				MyLog.log("SQL = " + sqlQuery);
+				conn=DbConnection.getConnection();
+				ps=conn.prepareStatement(sqlQuery);
+				ps.setInt(1, itemIDsForRecentlyViewedItems.get(i));
+				//System.out.println(itemIDsForRecentlyViewedItems.get(i));
+				MyLog.log("after prepared statement");
+				rs=ps.executeQuery();
+				if(rs.next()){
+					RecentlyViewed rw = new RecentlyViewed();
+					rw.setItemID(rs.getInt(1));
+					rw.setItemName(rs.getString(2));
+					//System.out.println(rs.getString(2));
+					rw.setThumbnail(rs.getString(3));
+					//System.out.println(rs.getString(3));
+					rw.setPrice(rs.getString(4));
+					//System.out.println(rs.getString(4));	
+					recentlyViewedItems.add(rw);
+				}
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			}
+			return recentlyViewedItems;
+	}
+
+	public ArrayList<Integer> getbrowsedItems(String ipAddr) {
+		ArrayList<Integer> itemIDS  = new ArrayList<Integer>();
+		sqlQuery = "SELECT itemID FROM (SELECT itemID, COUNT( itemID ) AS freq, ipAddress " +
+				"FROM flipkart_browsinghistory WHERE ipAddress = ? GROUP BY itemID " +
+				"ORDER BY freq DESC LIMIT 2) AS items";
+		try{
+			MyLog.log("SQL = " + sqlQuery);
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setString(1, ipAddr);
+			MyLog.log("after prepared statement");
+			rs=ps.executeQuery();
+			while(rs.next()){
+				itemIDS.add(rs.getInt(1));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return itemIDS;
 	}	
 }

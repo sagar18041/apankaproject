@@ -5,7 +5,14 @@ public class Product {
 	private Integer itemID;
 	private String itemName;
 	private Integer productID;
+	private String thumbnail;
 	
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 	public Integer getItemID() {
 		return itemID;
 	}
