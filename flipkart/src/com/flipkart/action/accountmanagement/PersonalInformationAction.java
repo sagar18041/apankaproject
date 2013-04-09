@@ -83,8 +83,12 @@ public class PersonalInformationAction extends ActionSupport{
 		setFirstName(pi.getFirstName());
 		setLastName(pi.getLastName());
 		setGender(pi.getGender());
+		System.out.println(gender);
 		setMobileNumber(pi.getMobileNumber());
-		if(gender.equalsIgnoreCase("male")){
+		if(gender.equalsIgnoreCase("")){
+			setGenderFlag(0);
+		}
+		else if(gender.equalsIgnoreCase("male")){
 			setGenderFlag(1);
 		}
 		else{
@@ -98,7 +102,11 @@ public class PersonalInformationAction extends ActionSupport{
 		setUserID(Integer.valueOf(sess.get("userID").toString()));
 		pi.setFirstName(firstName);
 		pi.setLastName(lastName);
-		if(Integer.valueOf(gender)==1){
+		if(Integer.valueOf(gender)==0){
+			pi.setGender("");
+			setGenderFlag(0);
+		}
+		else if(Integer.valueOf(gender)==1){
 			pi.setGender("Male");
 			setGenderFlag(1);
 		}
