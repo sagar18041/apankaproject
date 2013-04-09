@@ -150,7 +150,6 @@ public class CartAction extends ActionSupport {
 		return c;
 	}
 
-	@SuppressWarnings("unchecked")
 	public String addToCart() {
 		cartCount = 0;
 		setItemAddedToCart(itemName);
