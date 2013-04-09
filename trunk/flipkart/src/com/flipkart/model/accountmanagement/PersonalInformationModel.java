@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.flipkart.util.DbConnection;
-import com.flipkart.util.DbManager;
-import com.flipkart.util.MyLog;
 
 public class PersonalInformationModel {
 	
