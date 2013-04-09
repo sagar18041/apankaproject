@@ -78,65 +78,65 @@ public class ProductAction extends ActionSupport {
 	 * @throws SQLException
 	 */
 	public String displayItem() throws SQLException {
-		
+
 		ProductModel pm = new ProductModel();
 
 		//get product details
 		prod = pm.getProductDetails(itemID);
-		
+
 		//get product attributes
 		attrib = pm.getProductAttributes(itemID);
-		
+
 		//review are based on product not on variants so 
 		//get productID from ItemID and pass it to get reviews.
 		Integer ProductID = pm.getProductID(itemID);
-		
+
 		//get product review
 		review = pm.getProductReview(ProductID);
-		
+
 		//get product ratings 
 		rating = pm.getProductRating(ProductID);
-		
+
 		//calculate final rating
 		for (int i = 0; i < rating.size(); i++) {
 			finalRating = finalRating + rating.get(i).getRatingStar();
 		}
 		if(rating.size() > 0) {
-		finalRating = finalRating / rating.size();
+			finalRating = finalRating / rating.size();
 		}
-		
+
 		//log user browsing history into DB for recommendations
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//to get actual IP not proxy address
 		String ipAddr = request.getHeader("X-FORWARDED-FOR");
 		//System.out.println(ipAddr);
 		//if we use localhost we will get null value so to avoid null convert it to ip
-		if (ipAddr.equals("null")) {
+		if (ipAddr == null || ipAddr.equals("")) {
 			ipAddr = "127.0.0.1";
 		}
 		//store into DB
 		pm.putBrowingHistory(ipAddr, itemID);
-		
+
 		//get 5 recently viewed itemIDs
 		ArrayList<Integer> itemIDsForRecentlyViewedItems = new ArrayList<Integer>();
 		itemIDsForRecentlyViewedItems = pm.getRecentlyViewedItems(ipAddr);
 		//System.out.println(itemIDsForRecentlyViewedItems.size());
-		
+
 		//get item details
 		recentlyViewedItems = pm.getRecentlyViewedItems(itemIDsForRecentlyViewedItems);
-		
+
 		/*for (int i=0; i<recentlyViewedItems.size();i++) {
 			System.out.println(recentlyViewedItems.get(i).getItemName());
 		}*/
-		
+
 		//System.out.println(recentlyViewedItems.size());
 		//get 5 items based on browsing history
 		ArrayList<Integer> itemIDsForBrowsingHistory = new ArrayList<Integer>();
 		itemIDsForBrowsingHistory = pm.getbrowsedItems(ipAddr);
-		
+
 		//get item details
 		browsingHistoryItems = pm.getRecentlyViewedItems(itemIDsForBrowsingHistory);
-		
+
 		/*
 		 * 
 		 to be implemented later
@@ -146,9 +146,9 @@ public class ProductAction extends ActionSupport {
 		 stock detail
 		 *
 		 */
-		
+
 		return SUCCESS;
-		
+
 	}
 
 
