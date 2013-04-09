@@ -8,7 +8,6 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.flipkart.model.systemadmincategory.*;
 import com.flipkart.util.EmailManager;
-import com.flipkart.util.MyLog;
 import com.flipkart.util.RuntimeSettings;
 
 public class AdminCategoryAction extends ActionSupport{
@@ -158,11 +157,9 @@ public class AdminCategoryAction extends ActionSupport{
 		if (EmailManager.sendMail(emailAddress, messageSubject,
 				messageBody, RuntimeSettings.smtpFrom,
 				RuntimeSettings.smtpPassword)) {
-			MyLog.log("Category Addition notification email Sent.");
 			return SUCCESS;
 
 		} else {
-			MyLog.log("Error in sending Category Addition notification email.");
 			return ERROR;
 		}
 	}	
