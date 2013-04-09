@@ -151,6 +151,15 @@
 		<put-attribute name="body" value="/SystemAdmin/adminlogin.jsp" />
 	</definition>
 
+	<!-- ============================== Bank Begin (Aamir) =========================== -->
+	
+	<definition name="/netbankingviewentries.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Net Banking" />
+		<put-attribute name="body" value="/Bank/netbankingviewentries.jsp" />
+	</definition>
+	
+	<!-- ============================== Bank End (Aamir) =========================== -->
+
 	<!-- ============================== End of System Administration =========================== -->
 
 	<!-- ================================ Product Display by Ananda================================ -->
@@ -192,5 +201,4 @@
 		<put-attribute name="body" value="/cart/carterror.jsp" />
 	</definition>
 	<!-- ************************* End of Cart and WishList **************************** -->
-
 </tiles-definitions>
