@@ -2,6 +2,7 @@ package com.flipkart.action.authentication;
 
 import java.util.Map;
 
+import com.flipkart.model.authentication.LoginModel;
 import com.flipkart.model.authentication.SignUpModel;
 import com.flipkart.util.MyLog;
 import com.flipkart.util.MyUtilityFunctions;
@@ -33,9 +34,9 @@ public class SignUpAction extends ActionSupport {
 	@SuppressWarnings("rawtypes")
 	Map session = ActionContext.getContext().getSession();
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public String createAccount() {
-
+		Map session = ActionContext.getContext().getSession();
 		if (SignUpModel.checkUser(emailAddress)) {
 			addActionError("An account already exists with the same email address."
 					+ " Login or create an account with another email address.");
@@ -48,10 +49,14 @@ public class SignUpAction extends ActionSupport {
 					"An account already exists with the same email address. "
 							+ "Login or create an account with another email address.");
 			return ERROR;
-		} else
+		} else {
 			SignUpModel.createAccount(emailAddress,
 					MyUtilityFunctions.generateMD5(password));
-		return SUCCESS;
+			session.put("login", true);
+			session.put("userID", LoginModel.getUserID(emailAddress));
+			session.put("emailAddress", emailAddress);
+			return SUCCESS;
+		}
 
 	}
 }
