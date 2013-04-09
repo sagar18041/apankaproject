@@ -21,9 +21,27 @@
 <link href="ViewResources/css/bootstrap.css" rel="stylesheet">
 <link href="ViewResources/css/font-awesome.css" rel="stylesheet">
 <link href="ViewResources/css/bootstrap-select.css" rel="stylesheet">
-
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 <style>
+.rating-static {
+  width: 60px;
+  height: 16px;
+  display: block;
+  background: url('ViewResources/img/star-rating.png') 0 0 no-repeat;
+}
+.rating-50 { background-position: 0 0; }
+.rating-40 { background-position: -12px 0; } 
+.rating-30 { background-position: -24px 0; }
+.rating-20 { background-position: -36px 0; }
+.rating-10 { background-position: -48px 0; }
+.rating-0 { background-position: -60px 0; }
+ 
+.rating-5  { background-position: -48px -16px; }
+.rating-15 { background-position: -36px -16px; }
+.rating-25 { background-position: -24px -16px; }
+.rating-35 { background-position: -12px -16px; }
+.rating-45 { background-position: 0 -16px; }
+
 #subheading {
 	-moz-border-radius-topleft: 5px;
 	-webkit-border-top-left-radius: 5px;

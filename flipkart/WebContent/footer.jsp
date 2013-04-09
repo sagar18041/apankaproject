@@ -1,11 +1,3 @@
-<div class="row-fluid" style="border-style:solid; border-color:#6E6E6E; border-width:1px;" >
-<div class="span4" style="padding:5px 5px 5px 5px; border-right:thin dotted #6E6E6E;"><b>You Recently Viewed</b>
-<br /> <br /> recomended products here
-</div>
-<div class="span8" style="padding:5px 5px 5px 5px;"><b>Recommendations Based On Your Browsing History</b>
-<br /> <br /> recomended products here
-</div>
-</div>
 <hr  color="#6E6E6E" />
 <div class="row-fluid">
 <div class="span8">
