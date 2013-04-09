@@ -21,30 +21,28 @@
 			<ul class="thumbnails">
 				<li class="span3">
 					<div align="center" class="thumbnail">
-						
+
 						<h5>Product Category</h5>
 						<img src="ViewResources/img/1.jpg" alt=""><br /> <a
-							href="#">Item Name</a><br />
-						<font color="#B40404"><b>Rs. 500</b></font><br /> 
-						<a href="#">Link
-							to product category &rsaquo;&rsaquo;</a>
+							href="#">Item Name</a><br /> <font color="#B40404"><b>Rs.
+								500</b></font><br /> <a href="#">Link to product category
+							&rsaquo;&rsaquo;</a>
 					</div>
 				</li>
 				<li class="span3">
 					<div align="center" class="thumbnail">
 						<h5>Product Category</h5>
 						<img src="ViewResources/img/2.jpg" alt=""><br /> <a
-							href="#">Item Name</a><br />
-						<font color="#B40404"><b>Rs. 500</b></font><br /> <a href="#">Link
-							to product category &rsaquo;&rsaquo;</a>
-							
+							href="#">Item Name</a><br /> <font color="#B40404"><b>Rs.
+								500</b></font><br /> <a href="#">Link to product category
+							&rsaquo;&rsaquo;</a>
+
 					</div>
 				</li>
 			</ul>
 		</div>
 		<div class="span9">
-		<div><a href="adminhome.action">ADMIN HOME</a></div>
-		
+
 			<div class="row">
 				<!-- Offer Product Slide Show Start-->
 				<div class="span9">
@@ -84,8 +82,8 @@
 				<div class="span9" style="margin-top: 10px; margin-bottom: 10px">
 					<div class="span2">
 						<img src="ViewResources/img/2.jpg" alt=""><br /> <a
-							href="#">Item Name</a><br />
-						<font color="#B40404"><b>Rs. 500</b></font><br />
+							href="#">Item Name</a><br /> <font color="#B40404"><b>Rs.
+								500</b></font><br />
 						<ul>
 							<li>some featres</li>
 							<li>some featres</li>
@@ -102,8 +100,7 @@
 					</span>
 				</div>
 			</div>
-			<br />
-			<br />
+			<br /> <br />
 			<div>
 				<div
 					style="background-color: #E9E9E9; padding: 2px 5px 5px 5px; height: 30px; border-bottom-style: solid; border-bottom-width: 5px; border-bottom-color: #C78407;">
@@ -116,8 +113,8 @@
 				<div class="span9" style="margin-top: 10px; margin-bottom: 10px">
 					<div class="span2">
 						<img src="ViewResources/img/2.jpg" alt=""><br /> <a
-							href="#">Item Name</a><br />
-						<font color="#B40404"><b>Rs. 500</b></font><br />
+							href="#">Item Name</a><br /> <font color="#B40404"><b>Rs.
+								500</b></font><br />
 						<ul>
 							<li>some featres</li>
 							<li>some featres</li>
