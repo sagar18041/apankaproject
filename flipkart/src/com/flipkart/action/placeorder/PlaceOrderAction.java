@@ -41,24 +41,14 @@ public class PlaceOrderAction extends ActionSupport {
 	private String shippingCode;
 	private String shippingPhone;
 
+	/* used for MOS */
+	private String mapping;
+
 	/* used for order summary tab */
 	private String deliveryCharge;
 	private float amountPayable = 0;
 	private int itemID;
 	private String itemDeleted = "";
-
-	/***************** later to be removed *************************/
-	private ArrayList<String> productList;
-
-	public ArrayList<String> getProductList() {
-		return productList;
-	}
-
-	public void setProductList(ArrayList<String> productList) {
-		this.productList = productList;
-	}
-
-	/***************************************************************/
 
 	public String getEmailID() {
 		return emailID;
@@ -204,6 +194,14 @@ public class PlaceOrderAction extends ActionSupport {
 		this.shippingPhone = shippingPhone;
 	}
 
+	public String getMapping() {
+		return mapping;
+	}
+
+	public void setMapping(String mapping) {
+		this.mapping = mapping;
+	}
+
 	public String getDeliveryCharge() {
 		return deliveryCharge;
 	}
@@ -299,11 +297,6 @@ public class PlaceOrderAction extends ActionSupport {
 					+ addressList.get(i).getPhoneNumber());
 		}
 
-		productList = new ArrayList<String>();
-		productList.add("Product1");
-		productList.add("Product2");
-		productList.add("Product3");
-
 		if (!errorMsg.equals(""))
 			addActionError(errorMsg);
 
@@ -315,6 +308,7 @@ public class PlaceOrderAction extends ActionSupport {
 	 * to order summary page.
 	 ****************************************************************************/
 	public String fetchOrderSummary() {
+
 		// to display the right-side order summary on each tab
 		cartList.clear();
 		cartList = (ArrayList<Cart>) sess.get("cartItems");
@@ -327,38 +321,40 @@ public class PlaceOrderAction extends ActionSupport {
 			grandTotal += 50;
 		}
 
-		/*
-		 * check if no existing shipping addresses have been selected, ie, a new
-		 * shipping address has been entered
-		 */
-		if (addressid.equals("0")) {
-			if (!shippingName.equals("") && !shippingAddr.equals("")
-					&& !shippingCity.equals("") && !shippingPhone.equals("")
-					&& !shippingCode.equals("") && !shippingState.equals("-1")) {
+		if(mapping == null){
+			/*
+			 * check if no existing shipping addresses have been selected, ie, a new
+			 * shipping address has been entered
+			 */
+			if (addressid.equals("0")) {
+				if (!shippingName.equals("") && !shippingAddr.equals("")
+						&& !shippingCity.equals("") && !shippingPhone.equals("")
+						&& !shippingCode.equals("") && !shippingState.equals("-1")) {
 
-				ShippingAddress newAddr = new ShippingAddress();
-				newAddr.setName(shippingName);
-				newAddr.setStreetAddress(shippingAddr);
-				newAddr.setLandmark(shippingLm);
-				newAddr.setCity(shippingCity);
-				newAddr.setStateName(shippingState);
-				newAddr.setPincode(shippingCode);
-				newAddr.setPhoneNumber(shippingPhone);
+					ShippingAddress newAddr = new ShippingAddress();
+					newAddr.setName(shippingName);
+					newAddr.setStreetAddress(shippingAddr);
+					newAddr.setLandmark(shippingLm);
+					newAddr.setCity(shippingCity);
+					newAddr.setStateName(shippingState);
+					newAddr.setPincode(shippingCode);
+					newAddr.setPhoneNumber(shippingPhone);
 
-				/*
-				 * insert the newly entered address in the database
-				 */
-				addressid = ShippingAddressModel.insertShippingAddress(newAddr)
-						+ "";
-			} else {
-				errorMsg = "Please provide all details";
+					/*
+					 * insert the newly entered address in the database
+					 */
+					addressid = ShippingAddressModel.insertShippingAddress(newAddr)
+							+ "";
+				} else {
+					errorMsg = "Please provide all details";
 
-				return ERROR;
+					return ERROR;
+				}
 			}
 		}
 
 		boolean flag = false;
-		
+
 		if(sess.get("OrderNum") != null)
 			flag = deleteItemFromDB(sess.get("emailAddress").toString());
 
@@ -405,6 +401,20 @@ public class PlaceOrderAction extends ActionSupport {
 			orderNum = sess.get("OrderNum").toString();
 		}
 
+		int addr[] = new int[cartList.size()];
+		if(mapping != null) {
+			for(int i = 0; i < cartList.size(); i++) {
+				addr[i] = Integer.parseInt(mapping.charAt(i*4+2)+"");
+				System.out.println("**index**"+addr[i]);
+			}
+			
+			addressList = ShippingAddressModel.fetchAddrList(Integer.parseInt(sess.get("userID").toString()));
+			
+			for(int i = 0; i < cartList.size(); i++) {
+				addr[i] = addressList.get(addr[i]-1).getAddressID();
+			}
+		}
+
 		for (int i = 0; i < cartList.size(); i++) {
 			Order newOrder = new Order();
 			newOrder.setOrderNumber(orderNum);
@@ -413,7 +423,11 @@ public class PlaceOrderAction extends ActionSupport {
 			newOrder.setTotalPrice(cartList.get(i).getQuantity()
 					* cartList.get(i).getPrice());
 			newOrder.setEmailAddress(sess.get("emailAddress").toString());
-			newOrder.setAddressID(Integer.parseInt(addressid));
+			if(mapping != null) {
+				newOrder.setAddressID(addr[i]);
+			} else {
+				newOrder.setAddressID(Integer.parseInt(addressid));
+			}
 			newOrder.setStatus("Processing");
 			newOrder.setShippingCharge(grandTotal-subTotal);
 
