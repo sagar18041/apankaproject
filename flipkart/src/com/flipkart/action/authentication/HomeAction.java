@@ -3,30 +3,35 @@
  */
 package com.flipkart.action.authentication;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Map;
+
 import com.flipkart.model.authentication.Catalogue;
 import com.flipkart.model.authentication.HomeModel;
 import com.flipkart.model.authentication.SearchList;
 import com.flipkart.model.authentication.SearchListModel;
-import com.flipkart.util.MyLog;
+import com.flipkart.model.cartmanagement.Cart;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-
-import java.sql.SQLException;
-import java.util.*;
 
 /**
  * @author Team404
  *
  */
 public class HomeAction extends ActionSupport {
+	
 	private ArrayList<String> categoryList  = new ArrayList<String>();
 	private ArrayList<SearchList> sl = new ArrayList<SearchList>();
 	private ArrayList<Catalogue> catalogueList = new ArrayList<Catalogue>();
+	ArrayList<Cart>cartItems=new ArrayList<Cart>();
+	Map cartSession=ActionContext.getContext().getSession();
 	
 	String searchBy;
 	String autoCompleteList;
 	public String categorySel;
-	
-	
+	public static int loadFirstTime = 0;
+	int initialCartCount = 0;
 
 	public String getCategorySel() {
 		return categorySel;
@@ -68,18 +73,55 @@ public class HomeAction extends ActionSupport {
 		this.categoryList = categoryList;
 	}
 
+	public ArrayList<Cart> getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(ArrayList<Cart> cartItems) {
+		this.cartItems = cartItems;
+	}
+
+	public static int getLoadFirstTime() {
+		return loadFirstTime;
+	}
+
+	public static void setLoadFirstTime(int loadFirstTime) {
+		HomeAction.loadFirstTime = loadFirstTime;
+	}
+
+	public int getInitialCartCount() {
+		return initialCartCount;
+	}
+
+	public void setInitialCartCount(int initialCartCount) {
+		this.initialCartCount = initialCartCount;
+	}
+	public Map getCartSession() {
+		return cartSession;
+	}
+
+	public void setCartSession(Map cartSession) {
+		this.cartSession = cartSession;
+	}
+
 	public String execute() throws SQLException {
-		
-		MyLog.log("Inside HomeAction execute function");
+
 		//get all categories from category table to populate the search box
-		
 		System.out.println("Category is " + getCategorySel());
 		HomeModel hm = new HomeModel();
 		categoryList = hm.getCategoryList();
-		
+
+		if(loadFirstTime==0){
+			cartSession.put("cartItems",cartItems);
+			cartSession.put("cartCount", initialCartCount);
+			loadFirstTime=1;
+			
+			System.out.println("********"+cartSession.get("cartCount"));
+		}
+
 		//get all catalogue details to populate menu list
 		catalogueList = hm.getCatalogueList();
-		
+
 		/*
 		 * For searchList
 		 */
@@ -90,7 +132,7 @@ public class HomeAction extends ActionSupport {
 			autoCompleteList = autoCompleteList + sl.get(i).fieldValue + "\",\"";
 		}
 		autoCompleteList = autoCompleteList + "\"]";
-	
+
 		return SUCCESS;
 	}
 
