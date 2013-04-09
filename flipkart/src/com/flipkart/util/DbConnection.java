@@ -28,7 +28,6 @@ public class DbConnection {
 				conn = (Connection) DriverManager.getConnection(RuntimeSettings.dbUrl + RuntimeSettings.databaseName,
 						RuntimeSettings.dbUserID, RuntimeSettings.dbPassword);
 				//conn.setAutoCommit(false);
-				MyLog.log("Connection Established");
 			}
 			catch(Exception ex){
 				ex.printStackTrace();
