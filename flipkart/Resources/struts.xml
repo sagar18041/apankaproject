@@ -436,6 +436,7 @@
 
 		<action name="cartDisplay" class="com.flipkart.action.cartmanagement.CartAction"
 			method="displayCart">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/viewcart.tiles</result>
 			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
