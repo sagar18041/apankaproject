@@ -134,20 +134,22 @@ public class HomeAction extends ActionSupport {
 	public String execute() throws SQLException {
 
 		// get all categories from category table to populate the search box
-		System.out.println("Category is " + getCategorySel());
+		//System.out.println("Category is " + getCategorySel());
 		HomeModel hm = new HomeModel();
 		categoryList = hm.getCategoryList();
 
+		// get all catalogue details to populate menu list
+		catalogueList = hm.getCatalogueList();
+				
 		if (loadFirstTime == 0) {
 			cartSession.put("cartItems", cartItems);
 			cartSession.put("cartCount", initialCartCount);
 			loadFirstTime = 1;
 
-			System.out.println("********" + cartSession.get("cartCount"));
+			//System.out.println("********" + cartSession.get("cartCount"));
 		}
 
-		// get all catalogue details to populate menu list
-		catalogueList = hm.getCatalogueList();
+		
 
 		/*
 		 * For searchList
