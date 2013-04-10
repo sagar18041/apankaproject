@@ -68,7 +68,12 @@ public class NetBankingAction extends ActionSupport {
 	public String searchAccountNumber() {
 		Map session = ActionContext.getContext().getSession();
 		recordList = new ArrayList<NetBanking>();
+		searchList = new ArrayList<NetBanking>();
 		NetBankingModel.getNonNetBankingCustomers(recordList);
+		for (int i = 0; i < recordList.size(); i++) {
+			if (recordList.get(i).getAccountNumber().contains(accountNumber))
+				searchList.add(recordList.get(i));
+		}
 		session.put("searchValue", 1);
 		return SUCCESS;
 
