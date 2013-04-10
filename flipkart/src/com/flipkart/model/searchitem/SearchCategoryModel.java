@@ -89,10 +89,10 @@ public class SearchCategoryModel {
 		sqlQuery = "SELECT bi.itemID itemid, " + 
 					"max(CASE WHEN bi.attrName='Name' THEN bi.itemName ELSE NULL END) as Name, " +
 					"max(CASE WHEN bi.attrName='price' THEN bi.itemName ELSE NULL END) as Price, " +
-					"bi.category category , bi.path image" +
+					"bi.category category , bi.thumbnail image" +
 					" FROM " + 
-					"(SELECT fiv.itemID , fiv.attrName , fiv.itemName , fiv.category , fi.path " +
-					"from fielditemview fiv left join flipkart_images fi on fiv.itemID = fi.itemID " +
+					"(SELECT fiv.itemID , fiv.attrName , fiv.itemName , fiv.category , fi.thumbnail " +
+					"from fielditemview fiv left join flipkart_item fi on fiv.itemID = fi.itemID " +
 					"where fiv.itemID in (select distinct itemID from fielditemview where upper(itemName) " +
 					"like upper('%" + searchText + "%') and category ='" + category + "'))as bi " +
 					"group by bi.itemID";

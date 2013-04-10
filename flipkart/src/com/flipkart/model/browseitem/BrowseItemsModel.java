@@ -27,11 +27,11 @@ public class BrowseItemsModel {
 					"CASE WHEN bi.attrName =  'price' " +
 					"THEN bi.itemName " +
 					"ELSE NULL " +
-					"END ) AS Price, bi.category category, bi.path image " +
+					"END ) AS Price, bi.category category, bi.thumbnail image " +
 					"FROM ( " +
-					"SELECT fiv.itemID, fiv.attrName, fiv.itemName, fiv.category, fi.path " +
+					"SELECT fiv.itemID, fiv.attrName, fiv.itemName, fiv.category, fi.thumbnail " +
 					"FROM fielditemview fiv " +
-					"LEFT JOIN flipkart_images fi ON fiv.itemID = fi.itemID " +
+					"LEFT JOIN flipkart_item fi ON fiv.itemID = fi.itemID " +
 					"WHERE fiv.itemID " +
 					"IN ( " +
 					"SELECT itemID " +

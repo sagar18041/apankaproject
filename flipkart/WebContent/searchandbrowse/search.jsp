@@ -124,13 +124,14 @@
 	<td>
 <div class="span3" style="margin-top:10px; margin-bottom:10px">
 <div class="span2">
-      	<img src="<s:property value="itemImg"/>" alt=""><br />
-     	<a href="#"><s:property value="itemName"/></a><br /><font color="#B40404"><b>Price: Rs. <s:property value="price"/></b></font><br />
+		<a href="displayitem?itemID=<s:property value="itemID"/>">
+      	<img src="<s:property value="itemImg"/>" alt="" height="60px" width="80px"><br />
+     	<s:property value="itemName"/><br /><font color="#B40404"><b>Price: Rs. <s:property value="price"/></b></font><br />
      	<ul>
      	<s:iterator value="attr">
      	<li><s:property value="value"/></li>
      	</s:iterator>
-     	</ul>
+     	</ul></a>
 </div>
 </div>
 </td>
