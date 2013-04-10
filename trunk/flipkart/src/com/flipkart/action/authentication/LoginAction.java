@@ -54,9 +54,7 @@ public class LoginAction extends ActionSupport {
 	public String logout() {
 		// remove user from session
 		Map sess = ActionContext.getContext().getSession();
-		sess.remove("login");
-		sess.remove("userID");
-		sess.remove("emailAddress");
+		sess.clear();
 		return SUCCESS;
 	}
 
