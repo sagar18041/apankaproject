@@ -6,7 +6,7 @@ public class NetBanking {
 	int customerID;
 	String password;
 	String customerName;
-	float balance;
+	String balance;
 
 	public int getCustomerID() {
 		return customerID;
@@ -24,11 +24,11 @@ public class NetBanking {
 		this.customerName = customerName;
 	}
 
-	public float getBalance() {
+	public String getBalance() {
 		return balance;
 	}
 
-	public void setBalance(float balance) {
+	public void setBalance(String balance) {
 		this.balance = balance;
 	}
 
