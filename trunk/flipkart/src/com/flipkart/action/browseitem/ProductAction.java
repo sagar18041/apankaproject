@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.flipkart.model.authentication.Catalogue;
+import com.flipkart.model.authentication.HomeModel;
+import com.flipkart.model.authentication.SearchList;
+import com.flipkart.model.authentication.SearchListModel;
 import com.flipkart.model.browseitem.Attributes;
 import com.flipkart.model.browseitem.Product;
 import com.flipkart.model.browseitem.ProductModel;
@@ -21,6 +25,12 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class ProductAction extends ActionSupport {
 
+	private ArrayList<String> categoryList = new ArrayList<String>();
+	private ArrayList<SearchList> sl = new ArrayList<SearchList>();
+	String searchBy;
+	String autoCompleteList;
+	public String categorySel;
+	
 	private Integer itemID;
 	private Product prod = new Product();
 	private ArrayList<Attributes> attrib = new ArrayList<Attributes>();
@@ -29,8 +39,57 @@ public class ProductAction extends ActionSupport {
 	private Integer finalRating = 0;
 	private ArrayList<RecentlyViewed> recentlyViewedItems = new ArrayList<RecentlyViewed>();
 	private ArrayList<RecentlyViewed> browsingHistoryItems = new ArrayList<RecentlyViewed>();
+	private ArrayList<Catalogue> catalogueList = new ArrayList<Catalogue>();
+	public String getSearchBy() {
+		return searchBy;
+	}
+
+	public void setSearchBy(String searchBy) {
+		this.searchBy = searchBy;
+	}
+
+	public String getAutoCompleteList() {
+		return autoCompleteList;
+	}
+
+	public void setAutoCompleteList(String autoCompleteList) {
+		this.autoCompleteList = autoCompleteList;
+	}
+
+	public String getCategorySel() {
+		return categorySel;
+	}
+
+	public void setCategorySel(String categorySel) {
+		this.categorySel = categorySel;
+	}
+
+	public ArrayList<Catalogue> getCatalogueList() {
+		return catalogueList;
+	}
+
+	public void setCatalogueList(ArrayList<Catalogue> catalogueList) {
+		this.catalogueList = catalogueList;
+	}
+
 	public ArrayList<RecentlyViewed> getBrowsingHistoryItems() {
 		return browsingHistoryItems;
+	}
+
+	public ArrayList<String> getCategoryList() {
+		return categoryList;
+	}
+
+	public void setCategoryList(ArrayList<String> categoryList) {
+		this.categoryList = categoryList;
+	}
+
+	public ArrayList<SearchList> getSl() {
+		return sl;
+	}
+
+	public void setSl(ArrayList<SearchList> sl) {
+		this.sl = sl;
 	}
 
 	public void setBrowsingHistoryItems(
@@ -79,6 +138,23 @@ public class ProductAction extends ActionSupport {
 	 */
 	public String displayItem() throws SQLException {
 
+		// get all categories from category table to populate the search box
+		HomeModel hm = new HomeModel();
+		categoryList = hm.getCategoryList();
+		// get all catalogue details to populate menu list
+		catalogueList = hm.getCatalogueList();
+		/*
+		 * For searchList
+		 */
+		sl = SearchListModel.fetchList(getCategorySel());
+		System.out.println("SearchList size " + sl.size());
+		autoCompleteList = "[\"";
+		for (int i = 0; i < sl.size(); i++) {
+			autoCompleteList = autoCompleteList + sl.get(i).fieldValue
+					+ "\",\"";
+		}
+		autoCompleteList = autoCompleteList + "\"]";
+		
 		ProductModel pm = new ProductModel();
 
 		//get product details
