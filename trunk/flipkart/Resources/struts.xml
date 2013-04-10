@@ -430,6 +430,7 @@
 		<!-- ******************************* Cart Management by Ritu ********************************* -->
 		<action name="addToCart" class="com.flipkart.action.cartmanagement.CartAction"
 			method="addToCart">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
@@ -443,11 +444,13 @@
 
 		<action name="updateCart" class="com.flipkart.action.cartmanagement.CartAction"
 			method="updateCart">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 		</action>
 
 		<action name="deleteCart" class="com.flipkart.action.cartmanagement.CartAction"
 			method="deleteCart">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 		</action>
 
@@ -479,10 +482,12 @@
 
 		<action name="addToCartFromWishlist" class="com.flipkart.action.cartmanagement.CartAction"
 			method="addToCartFromWishlist">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 		</action>
 		<action name="sortByValue" class="com.flipkart.action.wishlist.WishlistAction"
 			method="viewWishlist">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">viewwishlist</result>
 		</action>
 
