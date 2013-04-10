@@ -206,11 +206,13 @@ public class CartAction extends ActionSupport {
 	}
 
 	public String addToCartFromWishlist() {
+		System.out.println("#####");
+	
+		 System.out.println("in add to cart from wishlist" +itemName+"   "+price+"   "+itemID +"   "+deliveryTime);
 		cartCount = 0;
 		setItemAddedToCart(itemName);
 		moveToWishlistCheck.put("checkAddDisplay", "true");
-		// System.out.println("in add to cart from wishlist"
-		// +itemName+"   "+price+"   "+itemID);
+		
 		if (firstItem == 0) {
 			System.out.println("in if...");
 			cartItems.add(makeObject());
