@@ -24,7 +24,7 @@ public class NetBankingModel {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				record = new NetBanking();
-				record.setAccountNumber(rs.getInt("accountNumber"));
+				record.setAccountNumber(rs.getString("accountNumber"));
 				record.setBalance(rs.getFloat("balance"));
 				record.setCustomerID(rs.getInt("customerID"));
 				record.setCustomerName(rs.getString("customerName"));
@@ -37,4 +37,62 @@ public class NetBankingModel {
 		}
 	}
 
+	public static void getNonNetBankingCustomers(
+			ArrayList<NetBanking> recordList) {
+		NetBanking record;
+		sqlQuery = "select * from bank where accountNumber not in (select accountNumber from netbanking);";
+		conn = DbConnection.getConnection();
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				record = new NetBanking();
+				record.setAccountNumber(rs.getString("accountNumber"));
+				record.setBalance(rs.getFloat("balance"));
+				record.setCustomerID(rs.getInt("customerID"));
+				record.setCustomerName(rs.getString("customerName"));
+				recordList.add(record);
+
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void insertEntry(String accountNumber, String password) {
+
+		sqlQuery = "INSERT INTO `flipkart`.`netbanking` (`accountNumber`, `password`) VALUES (?, ?);";
+		conn = DbConnection.getConnection();
+
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, accountNumber);
+			ps.setString(2, password);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void deleteEntry(String accountNumber) {
+
+		sqlQuery = "DELETE FROM `flipkart`.`netbanking` WHERE `accountNumber`=?;";
+		conn = DbConnection.getConnection();
+
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, accountNumber);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+	}
 }
