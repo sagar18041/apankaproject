@@ -32,8 +32,9 @@ public class ProductAction extends ActionSupport {
 	String searchBy;
 	String autoCompleteList;
 	public String categorySel;
-	//to get category list in menu and search autocomplete
+	//end to get category list in menu and search autocomplete
 	
+	// product display 
 	private Integer itemID;
 	private Product prod = new Product();
 	private ArrayList<Attributes> attrib = new ArrayList<Attributes>();
@@ -42,6 +43,39 @@ public class ProductAction extends ActionSupport {
 	private Integer finalRating = null;
 	private Integer numberOfUserRated = 0;
 	private Integer numberOfReviews = 0;
+	//end product display
+	
+	// related to ratings and reviews
+	private Integer ratingStar;
+	private String reviewTitle;
+	private String reviewText;
+	//end related to ratings and reviews
+
+
+	public Integer getRatingStar() {
+		return ratingStar;
+	}
+
+	public void setRatingStar(Integer ratingStar) {
+		this.ratingStar = ratingStar;
+	}
+
+	public String getReviewTitle() {
+		return reviewTitle;
+	}
+
+	public void setReviewTitle(String reviewTitle) {
+		this.reviewTitle = reviewTitle;
+	}
+
+	public String getReviewText() {
+		return reviewText;
+	}
+
+	public void setReviewText(String reviewText) {
+		this.reviewText = reviewText;
+	}
+
 	public Integer getNumberOfReviews() {
 		return numberOfReviews;
 	}
@@ -257,7 +291,26 @@ public class ProductAction extends ActionSupport {
 		return SUCCESS;
 
 	}
-
+	
+	//get page to rate and review product
+	public String rateAndReview() {
+		ProductModel pm = new ProductModel();
+		//get product details
+				prod = pm.getProductDetails(itemID);
+		return SUCCESS;
+	}
+	
+	//save user ratings and reviews
+	public String saveRateAndReview() {
+		ProductModel pm = new ProductModel();
+		//check for user login
+		//check for input fileds
+		//check if user has already rated and review give msg
+		//insert rating 
+		//insert review
+		
+		return SUCCESS;
+	}
 
 	public Integer getItemID() {
 		return itemID;
