@@ -21,6 +21,7 @@ import com.flipkart.model.browseitem.Product;
 import com.flipkart.model.browseitem.ProductModel;
 import com.flipkart.model.browseitem.Rating;
 import com.flipkart.model.browseitem.Review;
+import com.flipkart.model.browseitem.Variant;
 import com.flipkart.model.recommendation.RecentlyViewed;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -31,11 +32,23 @@ public class ProductAction extends ActionSupport {
 	private ArrayList<String> categoryList = new ArrayList<String>();
 	private ArrayList<Catalogue> catalogueList = new ArrayList<Catalogue>();
 	private ArrayList<SearchList> sl = new ArrayList<SearchList>();
+	
 	String searchBy;
 	String autoCompleteList;
 	public String categorySel;
 	//end to get category list in menu and search autocomplete
 	
+	//to store variant of a product
+		private ArrayList<Variant> variantList = new ArrayList<Variant>();
+		
+		public ArrayList<Variant> getVariantList() {
+			return variantList;
+		}
+
+		public void setVariantList(ArrayList<Variant> variantList) {
+			this.variantList = variantList;
+		}
+		
 	// product display 
 	private boolean rated = false;
 	private boolean addedToWishList = false;
@@ -298,7 +311,10 @@ public class ProductAction extends ActionSupport {
 		//get item details
 		browsingHistoryItems = pm.getRecentlyViewedItems(itemIDsForBrowsingHistory);
 
+		//get variant details
+		variantList = pm.getVariantDetails(productID, itemID);
 		//get stock details
+		
 		/*
 		 * 
 		 to be implemented later

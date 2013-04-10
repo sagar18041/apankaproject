@@ -348,5 +348,28 @@ public class ProductModel {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public ArrayList<Variant> getVariantDetails(Integer productID, Integer itemID) {
+		
+		ArrayList<Variant> variantList = new ArrayList<Variant>();
+		sqlQuery = "select itemName, itemID from flipkart_item where productID = ? AND itemID != ?;";
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, productID);
+			ps.setInt(2, itemID);
+			rs=ps.executeQuery();
+			
+			if(rs.next()){
+				Variant variant = new Variant();
+				variant.setVariantName(rs.getString(1));
+				variant.setVariantID(rs.getInt(2));
+				variantList.add(variant);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return variantList;
 	}	
 }
