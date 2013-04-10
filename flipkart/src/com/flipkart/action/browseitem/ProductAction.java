@@ -6,6 +6,7 @@ package com.flipkart.action.browseitem;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +22,7 @@ import com.flipkart.model.browseitem.ProductModel;
 import com.flipkart.model.browseitem.Rating;
 import com.flipkart.model.browseitem.Review;
 import com.flipkart.model.recommendation.RecentlyViewed;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class ProductAction extends ActionSupport {
@@ -35,7 +37,26 @@ public class ProductAction extends ActionSupport {
 	//end to get category list in menu and search autocomplete
 	
 	// product display 
-	private Integer itemID;
+	private boolean rated = false;
+	private boolean addedToWishList = false;
+	public boolean isRated() {
+		return rated;
+	}
+
+	public void setRated(boolean rated) {
+		this.rated = rated;
+	}
+
+	public boolean isAddedToWishList() {
+		return addedToWishList;
+	}
+
+	public void setAddedToWishList(boolean addedToWishList) {
+		this.addedToWishList = addedToWishList;
+	}
+
+
+	private Integer itemID = null;
 	private Product prod = new Product();
 	private ArrayList<Attributes> attrib = new ArrayList<Attributes>();
 	private ArrayList<Review> review = new ArrayList<Review>();
@@ -222,16 +243,16 @@ public class ProductAction extends ActionSupport {
 
 		//review are based on product not on variants so 
 		//get productID from ItemID and pass it to get reviews.
-		Integer ProductID = pm.getProductID(itemID);
+		Integer productID = pm.getProductID(itemID);
 
 		//get product review
-		review = pm.getProductReview(ProductID);
+		review = pm.getProductReview(productID);
 
 		//
 		numberOfReviews = review.size();
 		
 		//get product ratings 
-		rating = pm.getProductRating(ProductID);
+		rating = pm.getProductRating(productID);
 
 		//calculate final rating
 		if (rating.size() > 0) {
@@ -265,9 +286,9 @@ public class ProductAction extends ActionSupport {
 		//get item details
 		recentlyViewedItems = pm.getRecentlyViewedItems(itemIDsForRecentlyViewedItems);
 
-		/*for (int i=0; i<recentlyViewedItems.size();i++) {
+		for (int i=0; i<recentlyViewedItems.size();i++) {
 			System.out.println(recentlyViewedItems.get(i).getItemName());
-		}*/
+		}
 
 		//System.out.println(recentlyViewedItems.size());
 		//get 5 items based on browsing history
@@ -287,6 +308,14 @@ public class ProductAction extends ActionSupport {
 		 stock detail
 		 *
 		 */
+		//check if user has already rated and review give msg
+				Map sess=ActionContext.getContext().getSession();
+				if (sess.containsKey("login")) {
+				if (pm.getUserRating(Integer.valueOf(sess.get("userID").toString()), productID) || 
+						pm.getUserReview(Integer.valueOf(sess.get("userID").toString()), productID)) {
+					rated = true;
+				}
+				}
 
 		return SUCCESS;
 
@@ -296,17 +325,31 @@ public class ProductAction extends ActionSupport {
 	public String rateAndReview() {
 		ProductModel pm = new ProductModel();
 		//get product details
-				prod = pm.getProductDetails(itemID);
+		if (itemID == null) {
+			return "tohome";
+		}
+		prod = pm.getProductDetails(itemID);
+		
 		return SUCCESS;
 	}
 	
 	//save user ratings and reviews
 	public String saveRateAndReview() {
 		ProductModel pm = new ProductModel();
-		//check for user login
 		//check for input fileds
-		//check if user has already rated and review give msg
+		if(ratingStar == null || reviewText == null || reviewTitle == null || ratingStar == -1 ||
+				reviewTitle.equalsIgnoreCase("") || reviewText.equalsIgnoreCase("")) {
+			addActionError("All fields are mandatory");
+			return ERROR;
+		}
+		
+		
 		//insert rating 
+		Map sess=ActionContext.getContext().getSession();
+		Integer productID = pm.getProductID(itemID);
+		pm.putUserRating(ratingStar, Integer.valueOf(sess.get("userID").toString()), productID);
+		pm.putUserReview(reviewTitle, reviewText, productID,  
+				Integer.valueOf(sess.get("userID").toString()));
 		//insert review
 		
 		return SUCCESS;
