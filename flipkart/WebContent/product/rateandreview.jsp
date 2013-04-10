@@ -22,6 +22,18 @@
 <div class="span9">
 <h4>Help others! Write a Flipkart review</h4><hr />
 <p><font size="1" color="#A4A4A4">
+<s:if test="hasActionMessages()">
+						<div align="center">
+							<s:iterator value="actionMessages">
+								<div class="alert alert-error">
+									<br />&nbsp;&nbsp;
+									<s:property />
+									<br /> <br />
+								</div>
+							</s:iterator>
+
+						</div>
+</s:if>
 <a href="#">Guidelines for writing a product review</a>
 <br />
 All fields are mandatory</font><p>
@@ -57,18 +69,7 @@ content.</font><br />
 							cssClass="fk-button-blue" />
 							</div>
 </s:form>
-<s:if test="hasActionMessages()">
-						<div align="center">
-							<s:iterator value="actionMessages">
-								<div class="alert alert-success">
-									<br /> <i class="icon-ok icon-2x"></i>&nbsp;&nbsp;
-									<s:property />
-									<br /> <br />
-								</div>
-							</s:iterator>
 
-						</div>
-					</s:if>
 </div>
 </div>
 </body>
