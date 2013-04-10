@@ -68,7 +68,7 @@
 			</p>
 		</div>
 
-		<div id="dialog-message" title="Replacement Guarantee">
+		<div id="dialog-message" title="Replacement Guarantee" hidden="true">
 			<font style="font-size: 11px">
 				<table class="table table-bordered">
 					<tr>
