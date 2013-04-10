@@ -363,8 +363,7 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 								<s:property value="#catList.catalogueID" />
 							</s:param>
 						</s:url>
-						<li class="dropdown-submenu"><a
-							href="<s:property value="#dispCat" />"><s:property
+						<li class="dropdown-submenu"><a href="browseCategory?categoryID=<s:property value="#catList.catalogueID" />"><s:property
 									value="#catList.catalogueName" /></a>
 							<ul class="dropdown-menu">
 								<s:iterator value="catalogueList" var="subcatList">
@@ -375,8 +374,7 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 												<s:property value="#subcatList.catalogueParentID" />
 											</s:param>
 										</s:url>
-										<li class="dropdown-submenu"><a
-											href="<s:property value="#dispsubCat" />"><s:property
+										<li class="dropdown-submenu"><a href="browseSubCategory?categoryID=<s:property value="#subcatList.catalogueParentID" />"><s:property
 													value="#subcatList.catalogueName" /></a>
 											<ul class="dropdown-menu">
 												<s:iterator value="catalogueList" var="subsubcatList">
