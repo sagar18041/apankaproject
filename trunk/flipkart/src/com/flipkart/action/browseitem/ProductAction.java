@@ -298,6 +298,7 @@ public class ProductAction extends ActionSupport {
 		//get item details
 		browsingHistoryItems = pm.getRecentlyViewedItems(itemIDsForBrowsingHistory);
 
+		//get stock details
 		/*
 		 * 
 		 to be implemented later
@@ -316,6 +317,13 @@ public class ProductAction extends ActionSupport {
 					rated = true;
 				}
 				}
+				
+		//check if user has already added the item to wishlist
+				if (sess.containsKey("login")) {
+					if (pm.getUserWishList(Integer.valueOf(sess.get("userID").toString()), itemID)) {
+						addedToWishList = true;
+					}
+					}
 
 		return SUCCESS;
 
