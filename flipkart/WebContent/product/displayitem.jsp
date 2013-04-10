@@ -77,7 +77,7 @@
 						
 						<br /><br />
 					<img src="ViewResources/img/wishlist.png" />
-					<a href="#" >Add to wishlist</a>
+					<a href="addToWishlist?itemID=<s:property value="itemID" />" >Add to wishlist</a>
 					<!-- Product ID<s:property value="productID"/><br />  -->
 					<s:hidden name="itemID" value="%{itemID}" />
 					<s:hidden name="itemName" value="%{itemName}" />
@@ -86,7 +86,7 @@
 
 				
 				<s:iterator value="attrib" var="attrwarranty">
-					<s:if test="%{#attrwarranty.attribute=='warrantydetails'}">
+					<s:if test="%{#attrwarranty.attribute=='Warranty Details'}">
 						<hr />
 						<font size="2"><s:property value="#attrwarranty.value" /></font>
 						<hr />
@@ -101,7 +101,7 @@
 					<div class="span4">
 
 						<s:iterator value="attrib" var="attr1">
-							<s:if test="%{#attr1.attribute=='price'}">
+							<s:if test="%{#attr1.attribute=='Price'}">
 		<br />
 								<b><font size="3" color="#B40404">Rs. <s:property
 											value="#attr1.value" /></font></b>
@@ -115,7 +115,7 @@
 					<div class="span5">
 						<b><font color="#088A08">stock checking goes here</font></b> <br />
 						<s:iterator value="attrib" var="attrdelivery">
-							<s:if test="%{#attrdelivery.attribute=='deliverytime'}">
+							<s:if test="%{#attrdelivery.attribute=='Delivery Time'}">
 	Delivered in <s:property value="#attrdelivery.value" /> business days.
 	</s:if>
 						</s:iterator>
