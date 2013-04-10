@@ -103,7 +103,7 @@ public class WishlistModel {
 		w.setThumbnail(thumbnail);
 		System.out.println("###"+itemID);
 		try{
-			sqlQuery1 = "select attribute,value from flipkart_itemattributes where itemID=? and attribute='price';";
+			sqlQuery1 = "select attribute,value from flipkart_itemattributes where itemID=? and attribute='Price';";
 			conn1=DbConnection.getConnection();
 			pes=conn1.prepareStatement(sqlQuery1);
 			pes.setInt(1, itemID);
@@ -114,7 +114,7 @@ public class WishlistModel {
 				//System.out.println("item attributes   "+res.getString(1)+"::::"+res.getString(2));
 			}
 
-			sqlQuery1 = "select attribute,value from flipkart_itemattributes where itemID=? and attribute='deliverytime';";
+			sqlQuery1 = "select attribute,value from flipkart_itemattributes where itemID=? and attribute='Delivery Time';";
 			conn1=DbConnection.getConnection();
 			pes=conn1.prepareStatement(sqlQuery1);
 			pes.setInt(1, itemID);
@@ -125,7 +125,7 @@ public class WishlistModel {
 				//System.out.println("item attributes   "+res.getString(1)+"::::"+res.getString(2));
 			}
 
-			sqlQuery1 = "select attribute,value from flipkart_itemattributes where itemID=? and attribute='discount';";
+			sqlQuery1 = "select attribute,value from flipkart_itemattributes where itemID=? and attribute='Discount';";
 			conn1=DbConnection.getConnection();
 			pes=conn1.prepareStatement(sqlQuery1);
 			pes.setInt(1, itemID);
