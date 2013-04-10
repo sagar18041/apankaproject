@@ -62,6 +62,13 @@
 	padding: 2px;
 	text-shadow: 0 1px 0 #000000;
 }
+
+div[class="tooltip-inner"] {
+	white-space: pre-wrap;
+	width: 250px;
+/* 	color: #f89406;
+ */	font-size: 12px;
+}
 </style>
 
 <!-- ================JavaScript and JQuery functions================ -->
@@ -131,32 +138,39 @@
 				<!-- ================Shipping Address tab content================ -->
 				<div id="tabs-2">
 					<p>
-					<div style="margin-left: 10px;">
+					<div align="center">
 
 						<!-- ================SOS Checked(by default)================ -->
 						<s:if test="%{#checkContent==0}">
-							<input type="radio" name="shippingorder" checked
-								onchange="change(0)"
-								style="vertical-align: middle; margin-top: -2px;"> Single
-						Order Shipping (SOS) <br />
-							<br />
-							<input type="radio" name="shippingorder" onchange="change(1)"
-								style="vertical-align: middle; margin-top: -2px;">Multiple
-						Order Shipping (MOS)</s:if>
+							<div class="btn-group" data-toggle="buttons-radio">
+
+								<button type="button" class="btn btn-large active"
+									name="shippingorder" onclick="change(0)"
+									style="vertical-align: middle; margin-top: -2px;">
+									Single Order Shipping (SOS)</button>
+								<button type="button" class="btn btn-large" name="shippingorder"
+									onclick="change(1)"
+									style="vertical-align: middle; margin-top: -2px;">Multiple
+									Order Shipping (MOS)</button>
+							</div>
+						</s:if>
 
 						<!-- ================MOS Checked(if clicked)================ -->
 						<s:if test="%{#checkContent==1}">
-							<input type="radio" name="shippingorder" onchange="change(0)"
-								style="vertical-align: middle; margin-top: -2px;"> Single
-						Order Shipping (SOS) <br />
-							<br />
-							<input type="radio" name="shippingorder" checked
-								onchange="change(1)"
-								style="vertical-align: middle; margin-top: -2px;">Multiple
-						Order Shipping (MOS)</s:if>
+							<div class="btn-group" data-toggle="buttons-radio">
+
+								<button type="button" class="btn btn-large" name="shippingorder"
+									onclick="change(0)"
+									style="vertical-align: middle; margin-top: -2px;">
+									Single Order Shipping (SOS)</button>
+								<button type="button" class="btn btn-large active"
+									name="shippingorder" onclick="change(1)"
+									style="vertical-align: middle; margin-top: -2px;">Multiple
+									Order Shipping (MOS)</button>
+							</div>
+						</s:if>
 					</div>
 
-					<br />
 					<hr />
 					<br />
 
@@ -286,7 +300,7 @@
 										</tr>
 									</table>
 
-									<s:submit value="Save & Continue" theme="simple"
+									<s:submit value="     Save & Continue     " theme="simple"
 										style="margin-left: 100px" name="sosBtn"
 										cssClass="btn btn-warning btn-large" />
 
@@ -302,28 +316,45 @@
 									<tr>
 										<td style="width: 50%;"><s:property
 												value="itemDescription" /></td>
-										<td><s:iterator value="existingAddrList"
-												status="addrTick">
+										<td>
+											<div class="btn-group" data-toggle="buttons-radio">
+												<s:iterator value="existingAddrList" status="addrTick">
+													<s:if test="#addrTick.count == 3">
+														<button type="button" class="btn btn-large"
+															onclick="mapItemToAddress(<s:property value="#prodTick.count" />,<s:property value="#addrTick.count" />)"
+															name="<s:property value="#prodTick.count" />"
+															style="vertical-align: middle; margin-top: -2px;">
+															<a href="#" data-placement="right" data-toggle="tooltip"
+																rel="tooltip" title="<s:property />"
+																style="text-decoration: none;">Address <s:property
+																	value="#addrTick.count" /></a>
+														</button>
+														<br />
+													</s:if>
+													<s:else>
+														<button type="button" class="btn btn-large"
+															onclick="mapItemToAddress(<s:property value="#prodTick.count" />,<s:property value="#addrTick.count" />)"
+															name="<s:property value="#prodTick.count" />"
+															style="vertical-align: middle; margin-top: -2px;">
+															<a href="#" data-placement="right" data-toggle="tooltip"
+																rel="tooltip" title="<s:property />"
+																style="text-decoration: none;">Address <s:property
+																	value="#addrTick.count" /></a>
+														</button>
 
-												<input type="radio"
-													onclick="mapItemToAddress(<s:property value="#prodTick.count" />,<s:property value="#addrTick.count" />)"
-													name="<s:property value="#prodTick.count" />"
-													style="vertical-align: middle; margin-top: -2px;" />
+													</s:else>
+												</s:iterator>
+											</div>
 
-												<a href="#" data-toggle="tooltip" data-placement="right"
-													rel="tooltip" title="<s:property />"
-													style="text-decoration: none;">Address <s:property
-														value="#addrTick.count" /></a>
-												<br />
-											</s:iterator></td>
+										</td>
 									</tr>
 
 								</s:iterator>
 
 							</table>
-							<input type="hidden" id="mapping" name="mapping" value="" />
-							<s:submit value="Save & Continue MOS" theme="simple"
-								name="mosBtn" style="margin-left: 100px"
+							<input type="hidden" id="mapping" name="mapping" value="" /><br />
+							<s:submit value="     Save & Continue     " theme="simple"
+								name="mosBtn" style="margin-left: 500px"
 								cssClass="btn btn-warning btn-large" />
 
 						</s:elseif>
@@ -350,19 +381,18 @@
 			</div>
 		</div>
 	</div>
-	<script src="bootstrap/js/bootstrap-tooltip.js"></script>
 </body>
 <script type="text/javascript">
     $(function () {
         $("[rel='tooltip']").tooltip();
     });
 
+   /*  $(function () {
+    $('.nav-tabs').button();
 	
-
+    }); */
 	
-
-	
-
+   
 	
 
 	
