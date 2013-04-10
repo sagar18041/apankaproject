@@ -168,7 +168,7 @@
 		<action name="emailupdate"
 			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
 			method="loadResetPage">
-			
+
 			<result name="success" type="tiles">/emailresetpage.tiles</result>
 			<result name="error" type="tiles">/emailresetpage.tiles</result>
 		</action>
@@ -180,8 +180,8 @@
 			<result name="success" type="tiles">/emailresetpage.tiles</result>
 			<result name="error" type="tiles">/emailresetpage.tiles</result>
 		</action>
-		
-		
+
+
 		<!-- ================================ Deactivate Account ================================ -->
 		<action name="deactivateaccountpage"
 			class="com.flipkart.action.accountmanagement.DeactivateAccountAction"
@@ -205,7 +205,7 @@
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/orderhistorypage.tiles</result>
 		</action>
-		
+
 		<!-- ================================ Order Status ================================ -->
 		<action name="vieworderstatus"
 			class="com.flipkart.action.accountmanagement.OrderDetailsAction"
@@ -213,7 +213,7 @@
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/orderstatuspage.tiles</result>
 		</action>
-		
+
 		<!-- ================================ Order Details ================================ -->
 		<action name="vieworderdetails"
 			class="com.flipkart.action.accountmanagement.OrderDetailsAction"
@@ -222,7 +222,7 @@
 			<result name="success" type="tiles">/orderdetailspage.tiles</result>
 			<result name="error" type="tiles">/orderstatuspage.tiles</result>
 		</action>
-		
+
 		<!-- ******************************* End of Account Information ********************************** -->
 
 
@@ -318,6 +318,16 @@
 			<result name="error" type="tiles">/adminlogin.tiles</result>
 		</action>
 
+		<action name="adminchangestatuscategory"
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="changeStatusCategory">
+			<result name="success" type="tiles">/adminverifycategory.tiles
+			</result>
+			<result name="error" type="tiles">/adminverifycategory.tiles</result>
+		</action>
+
+		<!-- ============================== End of System Administration =========================== -->
+
 		<!-- ============================== Bank Begin (Aamir) =========================== -->
 
 		<action name="netbankingviewentries" class="com.flipkart.action.bank.NetBankingAction"
@@ -328,17 +338,37 @@
 			</result>
 		</action>
 
-		<!-- ============================== Bank End (Aamir) =========================== -->
-
-		<action name="adminchangestatuscategory"
-			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
-			method="changeStatusCategory">
-			<result name="success" type="tiles">/adminverifycategory.tiles
-			</result>
-			<result name="error" type="tiles">/adminverifycategory.tiles</result>
+		<action name="accountNumberPopup" class="com.flipkart.action.bank.NetBankingAction"
+			method="initPopup">
+			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
+			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
 		</action>
 
-		<!-- ============================== End of System Administration =========================== -->
+		<action name="searchaccountnumber" class="com.flipkart.action.bank.NetBankingAction"
+			method="searchAccountNumber">
+			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
+			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
+		</action>
+
+		<action name="selectedAccountNumber" class="com.flipkart.action.bank.NetBankingAction"
+			method="viewEntries">
+			<result name="success" type="tiles">/netbankingviewentries.tiles
+			</result>
+			<result name="error" type="tiles">/netbankingviewentries.tiles
+			</result>
+		</action>
+
+		<action name="InsertEntry" class="com.flipkart.action.bank.NetBankingAction"
+			method="insertEntry">
+			<result name="success" type="chain">netbankingviewentries</result>
+		</action>
+
+		<action name="deleteEntry" class="com.flipkart.action.bank.NetBankingAction"
+			method="deleteEntry">
+			<result name="success" type="chain">netbankingviewentries</result>
+		</action>
+
+		<!-- ============================== Bank End (Aamir) =========================== -->
 
 		<!-- ************************************** Search Page ************************************ -->
 
@@ -390,7 +420,7 @@
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 		</action>
-		
+
 		<action name="deleteCart" class="com.flipkart.action.cartmanagement.CartAction"
 			method="deleteCart">
 			<interceptor-ref name="loginStack" />
@@ -402,27 +432,27 @@
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 		</action>
-		
+
 		<action name="viewwishlist" class="com.flipkart.action.wishlist.WishlistAction"
 			method="viewWishlist">
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/viewWishlist.tiles</result>
 			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
-		
+
 		<action name="removeFromwishlist" class="com.flipkart.action.wishlist.WishlistAction"
 			method="removeFromWishlist">
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="redirect">viewwishlist</result>
 		</action>
-		
+
 		<action name="addToWishlist" class="com.flipkart.action.wishlist.WishlistAction"
 			method="addToWishlist">
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">viewwishlist</result>
 			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
-		
+
 		<action name="addToCartFromWishlist" class="com.flipkart.action.cartmanagement.CartAction"
 			method="addToCartFromWishlist">
 			<interceptor-ref name="loginStack" />
@@ -441,19 +471,19 @@
 			method="displayItem">
 			<result name="success" type="tiles">/displayitem.tiles</result>
 		</action>
-		<action name="rateandreview" class="com.flipkart.action.browseitem.ProductAction" 
-		method="rateAndReview">
-		<interceptor-ref name="loginStack" />
-		<result name="success" type="tiles">/rateandreview.tiles</result>
-		<result name="tohome" type="tiles">/home.tiles</result>
-		<result name="error" type="tiles">/rateandreview.tiles</result>
+		<action name="rateandreview" class="com.flipkart.action.browseitem.ProductAction"
+			method="rateAndReview">
+			<interceptor-ref name="loginStack" />
+			<result name="success" type="tiles">/rateandreview.tiles</result>
+			<result name="tohome" type="tiles">/home.tiles</result>
+			<result name="error" type="tiles">/rateandreview.tiles</result>
 		</action>
-		<action name="saverateandreview" class="com.flipkart.action.browseitem.ProductAction" 
-		method="saveRateAndReview">
-		<interceptor-ref name="loginStack" />
-		<result name="success" type="tiles">/home.tiles</result>	
-		<result name="error" type="chain">rateandreview</result>
-		<result name="tohome" type="tiles">/home.tiles</result>
+		<action name="saverateandreview" class="com.flipkart.action.browseitem.ProductAction"
+			method="saveRateAndReview">
+			<interceptor-ref name="loginStack" />
+			<result name="success" type="tiles">/home.tiles</result>
+			<result name="error" type="chain">rateandreview</result>
+			<result name="tohome" type="tiles">/home.tiles</result>
 		</action>
 		<!-- ******************************* End of Product Page by ********************************** -->
 
