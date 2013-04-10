@@ -42,18 +42,18 @@
 		<!-- Product Display -->
 		<!-- Product Image -->
 		<div class="row-fluid">
-
+		<s:iterator value="prod">
 			<div class="span3"
 				style="border: thin solid #EFF2FB; padding-left: 30px; padding-right: 30px; padding-top: 10px; padding-bottom: 5px;">
 				<a href="#" class="thumbnail"> <img
-					src="ViewResources/img/1.jpg" style="width: 300px; height: 200px;"
+					src='<s:property value="thumbnail"/>' style="width: 300px; height: 200px;"
 					alt="">
 				</a>
 				<p align="center">
 					<a href="#"><small>View Larger Images</small></a>
 				</p>
-
 			</div>
+				</s:iterator>
 			<!--End of Product Image -->
 			<!-- Product Main Details -->
 
@@ -64,10 +64,14 @@
 					<strong><s:property value="itemName" /></strong>
 					<br />
 					<span
-						class="rating-static rating-<s:property value="finalRating"/>0"></span>
+						class="rating-static rating-<s:property value="finalRating"/>0"> </span>
+						<s:property value = "numberOfUserRated"/> Ratings | 
+						<a href="#RW"><s:property value = "numberOfReviews"/> Reviews</a> | 
+						<a href="rateandreview.action"> Rate & Review</a>
+						<br /><br />
 					<img src="ViewResources/img/wishlist.png" />
-					<a href="#" />Add to wishlist</a>
-					
+					<a href="#" >Add to wishlist</a>
+					<hr />
 					<!-- Product ID<s:property value="productID"/><br />  -->
 					<s:hidden name="itemID" value="%{itemID}" />
 					<s:hidden name="itemName" value="%{itemName}" />
@@ -92,7 +96,6 @@
 
 						<s:iterator value="attrib" var="attr1">
 							<s:if test="%{#attr1.attribute=='price'}">
-		offer details later
 		<br />
 								<b><font size="3" color="#B40404">Rs. <s:property
 											value="#attr1.value" /></font></b>
@@ -126,7 +129,7 @@
 						<div class="well">
 							<font size="2" color="#848484">with an option to pay <br />
 								<b>Cash on Delivery</b></font>
-						</div>-->
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -162,6 +165,7 @@
 		</div>
 		<hr />
 		<!-- Display Product Review -->
+		<h4><a id="RW">Reviews</a></h4>
 		<s:iterator value="review">
 			<div class="row-fluid">
 				<div class="span2">
