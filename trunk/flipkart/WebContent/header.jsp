@@ -130,21 +130,19 @@
 	});
 
 	function callSearch() {
-		setInterval(funcSearch() , 100);
-		
+		setInterval(funcSearch(), 100);
+
 	}
-	function funcSearch(){
-		
+	function funcSearch() {
+
 		//alert("cming inside the function");
-		if (event.keyCode == 13 ) {
+		if (event.keyCode == 13) {
 			var search = document.getElementById("search").value;
 			//alert("coming here with " + search);
-			if((search == null) || (search === ""))
-			{
+			if ((search == null) || (search === "")) {
 				//alert("null value");
 				return;
-			}
-			else{
+			} else {
 				//alert("Run it");
 				var catId = document.getElementById("categorySel");
 				var category = catId.options[catId.selectedIndex].value;
@@ -153,26 +151,25 @@
 				var tempList = temp.split(" ");
 				//alert(tempList);
 				var categoryList;
-				if(tempList[0] == 'in')
+				if (tempList[0] == 'in')
 					categoryList = category.substring(3);
 				else
 					categoryList = category;
-				
+
 				window.location = "searchPage?searchText=" + search
 						+ "&categorySel=" + categoryList;
 			}
-			
+
 		}
-	}		
-function changeSearch()
-{
-	
-	var catId = document.getElementById("categorySel");
-	var category = catId.options[catId.selectedIndex].value;
-	var categoryList = category.substring(3);
-	
-	window.location = "home?&categorySel=" + categoryList;
-}
+	}
+	function changeSearch() {
+
+		var catId = document.getElementById("categorySel");
+		var category = catId.options[catId.selectedIndex].value;
+		var categoryList = category.substring(3);
+
+		window.location = "home?&categorySel=" + categoryList;
+	}
 </script>
 <!-- **** END **** -->
 </head>
@@ -187,13 +184,16 @@ function changeSearch()
 			<ul class="nav nav-pills">
 				<li><a href="#" style="color: white;">Contact Us</a></li>
 				<li id="li_home"><a href="home" style="color: white;">Home</a></li>
-				<li id="li_account"><a href="accountpage" style="color: white;">Account</a></li>
-				<li><a href="viewwishlist" style="color: white;">Wishlist</a></li>
 				<s:if test="#session['login']==null">
 					<!--  <li><a data-toggle="modal" href="#loginmodal"
 						style="color: white;"
 onclick="show('forgotpassword','signup','login')">Login</a></li>-->
-
+					<li id="li_account"><a data-toggle="modal" href="#loginmodal"
+						onclick="show('forgotpassword','signup','login')"
+						style="color: white;">Account</a></li>
+					<li><a data-toggle="modal" href="#loginmodal"
+						onclick="show('forgotpassword','signup','login')"
+						style="color: white;">Wishlist</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" style="color: white;">Login as<b
 							class="caret"></b></a>
@@ -212,6 +212,9 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 				</s:if>
 
 				<s:if test="#session['login']==true">
+					<li id="li_account"><a href="accountpage"
+						style="color: white;">Account</a></li>
+					<li><a href="viewwishlist" style="color: white;">Wishlist</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" style="color: white;"><s:property
 								value="#session['emailAddress']" /><b class="caret"></b></a>
@@ -355,7 +358,7 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 					<s:if test="%{#catList.catalogueLevel==0}">
 
 
-	<s:url action="displaycategory.action" var="dispCat">
+						<s:url action="displaycategory.action" var="dispCat">
 							<s:param name="categoryID">
 								<s:property value="#catList.catalogueID" />
 							</s:param>
@@ -393,7 +396,7 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 								</s:iterator>
 							</ul></li>
 
-						
+
 						<s:url action="displaycategory.action" var="dispCat">
 							<s:param name="categoryID">
 								<s:property value="#catList.catalogueID" />
@@ -412,7 +415,7 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 			</ul>
 		</div>
 		<!-- dropdown end here -->
-		
+
 		<!-- ***************** Search ********************************** -->
 		&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 		<s:form action="searchPage" method="get" theme="simple"
@@ -421,34 +424,32 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 				<input type="text" data-provide="typeahead" class="span4"
 					placeholder="Search for items" id="search" name="searchText"
 					data-source='<s:property value="autoCompleteList"/>'
-					onkeyup="callSearch()" value="<s:property value="searchText"/>"/>
+					onkeyup="callSearch()" value="<s:property value="searchText"/>" />
 
 
 				<div class="btn-group">
-					<s:set var="categoryText" value="categorySel"/>
+					<s:set var="categoryText" value="categorySel" />
 					<select class="selectpicker" id="categorySel" name="categorySel"
-					 onchange="changeSearch()">
+						onchange="changeSearch()">
 						<option value="All Category">
 							</i><font color="gray"> in</font> All Category
 						</option>
 						<s:iterator value="categoryList" var="categoryField">
 							<s:if test="%{#categoryField == #categoryText}">
-							<option value="<s:property />" selected>
-								</i><font color="gray"> in</font>
-								<s:property />
-							</option>
+								<option value="<s:property />" selected>
+									</i><font color="gray"> in</font>
+									<s:property />
+								</option>
 							</s:if>
 							<s:else>
-							<option>
-								</i><font color="gray"> in</font>
-								<s:property />
-							</option>
+								<option>
+									</i><font color="gray"> in</font>
+									<s:property />
+								</option>
 							</s:else>
 						</s:iterator>
-					</select>
-					
-					 <span class="add-on" ><i class="icon-search"></i></span>
-					
+					</select> <span class="add-on"><i class="icon-search"></i></span>
+
 				</div>
 			</div>
 		</s:form>
