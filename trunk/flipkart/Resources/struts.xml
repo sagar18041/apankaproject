@@ -485,6 +485,7 @@
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 		</action>
+		
 		<action name="sortByValue" class="com.flipkart.action.wishlist.WishlistAction"
 			method="viewWishlist">
 			<interceptor-ref name="loginStack" />
