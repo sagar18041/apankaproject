@@ -67,7 +67,7 @@
 						class="rating-static rating-<s:property value="finalRating"/>0"> </span>
 						<s:property value = "numberOfUserRated"/> Ratings | 
 						<a href="#RW"><s:property value = "numberOfReviews"/> Reviews</a> | 
-						<a href="rateandreview.action"> Rate & Review</a>
+						<a href="rateandreview.action?itemID=<s:property value="itemID"/>"> Rate & Review</a>
 						<br /><br />
 					<img src="ViewResources/img/wishlist.png" />
 					<a href="#" >Add to wishlist</a>
