@@ -286,9 +286,9 @@ public class ProductAction extends ActionSupport {
 		//get item details
 		recentlyViewedItems = pm.getRecentlyViewedItems(itemIDsForRecentlyViewedItems);
 
-		for (int i=0; i<recentlyViewedItems.size();i++) {
-			System.out.println(recentlyViewedItems.get(i).getItemName());
-		}
+//		for (int i=0; i<recentlyViewedItems.size();i++) {
+//			System.out.println(recentlyViewedItems.get(i).getItemName());
+//		}
 
 		//System.out.println(recentlyViewedItems.size());
 		//get 5 items based on browsing history
