@@ -90,6 +90,7 @@
 		<action name="accountpage"
 			class="com.flipkart.action.accountmanagement.PersonalInformationAction"
 			method="displayPersonalInformation">
+			
 			<result name="success" type="tiles">/accountpage.tiles</result>
 		</action>
 
