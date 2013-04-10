@@ -178,16 +178,16 @@ public class HomeAction extends ActionSupport {
 		// get 5 recently viewed itemIDs
 		ArrayList<Integer> itemIDsForRecentlyViewedItems = new ArrayList<Integer>();
 		itemIDsForRecentlyViewedItems = pm.getRecentlyViewedItems(ipAddr);
-		// System.out.println(itemIDsForRecentlyViewedItems.size());
+		 //System.out.println(itemIDsForRecentlyViewedItems.size());
 
 		// get item details
 		recentlyViewedItems = pm
 				.getRecentlyViewedItems(itemIDsForRecentlyViewedItems);
 
-		/*
-		 * for (int i=0; i<recentlyViewedItems.size();i++) {
-		 * System.out.println(recentlyViewedItems.get(i).getItemName()); }
-		 */
+		
+//		  for (int i=0; i<recentlyViewedItems.size();i++) {
+//		  System.out.println(recentlyViewedItems.get(i).getItemName()); }
+//		 
 
 		// System.out.println(recentlyViewedItems.size());
 		// get 5 items based on browsing history
@@ -197,7 +197,9 @@ public class HomeAction extends ActionSupport {
 		// get item details
 		browsingHistoryItems = pm
 				.getRecentlyViewedItems(itemIDsForBrowsingHistory);
-
+//		for (int i=0; i<browsingHistoryItems.size();i++) {
+//			  System.out.println(browsingHistoryItems.get(i).getItemName()); }
+//		
 		return SUCCESS;
 	}
 
