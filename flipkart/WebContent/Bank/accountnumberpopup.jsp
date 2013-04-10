@@ -43,7 +43,7 @@
 									Number</font></th>
 							<th style="text-align: center"><font size="2">Select</font></th>
 						</tr>
-						<s:iterator value="recordList">
+						<s:iterator value="searchList">
 							<tr>
 								<td style="text-align: center"><s:property
 										value="customerName" /></td>

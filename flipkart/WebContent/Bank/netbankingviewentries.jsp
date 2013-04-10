@@ -57,7 +57,7 @@
 								Name</font></th>
 						<th style="text-align: center"><font size="3">Account
 								Number</font></th>
-						<th style="text-align: center"><font size="3">Balance</font></th>
+						<th style="text-align: center"><font size="3">Balance (INR)</font></th>
 						<th style="text-align: center"><font size="3">Delete</font></th>
 					</tr>
 					<s:iterator value="recordList">
