@@ -312,42 +312,6 @@
 
 		<!-- ============================== Bank End (Aamir) =========================== -->
 
-		<!-- ============================== End of System Administration =========================== -->
-
-
-
-
-
-
-		<!-- ************************************** Search Page ************************************ -->
-
-		<action name="searchPage" class="com.flipkart.action.searchitem.SearchItemAction">
-			<result name="success" type="chain">searchHome</result>
-		</action>
-		<action name="searchHome" class="com.flipkart.action.authentication.HomeAction">
-			<result name="success" type="tiles">/search.tiles</result>
-		</action>
-
-		<!-- ================================ End of search Page ===================================== -->
-
-		<!-- ******************************* Cart Management by Ritu ********************************* -->
-
-		<action name="addToCart" class="com.flipkart.action.cartmanagement.CartAction"
-			method="addToCart">
-			<result name="success" type="chain">cartDisplay</result>
-			<result name="error" type="tiles">/carterror.tiles</result>
-		</action>
-
-		<action name="cartDisplay" class="com.flipkart.action.cartmanagement.CartAction"
-			method="displayCart">
-			<result name="success" type="tiles">/viewcart.tiles</result>
-			<result name="error" type="tiles">/carterror.tiles</result>
-		</action>
-
-		<action name="updateCart" class="com.flipkart.action.cartmanagement.CartAction"
-			method="updateCart">
-			<result name="success" type="chain">cartDisplay</result>
-		</action>
 		<action name="adminchangestatuscategory"
 			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
 			method="changeStatusCategory">
@@ -389,17 +353,23 @@
 		<!-- ================================ End of Browse Page ===================================== -->
 
 		<!-- ******************************* Cart Management by Ritu ********************************* -->
+		<action name="addToCart" class="com.flipkart.action.cartmanagement.CartAction"
+			method="addToCart">
+			<result name="success" type="chain">cartDisplay</result>
+			<result name="error" type="tiles">/carterror.tiles</result>
+		</action>
 
 		<action name="cartDisplay" class="com.flipkart.action.cartmanagement.CartAction"
 			method="displayCart">
 			<result name="success" type="tiles">/viewcart.tiles</result>
+			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
 
 		<action name="updateCart" class="com.flipkart.action.cartmanagement.CartAction"
 			method="updateCart">
-			<result name="success" type="tiles">/viewcart.tiles</result>
+			<result name="success" type="chain">cartDisplay</result>
 		</action>
-
+		
 		<action name="deleteCart" class="com.flipkart.action.cartmanagement.CartAction"
 			method="deleteCart">
 			<result name="success" type="chain">cartDisplay</result>
@@ -409,20 +379,24 @@
 			method="moveWishlist">
 			<result name="success" type="chain">cartDisplay</result>
 		</action>
+		
 		<action name="viewwishlist" class="com.flipkart.action.wishlist.WishlistAction"
 			method="viewWishlist">
 			<result name="success" type="tiles">/viewWishlist.tiles</result>
 			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
+		
 		<action name="removeFromwishlist" class="com.flipkart.action.wishlist.WishlistAction"
 			method="removeFromWishlist">
 			<result name="success" type="redirect">viewwishlist</result>
 		</action>
+		
 		<action name="addToWishlist" class="com.flipkart.action.wishlist.WishlistAction"
 			method="addToWishlist">
 			<result name="success" type="chain">viewwishlist</result>
 			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
+		
 		<action name="addToCartFromWishlist" class="com.flipkart.action.cartmanagement.CartAction"
 			method="addToCartFromWishlist">
 			<result name="success" type="chain">cartDisplay</result>
@@ -431,7 +405,6 @@
 			method="viewWishlist">
 			<result name="success" type="chain">viewwishlist</result>
 		</action>
-
 
 		<!-- ******************************* End of Cart Management ********************************** -->
 
