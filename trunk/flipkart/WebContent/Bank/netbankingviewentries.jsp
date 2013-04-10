@@ -12,25 +12,30 @@
 		document.getElementById('addRow').style.display = "none";
 	}
 	function hide() {
-		document.getElementById('newdetail').style.display = "none";
+		var searchValue = '${searchValue}';
+		if (searchValue != 1) {
+			InsertEntry.accountNumber.value = "";
+			document.getElementById('newdetail').style.display = "none";
+		}
 	}
 
 	function Blank_TextField_Validator() {
 
-		if (InsertNetBankingEntry.accountNumber.value == "") {
+		if (InsertEntry.accountNumber.value == "") {
 			alert("Please select account number from the lookup.");
 			return (false);
 		}
 
-		if (InsertNetBankingEntry.password.value == "") {
+		if (InsertEntry.password.value == "") {
 			alert("Please enter password.");
-			InsertNetBankingEntry.password.focus();
+			InsertEntry.password.focus();
 			return (false);
 		}
 
 		return (true);
 	}
 </script>
+
 </head>
 <body onload="hide()">
 	<br />
@@ -54,7 +59,6 @@
 								Number</font></th>
 						<th style="text-align: center"><font size="3">Balance</font></th>
 						<th style="text-align: center"><font size="3">Delete</font></th>
-						<th style="text-align: center"><font size="3">Reset</font></th>
 					</tr>
 					<s:iterator value="recordList">
 						<tr>
@@ -64,30 +68,28 @@
 									value="accountNumber" /></td>
 							<td style="text-align: center"><s:property value="balance" /></td>
 							<td style="text-align: center"><a
-								href="DeleteNetBankingEntry?accountNumber=<s:property
+								href="deleteEntry?accountNumber=<s:property
 									value="accountNumber" />">
 									<i class="icon-trash"></i>
-							</a></td>
-							<td style="text-align: center"><a
-								href="ResetNetBankingEntry?accountNumber=<s:property
-									value="accountNumber" />">
-									<i class="icon-repeat"></i>
 							</a></td>
 						</tr>
 					</s:iterator>
 				</table>
 
 				<div align="center">
-					<form action="InsertNetBankingEntry" class="form-inline"
-						id="newdetail" name="InsertNetBankingEntry"
-						onsubmit="return Blank_TextField_Validator()">
+					<form action="InsertEntry" class="form-inline" id="newdetail"
+						name="InsertEntry" onsubmit="return Blank_TextField_Validator()">
 
 						<input type="text" class="input-medium"
-							placeholder="Account Number" name="accountNumber" readonly>
-						<a class="btn" href="#"> <i class="icon-external-link"></i>
+							placeholder="Account Number" name="accountNumber" readonly
+							value="<s:property value="accountNumber"/>"> <a
+							class="btn" href="accountNumberPopup"> <i
+							class="icon-external-link"></i>
 						</a> &nbsp;&nbsp;<input type="password" class="input-medium"
 							placeholder="Password" name="password">
 						<button type="submit" class="btn btn-medium">Save</button>
+						<a href="netbankingviewentries" class="btn btn-medium btn-danger">
+							Cancel</a>
 					</form>
 				</div>
 				<button class="btn btn-small btn-primary pull-right" type="button"
