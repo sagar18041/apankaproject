@@ -208,9 +208,7 @@
 							<s:if test="#count.odd == true">
 								<tr class="order-item-row">
 									<td width=15%><a href="vieworderdetails?orderNo=<s:property value="key" />"
-										title="<b>Date</b>: <s:property value="createdOn"/><br /> <b>Total Amount</b>: Rs. 
-										<s:property value="totalPrice"/><br />
-										<s:property value="status"/><br />">
+										>
 											<s:property value="key" />
 											
 									</a></td>
