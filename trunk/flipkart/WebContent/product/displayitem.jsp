@@ -49,6 +49,7 @@
 					src='<s:property value="thumbnail"/>' style="width: 300px; height: 200px;"
 					alt="">
 				</a>
+				<s:hidden name="thumbnail" value="%{thumbnail}" />
 				<p align="center">
 					<a href="#"><small>View Larger Images</small></a>
 				</p>
@@ -87,6 +88,7 @@
 					<!-- Product ID<s:property value="productID"/><br />  -->
 					<s:hidden name="itemID" value="%{itemID}" />
 					<s:hidden name="itemName" value="%{itemName}" />
+					
 
 				</s:iterator>
 
@@ -128,6 +130,7 @@
 						<s:iterator value="attrib" var="attrdelivery">
 							<s:if test="%{#attrdelivery.attribute=='Delivery Time'}">
 	Delivered in <s:property value="#attrdelivery.value" /> business days.
+	<s:hidden name="deliveryTime" value="%{#attrdelivery.value}" />
 	</s:if>
 						</s:iterator>
 					</div>
