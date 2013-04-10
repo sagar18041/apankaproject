@@ -105,7 +105,7 @@
 							</font>
 						</div>
 						<div class="span3">
-							<a href="#"> <img src="ViewResources/img/1.jpg"
+							<a href="displayitem?itemID=<s:property value="%{itemID}" />"> <img src='<s:property value="thumbnail"/>'
 								style="width: 200px; height: 150px;" alt="">
 							</a>
 						</div>
@@ -117,7 +117,7 @@
 									<s:property value="%{itemName}" />
 							</a>
 							<hr class="brclass" style="visibility:hidden;" size="4"/>
-								<div style="background-color: #F2F2F2; padding-left: 0px;">
+								<div style="background-color: #F2F2F2; padding-left: 10px;">
 
 									<br /> <b><font style="color: red;">Rs <s:property
 												value="%{price}" /></font></b> <br /> In Stock Delivered in <b><s:property
