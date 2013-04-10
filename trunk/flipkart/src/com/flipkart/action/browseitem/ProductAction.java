@@ -39,7 +39,26 @@ public class ProductAction extends ActionSupport {
 	private ArrayList<Attributes> attrib = new ArrayList<Attributes>();
 	private ArrayList<Review> review = new ArrayList<Review>();
 	private ArrayList<Rating> rating = new ArrayList<Rating>();
-	private Integer finalRating = 0;
+	private Integer finalRating = null;
+	private Integer numberOfUserRated = 0;
+	private Integer numberOfReviews = 0;
+	public Integer getNumberOfReviews() {
+		return numberOfReviews;
+	}
+
+	public void setNumberOfReviews(Integer numberOfReviews) {
+		this.numberOfReviews = numberOfReviews;
+	}
+
+	public Integer getNumberOfUserRated() {
+		return numberOfUserRated;
+	}
+
+	public void setNumberOfUserRated(Integer numberOfUserRated) {
+		this.numberOfUserRated = numberOfUserRated;
+	}
+
+
 	private ArrayList<RecentlyViewed> recentlyViewedItems = new ArrayList<RecentlyViewed>();
 	private ArrayList<RecentlyViewed> browsingHistoryItems = new ArrayList<RecentlyViewed>();
 	public String getSearchBy() {
@@ -174,16 +193,23 @@ public class ProductAction extends ActionSupport {
 		//get product review
 		review = pm.getProductReview(ProductID);
 
+		//
+		numberOfReviews = review.size();
+		
 		//get product ratings 
 		rating = pm.getProductRating(ProductID);
 
 		//calculate final rating
+		if (rating.size() > 0) {
+			finalRating = 0;
 		for (int i = 0; i < rating.size(); i++) {
 			finalRating = finalRating + rating.get(i).getRatingStar();
 		}
-		if(rating.size() > 0) {
 			finalRating = finalRating / rating.size();
+			System.out.println(finalRating);
 		}
+		//number of user rated product
+		numberOfUserRated = rating.size();
 
 		//log user browsing history into DB for recommendations
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -223,6 +249,7 @@ public class ProductAction extends ActionSupport {
 		 pm.getProductImages(itemID) 
 		 pm.getProductOffers(itemID) //special case to be implemented at the end
 		 pm.getProductVariants(itemID) //
+		 pm.getAds()
 		 stock detail
 		 *
 		 */
