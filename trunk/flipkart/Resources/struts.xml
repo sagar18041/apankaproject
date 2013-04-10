@@ -38,7 +38,7 @@
 			</interceptor-stack>
 
 			<interceptor name="nlogin2"
-				class="com.studentzone.interceptor.AdminLoginInterceptor" />
+				class="com.flipkart.interceptor.AdminLoginInterceptor" />
 			<interceptor-stack name="adminLoginStack">
 				<interceptor-ref name="servletConfig" />
 				<interceptor-ref name="params" />
@@ -54,13 +54,13 @@
 				<interceptor-ref name="workflow" />
 			</interceptor-stack>
 		</interceptors>
-		
-		
+
+
 		<global-results>
 			<result name="login" type="chain">home</result>
 			<result name="adminlogin" type="tiles">/adminlogin.tiles</result>
 		</global-results>
-		
+
 		<!-- ******************End of Login Intercepter************************* -->
 
 		<!-- ****************** Main Page ********************** -->
@@ -291,112 +291,6 @@
 
 		<!--*************************************End Of Authentication****************************************** -->
 
-		<!-- ================================== System Administration =============================== -->
-
-		<action name="adminhome"
-			class="com.flipkart.action.systemadmincategory.AdminHomeAction">
-			<result name="success" type="tiles">/adminhome.tiles</result>
-		</action>
-
-		<action name="adminviewcategory"
-			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
-			method="fetchCategoryList">
-			<result name="success" type="tiles">/adminviewcategory.tiles</result>
-		</action>
-		<action name="adminaddcategory"
-			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
-			method="insertNewCategory">
-			<result name="success" type="tiles">/adminaddcategory.tiles</result>
-			<result name="error" type="tiles">/adminaddcategory.tiles</result>
-		</action>
-		<action name="adminverifycategory"
-			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
-			method="fetchVerificationCategory">
-			<result name="success" type="tiles">/adminverifycategory.tiles
-			</result>
-		</action>
-
-		<action name="adminchangestatuscategory"
-			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
-			method="changeStatusCategory">
-			<result name="success" type="tiles">/adminverifycategory.tiles
-			</result>
-			<result name="error" type="tiles">/adminverifycategory.tiles</result>
-		</action>
-
-		<action name="adminaddcategory"
-			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
-			method="insertNewCategory">
-			<result name="success" type="tiles">/adminaddcategory.tiles</result>
-			<result name="error" type="tiles">/adminaddcategory.tiles</result>
-		</action>
-
-		<action name="adminlogininit"
-			class="com.flipkart.action.systemadminauthentication.AdminLoginAction"
-			method="init">
-			<result name="success" type="tiles">/adminlogin.tiles</result>
-		</action>
-
-		<action name="adminlogin"
-			class="com.flipkart.action.systemadminauthentication.AdminLoginAction"
-			method="login">
-			<result name="success" type="chain">adminhome</result>
-			<result name="error" type="tiles">/adminlogin.tiles</result>
-		</action>
-
-		<action name="adminchangestatuscategory"
-			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
-			method="changeStatusCategory">
-			<result name="success" type="tiles">/adminverifycategory.tiles
-			</result>
-			<result name="error" type="tiles">/adminverifycategory.tiles</result>
-		</action>
-
-		<!-- ============================== End of System Administration =========================== -->
-
-		<!-- ============================== Bank Begin (Aamir) =========================== -->
-
-		<action name="netbankingviewentries" class="com.flipkart.action.bank.NetBankingAction"
-			method="viewEntries">
-			<interceptor-ref name="adminLoginStack"/>
-			<result name="success" type="tiles">/netbankingviewentries.tiles
-			</result>
-			<result name="error" type="tiles">/netbankingviewentries.tiles
-			</result>
-		</action>
-
-		<action name="accountNumberPopup" class="com.flipkart.action.bank.NetBankingAction"
-			method="initPopup">
-			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
-			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
-		</action>
-
-		<action name="searchaccountnumber" class="com.flipkart.action.bank.NetBankingAction"
-			method="searchAccountNumber">
-			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
-			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
-		</action>
-
-		<action name="selectedAccountNumber" class="com.flipkart.action.bank.NetBankingAction"
-			method="viewEntries">
-			<result name="success" type="tiles">/netbankingviewentries.tiles
-			</result>
-			<result name="error" type="tiles">/netbankingviewentries.tiles
-			</result>
-		</action>
-
-		<action name="InsertEntry" class="com.flipkart.action.bank.NetBankingAction"
-			method="insertEntry">
-			<result name="success" type="chain">netbankingviewentries</result>
-		</action>
-
-		<action name="deleteEntry" class="com.flipkart.action.bank.NetBankingAction"
-			method="deleteEntry">
-			<result name="success" type="chain">netbankingviewentries</result>
-		</action>
-
-		<!-- ============================== Bank End (Aamir) =========================== -->
-
 		<!-- ************************************** Search Page ************************************ -->
 
 		<action name="searchPage" class="com.flipkart.action.searchitem.SearchItemAction">
@@ -485,7 +379,7 @@
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 		</action>
-		
+
 		<action name="sortByValue" class="com.flipkart.action.wishlist.WishlistAction"
 			method="viewWishlist">
 			<interceptor-ref name="loginStack" />
@@ -516,5 +410,157 @@
 		</action>
 		<!-- ******************************* End of Product Page by ********************************** -->
 
+
+
+		<!-- ================================== System Administration =============================== -->
+
+		<!-- ................. Admin Home & Login Start ................. -->
+
+		<action name="adminhome"
+			class="com.flipkart.action.systemadmincategory.AdminHomeAction">
+			<result name="success" type="tiles">/adminhome.tiles</result>
+		</action>
+
+		<action name="adminlogininit"
+			class="com.flipkart.action.systemadminauthentication.AdminLoginAction"
+			method="init">
+			<result name="success" type="tiles">/adminlogin.tiles</result>
+		</action>
+
+		<action name="adminlogin"
+			class="com.flipkart.action.systemadminauthentication.AdminLoginAction"
+			method="login">
+			<result name="success" type="chain">adminhome</result>
+			<result name="error" type="tiles">/adminlogin.tiles</result>
+		</action>
+		
+		<!-- ................. Admin Home & Login End ................. -->
+		
+		<!-- ................. Category Start ................. -->
+
+		<action name="adminviewcategory"
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="fetchCategoryList">
+			<result name="success" type="tiles">/adminviewcategory.tiles</result>
+		</action>
+		<action name="adminaddcategory"
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="insertNewCategory">
+			<result name="success" type="tiles">/adminaddcategory.tiles</result>
+			<result name="error" type="tiles">/adminaddcategory.tiles</result>
+		</action>
+		<action name="adminverifycategory"
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="fetchVerificationCategory">
+			<result name="success" type="tiles">/adminverifycategory.tiles
+			</result>
+		</action>
+
+		<action name="adminaddcategory"
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="insertNewCategory">
+			<result name="success" type="tiles">/adminaddcategory.tiles</result>
+			<result name="error" type="tiles">/adminaddcategory.tiles</result>
+		</action>
+
+
+		<action name="adminchangestatuscategory"
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="changeStatusCategory">
+			<result name="success" type="tiles">/adminverifycategory.tiles
+			</result>
+			<result name="error" type="tiles">/adminverifycategory.tiles</result>
+		</action>
+
+		<!-- ................. Category End ................. -->
+
+		<!-- ................. Product Start ................. -->
+
+		<action name="adminproductinit"
+			class="com.flipkart.action.systemadminproduct.AdminProductAction"
+			method="initializeProductPage">
+			<result name="success" type="tiles">/adminproductinit.tiles</result>
+		</action>
+
+		<action name="admininsertproduct"
+			class="com.flipkart.action.systemadminproduct.AdminProductAction"
+			method="insertProductDetails">
+			<result name="success" type="chain">adminiteminit</result>
+			<result name="error" type="tiles">/adminproductinit.tiles</result>
+		</action>
+
+		<action name="adminiteminit"
+			class="com.flipkart.action.systemadminproduct.AdminProductAction"
+			method="initializeItemPage">
+			<result name="success" type="tiles">/adminiteminit.tiles</result>
+		</action>
+
+		<action name="admininsertitem"
+			class="com.flipkart.action.systemadminproduct.AdminProductAction"
+			method="insertItemDetails">
+			<result name="success" type="chain">adminitemattributesinit</result>
+			<result name="error" type="tiles">/adminiteminit.tiles</result>
+		</action>
+
+		<action name="adminitemattributesinit"
+			class="com.flipkart.action.systemadminproduct.AdminProductAction"
+			method="initializeItemAttributePage">
+			<result name="success" type="tiles">/adminitemattributesinit.tiles
+			</result>
+		</action>
+
+		<action name="admininsertitemattributes"
+			class="com.flipkart.action.systemadminproduct.AdminProductAction"
+			method="insertAttributeDetails">
+			<result name="success" type="tiles">/adminitemattributes.tiles
+			</result>
+		</action>
+
+		<!-- ................. Product End ................. -->
+
+		<!-- ============================== Bank Begin (Aamir) =========================== -->
+
+		<action name="netbankingviewentries" class="com.flipkart.action.bank.NetBankingAction"
+			method="viewEntries">
+			<interceptor-ref name="adminLoginStack" />
+			<result name="success" type="tiles">/netbankingviewentries.tiles
+			</result>
+			<result name="error" type="tiles">/netbankingviewentries.tiles
+			</result>
+		</action>
+
+		<action name="accountNumberPopup" class="com.flipkart.action.bank.NetBankingAction"
+			method="initPopup">
+			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
+			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
+		</action>
+
+		<action name="searchaccountnumber" class="com.flipkart.action.bank.NetBankingAction"
+			method="searchAccountNumber">
+			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
+			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
+		</action>
+
+		<action name="selectedAccountNumber" class="com.flipkart.action.bank.NetBankingAction"
+			method="viewEntries">
+			<result name="success" type="tiles">/netbankingviewentries.tiles
+			</result>
+			<result name="error" type="tiles">/netbankingviewentries.tiles
+			</result>
+		</action>
+
+		<action name="InsertEntry" class="com.flipkart.action.bank.NetBankingAction"
+			method="insertEntry">
+			<result name="success" type="chain">netbankingviewentries</result>
+		</action>
+
+		<action name="deleteEntry" class="com.flipkart.action.bank.NetBankingAction"
+			method="deleteEntry">
+			<result name="success" type="chain">netbankingviewentries</result>
+		</action>
+
+		<!-- ============================== Bank End (Aamir) =========================== -->
+
+		<!-- ============================== End of System Administration =========================== -->
 	</package>
 </struts>
