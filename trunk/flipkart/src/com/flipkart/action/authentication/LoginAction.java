@@ -2,6 +2,7 @@ package com.flipkart.action.authentication;
 
 import java.util.Map;
 
+import com.flipkart.action.cartmanagement.CartAction;
 import com.flipkart.model.authentication.LoginModel;
 import com.flipkart.util.MyUtilityFunctions;
 import com.opensymphony.xwork2.ActionContext;
@@ -55,6 +56,7 @@ public class LoginAction extends ActionSupport {
 		// remove user from session
 		Map sess = ActionContext.getContext().getSession();
 		sess.clear();
+		CartAction.firstItem=0;
 		return SUCCESS;
 	}
 
