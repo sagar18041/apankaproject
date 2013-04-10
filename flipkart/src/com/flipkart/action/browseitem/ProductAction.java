@@ -25,11 +25,14 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class ProductAction extends ActionSupport {
 
+	//to get category list in menu and search autocomplete
 	private ArrayList<String> categoryList = new ArrayList<String>();
+	private ArrayList<Catalogue> catalogueList = new ArrayList<Catalogue>();
 	private ArrayList<SearchList> sl = new ArrayList<SearchList>();
 	String searchBy;
 	String autoCompleteList;
 	public String categorySel;
+	//to get category list in menu and search autocomplete
 	
 	private Integer itemID;
 	private Product prod = new Product();
@@ -39,7 +42,6 @@ public class ProductAction extends ActionSupport {
 	private Integer finalRating = 0;
 	private ArrayList<RecentlyViewed> recentlyViewedItems = new ArrayList<RecentlyViewed>();
 	private ArrayList<RecentlyViewed> browsingHistoryItems = new ArrayList<RecentlyViewed>();
-	private ArrayList<Catalogue> catalogueList = new ArrayList<Catalogue>();
 	public String getSearchBy() {
 		return searchBy;
 	}
@@ -138,6 +140,7 @@ public class ProductAction extends ActionSupport {
 	 */
 	public String displayItem() throws SQLException {
 
+		//to get category list in menu and search autocomplete
 		// get all categories from category table to populate the search box
 		HomeModel hm = new HomeModel();
 		categoryList = hm.getCategoryList();
@@ -154,6 +157,7 @@ public class ProductAction extends ActionSupport {
 					+ "\",\"";
 		}
 		autoCompleteList = autoCompleteList + "\"]";
+		//to get category list in menu and search autocomplete
 		
 		ProductModel pm = new ProductModel();
 
