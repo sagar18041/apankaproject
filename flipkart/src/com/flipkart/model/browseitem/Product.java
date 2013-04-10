@@ -6,7 +6,14 @@ public class Product {
 	private String itemName;
 	private Integer productID;
 	private String thumbnail;
+	private Integer availableQuantity;
 	
+	public Integer getAvailableQuantity() {
+		return availableQuantity;
+	}
+	public void setAvailableQuantity(Integer availableQuantity) {
+		this.availableQuantity = availableQuantity;
+	}
 	public String getThumbnail() {
 		return thumbnail;
 	}
