@@ -182,9 +182,14 @@
 
 	<!-- ================================ Product Display by Ananda================================ -->
 	<definition name="/displayitem.tiles" extends="baselayout">
-		<put-attribute name="title" value="Flipkart.com: Addresses" />
+		<put-attribute name="title" value="Flipkart.com: Product" />
 		<put-attribute name="body" value="/product/displayitem.jsp" />
 	</definition>
+	<definition name="/rateandreview.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Rate And Review" />
+		<put-attribute name="body" value="/product/rateandreview.jsp" />
+	</definition>
+	
 	<!-- ================================ End of Product Display ================================ -->
 
 	<!-- ================================Search ================================ -->
