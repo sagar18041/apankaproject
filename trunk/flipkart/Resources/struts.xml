@@ -59,10 +59,12 @@
 
 		<action name="shippingaddress" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="fetchShippingAddr">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/shippingaddress.tiles</result>
 		</action>
 		<action name="ordersummary" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="fetchOrderSummary">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/ordersummary.tiles</result>
 			<result name="error" type="redirectAction">
 				<param name="actionName">shippingaddress</param>
@@ -72,11 +74,13 @@
 
 		<action name="deleteitem" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="deleteItemFromCart">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/ordersummary.tiles</result>
 		</action>
 
 		<action name="payment" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="goToPayment">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/paymentoptions.tiles</result>
 		</action>
 
@@ -90,13 +94,14 @@
 		<action name="accountpage"
 			class="com.flipkart.action.accountmanagement.PersonalInformationAction"
 			method="displayPersonalInformation">
-			
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/accountpage.tiles</result>
 		</action>
 
 		<action name="modifypersonalinformation"
 			class="com.flipkart.action.accountmanagement.PersonalInformationAction"
 			method="modifyPersonalInformation">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/accountpage.tiles</result>
 			<result name="error" type="tiles">/accountpage.tiles</result>
 		</action>
@@ -106,12 +111,14 @@
 		<action name="passwordpage"
 			class="com.flipkart.action.accountmanagement.PasswordChangeAction"
 			method="loadPage">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/passwordpage.tiles</result>
 		</action>
 
 		<action name="modifypassword"
 			class="com.flipkart.action.accountmanagement.PasswordChangeAction"
 			method="modifyPassword">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/passwordpage.tiles</result>
 			<result name="error" type="tiles">/passwordpage.tiles</result>
 		</action>
@@ -121,6 +128,7 @@
 		<action name="addresspage"
 			class="com.flipkart.action.accountmanagement.AddressManagementAction"
 			method="loadPage">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/addresspage.tiles</result>
 		</action>
 
@@ -128,6 +136,7 @@
 		<action name="addaddress"
 			class="com.flipkart.action.accountmanagement.AddressManagementAction"
 			method="addAddress">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/addresspage.tiles</result>
 			<result name="error" type="tiles">/addresspage.tiles</result>
 		</action>
@@ -135,6 +144,7 @@
 		<action name="deleteaddress"
 			class="com.flipkart.action.accountmanagement.AddressManagementAction"
 			method="deleteAddress">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/addresspage.tiles</result>
 			<result name="error" type="tiles">/addresspage.tiles</result>
 		</action>
@@ -158,6 +168,7 @@
 		<action name="emailupdate"
 			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
 			method="loadResetPage">
+			
 			<result name="success" type="tiles">/emailresetpage.tiles</result>
 			<result name="error" type="tiles">/emailresetpage.tiles</result>
 		</action>
@@ -165,6 +176,7 @@
 		<action name="emailreset"
 			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
 			method="resetEmail">
+
 			<result name="success" type="tiles">/emailresetpage.tiles</result>
 			<result name="error" type="tiles">/emailresetpage.tiles</result>
 		</action>
@@ -190,6 +202,7 @@
 		<action name="vieworders"
 			class="com.flipkart.action.accountmanagement.OrderHistoryAction"
 			method="loadPage">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/orderhistorypage.tiles</result>
 		</action>
 		
@@ -197,6 +210,7 @@
 		<action name="vieworderstatus"
 			class="com.flipkart.action.accountmanagement.OrderDetailsAction"
 			method="loadStatusPage">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/orderstatuspage.tiles</result>
 		</action>
 		
@@ -204,6 +218,7 @@
 		<action name="vieworderdetails"
 			class="com.flipkart.action.accountmanagement.OrderDetailsAction"
 			method="loadPage">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/orderdetailspage.tiles</result>
 			<result name="error" type="tiles">/orderstatuspage.tiles</result>
 		</action>
@@ -358,50 +373,59 @@
 		<!-- ******************************* Cart Management by Ritu ********************************* -->
 		<action name="addToCart" class="com.flipkart.action.cartmanagement.CartAction"
 			method="addToCart">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
 
 		<action name="cartDisplay" class="com.flipkart.action.cartmanagement.CartAction"
 			method="displayCart">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/viewcart.tiles</result>
 			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
 
 		<action name="updateCart" class="com.flipkart.action.cartmanagement.CartAction"
 			method="updateCart">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 		</action>
 		
 		<action name="deleteCart" class="com.flipkart.action.cartmanagement.CartAction"
 			method="deleteCart">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 		</action>
 
 		<action name="moveToWishlist" class="com.flipkart.action.cartmanagement.CartAction"
 			method="moveWishlist">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 		</action>
 		
 		<action name="viewwishlist" class="com.flipkart.action.wishlist.WishlistAction"
 			method="viewWishlist">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/viewWishlist.tiles</result>
 			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
 		
 		<action name="removeFromwishlist" class="com.flipkart.action.wishlist.WishlistAction"
 			method="removeFromWishlist">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="redirect">viewwishlist</result>
 		</action>
 		
 		<action name="addToWishlist" class="com.flipkart.action.wishlist.WishlistAction"
 			method="addToWishlist">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">viewwishlist</result>
 			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
 		
 		<action name="addToCartFromWishlist" class="com.flipkart.action.cartmanagement.CartAction"
 			method="addToCartFromWishlist">
+			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">cartDisplay</result>
 		</action>
 		<action name="sortByValue" class="com.flipkart.action.wishlist.WishlistAction"
@@ -426,6 +450,7 @@
 		</action>
 		<action name="saverateandreview" class="com.flipkart.action.browseitem.ProductAction" 
 		method="saveRateAndReview">
+		<interceptor-ref name="loginStack" />
 		<result name="success" type="tiles">/home.tiles</result>	
 		<result name="error" type="chain">rateandreview</result>
 		<result name="tohome" type="tiles">/home.tiles</result>
