@@ -157,13 +157,18 @@
 	<!-- ============================== Bank Begin (Aamir) =========================== -->
 
 	<definition name="/netbankingviewentries.tiles" extends="adminlayout">
-		<put-attribute name="title" value="Flipkart.com: Net Banking" />
+		<put-attribute name="title" value="Bank: Net Banking" />
 		<put-attribute name="body" value="/Bank/netbankingviewentries.jsp" />
 	</definition>
 
 	<definition name="/accountnumberpopup.tiles" extends="adminlayout">
-		<put-attribute name="title" value="Flipkart.com: Account Number" />
+		<put-attribute name="title" value="Bank: Account Number" />
 		<put-attribute name="body" value="/Bank/accountnumberpopup.jsp" />
+	</definition>
+
+	<definition name="/bankcustomers.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Bank: Customers" />
+		<put-attribute name="body" value="/Bank/bankcustomers.jsp" />
 	</definition>
 
 	<!-- ============================== Bank End (Aamir) =========================== -->
