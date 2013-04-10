@@ -37,7 +37,18 @@
 							<li><a href="adminviewcategory">View Category</a></li>
 							<li><a href="adminaddcategory">Add Category</a></li>
 							<li><a href="adminverifycategory">Verify Category</a></li>
-						</ul></li>
+						</ul>
+					</li>
+
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" style="color: white;">Product<b
+							class="caret"></b></a>
+						<ul class="dropdown-menu pull-right">
+							<li><a href="adminproductinit">Add New Product</a></li>
+							<li><a href="#">Add link</a></li>
+							<li><a href="#">Add link</a></li>
+						</ul>
+					</li>
 
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" style="color: white;">Bank<b

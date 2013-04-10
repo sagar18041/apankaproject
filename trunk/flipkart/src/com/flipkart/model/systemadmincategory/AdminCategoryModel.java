@@ -107,6 +107,7 @@ public class AdminCategoryModel {
 	 */
 	public static int insertNewCategoryPath(String categoryname) {
 
+		System.out.println("10");
 		int categoryID=0;
 
 		/* fetch the most recently entered category ID*/
@@ -119,17 +120,15 @@ public class AdminCategoryModel {
 			rs=ps.executeQuery();
 
 			while(rs.next()){
-				//check if the latest entered category matched the category name given by admin
-				if( categoryname.equals(rs.getString(2)) )
-				{
+				
+					System.out.println("check sony");
 					categoryID = rs.getInt(1);
-				}
-				else
-				{
-					return -1;
-				}
+					System.out.println("categoryID:"+categoryID);
+				
 			}
 
+			System.out.println("11");
+			
 			/* inserting into path table */
 			sqlQuery = "INSERT INTO flipkart_path(categoryID, parentID, level) " +
 					"VALUES (?,?,?);";
@@ -165,6 +164,7 @@ public class AdminCategoryModel {
 	 */
 	public static void removeNewCategory(String categoryname) {
 
+		System.out.println("12");
 		int categoryID=0;
 
 		/* fetch the category ID for the given caategoryName*/

@@ -36,11 +36,13 @@ public class AdminCategoryAction extends ActionSupport{
 		if ( !getCategoryName().equals("") && !getCategoryName().equals(null))
 		{
 
+			System.out.println("1");
 			int ret;  
 			ret= AdminCategoryModel.checkExistingCategory(getCategoryName());
 
 			if(ret == 0)
 			{
+				System.out.println("2");
 				ret= AdminCategoryModel.insertNewCategory(getCategoryName());
 				setCategoryName("");
 
@@ -49,15 +51,18 @@ public class AdminCategoryAction extends ActionSupport{
 				 * else dont send mail.
 				 */
 				if(ret == -1){
+					System.out.println("4");
 					addActionError("Sorry some error occurred. The new category was not added.");
 					check=0;
 					return ERROR;
 				}
 				else if (ret == 0){
+					System.out.println("5");
 					check=1;
 					ret= AdminCategoryModel.insertNewCategoryPath(getCategoryName());
 					
 					if(ret == -1){
+						System.out.println("6");
 						/* in case you were not able to insert path, 
 						 * remove category table entry too 
 						 * */
@@ -69,12 +74,13 @@ public class AdminCategoryAction extends ActionSupport{
 					}
 					else{
 						/* if the inserts were successful send the mail to admin*/
+						System.out.println("7");
 						sendMailCategoryAddition();
 					}
 				}
-
 			}
 			else{
+				System.out.println("3");
 				addActionError("This category already exists. Please enter another category.");
 				check=0;
 				return ERROR;
