@@ -188,7 +188,7 @@ public class ProductModel {
 	public ArrayList<Integer> getRecentlyViewedItems(String ipAddr) {
 		ArrayList<Integer> itemIDS  = new ArrayList<Integer>();
 		sqlQuery = "SELECT DISTINCT itemID from flipkart_browsinghistory WHERE ipAddress = ? " +
-				"ORDER BY browseTime DESC LIMIT 2";
+				"ORDER BY browseTime DESC LIMIT 4";
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
@@ -243,7 +243,7 @@ public class ProductModel {
 		ArrayList<Integer> itemIDS  = new ArrayList<Integer>();
 		sqlQuery = "SELECT itemID FROM (SELECT itemID, COUNT( itemID ) AS freq, ipAddress " +
 				"FROM flipkart_browsinghistory WHERE ipAddress = ? GROUP BY itemID " +
-				"ORDER BY freq DESC LIMIT 2) AS items";
+				"ORDER BY freq DESC LIMIT 3) AS items";
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
@@ -323,7 +323,7 @@ public class ProductModel {
 			ps.setString(1, reviewTitle);
 			ps.setString(2,  reviewText);
 			ps.setInt(3,  productID);
-			ps.setInt(3,  userID);
+			ps.setInt(4,  userID);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
