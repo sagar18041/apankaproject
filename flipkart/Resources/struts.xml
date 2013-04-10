@@ -414,6 +414,15 @@
 			method="displayItem">
 			<result name="success" type="tiles">/displayitem.tiles</result>
 		</action>
+		<action name="rateandreview" class="com.flipkart.action.browseitem.ProductAction" 
+		method="rateAndReview">
+		<result name="success" type="tiles">/rateandreview.tiles</result>
+		</action>
+		<action name="saverateandreview" class="com.flipkart.action.browseitem.ProductAction" 
+		method="saveRateAndReview">
+		<result name="success" type="tiles">/displayitem.tiles</result>
+		<result name="error" type="tiles">/rateandreview.tiles</result>
+		</action>
 		<!-- ******************************* End of Product Page by ********************************** -->
 
 	</package>
