@@ -272,15 +272,15 @@ if(window.history.forward(1) != null)
 						</div>
 
 						<div class="modal-footer">
-							<table>
-								<tr>
-									<td><a href="home" class="btn btn-primary">Close and
-											Continue Shopping</a></td>
-									<td style="width: 440px"></td>
-									<td><a href="emaillogin" class="btn btn-warning">Place
-											Order</a></td>
-								</tr>
-							</table>
+							<div class="row-fluid">
+								<div class="pull-left">
+									<a href="home" class="btn btn-primary">Close and Continue
+										Shopping</a>
+								</div>
+								<div class="pull-right">
+									<a href="emaillogin" class="btn btn-warning">Place Order</a>
+								</div>
+							</div>
 						</div>
 					</s:if>
 					<s:else>
