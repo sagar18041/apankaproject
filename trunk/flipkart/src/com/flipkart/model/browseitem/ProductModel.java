@@ -27,7 +27,7 @@ public class ProductModel {
 	 */
 	public Product getProductDetails(Integer itemID) {
 		Product prod = new Product();
-		sqlQuery = "select itemID, itemName, productID, thumbnail from flipkart_item where itemID = ?;";
+		sqlQuery = "select itemID, itemName,availableQuantity, productID, thumbnail from flipkart_item where itemID = ?;";
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
@@ -37,8 +37,9 @@ public class ProductModel {
 			if(rs.next()){
 				prod.setItemID(rs.getInt(1));
 				prod.setItemName(rs.getString(2));
-				prod.setProductID(rs.getInt(3));
-				prod.setThumbnail(rs.getString(4));
+				prod.setAvailableQuantity(rs.getInt(3));
+				prod.setProductID(rs.getInt(4));
+				prod.setThumbnail(rs.getString(5));
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -329,5 +330,23 @@ public class ProductModel {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public boolean getUserWishList(Integer userID, Integer itemID) {
+		sqlQuery = "select * from flipkart_wishlist where userID = ? AND itemID = ?;";
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, userID);
+			ps.setInt(2, itemID);
+			rs=ps.executeQuery();
+			
+			if(rs.next()){
+				return true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
 	}	
 }
