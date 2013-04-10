@@ -75,6 +75,18 @@ if(window.history.forward(1) != null)
 		/* alert(z);  */
 	}
 	
+	function updateOnEnter(x,y)
+	{
+		if (event.keyCode == 13){
+			alert("in enter...");
+			console.log(x+"...."+y);
+		var z = document.getElementById(y).value;
+
+		window.location = "updateCart?itemID=" + x +"&newQuantity=" + z;
+		}
+	
+	}
+	
 	setTimeout(function() {
 	    $('#mydiv').fadeOut('slow');
 	}, 10000);
@@ -231,6 +243,7 @@ if(window.history.forward(1) != null)
 												<input type="text" name="newQuantity"
 													id="<s:property value="statusQuantity" />"
 													value="<s:property value="quantity"/>"
+													onkeypress="updateOnEnter(<s:property value="itemID"/>,<s:property value="statusQuantity" />);"
 													style="width: 16px; height: 11px;" /> <font
 													style="font-size: 12px;"> <a href="#"
 													onclick="update(<s:property value="itemID"/>,<s:property value="statusQuantity" />);">Save</a>
