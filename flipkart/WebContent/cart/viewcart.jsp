@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
@@ -134,7 +134,7 @@ if(window.history.forward(1) != null)
 					<div class="modal-header">
 
 						<h3 id="myModalLabel">
-							<i class="icon-shopping-cart icon-large"></i> <b>Cart (<s:property
+							<span class="cart-icon-black"></span> <b>Cart (<s:property
 									value="%{#session.cartCount}" />)
 							</b>
 						</h3>
@@ -223,7 +223,8 @@ if(window.history.forward(1) != null)
 												<font style="font-size: 13px;"><s:property
 														value="quantity" /></font> <br /> <font
 													style="font-size: 12px;"> <a href="#"
-													onclick="showTextBox(<s:property value="%{#i.count}" />,<s:property value="%{status2}" />);">Change</a></font>
+													onclick="showTextBox(<s:property value="%{#i.count}" />,<s:property value="%{status2}" />);">Change</a>
+												</font>
 											</div>
 
 											<div id="<s:property value="%{#i.count}" />"
@@ -277,7 +278,8 @@ if(window.history.forward(1) != null)
 									<td><a href="home" class="btn btn-primary">Close and
 											Continue Shopping</a></td>
 									<td style="width: 440px"></td>
-									<td><a href="emaillogin" class="btn btn-warning">Place Order</a></td>
+									<td><a href="emaillogin" class="btn btn-warning">Place
+											Order</a></td>
 								</tr>
 							</table>
 						</div>
