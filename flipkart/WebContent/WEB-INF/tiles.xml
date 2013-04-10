@@ -6,7 +6,7 @@
 
 <tiles-definitions>
 
-	<definition name="baselayout" template="/baselayout.jsp">
+<definition name="baselayout" template="/baselayout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/header.jsp" />
 		<put-attribute name="menu" value="/menu.jsp" />
@@ -148,29 +148,7 @@
 		<put-attribute name="title" value="Flipkart.com: Admin Home Page" />
 		<put-attribute name="body" value="/systemadminCategory/adminhome.jsp" />
 	</definition>
-
-	<definition name="/adminviewcategory.tiles" extends="adminlayout">
-		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body"
-			value="/systemadminCategory/viewcategory.jsp" />
-	</definition>
-
-	<definition name="/adminaddcategory.tiles" extends="adminlayout">
-		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body"
-			value="/systemadminCategory/addcategory.jsp" />
-	</definition>
-
-	<definition name="/adminmodifycategory.tiles" extends="adminlayout">
-		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body" value="/systemadmin/modifycategory.jsp" />
-	</definition>
-	<definition name="/adminverifycategory.tiles" extends="adminlayout">
-		<put-attribute name="title" value="Flipkart.com: Category" />
-		<put-attribute name="body"
-			value="/systemadminCategory/verifycategory.jsp" />
-	</definition>
-
+	
 	<definition name="/adminlogin.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Login" />
 		<put-attribute name="body" value="/SystemAdmin/adminlogin.jsp" />
@@ -191,6 +169,7 @@
 	<!-- ============================== Bank End (Aamir) =========================== -->
 
 	<!-- ============================== End of System Administration =========================== -->
+
 
 	<!-- ================================ Product Display by Ananda================================ -->
 	<definition name="/displayitem.tiles" extends="baselayout">
@@ -236,4 +215,64 @@
 		<put-attribute name="body" value="/cart/carterror.jsp" />
 	</definition>
 	<!-- ************************* End of Cart and WishList **************************** -->
+	
+	
+		<!-- ================================== System Administration =============================== -->
+
+	<definition name="/adminhome.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Admin Home Page" />
+		<put-attribute name="body" value="/systemadminCategory/adminhome.jsp" />
+	</definition>
+
+	<!-- ................. Category Start ................. -->
+
+	<definition name="/adminviewcategory.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Category" />
+		<put-attribute name="body"
+			value="/systemadminCategory/viewcategory.jsp" />
+	</definition>
+
+	<definition name="/adminaddcategory.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Category" />
+		<put-attribute name="body"
+			value="/systemadminCategory/addcategory.jsp" />
+	</definition>
+
+	<definition name="/adminmodifycategory.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Category" />
+		<put-attribute name="body" value="/systemadmin/modifycategory.jsp" />
+	</definition>
+	<definition name="/adminverifycategory.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Category" />
+		<put-attribute name="body"
+			value="/systemadminCategory/verifycategory.jsp" />
+	</definition>
+
+	<!-- ................. Category End ................. -->
+
+	<!-- ................. Product Start ................. -->
+	
+	<definition name="/adminproductinit.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Product" />
+		<put-attribute name="body"
+			value="/systemadminProduct/addnewproduct.jsp" />
+	</definition>
+	
+	<definition name="/adminiteminit.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Item" />
+		<put-attribute name="body"
+			value="/systemadminProduct/addnewitem.jsp" />
+	</definition>
+	
+	<definition name="/adminitemattributesinit.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Item Attributes" />
+		<put-attribute name="body"
+			value="/systemadminProduct/additemattributes.jsp" />
+	</definition>
+
+	<!-- ................. Product End ................. -->
+
+	<!-- ============================== End of System Administration =========================== -->
+	
+	
 </tiles-definitions>
