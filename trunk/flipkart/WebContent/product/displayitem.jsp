@@ -67,7 +67,14 @@
 						class="rating-static rating-<s:property value="finalRating"/>0"> </span>
 						<s:property value = "numberOfUserRated"/> Ratings | 
 						<a href="#RW"><s:property value = "numberOfReviews"/> Reviews</a> | 
-						<a href="rateandreview.action?itemID=<s:property value="itemID"/>"> Rate & Review</a>
+						<s:if test="%{rated}">
+							You have already rated and reviewed
+						</s:if>
+						<s:else>
+							<a href="rateandreview.action?itemID=<s:property value="itemID"/>"> Rate & Review</a>
+						</s:else>
+						
+						
 						<br /><br />
 					<img src="ViewResources/img/wishlist.png" />
 					<a href="#" >Add to wishlist</a>
