@@ -184,16 +184,13 @@
 			<ul class="nav nav-pills">
 				<li><a href="#" style="color: white;">Contact Us</a></li>
 				<li id="li_home"><a href="home" style="color: white;">Home</a></li>
+				<li id="li_account"><a href="accountpage"
+						style="color: white;">Account</a></li>
+					<li><a href="viewwishlist" style="color: white;">Wishlist</a></li>
 				<s:if test="#session['login']==null">
 					<!--  <li><a data-toggle="modal" href="#loginmodal"
 						style="color: white;"
 onclick="show('forgotpassword','signup','login')">Login</a></li>-->
-					<li id="li_account"><a data-toggle="modal" href="#loginmodal"
-						onclick="show('forgotpassword','signup','login')"
-						style="color: white;">Account</a></li>
-					<li><a data-toggle="modal" href="#loginmodal"
-						onclick="show('forgotpassword','signup','login')"
-						style="color: white;">Wishlist</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" style="color: white;">Login as<b
 							class="caret"></b></a>
@@ -212,9 +209,6 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 				</s:if>
 
 				<s:if test="#session['login']==true">
-					<li id="li_account"><a href="accountpage"
-						style="color: white;">Account</a></li>
-					<li><a href="viewwishlist" style="color: white;">Wishlist</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" style="color: white;"><s:property
 								value="#session['emailAddress']" /><b class="caret"></b></a>
