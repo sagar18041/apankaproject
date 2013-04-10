@@ -309,7 +309,7 @@ public class ProductAction extends ActionSupport {
 		 stock detail
 		 *
 		 */
-		//check if user has already rated and review give msg
+		//check if user has already rated and review, give msg
 				Map sess=ActionContext.getContext().getSession();
 				if (sess.containsKey("login")) {
 				if (pm.getUserRating(Integer.valueOf(sess.get("userID").toString()), productID) || 
