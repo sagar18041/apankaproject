@@ -5,40 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Google Books Embedded Viewer API Example</title>
-<%-- <script type="text/javascript" src="https://www.google.com/jsapi"></script> --%>
-<script type="text/javascript">
-	google.load("books", "0");
+<title></title>
 
-	function initialize() {
-		var viewer = new google.books.DefaultViewer(document
-				.getElementById('viewerCanvas'));
-		viewer.load('ISBN:0321679695');
-	}
-
-	google.setOnLoadCallback(initialize);
-</script>
 </head>
 <body>
-	<a href="#myModal" role="button" class="btn" data-toggle="modal">Book
-		Preview</a>
-
 	<s:form action="addToCart" method="post">
-		<div id="myModal" class="modal fade" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">×</button>
-				<h3 id="myModalLabel">Book Title</h3>
-			</div>
-			<div class="modal-body">
-				<div id="viewerCanvas" style="width: 520px; height: 410px"></div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-			</div>
-		</div>
-		<br />
 		<!-- Product Display -->
 		<!-- Product Image -->
 		<div class="row-fluid">
@@ -168,6 +139,20 @@
 
 		<div class="row-fluid">
 			<div class="span9">
+			<div class="row-fluid">
+			<!-- Variant Delails -->
+			<div class="span6 pull-right">
+			<table class="table table-hover table-bordered">
+			<tr><th>Other Variants</th></tr>
+					<tbody> <s:iterator value="variantList">
+						<tr>
+							<td> <a href="displayitem.action?itemID=<s:property value = "variantID"/>"><s:property value = "variantName"/></a> </td>
+						</tr> </s:iterator>
+					</tbody>
+				</table>
+				</div>
+			<!-- Variant Details ends here -->
+			</div>
 				<!-- Product More Details -->
 				<strong>Product Specifications</strong>
 				<table class="table table-bordered">
