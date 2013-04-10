@@ -199,7 +199,7 @@ if(window.history.forward(1) != null)
 									<tr>
 										<td style="background-color: #C7E7F0; width: 1px;"></td>
 										<td style="text-align: left"><img
-											src="images/<s:property
+											src="<s:property
 										value="%{thumbnail}" />"
 											width="100" height="40" /></td>
 										<td style="text-align: left;"><font
@@ -210,7 +210,7 @@ if(window.history.forward(1) != null)
 													to wishlist</a></font></td>
 										<td style="text-align: left;"><font
 											style="font-size: 13px;"><s:property
-													value="%{deliveryTime}" /></font></td>
+													value="%{deliveryTime}" /> Business Days</font></td>
 										<td style="text-align: left"><font
 											style="font-size: 13px;">Rs. <s:property
 													value="%{price}" /></font></td>
