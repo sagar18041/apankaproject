@@ -133,8 +133,8 @@
 									style="background-color: #F2F2F2; padding-left: 10px; padding-top: 10px; padding-bottom: 10px;">
 
 									<a
-										href="addToCartFromWishlist?itemID=<s:property value="%{itemID}" />&itemName=<s:property value="%{itemName}" />&price=<s:property value="%{price}" />"
-										class="btn btn-small btn-warning">Buy Now</a>&nbsp;&nbsp; <a
+											href="addToCartFromWishlist?itemID=<s:property value="%{itemID}" />&itemName=<s:property value="%{itemName}" />&price=<s:property value="%{price}" />&deliveryTime=<s:property value="%{deliveryTime}" />&thumbnail=<s:property value="%{thumbnail}" />"
+											class="btn btn-small btn-warning">Buy Now</a>&nbsp;&nbsp; <a
 										href="removeFromwishlist?itemID=<s:property value="itemID"/>">Remove
 										from Wishlist</a>
 								</div> </font>
