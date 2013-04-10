@@ -24,6 +24,25 @@ public class CartAction extends ActionSupport {
 	private String itemMovedToWishlist;
 	private String itemAddedToCart;
 	private String itemDeletedFromCart;
+	private String deliveryTime; 
+	private String thumbnail;
+	
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public String getDeliveryTime() {
+		return deliveryTime;
+	}
+
+	public void setDeliveryTime(String deliveryTime) {
+		this.deliveryTime = deliveryTime;
+	}
+
 	Cart c;
 	ArrayList<Cart> cartItems = new ArrayList<Cart>();
 	Map cartSession = ActionContext.getContext().getSession();
@@ -137,11 +156,11 @@ public class CartAction extends ActionSupport {
 	public Cart makeObject() {
 		c = new Cart();
 		c.setItemDescription(itemName);
-		c.setDeliveryTime("Delivered in 2-3 business days. ");
+		c.setDeliveryTime(deliveryTime);
 		c.setPrice(price);
 		c.setItemID(itemID);
 		c.setQuantity(1);
-		c.setThumbnail("nokia.jpg");
+		c.setThumbnail(thumbnail);
 		c.setSubTotal(price * c.getQuantity());
 		c.setStatus2(divId1 + 1);
 		c.setStatusQuantity(divId2 + 1);
