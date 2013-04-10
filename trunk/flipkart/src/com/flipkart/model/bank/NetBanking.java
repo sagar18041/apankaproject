@@ -2,7 +2,7 @@ package com.flipkart.model.bank;
 
 public class NetBanking {
 
-	int accountNumber;
+	String accountNumber;
 	int customerID;
 	String password;
 	String customerName;
@@ -32,11 +32,11 @@ public class NetBanking {
 		this.balance = balance;
 	}
 
-	public int getAccountNumber() {
+	public String getAccountNumber() {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(int accountNumber) {
+	public void setAccountNumber(String accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
