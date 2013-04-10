@@ -25,7 +25,7 @@ public class NetBankingModel {
 			while (rs.next()) {
 				record = new NetBanking();
 				record.setAccountNumber(rs.getString("accountNumber"));
-				record.setBalance(rs.getFloat("balance"));
+				record.setBalance(rs.getString("balance"));
 				record.setCustomerID(rs.getInt("customerID"));
 				record.setCustomerName(rs.getString("customerName"));
 				recordList.add(record);
@@ -48,7 +48,7 @@ public class NetBankingModel {
 			while (rs.next()) {
 				record = new NetBanking();
 				record.setAccountNumber(rs.getString("accountNumber"));
-				record.setBalance(rs.getFloat("balance"));
+				record.setBalance(rs.getString("balance"));
 				record.setCustomerID(rs.getInt("customerID"));
 				record.setCustomerName(rs.getString("customerName"));
 				recordList.add(record);
