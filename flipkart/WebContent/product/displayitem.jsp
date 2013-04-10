@@ -77,7 +77,13 @@
 						
 						<br /><br />
 					<img src="ViewResources/img/wishlist.png" />
-					<a href="addToWishlist?itemID=<s:property value="itemID" />" >Add to wishlist</a>
+					<s:if test="%{addedToWishList}">
+							Added to wishlist. <a href="viewwishlist">Browse Wishlist</a>
+						</s:if>
+						<s:else>
+							<a href="addToWishlist?itemID=<s:property value="itemID" />" >Add to wishlist</a>
+						</s:else>
+					
 					<!-- Product ID<s:property value="productID"/><br />  -->
 					<s:hidden name="itemID" value="%{itemID}" />
 					<s:hidden name="itemName" value="%{itemName}" />
@@ -113,7 +119,12 @@
 						</s:iterator>
 					</div>
 					<div class="span5">
-						<b><font color="#088A08">stock checking goes here</font></b> <br />
+					<s:iterator value="prod" var="stock">
+						<s:if test="%{#stock.availableQuantity!=0}">
+						<b><font color="#088A08">In Stock.</font></b>
+						</s:if>
+						<s:elseif test="%{#stock.availableQuantity==0}"><b><font color="#B40404">Out of Stock.</font></b></s:elseif>
+						</s:iterator> <br />
 						<s:iterator value="attrib" var="attrdelivery">
 							<s:if test="%{#attrdelivery.attribute=='Delivery Time'}">
 	Delivered in <s:property value="#attrdelivery.value" /> business days.
@@ -127,8 +138,15 @@
 				<div class="row-fluid">
 					<div class="span6">
 						<div align="center" class="well">
+						<s:iterator value="prod" var="stock">
+						<s:if test="%{#stock.availableQuantity!=0}">
 							<s:submit cssClass="btn btn-large btn-block btn-warning"
 								value="Buy This Now"></s:submit>
+								</s:if>
+								<s:elseif test="%{#stock.availableQuantity==0}">
+								Out Of Stock
+								</s:elseif>
+								</s:iterator>
 						</div>
 					</div>
 					<!--  <div class="span3">
