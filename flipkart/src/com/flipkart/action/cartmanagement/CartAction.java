@@ -18,7 +18,7 @@ public class CartAction extends ActionSupport {
 	private Integer price;
 	private Integer itemID;
 	private int newQuantity;
-	private static int firstItem = 0;
+	public static int firstItem = 0;
 	public static int divId1 = 100;
 	public static int divId2 = 200;
 	private String itemMovedToWishlist;
