@@ -256,5 +256,78 @@ public class ProductModel {
 			e.printStackTrace();
 		}
 		return itemIDS;
+	}
+
+	public boolean getUserRating(Integer userID, Integer productID) {
+		sqlQuery = "select * from flipkart_productrating where userID = ? AND productID = ?;";
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, userID);
+			ps.setInt(2, productID);
+			rs=ps.executeQuery();
+			
+			if(rs.next()){
+				System.out.println("here");
+				return true;
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean getUserReview(Integer userID, Integer productID) {
+		sqlQuery = "select * from flipkart_productreview where userID = ? AND productID = ?;";
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, userID);
+			ps.setInt(2, productID);
+			rs=ps.executeQuery();
+			
+			if(rs.next()){
+				return true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public void putUserRating(Integer ratingStar, Integer userID,
+			Integer productID) {
+		sqlQuery = "INSERT INTO `flipkart`.`flipkart_productrating`"
+				+ " (`ratingStar`, `userID`, `productID`) VALUES (?,?,?);";
+		conn = DbConnection.getConnection();
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setInt(1, ratingStar);
+			ps.setInt(2,  userID);
+			ps.setInt(3,  productID);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void putUserReview(String reviewTitle, String reviewText,
+			Integer productID, Integer userID) {
+		sqlQuery = "INSERT INTO `flipkart`.`flipkart_productreview`"
+				+ " (`reviewTitle`, `reviewText`, `productID`, `userID`) VALUES (?,?,?,?);";
+		conn = DbConnection.getConnection();
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, reviewTitle);
+			ps.setString(2,  reviewText);
+			ps.setInt(3,  productID);
+			ps.setInt(3,  userID);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}	
 }
