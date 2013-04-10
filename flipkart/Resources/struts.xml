@@ -37,7 +37,9 @@
 				<interceptor-ref name="workflow" />
 			</interceptor-stack>
 		</interceptors>
-
+		<global-results>
+			<result name="login" type="chain">home</result>
+		</global-results>
 		<!-- ******************End of Login Intercepter************************* -->
 
 		<!-- ****************** Main Page ********************** -->
@@ -416,12 +418,16 @@
 		</action>
 		<action name="rateandreview" class="com.flipkart.action.browseitem.ProductAction" 
 		method="rateAndReview">
+		<interceptor-ref name="loginStack" />
 		<result name="success" type="tiles">/rateandreview.tiles</result>
+		<result name="tohome" type="tiles">/home.tiles</result>
+		<result name="error" type="tiles">/rateandreview.tiles</result>
 		</action>
 		<action name="saverateandreview" class="com.flipkart.action.browseitem.ProductAction" 
 		method="saveRateAndReview">
 		<result name="success" type="tiles">/displayitem.tiles</result>
-		<result name="error" type="tiles">/rateandreview.tiles</result>
+		<result name="error" type="chain">rateandreview</result>
+		<result name="tohome" type="tiles">/home.tiles</result>
 		</action>
 		<!-- ******************************* End of Product Page by ********************************** -->
 
