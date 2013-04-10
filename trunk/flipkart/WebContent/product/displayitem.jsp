@@ -78,7 +78,6 @@
 						<br /><br />
 					<img src="ViewResources/img/wishlist.png" />
 					<a href="#" >Add to wishlist</a>
-					<hr />
 					<!-- Product ID<s:property value="productID"/><br />  -->
 					<s:hidden name="itemID" value="%{itemID}" />
 					<s:hidden name="itemName" value="%{itemName}" />
