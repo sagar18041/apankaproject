@@ -433,9 +433,9 @@
 			<result name="success" type="chain">adminhome</result>
 			<result name="error" type="tiles">/adminlogin.tiles</result>
 		</action>
-		
+
 		<!-- ................. Admin Home & Login End ................. -->
-		
+
 		<!-- ................. Category Start ................. -->
 
 		<action name="adminviewcategory"
@@ -443,7 +443,7 @@
 			method="fetchCategoryList">
 			<result name="success" type="tiles">/adminviewcategory.tiles</result>
 		</action>
-		
+
 		<action name="adminverifycategory"
 			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
 			method="fetchVerificationCategory">
@@ -552,6 +552,11 @@
 		<action name="deleteEntry" class="com.flipkart.action.bank.NetBankingAction"
 			method="deleteEntry">
 			<result name="success" type="chain">netbankingviewentries</result>
+		</action>
+
+		<action name="getAllCustomers" class="com.flipkart.action.bank.BankCustomersAction"
+			method="getAllCustomers">
+			<result name="success" type="tiles">/bankcustomers.tiles</result>
 		</action>
 
 		<!-- ============================== Bank End (Aamir) =========================== -->
