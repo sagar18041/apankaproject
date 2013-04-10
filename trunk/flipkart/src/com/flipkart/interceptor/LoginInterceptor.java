@@ -18,7 +18,7 @@ public class LoginInterceptor implements Interceptor {
 //        throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
 	public String intercept(ActionInvocation ai) throws Exception {
         ai.getInvocationContext();
 		Map sess = ActionContext.getContext().getSession();
@@ -29,6 +29,9 @@ public class LoginInterceptor implements Interceptor {
         if (action instanceof ValidationAware) {
             ((ValidationAware) action).addActionError("Unauthorized access. " +
             		"Please Login first.");
+            sess.put("hasErrors", 1);
+            sess.put("errorForm", "login");
+            sess.put("errorMsg", "Please Login first");
         }
         return "login";
     }
