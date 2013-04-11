@@ -40,7 +40,7 @@ public class ForgotPasswordAction extends ActionSupport {
 	}
 
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public String getLink() {
 
 		System.out.println("inside ForgotPasswordAction: getLink()");
