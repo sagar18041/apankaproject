@@ -572,6 +572,16 @@
 			<result name="error" type="tiles">/bankcustomers.tiles</result>
 		</action>
 
+		<action name="deleteCustomer" class="com.flipkart.action.bank.BankCustomersAction"
+			method="deleteCustomer">
+			<result name="success" type="chain">getAllCustomers</result>
+		</action>
+
+		<action name="editBalanceInit" class="com.flipkart.action.bank.BankCustomersAction"
+			method="editBalanceInit">
+			<result name="success" type="tiles">/editbalance.tiles</result>
+		</action>
+
 		<!-- ============================== Bank End (Aamir) =========================== -->
 
 		<!-- ============================== End of System Administration =========================== -->
