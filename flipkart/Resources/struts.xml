@@ -410,7 +410,13 @@
 		</action>
 		<!-- ******************************* End of Product Page by ********************************** -->
 
-
+		<!-- product comparision by Ananda -->
+		<action name="compareproducts" class="com.flipkart.action.compareproduct.CompareAction"
+		 method="execute">
+			<result name="success" type="tiles">/compareproducts.tiles</result>
+			<!--  <result name="input" type="tiles">/home.tiles</result>-->
+		</action>
+		<!-- Product comparison ends here -->
 
 		<!-- ================================== System Administration =============================== -->
 
@@ -510,6 +516,7 @@
 			<result name="success" type="tiles">/adminitemattributes.tiles
 			</result>
 		</action>
+		
 
 		<!-- ................. Product End ................. -->
 
