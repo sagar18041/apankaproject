@@ -60,4 +60,26 @@ public class BankCustomersModel {
 
 	}
 
+	/* 'isExisting' returns true if accountNumber already exists. */
+	public static boolean isExisting(String accountNumber) {
+
+		sqlQuery = "select * from flipkart.bank where accountNumber = ?;";
+		conn = DbConnection.getConnection();
+
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, accountNumber);
+			rs = ps.executeQuery();
+			if (rs.next())
+				return true;
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return false;
+
+	}
+
 }
