@@ -54,7 +54,7 @@ public class ProductModel {
 	 */
 	public ArrayList<Attributes> getProductAttributes(Integer itemID) {
 		ArrayList<Attributes> attrib  = new ArrayList<Attributes>();
-		sqlQuery = "select attribute, value from flipkart_itemattributes where itemID = ?;";
+		sqlQuery = "select itemID, attribute, value from flipkart_itemattributes where itemID = ?;";
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
@@ -63,8 +63,9 @@ public class ProductModel {
 			
 			while(rs.next()){
 				Attributes attribute = new Attributes();
-				attribute.setAttribute(rs.getString(1));
-				attribute.setValue(rs.getString(2));
+				attribute.setItemID(rs.getInt(1));
+				attribute.setAttribute(rs.getString(2));
+				attribute.setValue(rs.getString(3));
 				attrib.add(attribute);
 			}
 		}catch(Exception e){

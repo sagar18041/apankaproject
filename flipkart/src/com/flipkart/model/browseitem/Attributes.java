@@ -1,6 +1,13 @@
 package com.flipkart.model.browseitem;
 
 public class Attributes {
+	private Integer itemID;
+	public Integer getItemID() {
+		return itemID;
+	}
+	public void setItemID(Integer itemID) {
+		this.itemID = itemID;
+	}
 	private String attribute;
 	private String value;
 	
