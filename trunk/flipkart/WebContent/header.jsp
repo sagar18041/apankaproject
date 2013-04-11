@@ -332,6 +332,7 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 			<%
 				session.setAttribute("hasErrors", 0);
 				session.setAttribute("errorForm", "");
+				session.setAttribute("errorMsg", "");
 			%>
 		</div>
 		<!-- ***********************************Aamir (End)*************************************** -->
