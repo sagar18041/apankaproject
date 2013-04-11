@@ -313,6 +313,7 @@ public class ProductAction extends ActionSupport {
 
 		//get variant details
 		variantList = pm.getVariantDetails(productID, itemID);
+		System.out.println("no of variants " + variantList.size());
 		//get stock details
 		
 		/*
