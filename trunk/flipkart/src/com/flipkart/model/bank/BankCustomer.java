@@ -1,12 +1,12 @@
 package com.flipkart.model.bank;
 
-public class Bank {
+public class BankCustomer {
 
-	String accountNumber;
-	int customerID;
-	String password;
-	String customerName;
-	String balance;
+	private String accountNumber;
+	private int customerID;
+	private String password;
+	private String customerName;
+	private String balance;
 
 	public int getCustomerID() {
 		return customerID;
