@@ -84,7 +84,7 @@
 				</table>
 
 				<div align="center">
-					<form action="#" class="form-inline" id="newdetail"
+					<form action="insertCustomer" class="form-inline" id="newdetail"
 						name="myform" onsubmit="return Blank_TextField_Validator()">
 
 						<input type="text" class="input-medium"
