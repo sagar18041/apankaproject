@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
 <style>
 .acct {
 	background-color: white;
@@ -68,7 +69,10 @@
 <!-- ************ Code for Item Display **************** -->
 <div style="width:1170px;height:500px;">
 
-
+<s:form action="compareproducts">
+<div class="mydiv" style="display: none">
+		<s:submit cssClass="btn btn-primary btn-small" value="Compare" name="submit" />
+		</div>
  <div style="background-color:#E9E9E9; padding:2px 5px 5px 5px;
   height:30px; border-bottom-style:solid; border-bottom-width:5px; border-bottom-color:#C78407; ">
 <div><h5><a href=""><s:property value="key"/></a></h5></div>
@@ -76,6 +80,7 @@
 <div  style="width:1170px; overflow:auto;">
 <table>
 	<tr>
+	
 	<s:iterator value="searchAttr">
 	<td>
 <div class="span3" style="margin-top:10px; margin-bottom:10px">
@@ -88,19 +93,48 @@
      	<li><s:property value="value"/></li>
      	</s:iterator>
      	</ul></a>
+     	<!-- Compare product by Ananda -->
+     	<s:if test="%{Category=='Cameras'}">
+     	<s:set var="item" value="itemID" />
+     	
+		<s:checkbox cssClass="check" name="itemID" fieldValue="%{item}" label="Add to compare"> Add to compare </s:checkbox>
+		<br />
+		
+		<script>
+		$('.check').live('click', function () {
+    if ($(this).attr("checked")) 
+    {
+    	if ( $('.check:checked').length >= 2 && $('.check:checked').length <= 4) {
+        $('.mydiv').fadeIn();
+    	}
+    }
+    	if ( $('.check:checked').length < 2 || $('.check:checked').length > 4) {
+   $('.mydiv').fadeOut();
+    	}
+    	else{
+    		$('.mydiv').fadeIn();
+    	}
+});
+</script>
+ 		
+     	</s:if>
+     	<!-- Compare Product Ends here -->
 </div>
 </div>
 </td>
 </s:iterator>
+
 	</tr>
 </table>
-
 </div>
+</s:form>
 <br /><br />
 
 </div>
 
 <!-- ************ End Of Code for Item Display **************** -->
+
 </div>
+
 </body>
 </html>
