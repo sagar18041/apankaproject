@@ -12,6 +12,7 @@ public class BankCustomersAction extends ActionSupport {
 	private ArrayList<BankCustomer> customerList;
 	private String customerName;
 	private String accountNumber;
+	private BankCustomer customer;
 
 	/*
 	 * Taken 'balance' as 'String' because float was getting displayed as power
@@ -19,6 +20,14 @@ public class BankCustomersAction extends ActionSupport {
 	 */
 
 	private String balance;
+
+	public BankCustomer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(BankCustomer customer) {
+		this.customer = customer;
+	}
 
 	public String getCustomerName() {
 		return customerName;
@@ -74,6 +83,21 @@ public class BankCustomersAction extends ActionSupport {
 			addActionError("The given account number already exists.");
 			return ERROR;
 		}
+
+	}
+
+	public String deleteCustomer() {
+		System.out.println("deleteCustomer: " + accountNumber);
+		BankCustomersModel.deleteCustomer(accountNumber);
+		return SUCCESS;
+	}
+
+	public String editBalanceInit() {
+		System.out.println("editBalanceInit: " + accountNumber);
+		customer = new BankCustomer();
+		customer.setAccountNumber(accountNumber);
+		BankCustomersModel.getOneCustomer(customer);
+		return SUCCESS;
 
 	}
 
