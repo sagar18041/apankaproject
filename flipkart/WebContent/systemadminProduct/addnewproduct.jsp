@@ -19,14 +19,12 @@
 			disabled : [ 1, 2 ]
 		});
 	});
-	
-	function onCategoryChange(){
+
+	/* assigning the categoryID of selected category in drop downlist to hidden feild */
+	function onCategoryChange() {
 		var cat = document.getElementById("category");
-		var catid = cat[el.selectedIndex].id;
-		
-		document.getElementById("selectedCategoryID").value = catid;
+		document.getElementById("selectedCategoryID").value = cat[cat.selectedIndex].value;
 	}
-	
 </script>
 </head>
 <body>
@@ -62,39 +60,38 @@
 								</div>
 							</s:iterator>
 						</s:if>
-
-						<!-- <font size="5" style="align: center"><b>Add New Product</b></font> -->
 						<br />
-						<!-- to input product details -->
-						<s:hidden name="selectedCategoryID"/>
-						
-						<table class="table">
+						<s:form action="admininsertproduct">
+							<s:hidden name="selectedCategoryID" id="selectedCategoryID" />
+							<table class="table">
 
-							<tr>
-								<td>Product Name</td>
-								<td><s:textfield name="productName" theme="simple"
-										placeholder="Please enter Product Name"
-										cssClass="input-xlarge" /></td>
-							</tr>
+								<tr>
+									<td>Product Name</td>
+									<td><s:textfield name="productName" theme="simple"
+											placeholder="Please enter Product Name"
+											cssClass="input-xlarge" /></td>
+								</tr>
 
-							<!-- drop down list for 'category' -->
-							<tr>
-								<td>Category</td>
-								<td>
-									<div class="input-prepend">
-										<span class="add-on"> <i class="icon-shopping-cart"
-											style="color: black;"> </i>
-										</span>
-										<s:select list="categoryList" headerKey="-1"
-											headerValue="Choose Category" id="category"
-											name="categoryName" theme="simple" cssClass="chzn-select"
-											title="Choose Semester" style="width:257px" onchange="onCategoryChange()" />
-									</div>
-								</td>
-							</tr>
-						</table>
-						<s:submit value="Continue" theme="simple"
-							cssClass="btn btn-warning" action="admininsertproduct" />
+								<!-- drop down list for 'category' -->
+								<tr>
+									<td>Category</td>
+									<td>
+										<div class="input-prepend">
+											<span class="add-on"> <i class="icon-shopping-cart"
+												style="color: black;"> </i>
+											</span>
+											<s:select list="categoryList" headerKey="-1"
+												headerValue="Choose Category" id="category"
+												name="categoryName" theme="simple" cssClass="chzn-select"
+												title="Choose Semester" style="width:257px"
+												onchange="onCategoryChange()" />
+										</div>
+									</td>
+								</tr>
+							</table>
+							<s:submit value="Continue" theme="simple"
+								cssClass="btn btn-warning" />
+						</s:form>
 					</div>
 				</div>
 			</div>
