@@ -361,8 +361,7 @@ public class ProductModel {
 			ps.setInt(1, productID);
 			ps.setInt(2, itemID);
 			rs=ps.executeQuery();
-			
-			if(rs.next()){
+			while(rs.next()){
 				Variant variant = new Variant();
 				variant.setVariantName(rs.getString(1));
 				variant.setVariantID(rs.getInt(2));
