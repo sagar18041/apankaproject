@@ -524,7 +524,7 @@
 
 		<action name="netbankingviewentries" class="com.flipkart.action.bank.NetBankingAction"
 			method="viewEntries">
-			<interceptor-ref name="adminLoginStack" />
+			<!--  <interceptor-ref name="adminLoginStack" />-->
 			<result name="success" type="tiles">/netbankingviewentries.tiles
 			</result>
 			<result name="error" type="tiles">/netbankingviewentries.tiles
