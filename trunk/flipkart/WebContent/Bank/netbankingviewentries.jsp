@@ -12,10 +12,16 @@
 		document.getElementById('addRow').style.display = "none";
 	}
 	function hide() {
-		var searchValue = '${searchValue}';
-		if (searchValue != 1) {
+		var accountSelected = '${accountSelected}';
+		if (accountSelected == 1) {
+			document.getElementById('newdetail').style.display = "block";
+			document.getElementById('addRow').style.display = "none";
+		}
+
+		if (accountSelected == 0) {
 			InsertEntry.accountNumber.value = "";
 			document.getElementById('newdetail').style.display = "none";
+			document.getElementById('addRow').style.display = "block";
 		}
 	}
 
@@ -57,7 +63,8 @@
 								Name</font></th>
 						<th style="text-align: center"><font size="3">Account
 								Number</font></th>
-						<th style="text-align: center"><font size="3">Balance (INR)</font></th>
+						<th style="text-align: center"><font size="3">Balance
+								(INR)</font></th>
 						<th style="text-align: center"><font size="3">Delete</font></th>
 					</tr>
 					<s:iterator value="recordList">
