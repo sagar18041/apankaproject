@@ -14,6 +14,7 @@
 	function hide() {
 
 		document.getElementById('newdetail').style.display = "none";
+		document.getElementById('addRow').style.display = "block";
 	}
 
 	function Blank_TextField_Validator() {
@@ -46,7 +47,20 @@
 
 	<div class="container-fluid">
 		<div class="row-fluid">
+			<div class="span4 offset4">
+				<s:if test="hasActionErrors()">
+					<br />
+					<s:iterator value="actionErrors">
+						<div class="alert alert-error">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<s:property />
+						</div>
+					</s:iterator>
+				</s:if>
+			</div>
 			<div class="span10 offset1">
+
+
 
 				<div align="center">
 					<font size="5"><b>Bank Customers</b></font> <br /> <br />
@@ -93,7 +107,7 @@
 							name=accountNumber> <input type="text"
 							class="input-medium" placeholder="Balance(INR)" name="balance">
 						<button type="submit" class="btn btn-medium">Save</button>
-						<a href="getAllCustomers" class="btn btn-medium btn-danger">
+						<a href="#" class="btn btn-medium btn-danger" onclick="hide()">
 							Cancel</a>
 					</form>
 				</div>

@@ -11,8 +11,8 @@
 		document.getElementById('result').style.display = "block";
 	}
 	function hide() {
-		var searchValue = '${searchValue}';
-		if (searchValue != 1) {
+		var accountSelected = '${accountSelected}';
+		if (accountSelected != 1) {
 			document.getElementById('result').style.display = "none";
 		}
 	}
@@ -50,7 +50,7 @@
 								<td style="text-align: center"><s:property
 										value="accountNumber" /></td>
 								<td style="text-align: center"><a
-									href="selectedAccountNumber?accountNumber=<s:property
+									href="accountSelected?accountNumber=<s:property
 									value="accountNumber" />">
 										<i><img src="ViewResources/img/Select.png" height="20"
 											width="20" /></i>
