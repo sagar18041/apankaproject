@@ -185,7 +185,11 @@
 		<put-attribute name="title" value="Flipkart.com: Rate And Review" />
 		<put-attribute name="body" value="/product/rateandreview.jsp" />
 	</definition>
-
+	
+	<definition name="/compareproducts.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: Compare products" />
+		<put-attribute name="body" value="/product/compareproducts.jsp" />
+	</definition>
 	<!-- ================================ End of Product Display ================================ -->
 
 	<!-- ================================Search ================================ -->
