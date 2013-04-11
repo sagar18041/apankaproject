@@ -15,15 +15,15 @@ public class NetBankingModel {
 	static String sqlQuery = "";
 	static Connection conn = null;
 
-	public static void getAllEntries(ArrayList<Bank> recordList) {
-		Bank record;
+	public static void getAllEntries(ArrayList<BankCustomer> recordList) {
+		BankCustomer record;
 		sqlQuery = "select * from flipkart.netbanking natural join flipkart.bank;";
 		conn = DbConnection.getConnection();
 		try {
 			ps = conn.prepareStatement(sqlQuery);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				record = new Bank();
+				record = new BankCustomer();
 				record.setAccountNumber(rs.getString("accountNumber"));
 				record.setBalance(rs.getString("balance"));
 				record.setCustomerID(rs.getInt("customerID"));
@@ -38,15 +38,15 @@ public class NetBankingModel {
 	}
 
 	public static void getNonNetBankingCustomers(
-			ArrayList<Bank> recordList) {
-		Bank record;
+			ArrayList<BankCustomer> recordList) {
+		BankCustomer record;
 		sqlQuery = "select * from bank where accountNumber not in (select accountNumber from netbanking);";
 		conn = DbConnection.getConnection();
 		try {
 			ps = conn.prepareStatement(sqlQuery);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				record = new Bank();
+				record = new BankCustomer();
 				record.setAccountNumber(rs.getString("accountNumber"));
 				record.setBalance(rs.getString("balance"));
 				record.setCustomerID(rs.getInt("customerID"));
