@@ -6,7 +6,7 @@
 
 <tiles-definitions>
 
-<definition name="baselayout" template="/baselayout.jsp">
+	<definition name="baselayout" template="/baselayout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/header.jsp" />
 		<put-attribute name="menu" value="/menu.jsp" />
@@ -141,14 +141,13 @@
 			value="/authentication/recoverpassworderror.jsp" />
 	</definition>
 	<!-- *****************************End of Authentication******************************************* -->
-
 	<!-- ================================== System Administration =============================== -->
 
 	<definition name="/adminhome.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Admin Home Page" />
 		<put-attribute name="body" value="/systemadminCategory/adminhome.jsp" />
 	</definition>
-	
+
 	<definition name="/adminlogin.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Login" />
 		<put-attribute name="body" value="/SystemAdmin/adminlogin.jsp" />
@@ -171,6 +170,10 @@
 		<put-attribute name="body" value="/Bank/bankcustomers.jsp" />
 	</definition>
 
+	<definition name="/editbalance.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Bank: Edit Balance" />
+		<put-attribute name="body" value="/Bank/editbalance.jsp" />
+	</definition>
 	<!-- ============================== Bank End (Aamir) =========================== -->
 
 	<!-- ============================== End of System Administration =========================== -->
@@ -185,7 +188,7 @@
 		<put-attribute name="title" value="Flipkart.com: Rate And Review" />
 		<put-attribute name="body" value="/product/rateandreview.jsp" />
 	</definition>
-	
+
 	<definition name="/compareproducts.tiles" extends="baselayout">
 		<put-attribute name="title" value="Flipkart.com: Compare products" />
 		<put-attribute name="body" value="/product/compareproducts.jsp" />
@@ -224,9 +227,9 @@
 		<put-attribute name="body" value="/cart/carterror.jsp" />
 	</definition>
 	<!-- ************************* End of Cart and WishList **************************** -->
-	
-	
-		<!-- ================================== System Administration =============================== -->
+
+
+	<!-- ================================== System Administration =============================== -->
 
 	<definition name="/adminhome.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Admin Home Page" />
@@ -260,19 +263,18 @@
 	<!-- ................. Category End ................. -->
 
 	<!-- ................. Product Start ................. -->
-	
+
 	<definition name="/adminproductinit.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Product" />
 		<put-attribute name="body"
 			value="/systemadminProduct/addnewproduct.jsp" />
 	</definition>
-	
+
 	<definition name="/adminiteminit.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Item" />
-		<put-attribute name="body"
-			value="/systemadminProduct/addnewitem.jsp" />
+		<put-attribute name="body" value="/systemadminProduct/addnewitem.jsp" />
 	</definition>
-	
+
 	<definition name="/adminitemattributesinit.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Item Attributes" />
 		<put-attribute name="body"
@@ -282,6 +284,4 @@
 	<!-- ................. Product End ................. -->
 
 	<!-- ============================== End of System Administration =========================== -->
-	
-	
 </tiles-definitions>
