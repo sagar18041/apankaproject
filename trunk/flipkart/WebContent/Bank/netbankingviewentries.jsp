@@ -11,6 +11,13 @@
 		document.getElementById('newdetail').style.display = "block";
 		document.getElementById('addRow').style.display = "none";
 	}
+	
+	function cancel() {
+		InsertEntry.accountNumber.value = "";
+		document.getElementById('newdetail').style.display = "none";
+		document.getElementById('addRow').style.display = "block";
+	}
+	
 	function hide() {
 		var accountSelected = '${accountSelected}';
 		if (accountSelected == 1) {
@@ -95,7 +102,7 @@
 						</a> &nbsp;&nbsp;<input type="password" class="input-medium"
 							placeholder="Password" name="password">
 						<button type="submit" class="btn btn-medium">Save</button>
-						<a href="netbankingviewentries" class="btn btn-medium btn-danger">
+						<a href="#" class="btn btn-medium btn-danger" onclick="cancel()">
 							Cancel</a>
 					</form>
 				</div>
