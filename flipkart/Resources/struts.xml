@@ -412,9 +412,9 @@
 
 		<!-- product comparision by Ananda -->
 		<action name="compareproducts" class="com.flipkart.action.compareproduct.CompareAction"
-		 method="execute">
+			method="execute">
 			<result name="success" type="tiles">/compareproducts.tiles</result>
-			<!--  <result name="input" type="tiles">/home.tiles</result>-->
+			<!-- <result name="input" type="tiles">/home.tiles</result> -->
 		</action>
 		<!-- Product comparison ends here -->
 
@@ -516,7 +516,7 @@
 			<result name="success" type="tiles">/adminitemattributes.tiles
 			</result>
 		</action>
-		
+
 
 		<!-- ................. Product End ................. -->
 
@@ -524,7 +524,7 @@
 
 		<action name="netbankingviewentries" class="com.flipkart.action.bank.NetBankingAction"
 			method="viewEntries">
-			<!--  <interceptor-ref name="adminLoginStack" />-->
+			<!-- <interceptor-ref name="adminLoginStack" /> -->
 			<result name="success" type="tiles">/netbankingviewentries.tiles
 			</result>
 			<result name="error" type="tiles">/netbankingviewentries.tiles
@@ -543,8 +543,8 @@
 			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
 		</action>
 
-		<action name="selectedAccountNumber" class="com.flipkart.action.bank.NetBankingAction"
-			method="viewEntries">
+		<action name="accountSelected" class="com.flipkart.action.bank.NetBankingAction"
+			method="accountSelected">
 			<result name="success" type="tiles">/netbankingviewentries.tiles
 			</result>
 			<result name="error" type="tiles">/netbankingviewentries.tiles
@@ -564,6 +564,12 @@
 		<action name="getAllCustomers" class="com.flipkart.action.bank.BankCustomersAction"
 			method="getAllCustomers">
 			<result name="success" type="tiles">/bankcustomers.tiles</result>
+		</action>
+
+		<action name="insertCustomer" class="com.flipkart.action.bank.BankCustomersAction"
+			method="insertCustomer">
+			<result name="success" type="chain">getAllCustomers</result>
+			<result name="error" type="tiles">/bankcustomers.tiles</result>
 		</action>
 
 		<!-- ============================== Bank End (Aamir) =========================== -->
