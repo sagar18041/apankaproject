@@ -25,12 +25,14 @@ import com.opensymphony.xwork2.ActionSupport;
  * @author Team404
  * 
  */
+@SuppressWarnings("serial")
 public class HomeAction extends ActionSupport {
 
 	private ArrayList<String> categoryList = new ArrayList<String>();
 	private ArrayList<SearchList> sl = new ArrayList<SearchList>();
 	private ArrayList<Catalogue> catalogueList = new ArrayList<Catalogue>();
 	ArrayList<Cart> cartItems = new ArrayList<Cart>();
+	@SuppressWarnings("rawtypes")
 	Map cartSession = ActionContext.getContext().getSession();
 	private ArrayList<RecentlyViewed> recentlyViewedItems = new ArrayList<RecentlyViewed>();
 	private ArrayList<RecentlyViewed> browsingHistoryItems = new ArrayList<RecentlyViewed>();
@@ -123,14 +125,17 @@ public class HomeAction extends ActionSupport {
 		this.initialCartCount = initialCartCount;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Map getCartSession() {
 		return cartSession;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setCartSession(Map cartSession) {
 		this.cartSession = cartSession;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String execute() throws SQLException {
 		// get all categories from category table to populate the search box
 		// System.out.println("Category is " + getCategorySel());
