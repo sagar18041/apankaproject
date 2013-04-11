@@ -132,24 +132,21 @@ public class HomeAction extends ActionSupport {
 	}
 
 	public String execute() throws SQLException {
-
 		// get all categories from category table to populate the search box
-		//System.out.println("Category is " + getCategorySel());
+		// System.out.println("Category is " + getCategorySel());
 		HomeModel hm = new HomeModel();
 		categoryList = hm.getCategoryList();
 
 		// get all catalogue details to populate menu list
 		catalogueList = hm.getCatalogueList();
-				
+
 		if (loadFirstTime == 0) {
 			cartSession.put("cartItems", cartItems);
 			cartSession.put("cartCount", initialCartCount);
 			loadFirstTime = 1;
 
-			//System.out.println("********" + cartSession.get("cartCount"));
+			// System.out.println("********" + cartSession.get("cartCount"));
 		}
-
-		
 
 		/*
 		 * For searchList
@@ -178,16 +175,15 @@ public class HomeAction extends ActionSupport {
 		// get 5 recently viewed itemIDs
 		ArrayList<Integer> itemIDsForRecentlyViewedItems = new ArrayList<Integer>();
 		itemIDsForRecentlyViewedItems = pm.getRecentlyViewedItems(ipAddr);
-		 //System.out.println(itemIDsForRecentlyViewedItems.size());
+		// System.out.println(itemIDsForRecentlyViewedItems.size());
 
 		// get item details
 		recentlyViewedItems = pm
 				.getRecentlyViewedItems(itemIDsForRecentlyViewedItems);
 
-		
-//		  for (int i=0; i<recentlyViewedItems.size();i++) {
-//		  System.out.println(recentlyViewedItems.get(i).getItemName()); }
-//		 
+		// for (int i=0; i<recentlyViewedItems.size();i++) {
+		// System.out.println(recentlyViewedItems.get(i).getItemName()); }
+		//
 
 		// System.out.println(recentlyViewedItems.size());
 		// get 5 items based on browsing history
@@ -197,9 +193,9 @@ public class HomeAction extends ActionSupport {
 		// get item details
 		browsingHistoryItems = pm
 				.getRecentlyViewedItems(itemIDsForBrowsingHistory);
-//		for (int i=0; i<browsingHistoryItems.size();i++) {
-//			  System.out.println(browsingHistoryItems.get(i).getItemName()); }
-//		
+		// for (int i=0; i<browsingHistoryItems.size();i++) {
+		// System.out.println(browsingHistoryItems.get(i).getItemName()); }
+		//
 		return SUCCESS;
 	}
 
