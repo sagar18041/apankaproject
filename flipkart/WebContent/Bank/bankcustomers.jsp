@@ -11,6 +11,7 @@
 		document.getElementById('newdetail').style.display = "block";
 		document.getElementById('addRow').style.display = "none";
 	}
+
 	function hide() {
 
 		document.getElementById('newdetail').style.display = "none";
@@ -44,7 +45,6 @@
 </head>
 <body onload="hide()">
 	<br />
-
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span4 offset4">
@@ -65,9 +65,7 @@
 				<div align="center">
 					<font size="5"><b>Bank Customers</b></font> <br /> <br />
 				</div>
-
 				<br />
-
 				<table
 					class="table table-bordered table-condensed table-hover table-striped">
 					<tr>
@@ -78,22 +76,27 @@
 						<th style="text-align: center"><font size="3">Balance
 								(INR)</font></th>
 						<th style="text-align: center"><font size="3">Delete</font></th>
-						<th style="text-align: center"><font size="3">Edit</font></th>
+						<th style="text-align: center"><font size="3">Edit
+								Balance</font></th>
 					</tr>
 					<s:iterator value="customerList">
+
 						<tr>
 							<td style="text-align: center"><s:property
 									value="customerName" /></td>
 							<td style="text-align: center"><s:property
 									value="accountNumber" /></td>
 							<td style="text-align: center"><s:property value="balance" /></td>
-							<td style="text-align: center"><a href="#"> <i
-									class="icon-trash"></i>
+							<td style="text-align: center"><a
+								href="deleteCustomer?accountNumber=<s:property value="accountNumber"/>">
+									<i class="icon-trash"></i>
 							</a></td>
-							<td style="text-align: center"><a href="#"> <i
-									class="icon-edit"></i>
+							<td style="text-align: center"><a
+								href="editBalanceInit?accountNumber=<s:property value="accountNumber"/>">
+									<i class="icon-edit"></i>
 							</a></td>
 						</tr>
+
 					</s:iterator>
 				</table>
 
