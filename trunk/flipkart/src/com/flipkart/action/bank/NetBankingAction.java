@@ -48,8 +48,10 @@ public class NetBankingAction extends ActionSupport {
 		this.recordList = recordList;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public String viewEntries() {
-		System.out.println(accountNumber);
+		Map session = ActionContext.getContext().getSession();
+		session.put("accountSelected", 0);
 		recordList = new ArrayList<BankCustomer>();
 		NetBankingModel.getAllEntries(recordList);
 		return SUCCESS;
@@ -59,7 +61,7 @@ public class NetBankingAction extends ActionSupport {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public String initPopup() {
 		Map session = ActionContext.getContext().getSession();
-		session.put("searchValue", 0);
+		session.put("accountSelected", 0);
 		return SUCCESS;
 
 	}
@@ -74,7 +76,7 @@ public class NetBankingAction extends ActionSupport {
 			if (recordList.get(i).getAccountNumber().contains(accountNumber))
 				searchList.add(recordList.get(i));
 		}
-		session.put("searchValue", 1);
+		session.put("accountSelected", 1);
 		return SUCCESS;
 
 	}
@@ -83,13 +85,21 @@ public class NetBankingAction extends ActionSupport {
 	public String insertEntry() {
 		NetBankingModel.insertEntry(accountNumber, password);
 		Map session = ActionContext.getContext().getSession();
-		session.put("searchValue", 0);
+		session.put("accountSelected", 0);
 		return SUCCESS;
 
 	}
 
 	public String deleteEntry() {
 		NetBankingModel.deleteEntry(accountNumber);
+		return SUCCESS;
+
+	}
+
+	public String accountSelected() {
+
+		recordList = new ArrayList<BankCustomer>();
+		NetBankingModel.getAllEntries(recordList);
 		return SUCCESS;
 
 	}

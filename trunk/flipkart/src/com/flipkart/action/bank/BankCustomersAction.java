@@ -65,8 +65,15 @@ public class BankCustomersAction extends ActionSupport {
 		customer.setAccountNumber(accountNumber);
 		customer.setBalance(balance);
 		customer.setCustomerName(customerName);
-		BankCustomersModel.insertCustomer(customer);
-		return SUCCESS;
+		if (!(BankCustomersModel.isExisting(accountNumber))) {
+			BankCustomersModel.insertCustomer(customer);
+			return SUCCESS;
+		} else {
+			customerList = new ArrayList<BankCustomer>();
+			BankCustomersModel.getAllCustomers(customerList);
+			addActionError("The given account number already exists.");
+			return ERROR;
+		}
 
 	}
 
