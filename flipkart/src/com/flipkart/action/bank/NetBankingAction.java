@@ -3,7 +3,7 @@ package com.flipkart.action.bank;
 import java.util.ArrayList;
 import java.util.Map;
 
-import com.flipkart.model.bank.Bank;
+import com.flipkart.model.bank.BankCustomer;
 import com.flipkart.model.bank.NetBankingModel;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -11,8 +11,8 @@ import com.opensymphony.xwork2.ActionSupport;
 @SuppressWarnings("serial")
 public class NetBankingAction extends ActionSupport {
 
-	ArrayList<Bank> recordList;
-	ArrayList<Bank> searchList;
+	ArrayList<BankCustomer> recordList;
+	ArrayList<BankCustomer> searchList;
 	String accountNumber;
 	String password;
 
@@ -24,11 +24,11 @@ public class NetBankingAction extends ActionSupport {
 		this.password = password;
 	}
 
-	public ArrayList<Bank> getSearchList() {
+	public ArrayList<BankCustomer> getSearchList() {
 		return searchList;
 	}
 
-	public void setSearchList(ArrayList<Bank> searchList) {
+	public void setSearchList(ArrayList<BankCustomer> searchList) {
 		this.searchList = searchList;
 	}
 
@@ -40,17 +40,17 @@ public class NetBankingAction extends ActionSupport {
 		this.accountNumber = accountNumber;
 	}
 
-	public ArrayList<Bank> getRecordList() {
+	public ArrayList<BankCustomer> getRecordList() {
 		return recordList;
 	}
 
-	public void setRecordList(ArrayList<Bank> recordList) {
+	public void setRecordList(ArrayList<BankCustomer> recordList) {
 		this.recordList = recordList;
 	}
 
 	public String viewEntries() {
 		System.out.println(accountNumber);
-		recordList = new ArrayList<Bank>();
+		recordList = new ArrayList<BankCustomer>();
 		NetBankingModel.getAllEntries(recordList);
 		return SUCCESS;
 
@@ -67,8 +67,8 @@ public class NetBankingAction extends ActionSupport {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public String searchAccountNumber() {
 		Map session = ActionContext.getContext().getSession();
-		recordList = new ArrayList<Bank>();
-		searchList = new ArrayList<Bank>();
+		recordList = new ArrayList<BankCustomer>();
+		searchList = new ArrayList<BankCustomer>();
 		NetBankingModel.getNonNetBankingCustomers(recordList);
 		for (int i = 0; i < recordList.size(); i++) {
 			if (recordList.get(i).getAccountNumber().contains(accountNumber))
