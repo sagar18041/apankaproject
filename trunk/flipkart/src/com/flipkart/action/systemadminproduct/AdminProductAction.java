@@ -2,6 +2,9 @@ package com.flipkart.action.systemadminproduct;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.flipkart.model.systemadmincategory.AdminCategoryModel;
 import com.flipkart.model.systemadminproduct.*;
@@ -14,7 +17,7 @@ public class AdminProductAction extends ActionSupport {
 	private String itemName;
 	private String categoryID;
 	private int selectedCategoryID;
-	
+
 	HashMap<Integer,String> categoryList = new HashMap<Integer,String>();
 
 	ArrayList<AdminProduct> attributesList = new ArrayList<AdminProduct>();
@@ -25,6 +28,8 @@ public class AdminProductAction extends ActionSupport {
 	private File thumbnail, productImage;
 	private String fileUploadContentType;
 	private String fileUploadFileName;
+
+	Map adminSession = ActionContext.getContext().getSession();
 
 	int check=0;
 
@@ -49,39 +54,58 @@ public class AdminProductAction extends ActionSupport {
 
 		check=0;
 
-		if ( !getProductName().equals("") && !getProductName().equals(null))
-		{
-
-			int ret;  
-			ret= AdminProductModel.checkExistingProduct(getProductName());
-
-			if(ret == 0)
+		try{
+			/* validating if values were selected*/
+			if ( getSelectedCategoryID() != -1 && !getProductName().equals("") && !getProductName().equals(null) )
 			{
-				
-				//ret= AdminProductModel.insertNewProduct(getProductName(), );
+				//putting selected categoryID in session
+				adminSession.put("categoryID",getSelectedCategoryID());
 
-				
-				if(ret == -1){
-					addActionError("Sorry some error occurred. The new product was not added.");
+				int ret;  
+				ret= AdminProductModel.checkExistingProduct(getProductName());
+
+				if(ret == 0)
+				{
+					ret= AdminProductModel.insertNewProduct(getProductName(), getSelectedCategoryID());
+
+					if(ret == -1){
+						addActionError("Sorry some error occurred. The new product was not added.");
+						check=0;
+						return ERROR;
+					}
+					else if (ret == 0){
+	
+						/*fetch the productID of the newly inserted product*/
+						int newProductId=AdminProductModel.fetchNewProductID(Integer.parseInt(adminSession.get("categoryID").toString()));
+					
+						if(newProductId == -1){
+							check=0;
+							addActionError("Sorry some error occurred. The new product was not added.");
+						}
+						else{
+							check=1;	
+							//putting new ProductID in session
+							adminSession.put("productID",newProductId);
+						}
+					}
+				}
+				else{
+					addActionError("This product already exists. Please enter another product name.");
 					check=0;
 					return ERROR;
 				}
-				else if (ret == 0){
-					check=1;
-				}
-
 			}
 			else{
-				addActionError("This product already exists. Please enter another product name.");
 				check=0;
+				addActionError("Please select values for Product name and Category !");
 				return ERROR;
 			}
-		}
-		else{
-			check=0;
-			addActionError("Please give a value for Product name !");
+		
+		}catch(Exception e){
+			addActionError("Sorry some error occurred. The new product was not added.");
 			return ERROR;
 		}
+
 		return SUCCESS;
 	}
 
@@ -197,7 +221,6 @@ public class AdminProductAction extends ActionSupport {
 	public ArrayList<AdminProduct> getAttributesList() {
 		return attributesList;
 	}
-
 
 	public void setAttributesList(ArrayList<AdminProduct> attributesList) {
 		this.attributesList = attributesList;

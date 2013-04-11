@@ -59,7 +59,7 @@ public class AdminCategoryAction extends ActionSupport{
 				else if (ret == 0){
 					System.out.println("5");
 					check=1;
-					ret= AdminCategoryModel.insertNewCategoryPath(getCategoryName());
+					ret= AdminCategoryModel.insertNewCategoryPath();
 					
 					if(ret == -1){
 						System.out.println("6");

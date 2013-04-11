@@ -38,25 +38,21 @@
 		</ul>
 
 		<div id="tabs-ItemDetails">
-
 			<div class="container-fluid">
-
 				<div class="row-fluid">
-
 					<div class="span6 offset1">
-
+						
+						<s:if test="hasActionErrors()">
+							<br />
+							<s:iterator value="actionErrors">
+								<div class="alert alert-error">
+									<button type="button" class="close" data-dismiss="alert">&times;</button>
+									<s:property />
+								</div>
+							</s:iterator>
+						</s:if>
+						
 						<s:form cssClass="form-horizontal" enctype="multipart/form-data">
-
-							<s:if test="hasActionErrors()">
-								<br />
-								<s:iterator value="actionErrors">
-									<div class="alert alert-error">
-										<button type="button" class="close" data-dismiss="alert">&times;</button>
-										<s:property />
-									</div>
-								</s:iterator>
-							</s:if>
-
 							<table class="table">
 
 								<tr>

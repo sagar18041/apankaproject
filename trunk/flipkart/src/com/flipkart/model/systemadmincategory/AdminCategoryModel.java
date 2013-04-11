@@ -105,13 +105,13 @@ public class AdminCategoryModel {
 	 * This method is used to insert a new category path into database
 	 * @return 0 - success, -1 - error
 	 */
-	public static int insertNewCategoryPath(String categoryname) {
+	public static int insertNewCategoryPath() {
 
 		System.out.println("10");
 		int categoryID=0;
 
 		/* fetch the most recently entered category ID*/
-		sqlQuery = "SELECT categoryID, categoryName FROM flipkart_category WHERE createdOn=(SELECT max(createdOn) FROM flipkart_category);";
+		sqlQuery = "SELECT categoryID FROM flipkart_category WHERE createdOn=(SELECT max(createdOn) FROM flipkart_category);";
 
 		try{
 			conn=DbConnection.getConnection();

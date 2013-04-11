@@ -15,7 +15,7 @@ public class AdminProductModel {
 	static ResultSet rs=null;
 	static String sqlQuery="";
 	static Connection conn = null;
-		
+
 	/**
 	 * This method fetches category names and category ID
 	 * for ACTIVE categories for which a path exists
@@ -49,7 +49,7 @@ public class AdminProductModel {
 		 */
 		for(int i=0; i< productList.size();i++)
 			categoryList.put(productList.get(i).getCategoryID(), productList.get(i).getCategoryName());
-		
+
 		return categoryList;
 	}
 
@@ -60,27 +60,29 @@ public class AdminProductModel {
 	 */
 	public static int checkExistingProduct(String productname){
 
-		sqlQuery = "SELECT count(productID) FROM flipkart_category WHERE productName=?";
-		int countRows=-99;
+		System.out.println("Product name: "+productname);
+		sqlQuery = "SELECT count(productID) FROM flipkart_product WHERE productName=?";
+		int countRows=0;
+		
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
 			ps.setString(1, productname);
 
 			rs=ps.executeQuery();
-
+			
 			while(rs.next()){
 				countRows = rs.getInt(1);
 			}
-
+				
 		}catch(Exception e){
 			//e.printStackTrace();
+			return -1;
 		}
-
-		//if no rows present means, its a new category so return 0 else count of rows
+		//if no rows present means, its a new product so return 0 else count of rows
 		return countRows;
 	}
-	
+
 	/**
 	 * This method is used to insert a new product into database
 	 * @param productname- name of the new product
@@ -100,7 +102,7 @@ public class AdminProductModel {
 			ps.setInt(2, categoryID);
 			ps.setString(3, "Admin");
 			ps.setString(4, "Admin");
-	
+
 			ps.executeUpdate();
 
 		}
@@ -111,5 +113,29 @@ public class AdminProductModel {
 		return 0;
 	}		
 
-	
+	public static int fetchNewProductID(int categoryID){
+
+		int productID=0;
+
+		/* fetch the most recently entered productID*/
+		sqlQuery = "SELECT productID FROM flipkart_product WHERE categoryID=? AND createdOn=(SELECT max(createdOn) FROM flipkart_product);";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, categoryID);
+			
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				productID = rs.getInt(1);
+			}
+			
+		}catch(Exception e){
+			return -1;
+		}
+		
+		return productID;
+	}
+
 }
