@@ -82,4 +82,41 @@ public class BankCustomersModel {
 
 	}
 
+	public static void deleteCustomer(String accountNumber) {
+
+		sqlQuery = "DELETE FROM `flipkart`.`bank` WHERE `accountNumber`=?;";
+		conn = DbConnection.getConnection();
+
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, accountNumber);
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void getOneCustomer(BankCustomer customer) {
+		sqlQuery = "select * from flipkart.bank where accountNumber = ?;";
+		conn = DbConnection.getConnection();
+
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setString(1, customer.getAccountNumber());
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				customer.setCustomerName(rs.getString("customerName"));
+				customer.setCustomerID(rs.getInt("customerID"));
+				customer.setBalance(rs.getString("balance"));
+			}
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	}
+
 }
