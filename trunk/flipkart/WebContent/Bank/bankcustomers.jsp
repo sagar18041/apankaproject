@@ -92,7 +92,7 @@
 									<i class="icon-trash"></i>
 							</a></td>
 							<td style="text-align: center"><a
-								href="editBalanceInit?accountNumber=<s:property value="accountNumber"/>">
+								href="init?accountNumber=<s:property value="accountNumber"/>&customerName=<s:property value="customerName"/>&balance=<s:property value="balance"/>">
 									<i class="icon-edit"></i>
 							</a></td>
 						</tr>
