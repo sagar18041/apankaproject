@@ -11,13 +11,13 @@
 		document.getElementById('newdetail').style.display = "block";
 		document.getElementById('addRow').style.display = "none";
 	}
-	
+
 	function cancel() {
 		InsertEntry.accountNumber.value = "";
 		document.getElementById('newdetail').style.display = "none";
 		document.getElementById('addRow').style.display = "block";
 	}
-	
+
 	function hide() {
 		var accountSelected = '${accountSelected}';
 		if (accountSelected == 1) {
@@ -55,10 +55,23 @@
 
 	<div class="container-fluid">
 		<div class="row-fluid">
+
+			<div class="span4 offset4">
+				<s:if test="hasActionErrors()">
+					<br />
+					<s:iterator value="actionErrors">
+						<div class="alert alert-error">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<s:property />
+						</div>
+					</s:iterator>
+				</s:if>
+			</div>
+
 			<div class="span10 offset1">
 
 				<div align="center">
-					<font size="5"><b>Net Banking Customers</b></font> <br /> <br />
+					<font size="5"><b>Credit Cards</b></font> <br /> <br />
 				</div>
 
 				<br />
@@ -70,41 +83,104 @@
 								Name</font></th>
 						<th style="text-align: center"><font size="3">Account
 								Number</font></th>
-						<th style="text-align: center"><font size="3">Balance
-								(INR)</font></th>
+						<th style="text-align: center"><font size="3">Card
+								Number</font></th>
+						<th style="text-align: center"><font size="3">CVV</font></th>
+						<th style="text-align: center"><font size="3">Expiry
+								(MM/YYYY)</font></th>
+						<th style="text-align: center"><font size="3">Credit
+								Limit</font></th>
 						<th style="text-align: center"><font size="3">Delete</font></th>
 					</tr>
 					<s:iterator value="recordList">
 						<tr>
+
 							<td style="text-align: center"><s:property
 									value="customerName" /></td>
+
 							<td style="text-align: center"><s:property
 									value="accountNumber" /></td>
-							<td style="text-align: center"><s:property value="balance" /></td>
+
+							<td style="text-align: center"><s:property
+									value="cardNumber" /></td>
+
+							<td style="text-align: center"><s:property value="cvv" /></td>
+
+							<td style="text-align: center"><s:property value="expiry" /></td>
+
+							<td style="text-align: center"><s:property
+									value="creditLimit" /></td>
+
 							<td style="text-align: center"><a
-								href="deleteEntry?accountNumber=<s:property
+								href="deleteCCEntry?accountNumber=<s:property
 									value="accountNumber" />">
 									<i class="icon-trash"></i>
 							</a></td>
+
 						</tr>
 					</s:iterator>
 				</table>
+				<br />
+				<div id="newdetail" class="well">
 
-				<div align="center">
-					<form action="InsertEntry" class="form-inline" id="newdetail"
+					<font size="4"><b>Add New Detail</b></font> <br /> <br />
+					<s:form action="insertCCEntry" class="form-horizontal"
 						name="InsertEntry" onsubmit="return Blank_TextField_Validator()">
+						<table>
 
-						<input type="text" class="input-medium"
-							placeholder="Account Number" name="accountNumber" readonly
-							value="<s:property value="accountNumber"/>"> <a
-							class="btn" href="NBSearchWindow"> <i
-							class="icon-external-link"></i>
-						</a> &nbsp;&nbsp;<input type="password" class="input-medium"
-							placeholder="Password" name="password">
-						<button type="submit" class="btn btn-medium">Save</button>
+							<tr>
+								<td><input type="text" class="input-medium"
+									placeholder="Account Number" name="accountNumber" readonly
+									value="<s:property value="accountNumber"/>"></td>
+
+								<td valign="top"><a class="btn" href="CCSearchWindow">
+										<i class="icon-external-link"></i>
+								</a></td>
+							</tr>
+
+							<tr>
+								<td><input type="text" class="input-medium"
+									placeholder="Card Number" name="cardNumber"></td>
+							</tr>
+
+							<tr>
+
+								<td><input type="text" class="input-medium"
+									placeholder="CVV" name="cvv"></td>
+							</tr>
+
+							<tr>
+
+								<td><input type="text" class="input-medium"
+									placeholder="Expiry Month" name="expiryMonth"></td>
+							</tr>
+
+							<tr>
+
+								<td><input type="text" class="input-medium"
+									placeholder="Expiry Year" name="expiryYear"></td>
+							</tr>
+
+							<tr>
+
+								<td><input type="text" class="input-medium"
+									placeholder="Credit Limit" name="creditLimit"></td>
+
+							</tr>
+
+							<tr>
+
+								<td><input type="password" class="input-medium"
+									placeholder="Password" name="password"></td>
+
+							</tr>
+
+						</table>
+						&nbsp;&nbsp;
+						<button type="submit" class="btn btn-medium pull-left btn-primary">Save</button>
 						<a href="#" class="btn btn-medium btn-danger" onclick="cancel()">
 							Cancel</a>
-					</form>
+					</s:form>
 				</div>
 				<button class="btn btn-small btn-primary pull-right" type="button"
 					onclick="show()" id="addRow">Add Row</button>

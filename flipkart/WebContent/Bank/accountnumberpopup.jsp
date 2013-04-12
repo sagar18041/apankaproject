@@ -23,7 +23,7 @@
 		<div class="row-fluid">
 			<div class="span10 offset1">
 
-				<s:form class="form-inline" action="searchaccountnumber">
+				<s:form class="form-inline" action="searchAction">
 					<table>
 						<tr>
 							<td><input type="text" class="input-large"
@@ -50,7 +50,7 @@
 								<td style="text-align: center"><s:property
 										value="accountNumber" /></td>
 								<td style="text-align: center"><a
-									href="accountSelected?accountNumber=<s:property
+									href="selectAction?accountNumber=<s:property
 									value="accountNumber" />">
 										<i><img src="ViewResources/img/Select.png" height="20"
 											width="20" /></i>

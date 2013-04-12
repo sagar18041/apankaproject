@@ -43,16 +43,16 @@
 				<br />
 
 				<div align="center">
-					<form action="#" class="form-inline" id="newdetail"
+					<form action="editBalance" class="form-inline" id="newdetail"
 						name="myform" onsubmit="return Blank_TextField_Validator()">
 
 						<input type="text" class="input-medium" name="customerName"
-							value="<s:property value="customer.getCustomerName()"/>" readonly>
+							value="<s:property value="customerName"/>" readonly>
 						<input type="text" class="input-medium" name=accountNumber
-							value="<s:property value="customer.getAccountNumber()"/>"
+							value="<s:property value="accountNumber"/>"
 							readonly> <input type="text" class="input-medium"
 							name="balance"
-							value="<s:property value="customer.getBalance()"/>" readonly>
+							value="<s:property value="balance"/>" readonly>
 						<input type="text" class="input-medium" name="credit"
 							placeholder="Credit Amount"> <input type="text"
 							class="input-medium" name="debit" placeholder="Debit Amount">
