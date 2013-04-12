@@ -531,23 +531,73 @@
 			</result>
 		</action>
 
-		<action name="accountNumberPopup" class="com.flipkart.action.bank.NetBankingAction"
+		<action name="getAllDebitCards" class="com.flipkart.action.bank.DebitCardAction"
+			method="getAllEntries">
+			<result name="success" type="tiles">/debitcard.tiles</result>
+		</action>
+
+		<action name="getAllCreditCards" class="com.flipkart.action.bank.CreditCardAction"
+			method="getAllEntries">
+			<result name="success" type="tiles">/creditcard.tiles</result>
+		</action>
+
+		<action name="NBSearchWindow" class="com.flipkart.action.bank.NetBankingAction"
 			method="initPopup">
 			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
 			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
 		</action>
 
-		<action name="searchaccountnumber" class="com.flipkart.action.bank.NetBankingAction"
-			method="searchAccountNumber">
+		<action name="DCSearchWindow" class="com.flipkart.action.bank.DebitCardAction"
+			method="initPopup">
 			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
 			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
 		</action>
 
-		<action name="accountSelected" class="com.flipkart.action.bank.NetBankingAction"
+		<action name="CCSearchWindow" class="com.flipkart.action.bank.CreditCardAction"
+			method="initPopup">
+			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
+			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
+		</action>
+
+		<action name="getNonNetBankingCustomers" class="com.flipkart.action.bank.NetBankingAction"
+			method="getNonNetBankingCustomers">
+			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
+			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
+		</action>
+
+		<action name="getNonDCCustomers" class="com.flipkart.action.bank.DebitCardAction"
+			method="getNonDCCustomers">
+			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
+			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
+		</action>
+
+		<action name="getNonCCCustomers" class="com.flipkart.action.bank.CreditCardAction"
+			method="getNonCCCustomers">
+			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
+			<result name="error" type="tiles">/accountnumberpopup.tiles</result>
+		</action>
+
+		<action name="NBSelect" class="com.flipkart.action.bank.NetBankingAction"
 			method="accountSelected">
 			<result name="success" type="tiles">/netbankingviewentries.tiles
 			</result>
 			<result name="error" type="tiles">/netbankingviewentries.tiles
+			</result>
+		</action>
+
+		<action name="DCSelect" class="com.flipkart.action.bank.DebitCardAction"
+			method="accountSelected">
+			<result name="success" type="tiles">/debitcard.tiles
+			</result>
+			<result name="error" type="tiles">/debitcard.tiles
+			</result>
+		</action>
+
+		<action name="CCSelect" class="com.flipkart.action.bank.CreditCardAction"
+			method="accountSelected">
+			<result name="success" type="tiles">/creditcard.tiles
+			</result>
+			<result name="error" type="tiles">/creditcard.tiles
 			</result>
 		</action>
 
@@ -556,9 +606,31 @@
 			<result name="success" type="chain">netbankingviewentries</result>
 		</action>
 
+		<action name="insertDCEntry" class="com.flipkart.action.bank.DebitCardAction"
+			method="insertDCEntry">
+			<result name="success" type="chain">getAllDebitCards</result>
+			<result name="error" type="tiles">/debitcard.tiles</result>
+		</action>
+
+		<action name="insertCCEntry" class="com.flipkart.action.bank.CreditCardAction"
+			method="insertCCEntry">
+			<result name="success" type="chain">getAllCreditCards</result>
+			<result name="error" type="tiles">/creditcard.tiles</result>
+		</action>
+
 		<action name="deleteEntry" class="com.flipkart.action.bank.NetBankingAction"
 			method="deleteEntry">
 			<result name="success" type="chain">netbankingviewentries</result>
+		</action>
+
+		<action name="deleteDCEntry" class="com.flipkart.action.bank.DebitCardAction"
+			method="deleteDCEntry">
+			<result name="success" type="chain">getAllDebitCards</result>
+		</action>
+
+		<action name="deleteCCEntry" class="com.flipkart.action.bank.CreditCardAction"
+			method="deleteCCEntry">
+			<result name="success" type="chain">getAllCreditCards</result>
 		</action>
 
 		<action name="getAllCustomers" class="com.flipkart.action.bank.BankCustomersAction"
@@ -577,9 +649,32 @@
 			<result name="success" type="chain">getAllCustomers</result>
 		</action>
 
-		<action name="editBalanceInit" class="com.flipkart.action.bank.BankCustomersAction"
-			method="editBalanceInit">
+		<action name="init" class="com.flipkart.action.bank.BankCustomersAction"
+			method="init">
 			<result name="success" type="tiles">/editbalance.tiles</result>
+		</action>
+
+		<action name="editBalance" class="com.flipkart.action.bank.BankCustomersAction"
+			method="editBalance">
+			<result name="success" type="chain">getAllCustomers</result>
+			<result name="error" type="tiles">/editbalance.tiles</result>
+		</action>
+
+		<action name="searchAction" class="com.flipkart.action.bank.DynamicSelectAction"
+			method="searchAction">
+			<result name="getNonNetBankingCustomers" type="chain">getNonNetBankingCustomers
+			</result>
+			<result name="getNonDCCustomers" type="chain">getNonDCCustomers
+			</result>
+			<result name="getNonCCCustomers" type="chain">getNonCCCustomers
+			</result>
+		</action>
+
+		<action name="selectAction" class="com.flipkart.action.bank.DynamicSelectAction"
+			method="selectAction">
+			<result name="NBSelect" type="chain">NBSelect</result>
+			<result name="DCSelect" type="chain">DCSelect</result>
+			<result name="CCSelect" type="chain">CCSelect</result>
 		</action>
 
 		<!-- ============================== Bank End (Aamir) =========================== -->
