@@ -52,9 +52,8 @@
 							</s:iterator>
 						</s:if>
 						
-						<s:form cssClass="form-horizontal" enctype="multipart/form-data">
+						<s:form cssClass="form-horizontal" enctype="multipart/form-data" method="post">
 							<table class="table">
-
 								<tr>
 									<td style="text-align: center">Item Name</td>
 									<td><s:textfield name="itemName" theme="simple"
@@ -64,7 +63,8 @@
 								<tr>
 									<td><b>Upload Thumbnail:</b></td>
 									<td><s:file name="thumbnail"
-											label="Select thumbnail image to upload" theme="simple" /></td>
+											label="Select thumbnail image to upload" theme="simple" 
+											accept="image/gif, image/jpg, image/png, image/jpeg"/></td>
 								</tr>
 
 							</table>

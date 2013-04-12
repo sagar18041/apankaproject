@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.commons.fileupload.FileUploadBase.FileSizeLimitExceededException;
+
 import com.flipkart.model.systemadmincategory.AdminCategory;
 import com.flipkart.util.DbConnection;
 
@@ -16,6 +18,9 @@ public class AdminProductModel {
 	static String sqlQuery="";
 	static Connection conn = null;
 
+	
+	// PAGE INITIALIZATION FUNCTIONS
+	
 	/**
 	 * This method fetches category names and category ID
 	 * for ACTIVE categories for which a path exists
@@ -53,10 +58,13 @@ public class AdminProductModel {
 		return categoryList;
 	}
 
+	
+	// PRODUCT RELATED FUNCTIONS
+	
 	/**
 	 * It checks whether a product already exists
 	 * @param productname- name of the new product
-	 * @return no of rows having given categoryName (0 if not present)
+	 * @return no of rows having given productName (0 if not present)
 	 */
 	public static int checkExistingProduct(String productname){
 
@@ -113,6 +121,11 @@ public class AdminProductModel {
 		return 0;
 	}		
 
+	/**
+	 * This method is used to fetch the latest ProductID
+	 * @param categoryID- Category to which the product belongs
+	 * @return productID for success, -1 for error
+	 */
 	public static int fetchNewProductID(int categoryID){
 
 		int productID=0;
@@ -138,4 +151,104 @@ public class AdminProductModel {
 		return productID;
 	}
 
+	
+	//ITEM RELATED FUNCTIONS
+	
+	/**
+	 * It checks whether a item already exists
+	 * @param itemname- name of the new item
+	 * @return no of rows having given itemName (0 if not present)
+	 */
+	public static int checkExistingItem(String itemname){
+
+		System.out.println("Product name: "+itemname);
+		sqlQuery = "SELECT count(itemID) FROM flipkart_item WHERE itemName=?";
+		int countRows=0;
+		
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setString(1, itemname);
+
+			rs=ps.executeQuery();
+			
+			while(rs.next()){
+				countRows = rs.getInt(1);
+			}
+				
+		}catch(Exception e){
+			//e.printStackTrace();
+			return -1;
+		}
+		//if no rows present means, its a new item so return 0 else count of rows
+		return countRows;
+	}
+
+	/**
+	 * This method is used to insert a new item into database
+	 * @param itemName - name of item
+	 * @param productID - product it belongs to
+	 * @param thumbnail - path of its thumbnail image
+	 * @return 0 - success, -1 - error
+	 */
+	public static int insertNewItem(String itemName, int productID, String thumbnail) {
+		
+		sqlQuery = "INSERT INTO flipkart_item(itemName, availableQuantity, productID, createdBy, modifiedBy, thumbnail) " +
+				"VALUES (?,?,?,?,?,?);";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+
+			ps.setString(1, itemName);
+			ps.setInt(2, 0); // every new item will have 0 availableQty, order some from seller later
+			ps.setInt(3, productID);
+			ps.setString(4, "Admin");
+			ps.setString(5, "Admin");
+			ps.setString(6, thumbnail);
+
+			ps.executeUpdate();
+
+		}
+		catch(Exception e){
+			return -1;
+		}
+		return 0;
+	}		
+
+	/**
+	 * This method is used to fetch the latest ItemID
+	 * @param productID- Product to which the item belongs
+	 * @return itemID for success, -1 for error
+	 */
+	public static int fetchNewItemID(int productID){
+
+		int itemID=0;
+
+		/* fetch the most recently entered productID*/
+		sqlQuery = "SELECT itemID FROM flipkart_item WHERE productID=? AND createdOn=(SELECT max(createdOn) FROM flipkart_item);";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, productID);
+			
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				itemID = rs.getInt(1);
+			}
+			
+		}catch(Exception e){
+			return -1;
+		}
+		
+		return itemID;
+	}
+
+	
+	//ITEM-ATTRIBUTES FUNCTIONS
+	
+	
+	
 }
