@@ -8,6 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
 	<div class=container-fluid>
 		<div class="row-fluid">
 			<div class="span4 offset4">
