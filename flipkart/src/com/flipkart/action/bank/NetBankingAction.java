@@ -11,10 +11,10 @@ import com.opensymphony.xwork2.ActionSupport;
 @SuppressWarnings("serial")
 public class NetBankingAction extends ActionSupport {
 
-	ArrayList<BankCustomer> recordList;
-	ArrayList<BankCustomer> searchList;
-	String accountNumber;
-	String password;
+	private ArrayList<BankCustomer> recordList;
+	private ArrayList<BankCustomer> searchList;
+	private String accountNumber;
+	private String password;
 
 	public String getPassword() {
 		return password;
@@ -61,13 +61,15 @@ public class NetBankingAction extends ActionSupport {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public String initPopup() {
 		Map session = ActionContext.getContext().getSession();
-		session.put("accountSelected", 0);
+		session.put("accountSelected", 0);	
+		session.put("searchAction", "getNonNetBankingCustomers");
+		session.put("selectAction", "NBSelect");
 		return SUCCESS;
 
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public String searchAccountNumber() {
+	public String getNonNetBankingCustomers() {
 		Map session = ActionContext.getContext().getSession();
 		recordList = new ArrayList<BankCustomer>();
 		searchList = new ArrayList<BankCustomer>();
@@ -77,6 +79,7 @@ public class NetBankingAction extends ActionSupport {
 				searchList.add(recordList.get(i));
 		}
 		session.put("accountSelected", 1);
+		
 		return SUCCESS;
 
 	}
