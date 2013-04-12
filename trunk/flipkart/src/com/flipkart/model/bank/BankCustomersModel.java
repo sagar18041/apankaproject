@@ -119,4 +119,51 @@ public class BankCustomersModel {
 		}
 	}
 
+	/*
+	 * The function edits balance. returns 0 when insufficient funds. returns 1
+	 * on success. returns 2 on database error.
+	 */
+	public static int editBalance(String accountNumber, String credit,
+			String debit, String balance) {
+
+		float creditAmount;
+		float debitAmount;
+		float currentBalance;
+
+		if (credit.equals("")) {
+			creditAmount = 0;
+		} else {
+			creditAmount = Float.parseFloat(credit);
+		}
+
+		if (debit.equals("")) {
+			debitAmount = 0;
+		} else {
+			debitAmount = Float.parseFloat(debit);
+		}
+
+		currentBalance = Float.parseFloat(balance);
+
+		if (currentBalance + creditAmount < debitAmount)
+			return 0;
+
+		currentBalance = (currentBalance + creditAmount) - debitAmount;
+
+		sqlQuery = "UPDATE `flipkart`.`bank` SET `balance`=? WHERE `accountNumber`=?;";
+		conn = DbConnection.getConnection();
+
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setFloat(1, currentBalance);
+			ps.setString(2, accountNumber);
+			ps.executeUpdate();
+			return 1;
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			return 2;
+		}
+
+	}
+
 }
