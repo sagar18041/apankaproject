@@ -12,7 +12,8 @@ public class BankCustomersAction extends ActionSupport {
 	private ArrayList<BankCustomer> customerList;
 	private String customerName;
 	private String accountNumber;
-	private BankCustomer customer;
+	private String credit;
+	private String debit;
 
 	/*
 	 * Taken 'balance' as 'String' because float was getting displayed as power
@@ -21,12 +22,20 @@ public class BankCustomersAction extends ActionSupport {
 
 	private String balance;
 
-	public BankCustomer getCustomer() {
-		return customer;
+	public String getCredit() {
+		return credit;
 	}
 
-	public void setCustomer(BankCustomer customer) {
-		this.customer = customer;
+	public void setCredit(String credit) {
+		this.credit = credit;
+	}
+
+	public String getDebit() {
+		return debit;
+	}
+
+	public void setDebit(String debit) {
+		this.debit = debit;
 	}
 
 	public String getCustomerName() {
@@ -61,6 +70,11 @@ public class BankCustomersAction extends ActionSupport {
 		this.customerList = customerList;
 	}
 
+	public String init() {
+		return SUCCESS;
+
+	}
+
 	public String getAllCustomers() {
 
 		customerList = new ArrayList<BankCustomer>();
@@ -92,13 +106,19 @@ public class BankCustomersAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	public String editBalanceInit() {
-		System.out.println("editBalanceInit: " + accountNumber);
-		customer = new BankCustomer();
-		customer.setAccountNumber(accountNumber);
-		BankCustomersModel.getOneCustomer(customer);
-		return SUCCESS;
+	public String editBalance() {
+		int result = BankCustomersModel.editBalance(accountNumber, credit,
+				debit, balance);
+		if (result == 1)
+			return SUCCESS;
+
+		if (result == 0) {
+			addActionError("Sorry! Insuffient funds.");
+			return ERROR;
+		}
+
+		addActionError("Error in save. Please try again.");
+		return ERROR;
 
 	}
-
 }
