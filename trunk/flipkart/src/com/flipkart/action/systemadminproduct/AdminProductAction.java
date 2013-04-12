@@ -4,19 +4,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.io.File;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.fileupload.FileUploadBase.FileSizeLimitExceededException;
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import com.flipkart.util.MyUtilityFunctions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.flipkart.model.systemadmincategory.AdminCategoryModel;
+
 import com.flipkart.model.systemadminproduct.*;
-import java.io.File;
 
 @SuppressWarnings("serial")
-public class AdminProductAction extends ActionSupport {
+public class AdminProductAction extends ActionSupport implements ServletRequestAware{
 
 	private String productName;
 	private String itemName;
 	private String categoryID;
-	private int selectedCategoryID;
+	private int selectedCategoryID=-1;
 
 	HashMap<Integer,String> categoryList = new HashMap<Integer,String>();
 
@@ -26,8 +32,11 @@ public class AdminProductAction extends ActionSupport {
 	private int priorityLevel;
 
 	private File thumbnail, productImage;
-	private String fileUploadContentType;
-	private String fileUploadFileName;
+	private String thumbnailContentType;
+	private String thumbnailFileName;
+	String filePath;
+	private String photoURL;
+	private HttpServletRequest servletRequest;
 
 	Map adminSession = ActionContext.getContext().getSession();
 
@@ -43,7 +52,8 @@ public class AdminProductAction extends ActionSupport {
 		 */
 		categoryList.clear();
 		categoryList=AdminProductModel.fetchCategoryList();
-
+		setProductName("");
+		
 		return SUCCESS;
 	}
 
@@ -69,28 +79,36 @@ public class AdminProductAction extends ActionSupport {
 					ret= AdminProductModel.insertNewProduct(getProductName(), getSelectedCategoryID());
 
 					if(ret == -1){
-						addActionError("Sorry some error occurred. The new product was not added.");
+						addActionError("Sorry some error occurred. The new product was not added. Please try again.");
 						check=0;
+						//to re-initialize the category DDL 
+						initializeProductPage();
 						return ERROR;
 					}
 					else if (ret == 0){
-	
+
 						/*fetch the productID of the newly inserted product*/
 						int newProductId=AdminProductModel.fetchNewProductID(Integer.parseInt(adminSession.get("categoryID").toString()));
-					
+
 						if(newProductId == -1){
 							check=0;
-							addActionError("Sorry some error occurred. The new product was not added.");
+							addActionError("Sorry some error occurred. The new product was not added. Please try again.");
+							//to re-initialize the category DDL 
+							initializeProductPage();
 						}
 						else{
 							check=1;	
 							//putting new ProductID in session
 							adminSession.put("productID",newProductId);
+
 						}
 					}
 				}
 				else{
 					addActionError("This product already exists. Please enter another product name.");
+
+					//to re-initialize the category DDL 
+					initializeProductPage();
 					check=0;
 					return ERROR;
 				}
@@ -98,11 +116,15 @@ public class AdminProductAction extends ActionSupport {
 			else{
 				check=0;
 				addActionError("Please select values for Product name and Category !");
+				//to re-initialize the category DDL 
+				initializeProductPage();
 				return ERROR;
 			}
-		
+
 		}catch(Exception e){
-			addActionError("Sorry some error occurred. The new product was not added.");
+			addActionError("Sorry some error occurred. The new product was not added. Please try again.");
+			//to re-initialize the category DDL 
+			initializeProductPage();
 			return ERROR;
 		}
 
@@ -110,15 +132,130 @@ public class AdminProductAction extends ActionSupport {
 	}
 
 	/*
-	 * To insert item
+	 * To initialize item page
 	 */
 
 	public String initializeItemPage(){
 
+		setItemName("");
 		return SUCCESS;
 
 	}
 
+	/*
+	 * To insert Item
+	 */
+	public String insertItemDetails(){
+
+		try {
+
+			//getting the thumbnail
+			
+			if(thumbnailFileName != null){
+				//get the path where photos will get uploaded
+				filePath = servletRequest.getSession().getServletContext().getRealPath("/uploads/itemthumbnails");
+				System.out.println("Server path:" + filePath);
+
+				//Create photo name from random generator
+				String photoName = MyUtilityFunctions.createVerificationUrl() + "-" + thumbnailFileName;			
+
+				//create photoURL
+				photoURL = "uploads/itemthumbnails/" + photoName;
+				
+				//create new file with new path and name
+				File fileToCreate = new File(filePath, photoName);
+
+				//copy file to given location
+				FileUtils.copyFile(this.thumbnail, fileToCreate);
+				System.out.println("photo URL"+photoURL);
+			}
+			else{
+				initializeItemPage();
+				addActionError("Please select an image for Item-thumbnail.");
+				initializeItemPage();
+				return ERROR;
+			}
+				
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			initializeItemPage();
+			addActionError(e.getMessage());
+			return ERROR;
+		}
+
+		
+		try{
+		
+			// validating if values were selected
+			if ( !getItemName().equals("") && !getItemName().equals(null) )
+			{
+				int ret;  
+				ret= AdminProductModel.checkExistingItem(getItemName());
+				
+				if(ret == 0)
+				{
+					//fetching productID from Step1 via session
+				
+					int prodId= Integer.parseInt(adminSession.get("productID").toString());
+				
+					ret= AdminProductModel.insertNewItem(getItemName(), prodId, photoURL);
+					
+					if(ret == -1){
+						System.out.println("5");
+						addActionError("Sorry some error occurred. The new item was not added. Please try again.");
+						initializeItemPage();
+						check=0;
+						return ERROR;
+					}
+					else if (ret == 0){
+						
+						//fetch the itemID of the newly inserted product
+						int newItemId=AdminProductModel.fetchNewItemID(prodId);
+
+						if(newItemId == -1){
+							check=0;
+							initializeItemPage();
+							addActionError("Sorry some error occurred. The new item was not added. Please try again.");
+						}
+						else{
+							check=1;	
+							//putting new ItemID in session
+							adminSession.put("itemID",newItemId);
+						}
+					}
+				}
+				else{
+					addActionError("This item already exists. Please enter another item name.");
+					initializeItemPage();
+					check=0;
+					return ERROR;
+				}
+			}
+			else{
+				check=0;
+				addActionError("Please give a value for Item Name !");
+				initializeItemPage();
+				return ERROR;
+			}
+
+		}catch(Exception e){
+			
+			addActionError("Sorry some error occurred. The new item was not added. Please try again.");
+			initializeItemPage();
+			return ERROR;
+		}
+		return SUCCESS;
+}
+
+	/*
+	 * to initialize itemAttribute page
+	 */
+	public String initializeItemAttributePage(){
+
+		return SUCCESS;
+
+	}
 
 	/*
 	 * To insert item attribute details
@@ -128,6 +265,15 @@ public class AdminProductAction extends ActionSupport {
 		return SUCCESS;
 	}
 
+	public String deleteAttribute(){
+		return SUCCESS;
+	}
+	
+	public String editAttribute(){
+		return SUCCESS;
+	}
+	
+	//GETTERS & SETTERS
 
 	public String getProductName() {
 		return productName;
@@ -201,22 +347,45 @@ public class AdminProductAction extends ActionSupport {
 		this.productImage = productImage;
 	}
 
-	public String getFileUploadContentType() {
-		return fileUploadContentType;
+	public String getThumbnailContentType() {
+		return thumbnailContentType;
 	}
 
-	public void setFileUploadContentType(String fileUploadContentType) {
-		this.fileUploadContentType = fileUploadContentType;
+	public void setThumbnailContentType(String thumbnailContentType) {
+		this.thumbnailContentType = thumbnailContentType;
 	}
 
-	public String getFileUploadFileName() {
-		return fileUploadFileName;
+	public String getThumbnailFileName() {
+		return thumbnailFileName;
 	}
 
-	public void setFileUploadFileName(String fileUploadFileName) {
-		this.fileUploadFileName = fileUploadFileName;
+	public void setThumbnailFileName(String thumbnailFileName) {
+		this.thumbnailFileName = thumbnailFileName;
 	}
 
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	public String getPhotoURL() {
+		return photoURL;
+	}
+
+	public void setPhotoURL(String photoURL) {
+		this.photoURL = photoURL;
+	}
+
+	public HttpServletRequest getServletRequest() {
+		return servletRequest;
+	}
+
+	public void setServletRequest(HttpServletRequest servletRequest) {
+		this.servletRequest = servletRequest;
+	}
 
 	public ArrayList<AdminProduct> getAttributesList() {
 		return attributesList;

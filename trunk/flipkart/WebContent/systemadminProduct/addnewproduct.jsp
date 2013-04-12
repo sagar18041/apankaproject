@@ -61,15 +61,16 @@
 							</s:iterator>
 						</s:if>
 						<br />
-						<s:form action="admininsertproduct">
+						<s:form action="admininsertproduct" method="post">
 							<s:hidden name="selectedCategoryID" id="selectedCategoryID" />
 							<table class="table">
-
 								<tr>
 									<td>Product Name</td>
-									<td><s:textfield name="productName" theme="simple"
+									<td>
+										<s:textfield name="productName" theme="simple"
 											placeholder="Please enter Product Name"
-											cssClass="input-xlarge" /></td>
+											cssClass="input-xlarge" />
+									</td>
 								</tr>
 
 								<!-- drop down list for 'category' -->

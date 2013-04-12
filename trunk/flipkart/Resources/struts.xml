@@ -55,7 +55,6 @@
 			</interceptor-stack>
 		</interceptors>
 
-
 		<global-results>
 			<result name="login" type="chain">home</result>
 			<result name="adminlogin" type="tiles">/adminlogin.tiles</result>
@@ -516,6 +515,19 @@
 			<result name="success" type="tiles">/adminitemattributes.tiles
 			</result>
 		</action>
+
+		<action name="admindeleteitemattributes"
+			class="com.flipkart.action.systemadminproduct.AdminProductAction"
+			method="deleteAttribute">
+			<result name="success" type="chain">adminitemattributesinit</result>
+		</action>
+
+		<action name="adminedititemattributes"
+			class="com.flipkart.action.systemadminproduct.AdminProductAction"
+			method="editAttribute">
+			<result name="success" type="tiles">/admineditattribute.tiles</result>
+		</action>
+
 
 
 		<!-- ................. Product End ................. -->

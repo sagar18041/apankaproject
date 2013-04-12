@@ -292,6 +292,12 @@
 			value="/systemadminProduct/additemattributes.jsp" />
 	</definition>
 
+	<definition name="/admineditattribute.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Edit Item Attribute" />
+		<put-attribute name="body"
+			value="/systemadminProduct/edititemattribute.jsp" />
+	</definition>
+
 	<!-- ................. Product End ................. -->
 
 	<!-- ============================== End of System Administration =========================== -->
