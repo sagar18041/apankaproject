@@ -55,8 +55,8 @@
 							class="caret"></b></a>
 						<ul class="dropdown-menu pull-right">
 							<li><a href="getAllCustomers">Customers</a></li>
-							<li><a href="#">Credit Cards</a></li>
-							<li><a href="#">Debit Cards</a></li>
+							<li><a href="getAllCreditCards">Credit Cards</a></li>
+							<li><a href="getAllDebitCards">Debit Cards</a></li>
 							<li><a href="netbankingviewentries">Net Banking</a></li>							
 						</ul></li>
 
