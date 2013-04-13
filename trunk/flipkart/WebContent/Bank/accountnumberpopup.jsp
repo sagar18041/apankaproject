@@ -35,13 +35,14 @@
 				</s:form>
 				<div id="result">
 					<table
-						class="table table-bordered table-condensed table-hover table-striped">
+						class="table table-bordered table-condensed table-hover-aamir table-aamir"
+						id="results">
 						<tr>
-							<th style="text-align: center"><font size="2">Customer
+							<th style="text-align: center"><font size="3" face="Georgia">Customer
 									Name</font></th>
-							<th style="text-align: center"><font size="2">Account
+							<th style="text-align: center"><font size="3" face="Georgia">Account
 									Number</font></th>
-							<th style="text-align: center"><font size="2">Select</font></th>
+							<th style="text-align: center"><font size="3" face="Georgia">Select</font></th>
 						</tr>
 						<s:iterator value="searchList">
 							<tr>
@@ -58,9 +59,25 @@
 							</tr>
 						</s:iterator>
 					</table>
+
+					<div id="pageNavPosition" align="center"></div>
+
+					<br />
+
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		var pager = new Pager('results', 10);
+		pager.init();
+		pager.showPageNav('pager', 'pageNavPosition');
+		pager.showPage(1);
+	</script>
+	<br />
+	<br />
+	<br />
+
 </body>
 </html>

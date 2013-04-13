@@ -11,13 +11,13 @@
 		document.getElementById('newdetail').style.display = "block";
 		document.getElementById('addRow').style.display = "none";
 	}
-	
+
 	function cancel() {
 		InsertEntry.accountNumber.value = "";
 		document.getElementById('newdetail').style.display = "none";
 		document.getElementById('addRow').style.display = "block";
 	}
-	
+
 	function hide() {
 		var accountSelected = '${accountSelected}';
 		if (accountSelected == 1) {
@@ -32,10 +32,11 @@
 		}
 	}
 
-	function Blank_TextField_Validator() {
+	function Validator() {
 
 		if (InsertEntry.accountNumber.value == "") {
 			alert("Please select account number from the lookup.");
+			InsertEntry.accountNumber.focus();
 			return (false);
 		}
 
@@ -58,21 +59,23 @@
 			<div class="span10 offset1">
 
 				<div align="center">
-					<font size="5"><b>Net Banking Customers</b></font> <br /> <br />
+					<font size="5" face="Georgia"><b>Net Banking Customers</b></font> <br />
+					<br />
 				</div>
 
 				<br />
 
 				<table
-					class="table table-bordered table-condensed table-hover table-striped">
+					class="table table-bordered table-condensed table-hover-aamir table-aamir"
+					id="results">
 					<tr>
-						<th style="text-align: center"><font size="3">Customer
+						<th style="text-align: center"><font size="3" face="Georgia">Customer
 								Name</font></th>
-						<th style="text-align: center"><font size="3">Account
+						<th style="text-align: center"><font size="3" face="Georgia">Account
 								Number</font></th>
-						<th style="text-align: center"><font size="3">Balance
+						<th style="text-align: center"><font size="3" face="Georgia">Balance
 								(INR)</font></th>
-						<th style="text-align: center"><font size="3">Delete</font></th>
+						<th style="text-align: center"><font size="3" face="Georgia">Delete</font></th>
 					</tr>
 					<s:iterator value="recordList">
 						<tr>
@@ -90,9 +93,13 @@
 					</s:iterator>
 				</table>
 
+				<div id="pageNavPosition" align="center"></div>
+
+				<br />
+
 				<div align="center">
 					<form action="InsertEntry" class="form-inline" id="newdetail"
-						name="InsertEntry" onsubmit="return Blank_TextField_Validator()">
+						name="InsertEntry" onsubmit="return Validator()">
 
 						<input type="text" class="input-medium"
 							placeholder="Account Number" name="accountNumber" readonly
@@ -111,5 +118,16 @@
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		var pager = new Pager('results', 10);
+		pager.init();
+		pager.showPageNav('pager', 'pageNavPosition');
+		pager.showPage(1);
+	</script>
+	<br />
+	<br />
+	<br />
+
 </body>
 </html>

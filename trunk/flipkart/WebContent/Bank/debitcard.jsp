@@ -32,17 +32,88 @@
 		}
 	}
 
-	function Blank_TextField_Validator() {
+	function Validator() {
+
+		var cardNumber = /^\d{16}$/;
+		var cvvNumber = /^\d{3}$/;
+		var month = /^(0[1-9]|1[0-2])$/;
+		var year = /^\d{4}$/;
+		var pin = /^\d{4}$/;
 
 		if (InsertEntry.accountNumber.value == "") {
 			alert("Please select account number from the lookup.");
+			InsertEntry.accountNumber.focus();
 			return (false);
 		}
 
+		if (InsertEntry.cardNumber.value == "") {
+			alert("Please enter card number.");
+			InsertEntry.cardNumber.focus();
+			return (false);
+		}
+
+		if (!(InsertEntry.cardNumber.value.match(cardNumber))) {
+
+			alert("Card number should be a 16 digit number.");
+			InsertEntry.cardNumber.focus();
+			return (false);
+
+		}
+
+		if (InsertEntry.cvv.value == "") {
+			alert("Please enter cvv number.");
+			InsertEntry.cvv.focus();
+			return (false);
+		}
+
+		if (!(InsertEntry.cvv.value.match(cvvNumber))) {
+
+			alert("CVV number should be a 3 digit number.");
+			InsertEntry.cvv.focus();
+			return (false);
+
+		}
+
+		if (InsertEntry.expiryMonth.value == "") {
+			alert("Please enter expiry month.");
+			InsertEntry.expiryMonth.focus();
+			return (false);
+		}
+
+		if (!(InsertEntry.expiryMonth.value.match(month))) {
+
+			alert("Please correct expiry month.");
+			InsertEntry.expiryMonth.focus();
+			return (false);
+
+		}
+
+		if (InsertEntry.expiryYear.value == "") {
+			alert("Please enter expiry year.");
+			InsertEntry.expiryYear.focus();
+			return (false);
+		}
+
+		if (!(InsertEntry.expiryYear.value.match(year))) {
+
+			alert("Please correct expiry year.");
+			InsertEntry.expiryYear.focus();
+			return (false);
+
+		}
+
 		if (InsertEntry.password.value == "") {
-			alert("Please enter password.");
+			alert("Please enter pin.");
 			InsertEntry.password.focus();
 			return (false);
+		}
+
+		if (!(InsertEntry.password.value.match(pin))) {
+
+			alert("Pin should be a 4 digit number.");
+			InsertEntry.password.focus();
+			return (false);
+
 		}
 
 		return (true);
@@ -71,24 +142,25 @@
 			<div class="span10 offset1">
 
 				<div align="center">
-					<font size="5"><b>Debit Cards</b></font> <br /> <br />
+					<font size="5" face="Georgia"><b>Debit Cards</b></font> <br /> <br />
 				</div>
 
 				<br />
 
 				<table
-					class="table table-bordered table-condensed table-hover table-striped">
+					class="table table-bordered table-condensed table-hover-aamir table-aamir"
+					id="results">
 					<tr>
-						<th style="text-align: center"><font size="3">Customer
+						<th style="text-align: center"><font size="3" face="Georgia">Customer
 								Name</font></th>
-						<th style="text-align: center"><font size="3">Account
+						<th style="text-align: center"><font size="3" face="Georgia">Account
 								Number</font></th>
-						<th style="text-align: center"><font size="3">Card
+						<th style="text-align: center"><font size="3" face="Georgia">Card
 								Number</font></th>
-						<th style="text-align: center"><font size="3">CVV</font></th>
-						<th style="text-align: center"><font size="3">Expiry
+						<th style="text-align: center"><font size="3" face="Georgia">CVV</font></th>
+						<th style="text-align: center"><font size="3" face="Georgia">Expiry
 								(MM/YYYY)</font></th>
-						<th style="text-align: center"><font size="3">Delete</font></th>
+						<th style="text-align: center"><font size="3" face="Georgia">Delete</font></th>
 					</tr>
 					<s:iterator value="recordList">
 						<tr>
@@ -108,12 +180,15 @@
 						</tr>
 					</s:iterator>
 				</table>
+
+				<div id="pageNavPosition" align="center"></div>
+
 				<br />
 				<div id="newdetail" class="well">
-					
-					<font size="4"><b>Add New Detail</b></font> <br /> <br />
+
+					<font size="4" face="Georgia"><b>Add New Detail</b></font> <br /> <br />
 					<s:form action="insertDCEntry" class="form-horizontal"
-						name="InsertEntry" onsubmit="return Blank_TextField_Validator()">
+						name="InsertEntry" onsubmit="return Validator()">
 						<table>
 							<tr>
 								<td><input type="text" class="input-medium"
@@ -136,12 +211,12 @@
 							<tr>
 
 								<td><input type="text" class="input-medium"
-									placeholder="Expiry Month" name="expiryMonth"></td>
+									placeholder="Expiry Month(MM)" name="expiryMonth"></td>
 							</tr>
 							<tr>
 
 								<td><input type="text" class="input-medium"
-									placeholder="Expiry Year" name="expiryYear"></td>
+									placeholder="Expiry Year(YYYY)" name="expiryYear"></td>
 							</tr>
 							<tr>
 
@@ -161,5 +236,16 @@
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		var pager = new Pager('results', 10);
+		pager.init();
+		pager.showPageNav('pager', 'pageNavPosition');
+		pager.showPage(1);
+	</script>
+	<br />
+	<br />
+	<br />
+
 </body>
 </html>
