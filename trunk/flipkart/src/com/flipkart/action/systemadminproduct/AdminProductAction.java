@@ -344,40 +344,6 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 		return SUCCESS;
 	}
 	
-	public String editAttribute(){
-		
-		System.out.println("attr:"+getAttribute());
-		System.out.println("new value:"+getAttribute());
-		System.out.println("new attr:"+getAttribute());
-		
-		/*
-		if(!getAttribute().equals(null) && !getAttribute().equals("") &&
-				!getValue().equals(null) && !getValue().equals("") &&
-				getPriorityLevel()!=-1){
-			
-			int ret;
-			int itemIDtemp=Integer.parseInt(adminSession.get("itemID").toString());
-			
-			ret=AdminProductModel.editAttribute(itemIDtemp, getAttribute(), getValue(), getPriorityLevel());
-			
-			if(ret==-1){
-				addActionError("Sorry some error occurred. The attribute was not deleted. Please try again.");
-				initializeItemAttributePage();
-				return ERROR;
-			}
-			else{
-				initializeItemAttributePage();
-			}
-		}
-		else{
-			addActionError("Sorry some error occurred. Please try again.");
-			initializeItemAttributePage();
-			return ERROR;
-		}
-		*/
-		return SUCCESS;
-	}
-	
 	public String successProduct(){
 		return SUCCESS;
 	}
