@@ -3,6 +3,7 @@ package com.flipkart.model.systemadminproduct;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,9 +19,9 @@ public class AdminProductModel {
 	static String sqlQuery="";
 	static Connection conn = null;
 
-	
+
 	// PAGE INITIALIZATION FUNCTIONS
-	
+
 	/**
 	 * This method fetches category names and category ID
 	 * for ACTIVE categories for which a path exists
@@ -58,9 +59,9 @@ public class AdminProductModel {
 		return categoryList;
 	}
 
-	
+
 	// PRODUCT RELATED FUNCTIONS
-	
+
 	/**
 	 * It checks whether a product already exists
 	 * @param productname- name of the new product
@@ -71,18 +72,18 @@ public class AdminProductModel {
 		System.out.println("Product name: "+productname);
 		sqlQuery = "SELECT count(productID) FROM flipkart_product WHERE productName=?";
 		int countRows=0;
-		
+
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
 			ps.setString(1, productname);
 
 			rs=ps.executeQuery();
-			
+
 			while(rs.next()){
 				countRows = rs.getInt(1);
 			}
-				
+
 		}catch(Exception e){
 			//e.printStackTrace();
 			return -1;
@@ -137,23 +138,23 @@ public class AdminProductModel {
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
 			ps.setInt(1, categoryID);
-			
+
 			rs=ps.executeQuery();
 
 			while(rs.next()){
 				productID = rs.getInt(1);
 			}
-			
+
 		}catch(Exception e){
 			return -1;
 		}
-		
+
 		return productID;
 	}
 
-	
+
 	//ITEM RELATED FUNCTIONS
-	
+
 	/**
 	 * It checks whether a item already exists
 	 * @param itemname- name of the new item
@@ -164,18 +165,18 @@ public class AdminProductModel {
 		System.out.println("Product name: "+itemname);
 		sqlQuery = "SELECT count(itemID) FROM flipkart_item WHERE itemName=?";
 		int countRows=0;
-		
+
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
 			ps.setString(1, itemname);
 
 			rs=ps.executeQuery();
-			
+
 			while(rs.next()){
 				countRows = rs.getInt(1);
 			}
-				
+
 		}catch(Exception e){
 			//e.printStackTrace();
 			return -1;
@@ -192,7 +193,7 @@ public class AdminProductModel {
 	 * @return 0 - success, -1 - error
 	 */
 	public static int insertNewItem(String itemName, int productID, String thumbnail) {
-		
+
 		sqlQuery = "INSERT INTO flipkart_item(itemName, availableQuantity, productID, createdBy, modifiedBy, thumbnail) " +
 				"VALUES (?,?,?,?,?,?);";
 
@@ -232,23 +233,177 @@ public class AdminProductModel {
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
 			ps.setInt(1, productID);
-			
+
 			rs=ps.executeQuery();
 
 			while(rs.next()){
 				itemID = rs.getInt(1);
 			}
-			
+
 		}catch(Exception e){
 			return -1;
 		}
-		
+
 		return itemID;
 	}
 
-	
+
 	//ITEM-ATTRIBUTES FUNCTIONS
+
+	/**
+	 * This method returns list of attributes for an item
+	 * @param itemID - id of item
+	 * @return arraylist
+	 */
+	public static ArrayList<AdminProduct> fetchItemAttributesList(int itemID){
+
+		ArrayList<AdminProduct> attributeList = new ArrayList<AdminProduct>();
+
+		sqlQuery = "SELECT attribute, value, priorityLevel FROM flipkart_itemattributes WHERE itemID=?;";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, itemID);
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				AdminProduct itemAttribute = new AdminProduct();
+
+				itemAttribute.setAttribute(rs.getString(1));
+				itemAttribute.setValue(rs.getString(2));
+				itemAttribute.setPriorityLevel(rs.getInt(3));
+
+				attributeList.add(itemAttribute);
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return attributeList;
+	}
+
+
+	/**
+	 * It checks whether an attribute already exists for an item
+	 * @param attribute - name of attribute
+	 * @param itemname - if of item
+	 * @return no of rows having given attribute for given item (0 if not present)
+	 */
+	public static int checkExistingAttributeForItem(String attribute, int itemID){
+
+		sqlQuery = "SELECT count(itemID) FROM flipkart_itemattributes WHERE itemID=? AND attribute=?";
+		int countRows=0;
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, itemID);
+			ps.setString(2, attribute);
+
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				countRows = rs.getInt(1);
+			}
+
+		}catch(Exception e){
+			//e.printStackTrace();
+			return -1;
+		}
+		//if no rows present means, its a new item so return 0 else count of rows
+		return countRows;
+	}
+
 	
 	
-	
+	/**
+	 * This method is used to insert a new item attribute into database
+	 * @param itemID - id of item
+	 * @param attribute - attribute name
+	 * @param value - attribute value
+	 * @param priority - priority level
+	 * @return 0:success, -1:error
+	 */
+	public static int insertNewItemAttribute(int itemID, String attribute, String value, int priority) {
+
+		sqlQuery = "INSERT INTO flipkart_itemattributes(itemID, attribute, value, priorityLevel) " +
+				"VALUES (?,?,?,?);";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+
+			ps.setInt(1, itemID);
+			ps.setString(2, attribute);
+			ps.setString(3, value);
+			ps.setInt(4, priority);
+			
+			ps.executeUpdate();
+
+		}
+		catch(Exception e){
+			return -1;
+		}
+		return 0;
+	}		
+
+
+	/**
+	 * This method deletes an attribute for an item
+	 * @param itemID - id of item
+	 * @param attribute - attribute to be deleted
+	 * @return 0:success, -1: error
+	 */
+	public static int deleteAttribute(int itemID, String attribute){
+
+		sqlQuery = "DELETE FROM flipkart_itemattributes WHERE itemID=? AND attribute=?;";
+		conn = DbConnection.getConnection();
+
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setInt(1, itemID);
+			ps.setString(2, attribute);
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			return -1;
+		}
+		return 0;
+	}
+
+	/**
+	 * This method edits the value an priorityLevel of an attribute of an item
+	 * @param itemID - id of item
+	 * @param attribute - attribute of item
+	 * @param newValue - new value of attribute value
+	 * @param newPriority - new value of attribute priority level
+	 * @return 0:success, -1: error 
+	 */
+	public static int editAttribute(int itemID, String attribute, String newValue, int newPriority){
+
+		sqlQuery = "UPDATE flipkart_itemattributes SET value=?, priorityLevel=? AND WHERE itemID=? AND attribute=?;";
+		conn = DbConnection.getConnection();
+
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+
+			ps.setString(1, newValue);
+			ps.setInt(2, newPriority);
+			ps.setInt(3, itemID);
+			ps.setString(4, attribute);
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+
+			return -1;
+		}
+		return 0;
+	}
+
 }

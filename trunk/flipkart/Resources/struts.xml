@@ -512,7 +512,9 @@
 		<action name="admininsertitemattributes"
 			class="com.flipkart.action.systemadminproduct.AdminProductAction"
 			method="insertAttributeDetails">
-			<result name="success" type="tiles">/adminitemattributes.tiles
+			<result name="success" type="chain">adminitemattributesinit
+			</result>
+			<result name="error" type="chain">adminitemattributesinit
 			</result>
 		</action>
 
@@ -522,13 +524,11 @@
 			<result name="success" type="chain">adminitemattributesinit</result>
 		</action>
 
-		<action name="adminedititemattributes"
+		<action name="adminsuccessproduct"
 			class="com.flipkart.action.systemadminproduct.AdminProductAction"
-			method="editAttribute">
-			<result name="success" type="tiles">/admineditattribute.tiles</result>
+			method="successProduct">
+			<result name="success" type="tiles">/adminsuccessproduct.tiles</result>
 		</action>
-
-
 
 		<!-- ................. Product End ................. -->
 

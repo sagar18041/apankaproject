@@ -1,8 +1,5 @@
 package com.flipkart.model.systemadminproduct;
 
-import java.io.File;
-import java.util.HashMap;
-
 public class AdminProduct {
 
 	private String productName, itemName, categoryName, attribute, value;
