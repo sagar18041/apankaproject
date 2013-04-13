@@ -17,15 +17,15 @@ public class AdminCategoryAction extends ActionSupport{
 	private ArrayList<AdminCategory> verificationcategoryList;
 	private String categoryName="";
 	String[] checkCategory;
-	int check=0, checkVerification=0;
+	int check=0, checkVerification=0, checkParentCategory=0;
 	int level=-1;
 	String parentCategory;
 	private int selectedCategoryID=-1;
-	
+
 	HashMap<Integer,String> parentCategories = new HashMap<Integer,String>();
-	
+
 	private ArrayList<Integer> levels = new ArrayList<Integer>();  
-	
+
 	public String fetchCategoryList(){
 
 		if (categoryList == null)
@@ -42,21 +42,46 @@ public class AdminCategoryAction extends ActionSupport{
 		//fetch category levels from DB
 		levels=AdminCategoryModel.fetchLevels();
 
-		//fetch data to populate parentLists
-		parentCategories=AdminCategoryModel.fetchParentCategories();
+		/*//fetch data to populate parentLists
+		parentCategories=AdminCategoryModel.fetchParentCategories();*/
 
-		setLevel(-1);
-		setSelectedCategoryID(-1);
-		setParentCategory("");
-		setCategoryName("");
+		if(checkParentCategory==0){
+			setLevel(-1);
+			setSelectedCategoryID(-1);
+			setParentCategory("");
+			setCategoryName("");
+		}
 		
 		return SUCCESS;
 	}
-	
+
+	public String parentCategoryInit(){
+
+		checkParentCategory=0;
+		parentCategories.clear();
+		
+		/*
+		 * If categorylevel = 0, parentCategoryLevel= N.A.
+		 * If categorylevel = 1, parentCategoryLevel= 0
+		 * If categorylevel = 2, parentCategoryLevel= 1
+		 */
+		if(getLevel() != 0){
+			int requiredParentLevel= getLevel() - 1;
+			//fetch data to populate parentLists
+			parentCategories=AdminCategoryModel.fetchParentCategories(requiredParentLevel);
+			checkParentCategory=1;
+		}
+		else if(getLevel() == 0){
+			checkParentCategory=0;
+		}
+
+		return SUCCESS;
+	}
+
 	public String insertNewCategory(){
 
 		check=0;
-		
+		checkParentCategory=0;
 		/*
 		 * if level is 0, then the parentID for path table wud be the same as categoryID,
 		 * it will be fetched after the insert is made.
@@ -65,7 +90,7 @@ public class AdminCategoryAction extends ActionSupport{
 		if(getLevel() == 0){
 			setSelectedCategoryID(-99);
 		}
-		
+
 		if (!getCategoryName().equals("") && !getCategoryName().equals(null) &&
 				getSelectedCategoryID() != -1 && getLevel() != -1)
 		{
@@ -76,33 +101,35 @@ public class AdminCategoryAction extends ActionSupport{
 			if(ret == 0)
 			{
 				ret= AdminCategoryModel.insertNewCategory(getCategoryName(),getLevel());
-				
+
 				/*
 				 * if there was no error in insert, then send mail to Admin,
 				 * else dont send mail.
 				 */
 				if(ret == -1){
-			
+
 					addActionError("Sorry some error occurred. The new category was not added.");
 					check=0;
+					checkParentCategory=0;
 					initAddCategory();
 					return ERROR;
 				}
 				else if (ret == 0){
-			
+
 					check=1;
-					ret= AdminCategoryModel.insertNewCategoryPath(getSelectedCategoryID());
-					
+					ret= AdminCategoryModel.insertNewCategoryPath(getSelectedCategoryID(), getLevel());
+
 					if(ret == -1){
-					
+
 						/* in case you were not able to insert path, 
 						 * remove category table entry too 
 						 * */
 						AdminCategoryModel.removeNewCategory(getCategoryName());
-						
+
 						addActionError("Sorry some error occurred. The new category was not added.");
-						initAddCategory();
 						check=0;
+						checkParentCategory=0;
+						initAddCategory();
 						return ERROR;
 					}
 					else{
@@ -115,13 +142,15 @@ public class AdminCategoryAction extends ActionSupport{
 			else{
 				addActionError("This category already exists. Please enter another category.");
 				check=0;
+				checkParentCategory=0;
 				initAddCategory();
 				return ERROR;
 			}
 		}
 		else{
-			check=0;
 			addActionError("Please give a value for all the feilds !");
+			check=0;
+			checkParentCategory=0;
 			initAddCategory();
 			return ERROR;
 		}
@@ -291,6 +320,14 @@ public class AdminCategoryAction extends ActionSupport{
 
 	public void setSelectedCategoryID(int selectedCategoryID) {
 		this.selectedCategoryID = selectedCategoryID;
+	}
+
+	public int getCheckParentCategory() {
+		return checkParentCategory;
+	}
+
+	public void setCheckParentCategory(int checkParentCategory) {
+		this.checkParentCategory = checkParentCategory;
 	}
 
 }

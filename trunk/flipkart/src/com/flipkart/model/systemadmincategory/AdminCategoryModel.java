@@ -51,20 +51,21 @@ public class AdminCategoryModel {
 
 
 	/**
-	 * This method fetches category names and their ID
+	 * This method fetches category names and their ID for a particular level
 	 * @return category list
 	 */
-	public static HashMap<Integer,String> fetchParentCategories() {
+	public static HashMap<Integer,String> fetchParentCategories(int level) {
 		
 		HashMap<Integer,String> categoryList = new HashMap<Integer,String>();
 		ArrayList<AdminCategory> categories = new ArrayList<AdminCategory>();
 
 		sqlQuery = "SELECT categoryID, categoryName FROM flipkart_category WHERE status=1 AND " +
-				"categoryID IN (SELECT categoryID from flipkart_path);";
+				"level=? AND categoryID IN (SELECT categoryID from flipkart_path);";
 
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, level);
 			rs=ps.executeQuery();
 
 			while(rs.next()){
@@ -178,7 +179,7 @@ public class AdminCategoryModel {
 	 * This method is used to insert a new category path into database
 	 * @return 0 - success, -1 - error
 	 */
-	public static int insertNewCategoryPath(int parentID) {
+	public static int insertNewCategoryPath(int parentID, int level) {
 
 		int categoryID=0;
 
@@ -212,7 +213,7 @@ public class AdminCategoryModel {
 					ps.setInt(2, parentID);
 				}
 				 
-				ps.setInt(3, 0);
+				ps.setInt(3, level);
 
 				ps.executeUpdate();
 

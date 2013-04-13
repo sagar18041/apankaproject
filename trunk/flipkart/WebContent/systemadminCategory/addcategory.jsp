@@ -21,7 +21,16 @@
 	});
 
 	function hideParentCategory() {
-		document.getElementById("newdetail").style.display = "none";
+		var elem = document.getElementById("checkParentCategory").value;
+
+		//if page is loaded for first time or level=0
+		if(elem == 0){
+			document.getElementById("newdetail").style.display = "none";	
+		}
+		//if page is loaded after selecting level=1,2
+		else{
+			document.getElementById("newdetail").style.display = "block";
+		}
 	}
 
 	//called when level drop down list changes
@@ -35,9 +44,13 @@
 
 		/* if parent is needed */
 		if (selectedLevel != 0) {
+			
 			document.getElementById("newdetail").style.display = "block";
+			window.location="adminparentcategoryinit?level=" + selectedLevel;
+			
 		} else {
-			hideParentCategory();
+			
+			document.getElementById("newdetail").style.display = "none";
 		}
 	}
 
@@ -79,14 +92,11 @@
 			</s:if>
 
 			<s:form action="admincategoryinsert" theme="simple" method="post">
-
+				
+				<s:hidden name="checkParentCategory" id="checkParentCategory" />
+				
 				<s:hidden name="selectedCategoryID" id="selectedCategoryID" />
 				<table class="table table-bordered table-hover">
-					<tr>
-						<td>Category Name</td>
-						<td><s:textfield name="categoryName" theme="simple"
-								placeholder="Please enter Category Name" cssClass="input-xlarge" /></td>
-					</tr>
 					<tr>
 						<td>Category Level</td>
 						<td>
@@ -100,7 +110,8 @@
 							</div>
 						</td>
 					</tr>
-					<tr id="newdetail" theme="simple">
+					
+					<tr id="newdetail">
 						<td>Parent Category</td>
 						<td>
 
@@ -116,6 +127,12 @@
 
 						</td>
 					</tr>
+					<tr>
+						<td>New Category Name</td>
+						<td><s:textfield name="categoryName" theme="simple"
+								placeholder="Please enter Category Name" cssClass="input-xlarge" /></td>
+					</tr>
+					
 				</table>
 
 				<s:submit value="ADD CATEGORY" cssClass="btn btn-primary"
