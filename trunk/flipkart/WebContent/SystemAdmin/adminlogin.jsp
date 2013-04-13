@@ -25,12 +25,13 @@
 						</div>
 					</s:iterator>
 				</s:if>
-
 				<div class="well-aamir" align="center">
+				<br/>
 					<s:form action="adminlogin" class="form-signin">
 
 						<h3 class="form-signin-heading" style="color: white;">
-							<i class="icon-user"></i> Login
+							<i><img src="ViewResources/img/login.png"  height="50"
+								width="50" /></i> Login
 						</h3>
 
 						<br />
