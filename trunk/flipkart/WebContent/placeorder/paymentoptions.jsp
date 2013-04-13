@@ -104,6 +104,7 @@
 					<p>
 						<font style="font-size: 16px;">Choose your mode of payment</font><br />
 						<br />
+						
 					<div id="subTab"
 						style="margin-left: -20px; margin-top: -20px; width: 104%">
 						<ul>
@@ -114,19 +115,33 @@
 						<div id="tabs-a">
 							Pay using Credit Card
 							<hr />
+							<!-- Error message -->
+							<s:if test="hasActionMessages()">
+						<div align="center">
+							<s:iterator value="actionMessages">
+								<div class="alert alert-error">
+									<br />&nbsp;&nbsp;
+									<s:actionerror/>
+									<br /> <br />
+								</div>
+							</s:iterator>
+
+						</div>
+					</s:if>
+						<!-- *** -->
 							<h5>Enter your card details</h5>
-							<s:form action="post" method="ccEntry" theme="simple">
+							<s:form action="ccEntry" method="post" theme="simple">
 								<s:hidden name="addressid" id="addressid" value="%{addressid}" />
 
 								<table cellpadding="5">
 									<tr>
 										<td>Card Number</td>
-										<td><s:textfield required="true" label="cardNumber" /></td>
+										<td><s:textfield required="true" label="cardNumber" name="cardNo"/></td>
 									</tr>
 
 									<tr>
 										<td>Name on Card</td>
-										<td><s:textfield required="true" label="nameCard" /></td>
+										<td><s:textfield required="true" label="nameCard" name="cardName"/></td>
 									</tr>
 
 									<tr>
@@ -149,7 +164,7 @@
 									<tr>
 										<td>CVV No</td>
 										<td><s:textfield required="true" label="cvv" size="3"
-												cssStyle="width:37px;" /></td>
+												cssStyle="width:37px;" name="cvv"/></td>
 									</tr>
 								</table>
 								<s:submit value="Pay" cssClass="btn btn-primary"
@@ -160,16 +175,16 @@
 							Pay using Debit Card
 							<hr />
 							<h5>Enter your card details</h5>
-							<s:form action="post" method="dbEntry" theme="simple">
+							<s:form   theme="simple" action="dbEntry" method="post">
 								<table cellpadding="5">
 									<tr>
 										<td>Card Number</td>
-										<td><s:textfield required="true" label="cardNumber" /></td>
+										<td><s:textfield required="true" label="cardNumber" name="cardNo"/></td>
 									</tr>
 
 									<tr>
 										<td>Name on Card</td>
-										<td><s:textfield required="true" label="nameCard" /></td>
+										<td><s:textfield required="true" label="nameCard" name="cardName"/></td>
 									</tr>
 
 									<tr>
@@ -192,7 +207,7 @@
 									<tr>
 										<td>CVV No</td>
 										<td><s:textfield required="true" label="cvv" size="3"
-												cssStyle="width:37px;" /></td>
+												cssStyle="width:37px;" name="cvv"/></td>
 									</tr>
 								</table>
 								<s:submit value="Pay" cssClass="btn btn-primary"
@@ -202,13 +217,13 @@
 						<div id="tabs-c">
 							Pay using Net Banking
 							<hr />
-							<s:form theme="simple">
+							<s:form theme="simple" method="post" action="bankSelect">
 								<table>
 									<tr>
 										<td width="160px">Choose your Bank</td>
 										<td><s:select label="Bank Name" headerKey="-1"
 												headerValue="Choose Bank"
-												list="#{'1':'ICICI', '2':'HDFC', '3':'Punjab National Bank', '4':'State Bank of India'}"
+												list="#{'1':'ICICI'}"
 												name="bank" cssStyle="width:200px;" /></td>
 									</tr>
 									<tr>
