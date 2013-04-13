@@ -18,7 +18,10 @@
 		document.getElementById('addRow').style.display = "block";
 	}
 
-	function Blank_TextField_Validator() {
+	function Validator() {
+
+		var balance = /^[0-9]+\.[0-9]+|^[0-9]+$/;
+		var accountNumber = /^\d{14}$/;
 
 		if (myform.customerName.value == "") {
 			alert("Please enter customer name.");
@@ -32,10 +35,26 @@
 			return (false);
 		}
 
+		if (!(myform.accountNumber.value.match(accountNumber))) {
+
+			alert("Account number should be a 14 digit number.");
+			myform.accountNumber.focus();
+			return (false);
+
+		}
+
 		if (myform.balance.value == "") {
 			alert("Please enter balance.");
 			myform.balance.focus();
 			return (false);
+		}
+
+		if (!(myform.balance.value.match(balance))) {
+
+			alert("Please correct balance.");
+			myform.balance.focus();
+			return (false);
+
 		}
 
 		return (true);
@@ -44,7 +63,7 @@
 
 </head>
 <body onload="hide()">
-	<br />
+
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="span4 offset4">
@@ -63,30 +82,33 @@
 
 
 				<div align="center">
-					<font size="5"><b>Bank Customers</b></font> <br /> <br />
+					<font size="5" face="Georgia"><b>Bank Customers</b></font> <br />
+					<br />
 				</div>
 				<br />
 				<table
-					class="table table-bordered table-condensed table-hover table-striped">
+					class="table table-bordered table-condensed table-hover-aamir table-aamir"
+					id="results">
 					<tr>
-						<th style="text-align: center"><font size="3">Customer
+						<th style="text-align: center"><font size="3" face="Georgia">Customer
 								Name</font></th>
-						<th style="text-align: center"><font size="3">Account
+						<th style="text-align: center"><font size="3" face="Georgia">Account
 								Number</font></th>
-						<th style="text-align: center"><font size="3">Balance
+						<th style="text-align: center"><font size="3" face="Georgia">Balance
 								(INR)</font></th>
-						<th style="text-align: center"><font size="3">Delete</font></th>
-						<th style="text-align: center"><font size="3">Edit
+						<th style="text-align: center"><font size="3" face="Georgia">Delete</font></th>
+						<th style="text-align: center"><font size="3" face="Georgia">Edit
 								Balance</font></th>
 					</tr>
 					<s:iterator value="customerList">
 
 						<tr>
-							<td style="text-align: center"><s:property
-									value="customerName" /></td>
-							<td style="text-align: center"><s:property
-									value="accountNumber" /></td>
-							<td style="text-align: center"><s:property value="balance" /></td>
+							<td style="text-align: center"><font face="Arial"><s:property
+										value="customerName" /></font></td>
+							<td style="text-align: center"><font face="Arial"><s:property
+										value="accountNumber" /></font></td>
+							<td style="text-align: center"><font face="Arial"><s:property
+										value="balance" /></font></td>
 							<td style="text-align: center"><a
 								href="deleteCustomer?accountNumber=<s:property value="accountNumber"/>">
 									<i class="icon-trash"></i>
@@ -100,9 +122,13 @@
 					</s:iterator>
 				</table>
 
+
+				<div id="pageNavPosition" align="center"></div>
+
+				<br />
 				<div align="center">
 					<form action="insertCustomer" class="form-inline" id="newdetail"
-						name="myform" onsubmit="return Blank_TextField_Validator()">
+						name="myform" onsubmit="return Validator()">
 
 						<input type="text" class="input-medium"
 							placeholder="Customer Name" name="customerName"> <input
@@ -119,5 +145,15 @@
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		var pager = new Pager('results', 10);
+		pager.init();
+		pager.showPageNav('pager', 'pageNavPosition');
+		pager.showPage(1);
+	</script>
+	<br />
+	<br />
+	<br />
 </body>
 </html>

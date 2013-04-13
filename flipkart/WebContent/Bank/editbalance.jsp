@@ -7,12 +7,30 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 <script type="text/javascript">
-	function Blank_TextField_Validator() {
+	function Validator() {
+
+		var amount = /^[0-9]+\.[0-9]+|^[0-9]*$/;
 
 		if (myform.credit.value == "" && myform.debit.value == "") {
 			alert("Please enter atleast one value or press cancel.");
 			myform.customerName.focus();
 			return (false);
+		}
+
+		if (!(myform.credit.value.match(amount))) {
+
+			alert("Please enter a valid credit amount.");
+			myform.credit.focus();
+			return (false);
+
+		}
+
+		if (!(myform.debit.value.match(amount))) {
+
+			alert("Please enter a valid debit amount.");
+			myform.debit.focus();
+			return (false);
+
 		}
 
 		return (true);
@@ -38,22 +56,21 @@
 			<div class="span12">
 
 				<div align="center">
-					<font size="5"><b>Edit Balance</b></font> <br /> <br />
+					<font size="5" face="Georgia"><b>Edit Balance</b></font> <br /> <br />
 				</div>
 				<br />
 
 				<div align="center">
 					<form action="editBalance" class="form-inline" id="newdetail"
-						name="myform" onsubmit="return Blank_TextField_Validator()">
+						name="myform" onsubmit="return Validator()">
 
 						<input type="text" class="input-medium" name="customerName"
-							value="<s:property value="customerName"/>" readonly>
-						<input type="text" class="input-medium" name=accountNumber
-							value="<s:property value="accountNumber"/>"
-							readonly> <input type="text" class="input-medium"
-							name="balance"
-							value="<s:property value="balance"/>" readonly>
-						<input type="text" class="input-medium" name="credit"
+							value="<s:property value="customerName"/>" readonly> <input
+							type="text" class="input-medium" name=accountNumber
+							value="<s:property value="accountNumber"/>" readonly> <input
+							type="text" class="input-medium" name="balance"
+							value="<s:property value="balance"/>" readonly> <input
+							type="text" class="input-medium" name="credit"
 							placeholder="Credit Amount"> <input type="text"
 							class="input-medium" name="debit" placeholder="Debit Amount">
 						<button type="submit" class="btn btn-medium">Save</button>
