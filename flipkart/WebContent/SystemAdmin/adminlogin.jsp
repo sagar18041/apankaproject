@@ -12,7 +12,6 @@
 	<br />
 	<br />
 	<br />
-	<br />
 	<div class=container-fluid>
 		<div class="row-fluid">
 			<div class="span4 offset4">
@@ -26,11 +25,11 @@
 					</s:iterator>
 				</s:if>
 				<div class="well-aamir" align="center">
-				<br/>
+					<br />
 					<s:form action="adminlogin" class="form-signin">
 
 						<h3 class="form-signin-heading" style="color: white;">
-							<i><img src="ViewResources/img/login.png"  height="50"
+							<i><img src="ViewResources/img/login.png" height="50"
 								width="50" /></i> Login
 						</h3>
 
