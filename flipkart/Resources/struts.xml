@@ -559,6 +559,11 @@
 			<result name="success" type="tiles">/creditcard.tiles</result>
 		</action>
 
+		<action name="getAllTransactions" class="com.flipkart.action.bank.TransactionAction"
+			method="getAllTransactions">
+			<result name="success" type="tiles">/viewtransactions.tiles</result>
+		</action>
+
 		<action name="NBSearchWindow" class="com.flipkart.action.bank.NetBankingAction"
 			method="initPopup">
 			<result name="success" type="tiles">/accountnumberpopup.tiles</result>
