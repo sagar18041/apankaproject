@@ -65,7 +65,11 @@
 			value="Flipkart.com: Secure Payment: Login > Select Shipping Address > Review Order > Place Order" />
 		<put-attribute name="body" value="/placeorder/paymentoptions.jsp" />
 	</definition>
-
+	<definition name="/success.tiles" extends="baselayout">
+		<put-attribute name="title"
+			value="flipkart" />
+		<put-attribute name="body" value="/placeorder/successpay.jsp" />
+	</definition>
 	<!-- ***************************End of Place Order********************************** -->
 
 
