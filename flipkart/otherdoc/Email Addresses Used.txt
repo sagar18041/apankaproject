@@ -4,3 +4,9 @@ emailid: flipkart.team403.iiitb.2013@gmail.com
 password: iiitbteam403
 
 
+
+
+seller email:
+
+email: flipkart.team403.seller@gmail.com   
+password: iiitbteam403
