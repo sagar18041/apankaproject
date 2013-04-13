@@ -189,7 +189,7 @@ public class MakePaymentAction extends ActionSupport{
 	    
 	    int enteredMonth=Integer.parseInt(month);
 	    int enteredYear=Integer.parseInt(year);
-	    
+	    System.out.println("Month " + enteredMonth);
 	    if(enteredYear <= y){
 	    	if(enteredMonth<m){
 	    		return ERROR;
@@ -203,7 +203,7 @@ public class MakePaymentAction extends ActionSupport{
 	    orderNum =  sess.get("OrderNum").toString();
 	    Boolean cardFlag = true;
 	    MakePaymentModel mpm = new MakePaymentModel();
-	    cardFlag = mpm.validateCard(Integer.parseInt(getCardNo()), getCardName(), Integer.parseInt(getCvv()), getMonth(), Integer.parseInt(getYear()) , orderNum , "cc");
+	    cardFlag = mpm.validateCard(getCardNo(), getCardName(), Integer.parseInt(getCvv()), getMonth(), Integer.parseInt(getYear()) , orderNum , "cc");
 		System.out.println("Card Validation = " + cardFlag);
 	    
 		if(!cardFlag){
@@ -213,7 +213,7 @@ public class MakePaymentAction extends ActionSupport{
 		 * Task 4 -> Make entry in bank Transaction and update order Table
 		 */
 		Boolean checkFlag = true;
-		checkFlag = mpm.insertUpdateRecords(orderNum, Integer.parseInt(getCardNo()) , "creditCard");
+		checkFlag = mpm.insertUpdateRecords(orderNum, getCardNo() , "creditCard");
 		
 		
 		
@@ -222,7 +222,7 @@ public class MakePaymentAction extends ActionSupport{
 		 * Task 5 -> update bank table and deduct the amount
 		 */
 		if(checkFlag)
-			checkFlag = mpm.updateBankAmount(Integer.parseInt(getCardNo()) , (int)grandTotal , "cc");
+			checkFlag = mpm.updateBankAmount(getCardNo() , (int)grandTotal , "cc");
 		
 		if(checkFlag)
 			{
@@ -293,7 +293,7 @@ public class MakePaymentAction extends ActionSupport{
 	    orderNum =  sess.get("OrderNum").toString();
 	    Boolean cardFlag = true;
 	    MakePaymentModel mpm = new MakePaymentModel();
-	    cardFlag = mpm.validateCard(Integer.parseInt(getCardNo()), getCardName(), Integer.parseInt(getCvv()), getMonth(), Integer.parseInt(getYear()) , orderNum , "db");
+	    cardFlag = mpm.validateCard(getCardNo(), getCardName(), Integer.parseInt(getCvv()), getMonth(), Integer.parseInt(getYear()) , orderNum , "db");
 		System.out.println("Card Validation = " + cardFlag);
 	    
 		if(!cardFlag){
@@ -303,14 +303,14 @@ public class MakePaymentAction extends ActionSupport{
 		 * Task 4 -> Make entry in bank Transaction and update order Table
 		 */
 		Boolean checkFlag = true;
-		checkFlag = mpm.insertUpdateRecords(orderNum, Integer.parseInt(getCardNo()) , "debitCard");
+		checkFlag = mpm.insertUpdateRecords(orderNum, getCardNo() , "debitCard");
 		
 
 		/*
 		 * Task 5 -> update bank table and deduct the amount
 		 */
 		if(checkFlag)
-			checkFlag = mpm.updateBankAmount(Integer.parseInt(getCardNo()) , (int)grandTotal , "db");
+			checkFlag = mpm.updateBankAmount(getCardNo() , (int)grandTotal , "db");
 		if(checkFlag)
 			{
 			sendEmail(orderNum); // send email

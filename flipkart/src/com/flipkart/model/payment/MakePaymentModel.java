@@ -23,7 +23,7 @@ public class MakePaymentModel {
 	 * @param year
 	 * @return Flag = true is card validates false if doesn't
 	 */
-	public Boolean validateCard(int cardNo , String cardName , int cvv , String Month , int year , String orderNo , String card){
+	public Boolean validateCard(String cardNo , String cardName , int cvv , String Month , int year , String orderNo , String card){
 		
 		Boolean flag = false;
 		/*
@@ -43,7 +43,7 @@ public class MakePaymentModel {
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
-			ps.setInt(1, cardNo);
+			ps.setString(1, cardNo);
 			ps.setString(2, Month);
 			ps.setInt(3, year);
 			ps.setInt(4, cvv);
@@ -72,8 +72,8 @@ public class MakePaymentModel {
 			try{
 				conn=DbConnection.getConnection();
 				ps=conn.prepareStatement(sqlQuery);
-				ps.setInt(1, cardNo);
-				ps.setInt(2, cardNo);
+				ps.setString(1, cardNo);
+				ps.setString(2, cardNo);
 				ps.setString(3, orderNo);
 				rs=ps.executeQuery();
 
@@ -92,7 +92,7 @@ public class MakePaymentModel {
 			try{
 				conn=DbConnection.getConnection();
 				ps=conn.prepareStatement(sqlQuery);
-				ps.setInt(1, cardNo);
+				ps.setString(1, cardNo);
 				ps.setString(2, orderNo);
 				rs=ps.executeQuery();
 
@@ -116,7 +116,7 @@ public class MakePaymentModel {
 	 * @param cardNo
 	 * @return flag to check if records are inserted and updated properly
 	 */
-	public Boolean insertUpdateRecords(String orderNum , int cardNo , String paymentType){
+	public Boolean insertUpdateRecords(String orderNum , String cardNo , String paymentType){
 		Boolean checkFlag = true;
 		/*
 		 * Update flipkart_order status = "delievered"
@@ -142,7 +142,7 @@ public class MakePaymentModel {
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
-			ps.setInt(1, cardNo);			
+			ps.setString(1, cardNo);			
 			rs=ps.executeQuery();
 			while(rs.next()){
 				customerId = rs.getInt("customerid");
@@ -271,7 +271,7 @@ public class MakePaymentModel {
 	 * @param card
 	 * @return
 	 */
-	public boolean updateBankAmount(int cardNum , int amt , String card){
+	public boolean updateBankAmount(String cardNum , int amt , String card){
 		if(card.equals("cc")){
 			sqlQuery = "update bank set balance = (balance-?) where accountNumber = (select accountNumber from creditCard where cardNumber =?)";
 		}
@@ -284,7 +284,7 @@ public class MakePaymentModel {
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
 			ps.setInt(1, amt);
-			ps.setInt(2, cardNum);
+			ps.setString(2, cardNum);
 			ps.executeUpdate();
 		}
 		catch(Exception ex){
