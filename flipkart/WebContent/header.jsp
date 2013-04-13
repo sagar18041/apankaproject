@@ -397,14 +397,7 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 						</s:url>
 					</s:if>
 				</s:iterator>
-				<li class="dropdown-submenu"><a href="#">More options <span
-						class="label label-important">NEW</span>
-				</a>
-					<ul class="dropdown-menu">
-						<li><a tabindex="-1" href="#">Action</a></li>
-						<li><a tabindex="-1" href="#">Another action</a></li>
-						<li><a tabindex="-1" href="#">Something else here</a></li>
-					</ul></li>
+			
 			</ul>
 		</div>
 		<!-- dropdown end here -->
@@ -442,7 +435,7 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 							</s:else>
 						</s:iterator>
 					</select>
-					 <button class="add-on"><i class="icon-search"></i></button>
+					 <button class="btn"><i class="icon-search"></i></button>
 
 				</div>
 			</div>
