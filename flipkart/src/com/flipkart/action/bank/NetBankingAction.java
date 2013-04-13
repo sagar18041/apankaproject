@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.flipkart.model.bank.BankCustomer;
 import com.flipkart.model.bank.NetBankingModel;
+import com.flipkart.util.MyUtilityFunctions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -86,7 +87,7 @@ public class NetBankingAction extends ActionSupport {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public String insertEntry() {
-		NetBankingModel.insertEntry(accountNumber, password);
+		NetBankingModel.insertEntry(accountNumber, MyUtilityFunctions.generateMD5(password));
 		Map session = ActionContext.getContext().getSession();
 		session.put("accountSelected", 0);
 		return SUCCESS;

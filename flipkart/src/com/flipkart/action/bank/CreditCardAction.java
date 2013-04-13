@@ -7,6 +7,7 @@ import com.flipkart.model.bank.BankCustomer;
 import com.flipkart.model.bank.Card;
 import com.flipkart.model.bank.CreditCardModel;
 import com.flipkart.model.bank.DebitCardModel;
+import com.flipkart.util.MyUtilityFunctions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -145,7 +146,7 @@ public class CreditCardAction extends ActionSupport {
 		CCard.setAccountNumber(accountNumber);
 		CCard.setCardNumber(cardNumber);
 		CCard.setCvv(cvv);
-		CCard.setPassword(password);
+		CCard.setPassword(MyUtilityFunctions.generateMD5(password));
 		CCard.setCreditLimit(creditLimit);
 
 		if (!CreditCardModel.isExisting(cardNumber)) {

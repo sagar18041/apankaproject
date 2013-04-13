@@ -6,6 +6,7 @@ import java.util.Map;
 import com.flipkart.model.bank.BankCustomer;
 import com.flipkart.model.bank.Card;
 import com.flipkart.model.bank.DebitCardModel;
+import com.flipkart.util.MyUtilityFunctions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -135,7 +136,7 @@ public class DebitCardAction extends ActionSupport {
 		DBCard.setAccountNumber(accountNumber);
 		DBCard.setCardNumber(cardNumber);
 		DBCard.setCvv(cvv);
-		DBCard.setPassword(password);
+		DBCard.setPassword(MyUtilityFunctions.generateMD5(password));
 
 		if (!DebitCardModel.isExisting(cardNumber)) {
 			DebitCardModel.insertDCEntry(DBCard, expiryMonth, expiryYear);
