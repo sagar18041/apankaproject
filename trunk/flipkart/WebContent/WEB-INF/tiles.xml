@@ -185,6 +185,11 @@
 		<put-attribute name="body" value="/Bank/debitcard.jsp" />
 	</definition>
 
+	<definition name="/viewtransactions.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Bank: View Transactions" />
+		<put-attribute name="body" value="/Bank/viewtransactions.jsp" />
+	</definition>
+
 	<!-- ============================== Bank End (Aamir) =========================== -->
 
 	<!-- ============================== End of System Administration =========================== -->
