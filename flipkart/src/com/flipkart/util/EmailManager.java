@@ -2,6 +2,7 @@ package com.flipkart.util;
 
 import java.util.Properties;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
@@ -52,4 +53,34 @@ public class EmailManager {
 
 	}
 
+	public static boolean sendHTMLEmail(String receiverEmailID,
+			String messageSubject, String messageBody, String senderEmailID,
+			String senderPassword) throws MessagingException{
+		final String from = new String(senderEmailID);
+		final String pwd = new String(senderPassword);
+		String subject = new String(messageSubject);
+		String body = new String(messageBody);
+
+		try {
+			Session sessionemail = Session.getDefaultInstance(properties,
+					new javax.mail.Authenticator() {
+						protected PasswordAuthentication getPasswordAuthentication() {
+							return new PasswordAuthentication(from, pwd);
+						}
+					});
+
+			Message message = new MimeMessage(sessionemail);
+			message.setFrom(new InternetAddress(from));
+			message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(receiverEmailID));
+			message.setSubject(subject);
+			message.setContent(body, "text/html");
+			Transport.send(message);
+			return true;
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
