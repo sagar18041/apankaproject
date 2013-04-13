@@ -458,11 +458,17 @@
 
 		<action name="adminaddcategory"
 			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
-			method="insertNewCategory">
+			method="initAddCategory">
 			<result name="success" type="tiles">/adminaddcategory.tiles</result>
 			<result name="error" type="tiles">/adminaddcategory.tiles</result>
 		</action>
 
+		<action name="admincategoryinsert"
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="insertNewCategory">
+			<result name="success" type="chain">adminaddcategory</result>
+			<result name="error" type="tiles">/adminaddcategory.tiles</result>
+		</action>
 
 		<action name="adminchangestatuscategory"
 			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"

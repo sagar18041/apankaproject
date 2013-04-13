@@ -33,16 +33,26 @@
 
 		<div id="tabs-viewCategory">
 			<s:form action="adminviewcategory" theme="simple">
-				<table cellpadding="5" class="table table-bordered">
+				<table class="table table-bordered">
 					<tr>
 						<th>Category Name</th>
+						<th>Parent Category</th>
+						<th>Level</th>
 						<th>Activation Status</th>
 					</tr>
 					<s:iterator value="categoryList">
 						<tr>
 							<td><s:property value="categoryName" /></td>
-						
-						<!-- /* 0=pending, 1=active, 2=inactive*/ -->
+
+							<td><s:if test="%{parentCategory == categoryName}">
+									-
+								</s:if> <s:else>
+									<s:property value="parentCategory" />
+								</s:else></td>
+
+							<td><s:property value="level" /></td>
+
+							<!-- /* 0=pending, 1=active, 2=inactive*/ -->
 							<td><s:if test="%{status == 1}">
 									<span style="color: green">ACTIVE</span>
 								</s:if> <s:elseif test="%{status == 2}">
@@ -55,7 +65,7 @@
 						</tr>
 					</s:iterator>
 				</table>
-			</s:form>  
+			</s:form>
 		</div>
 	</div>
 </body>
