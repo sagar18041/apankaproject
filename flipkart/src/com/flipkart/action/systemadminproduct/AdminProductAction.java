@@ -29,7 +29,7 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 	ArrayList<AdminProduct> attributesList = new ArrayList<AdminProduct>();
 
 	private String attribute, value;
-	private int priorityLevel;
+	private int priorityLevel=-1;
 
 	private File thumbnail, productImage;
 	private String thumbnailContentType;
@@ -154,7 +154,6 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 			if(thumbnailFileName != null){
 				//get the path where photos will get uploaded
 				filePath = servletRequest.getSession().getServletContext().getRealPath("/uploads/itemthumbnails");
-				System.out.println("Server path:" + filePath);
 
 				//Create photo name from random generator
 				String photoName = MyUtilityFunctions.createVerificationUrl() + "-" + thumbnailFileName;			
@@ -167,7 +166,6 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 
 				//copy file to given location
 				FileUtils.copyFile(this.thumbnail, fileToCreate);
-				System.out.println("photo URL"+photoURL);
 			}
 			else{
 				initializeItemPage();
@@ -202,7 +200,7 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 					ret= AdminProductModel.insertNewItem(getItemName(), prodId, photoURL);
 					
 					if(ret == -1){
-						System.out.println("5");
+						
 						addActionError("Sorry some error occurred. The new item was not added. Please try again.");
 						initializeItemPage();
 						check=0;
@@ -253,6 +251,16 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 	 */
 	public String initializeItemAttributePage(){
 
+		attributesList.clear();
+		//getting the newly created ItemID
+		int itemIDtemp=Integer.parseInt(adminSession.get("itemID").toString());
+		
+		attributesList=AdminProductModel.fetchItemAttributesList(itemIDtemp);
+		
+		setAttribute("");
+		setValue("");
+		setPriorityLevel(-1);
+		
 		return SUCCESS;
 
 	}
@@ -262,16 +270,118 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 	 */
 	public String insertAttributeDetails(){
 
+		int itemIDtemp=Integer.parseInt(adminSession.get("itemID").toString());
+		
+		try{
+			
+			// validating if text boxes are empty
+			if ( !getAttribute().equals("") && !getAttribute().equals(null) && !getValue().equals("") && 
+					!getValue().equals(null) && getPriorityLevel() != -1)
+			{
+				int ret;  
+				ret= AdminProductModel.checkExistingAttributeForItem(getAttribute(), itemIDtemp);
+				
+				if(ret == 0)
+				{
+					
+					ret= AdminProductModel.insertNewItemAttribute(itemIDtemp, getAttribute(), getValue(), getPriorityLevel());
+					
+					if(ret == -1){
+						System.out.println("prob here");
+						addActionError("Sorry some error occurred. The new item attribute was not added. Please try again.");
+						initializeItemAttributePage();
+						
+						return ERROR;
+					}
+				}
+				else{
+					addActionError("This attribute already exists for this item. Please enter another attribute name.");
+					initializeItemAttributePage();
+					
+					return ERROR;
+				}
+			}
+			else{
+				
+				addActionError("Please give a value for all the feilds !");
+				initializeItemAttributePage();
+				return ERROR;
+			}
+
+		}catch(Exception e){
+			
+			addActionError("Sorry some error occurred. The new attribute was not added. Please try again.");
+			initializeItemAttributePage();
+			return ERROR;
+		}
 		return SUCCESS;
 	}
 
 	public String deleteAttribute(){
+
+		if(!(getAttribute() == null) && !(getAttribute()=="")){
+			
+			int ret;
+			int itemIDtemp=Integer.parseInt(adminSession.get("itemID").toString());
+			
+			ret=AdminProductModel.deleteAttribute(itemIDtemp, getAttribute());
+			
+			if(ret==-1){
+				addActionError("Sorry some error occurred. The attribute was not deleted. Please try again.");
+				initializeItemAttributePage();
+				return ERROR;
+			}
+			else{
+				initializeItemAttributePage();
+			}
+		}
+		else{
+			addActionError("Sorry some error occurred. The attribute was not deleted. Please try again.");
+			initializeItemAttributePage();
+			return ERROR;
+		}
+			
 		return SUCCESS;
 	}
 	
 	public String editAttribute(){
+		
+		System.out.println("attr:"+getAttribute());
+		System.out.println("new value:"+getAttribute());
+		System.out.println("new attr:"+getAttribute());
+		
+		/*
+		if(!getAttribute().equals(null) && !getAttribute().equals("") &&
+				!getValue().equals(null) && !getValue().equals("") &&
+				getPriorityLevel()!=-1){
+			
+			int ret;
+			int itemIDtemp=Integer.parseInt(adminSession.get("itemID").toString());
+			
+			ret=AdminProductModel.editAttribute(itemIDtemp, getAttribute(), getValue(), getPriorityLevel());
+			
+			if(ret==-1){
+				addActionError("Sorry some error occurred. The attribute was not deleted. Please try again.");
+				initializeItemAttributePage();
+				return ERROR;
+			}
+			else{
+				initializeItemAttributePage();
+			}
+		}
+		else{
+			addActionError("Sorry some error occurred. Please try again.");
+			initializeItemAttributePage();
+			return ERROR;
+		}
+		*/
 		return SUCCESS;
 	}
+	
+	public String successProduct(){
+		return SUCCESS;
+	}
+	
 	
 	//GETTERS & SETTERS
 
