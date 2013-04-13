@@ -20,22 +20,36 @@
 		});
 	});
 
-	/* 
-	function showSuccessMsg() {
-		var check = document.getElementById("checkContent").value;
+	function hideParentCategory() {
+		document.getElementById("newdetail").style.display = "none";
+	}
 
-		
-		if (check == 1) {
-			document.getElementById("successMsg").style.display = 'none';
-		} else {
-			document.getElementById("successMsg").style.display = 'block';
+	//called when level drop down list changes
+	function onLevelSelect() {
+		var element = document.getElementById("level");
+
+		if (element.selectedIndex == -1) {
+			element.value = -1;
 		}
-	}*/
- 
- </script>
+		var selectedLevel = element.options[element.selectedIndex].text;
+
+		/* if parent is needed */
+		if (selectedLevel != 0) {
+			document.getElementById("newdetail").style.display = "block";
+		} else {
+			hideParentCategory();
+		}
+	}
+
+	/* assigning the categoryID of selected category in drop downlist to hidden feild */
+	function onCategoryChange() {
+		var cat = document.getElementById("parentCategory");
+		document.getElementById("selectedCategoryID").value = cat[cat.selectedIndex].value;
+	}
+</script>
 
 </head>
-<body><!--  onload="showSuccessMsg()" -->
+<body onload="hideParentCategory()">
 	<div id="option">
 		<ul class="nav nav-tabs">
 			<li><a href="#tabs-viewCategory">View Categories</a></li>
@@ -55,7 +69,7 @@
 					</div>
 				</s:iterator>
 			</s:if>
-			
+
 			<s:if test="%{check == 1}">
 				<div class="alert alert-success" id="successMsg">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -64,15 +78,43 @@
 				</div>
 			</s:if>
 
-			<%-- <s:set name="checkContent" value="%{check}" /> --%>
+			<s:form action="admincategoryinsert" theme="simple" method="post">
 
-			<s:form action="adminaddcategory" theme="simple">
-
+				<s:hidden name="selectedCategoryID" id="selectedCategoryID" />
 				<table class="table table-bordered table-hover">
 					<tr>
 						<td>Category Name</td>
 						<td><s:textfield name="categoryName" theme="simple"
 								placeholder="Please enter Category Name" cssClass="input-xlarge" /></td>
+					</tr>
+					<tr>
+						<td>Category Level</td>
+						<td>
+							<div class="input-prepend">
+								<span class="add-on"> <i class="icon-signal"
+									style="color: black;"> </i>
+								</span>
+								<s:select name="level" list="levels" headerKey="-1" id="level"
+									onChange="onLevelSelect()" headerValue="Choose Level"
+									theme="simple" cssClass="chzn-select" title="Choose Level" />
+							</div>
+						</td>
+					</tr>
+					<tr id="newdetail" theme="simple">
+						<td>Parent Category</td>
+						<td>
+
+							<div class="input-prepend">
+								<span class="add-on"> <i class="icon-signal"
+									style="color: black;"> </i>
+								</span>
+								<s:select list="parentCategories" headerKey="-1"
+									headerValue="Choose Parent Category" id="parentCategory"
+									theme="simple" cssClass="chzn-select" style="width:257px"
+									onchange="onCategoryChange()" />
+							</div>
+
+						</td>
 					</tr>
 				</table>
 

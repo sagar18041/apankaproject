@@ -1,6 +1,7 @@
 package com.flipkart.action.systemadmincategory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import com.flipkart.model.placeorder.Order;
 import com.flipkart.model.placeorder.ShippingAddress;
@@ -17,7 +18,14 @@ public class AdminCategoryAction extends ActionSupport{
 	private String categoryName="";
 	String[] checkCategory;
 	int check=0, checkVerification=0;
-
+	int level=-1;
+	String parentCategory;
+	private int selectedCategoryID=-1;
+	
+	HashMap<Integer,String> parentCategories = new HashMap<Integer,String>();
+	
+	private ArrayList<Integer> levels = new ArrayList<Integer>();  
+	
 	public String fetchCategoryList(){
 
 		if (categoryList == null)
@@ -29,66 +37,92 @@ public class AdminCategoryAction extends ActionSupport{
 		return SUCCESS;
 	}
 
+	public String initAddCategory(){
+
+		//fetch category levels from DB
+		levels=AdminCategoryModel.fetchLevels();
+
+		//fetch data to populate parentLists
+		parentCategories=AdminCategoryModel.fetchParentCategories();
+
+		setLevel(-1);
+		setSelectedCategoryID(-1);
+		setParentCategory("");
+		setCategoryName("");
+		
+		return SUCCESS;
+	}
+	
 	public String insertNewCategory(){
 
 		check=0;
-
-		if ( !getCategoryName().equals("") && !getCategoryName().equals(null))
+		
+		/*
+		 * if level is 0, then the parentID for path table wud be the same as categoryID,
+		 * it will be fetched after the insert is made.
+		 * so right now givin a temporary value as -99 for parentID
+		 */
+		if(getLevel() == 0){
+			setSelectedCategoryID(-99);
+		}
+		
+		if (!getCategoryName().equals("") && !getCategoryName().equals(null) &&
+				getSelectedCategoryID() != -1 && getLevel() != -1)
 		{
 
-			System.out.println("1");
 			int ret;  
 			ret= AdminCategoryModel.checkExistingCategory(getCategoryName());
 
 			if(ret == 0)
 			{
-				System.out.println("2");
-				ret= AdminCategoryModel.insertNewCategory(getCategoryName());
-				setCategoryName("");
-
+				ret= AdminCategoryModel.insertNewCategory(getCategoryName(),getLevel());
+				
 				/*
 				 * if there was no error in insert, then send mail to Admin,
 				 * else dont send mail.
 				 */
 				if(ret == -1){
-					System.out.println("4");
+			
 					addActionError("Sorry some error occurred. The new category was not added.");
 					check=0;
+					initAddCategory();
 					return ERROR;
 				}
 				else if (ret == 0){
-					System.out.println("5");
+			
 					check=1;
-					ret= AdminCategoryModel.insertNewCategoryPath();
+					ret= AdminCategoryModel.insertNewCategoryPath(getSelectedCategoryID());
 					
 					if(ret == -1){
-						System.out.println("6");
+					
 						/* in case you were not able to insert path, 
 						 * remove category table entry too 
 						 * */
 						AdminCategoryModel.removeNewCategory(getCategoryName());
 						
 						addActionError("Sorry some error occurred. The new category was not added.");
+						initAddCategory();
 						check=0;
 						return ERROR;
 					}
 					else{
 						/* if the inserts were successful send the mail to admin*/
-						System.out.println("7");
 						sendMailCategoryAddition();
+						initAddCategory();
 					}
 				}
 			}
 			else{
-				System.out.println("3");
 				addActionError("This category already exists. Please enter another category.");
 				check=0;
+				initAddCategory();
 				return ERROR;
 			}
 		}
 		else{
 			check=0;
-			addActionError("Please give a value for category name !");
+			addActionError("Please give a value for all the feilds !");
+			initAddCategory();
 			return ERROR;
 		}
 		return SUCCESS;
@@ -218,4 +252,45 @@ public class AdminCategoryAction extends ActionSupport{
 	public void setCheckVerification(int checkVerification) {
 		this.checkVerification = checkVerification;
 	}
+
+	public ArrayList<Integer> getLevels() {
+		return levels;
+	}
+
+	public void setLevels(ArrayList<Integer> levels) {
+		this.levels = levels;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public String getParentCategory() {
+		return parentCategory;
+	}
+
+	public void setParentCategory(String parentCategory) {
+		this.parentCategory = parentCategory;
+	}
+
+	public HashMap<Integer, String> getParentCategories() {
+		return parentCategories;
+	}
+
+	public void setParentCategories(HashMap<Integer, String> parentCategories) {
+		this.parentCategories = parentCategories;
+	}
+
+	public int getSelectedCategoryID() {
+		return selectedCategoryID;
+	}
+
+	public void setSelectedCategoryID(int selectedCategoryID) {
+		this.selectedCategoryID = selectedCategoryID;
+	}
+
 }

@@ -21,7 +21,7 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 
 	private String productName;
 	private String itemName;
-	private String categoryID;
+	private int categoryID;
 	private int selectedCategoryID=-1;
 
 	HashMap<Integer,String> categoryList = new HashMap<Integer,String>();
@@ -53,6 +53,7 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 		categoryList.clear();
 		categoryList=AdminProductModel.fetchCategoryList();
 		setProductName("");
+		setSelectedCategoryID(-1);
 		
 		return SUCCESS;
 	}
@@ -472,11 +473,11 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 	}
 
 
-	public String getCategoryID() {
+	public int getCategoryID() {
 		return categoryID;
 	}
 
-	public void setCategoryID(String categoryID) {
+	public void setCategoryID(int categoryID) {
 		this.categoryID = categoryID;
 	}
 

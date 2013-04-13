@@ -2,8 +2,8 @@ package com.flipkart.model.systemadmincategory;
 
 public class AdminCategory {
 
-	private String categoryName;
-	private int status, categoryID;
+	private String categoryName, parentCategory;
+	private int status, categoryID, level;
 
 	public String getCategoryName() {
 		return categoryName;
@@ -27,6 +27,22 @@ public class AdminCategory {
 
 	public void setCategoryID(int categoryID) {
 		this.categoryID = categoryID;
+	}
+
+	public String getParentCategory() {
+		return parentCategory;
+	}
+
+	public void setParentCategory(String parentCategory) {
+		this.parentCategory = parentCategory;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 

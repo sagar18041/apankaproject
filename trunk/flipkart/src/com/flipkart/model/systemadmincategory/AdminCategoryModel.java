@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import com.flipkart.model.systemadminproduct.AdminProduct;
 import com.flipkart.util.DbConnection;
 
 public class AdminCategoryModel {
@@ -15,14 +17,17 @@ public class AdminCategoryModel {
 	static Connection conn = null;
 
 	/**
-	 * This method fetches category names and their status
+	 * This method fetches category names and their status, level and parentCategory
 	 * @return category list
 	 */
 	public static ArrayList<AdminCategory> fetchCategoryList() {
 
 		ArrayList<AdminCategory> categoryList = new ArrayList<AdminCategory>();
 
-		sqlQuery = "SELECT categoryName, status FROM flipkart_category";
+		sqlQuery = "SELECT categoryName, status, B.level," +
+				"(SELECT categoryName FROM flipkart_category A WHERE A.categoryID=C.parentID) AS parentCategory " +
+				"FROM flipkart_category B, flipkart_path C " +
+				"WHERE B.categoryID=C.categoryID ORDER BY B.level;";
 
 		try{
 			conn=DbConnection.getConnection();
@@ -33,6 +38,8 @@ public class AdminCategoryModel {
 				AdminCategory category = new AdminCategory();
 				category.setCategoryName(rs.getString(1));
 				category.setStatus(rs.getInt(2));
+				category.setLevel(rs.getInt(3));
+				category.setParentCategory(rs.getString(4));
 				categoryList.add(category);
 			}
 		}catch(Exception e){
@@ -42,6 +49,72 @@ public class AdminCategoryModel {
 		return categoryList;
 	}
 
+
+	/**
+	 * This method fetches category names and their ID
+	 * @return category list
+	 */
+	public static HashMap<Integer,String> fetchParentCategories() {
+		
+		HashMap<Integer,String> categoryList = new HashMap<Integer,String>();
+		ArrayList<AdminCategory> categories = new ArrayList<AdminCategory>();
+
+		sqlQuery = "SELECT categoryID, categoryName FROM flipkart_category WHERE status=1 AND " +
+				"categoryID IN (SELECT categoryID from flipkart_path);";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				AdminCategory category = new AdminCategory();
+				category.setCategoryID(rs.getInt(1));
+				category.setCategoryName(rs.getString(2));
+				categories.add(category);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		/* 
+		 * adding arraylist entries to hashmap as (key,value) => (categoryID, categoryName)
+		 */
+		for(int i=0; i< categories.size();i++)
+			categoryList.put(categories.get(i).getCategoryID(), categories.get(i).getCategoryName());
+
+		return categoryList;
+
+	}
+
+
+	/**
+	 * This method fetches all levels in flipkart category db
+	 * @return levels list
+	 */
+	public static ArrayList<Integer> fetchLevels() {
+
+		ArrayList<Integer> levels = new ArrayList<Integer>();
+
+		sqlQuery = "SELECT DISTINCT(level) FROM flipkart_category;";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				int levelTemp;
+				levelTemp=rs.getInt(1);
+
+				levels.add(levelTemp);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return levels;
+	}
 
 	/**
 	 * It checks whether a category already exists
@@ -76,7 +149,7 @@ public class AdminCategoryModel {
 	 * @param categoryname- name of the new category
 	 * @return 0 - success, -1 - error
 	 */
-	public static int insertNewCategory(String categoryname) {
+	public static int insertNewCategory(String categoryname, int level) {
 
 		sqlQuery = "INSERT INTO flipkart_category(categoryName, status, createdBy, modifiedBy, level) " +
 				"VALUES (?,?,?,?,?);";
@@ -89,7 +162,7 @@ public class AdminCategoryModel {
 			ps.setInt(2, 0);  /* 0=pending, 1=active, 2=inactive*/
 			ps.setString(3, "Admin");
 			ps.setString(4, "Admin");
-			ps.setInt(5, 0);
+			ps.setInt(5, level);
 
 			ps.executeUpdate();
 
@@ -105,9 +178,8 @@ public class AdminCategoryModel {
 	 * This method is used to insert a new category path into database
 	 * @return 0 - success, -1 - error
 	 */
-	public static int insertNewCategoryPath() {
+	public static int insertNewCategoryPath(int parentID) {
 
-		System.out.println("10");
 		int categoryID=0;
 
 		/* fetch the most recently entered category ID*/
@@ -120,15 +192,9 @@ public class AdminCategoryModel {
 			rs=ps.executeQuery();
 
 			while(rs.next()){
-				
-					System.out.println("check sony");
-					categoryID = rs.getInt(1);
-					System.out.println("categoryID:"+categoryID);
-				
+				categoryID = rs.getInt(1);
 			}
 
-			System.out.println("11");
-			
 			/* inserting into path table */
 			sqlQuery = "INSERT INTO flipkart_path(categoryID, parentID, level) " +
 					"VALUES (?,?,?);";
@@ -138,7 +204,14 @@ public class AdminCategoryModel {
 				ps=conn.prepareStatement(sqlQuery);
 
 				ps.setInt(1, categoryID);
-				ps.setInt(2, categoryID); 
+				
+				//if parentID IS -99, meaning level 0 was selected, so categoryID will be parentID
+				if(parentID == -99){
+					ps.setInt(2, categoryID);
+				}else{
+					ps.setInt(2, parentID);
+				}
+				 
 				ps.setInt(3, 0);
 
 				ps.executeUpdate();
@@ -163,8 +236,6 @@ public class AdminCategoryModel {
 	 * @param categoryname - name of category
 	 */
 	public static void removeNewCategory(String categoryname) {
-
-		System.out.println("12");
 		int categoryID=0;
 
 		/* fetch the category ID for the given caategoryName*/
@@ -188,12 +259,25 @@ public class AdminCategoryModel {
 				ps=conn.prepareStatement(sqlQuery);
 				ps.setInt(1, categoryID);
 				ps.executeUpdate();
+				
+				/* deleting from path table */
+				sqlQuery = "DELETE FROM flipkart_path WHERE categoryID=?";
+				
+				try{
+					conn=DbConnection.getConnection();
+					ps=conn.prepareStatement(sqlQuery);
+					ps.setInt(1, categoryID);
+					ps.executeUpdate();	
+				}
+				catch(Exception e){
+			
+				}
 			}
 			catch(Exception e){
-				//e.printStackTrace();
+			
 			}
 		}catch(Exception e){
-			//e.printStackTrace();
+			
 		}
 	}
 
