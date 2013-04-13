@@ -57,7 +57,8 @@
 							<li><a href="getAllCustomers">Customers</a></li>
 							<li><a href="getAllCreditCards">Credit Cards</a></li>
 							<li><a href="getAllDebitCards">Debit Cards</a></li>
-							<li><a href="netbankingviewentries">Net Banking</a></li>							
+							<li><a href="netbankingviewentries">Net Banking</a></li>
+							<li><a href="getAllTransactions">Transactions</a></li>							
 						</ul></li>
 
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
