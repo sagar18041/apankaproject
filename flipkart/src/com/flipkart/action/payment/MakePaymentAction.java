@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import com.flipkart.model.authentication.ForgotPasswordModel;
 import com.flipkart.model.authentication.SignUpModel;
 import com.flipkart.model.cartmanagement.Cart;
@@ -151,8 +156,9 @@ public class MakePaymentAction extends ActionSupport{
 	 * 4. if all successful then make an entry in bank transaction and update order table
 	 * 5. Update bank table and deduct the amount from totalamount
 	 * @return
+	 * @throws MessagingException 
 	 */
-	public String creditPayment(){
+	public String creditPayment() throws MessagingException{
 		
 		/*
 		 * Show data in order Div
@@ -241,8 +247,9 @@ public class MakePaymentAction extends ActionSupport{
 	 * 3. Check if amount is less than available amount and credit card limit
 	 * 4. if all successful then make an entry in bank transaction and update order table
 	 * @return
+	 * @throws MessagingException 
 	 */
-	public String debitPayment(){
+	public String debitPayment() throws MessagingException{
 		
 		/*
 		 * Show data in order Div
@@ -328,8 +335,9 @@ public class MakePaymentAction extends ActionSupport{
 	 * 3. Check if amount is less than available amount and credit card limit
 	 * 4. if all successful then make an entry in bank transaction and update order table
 	 * @return
+	 * @throws MessagingException 
 	 */
-	public String bankPayment(){
+	public String bankPayment() throws MessagingException{
 		/*
 		 * Show data in order Div
 		 */
@@ -393,19 +401,21 @@ public class MakePaymentAction extends ActionSupport{
 	/**
 	 * Sends email on successful payment
 	 * @param orderNum
+	 * @throws MessagingException 
 	 */
-	public void sendEmail(String orderNum){
+	public void sendEmail(String orderNum) throws MessagingException{
 		MakePaymentModel mpm = new MakePaymentModel();
 		
 		String emailAdd = sess.get("emailAddress").toString();	
 		if (SignUpModel.checkUser(emailAdd)) {
-
+			
+			 
 			String messageSubject = "Flipkart: Order Confirmed";
 			String messageBody = "Dear Customer," 
-					+ "\n\nGreetings from Flipkart!"
-					+ "\n\nWe thank you for your order. This email contains your order summary."
-					+ "\n\nPlease find below the summary of your order" + orderNum + "at Flipkart.com:"
-					+ "\n\n<html><table><tr><td>Product Details</td><td>Shipping Address</td><td>Ordered Quantity</td><td>Price(Unit Rs.)</td><td>Sub Total(Unit Rs.)</td></tr>";
+					+ "<br/><br/>Greetings from Flipkart!"
+					+ "<br/><br/>We thank you for your order. This email contains your order summary."
+					+ "<br/><br/>Please find below the summary of your order" + orderNum + "at Flipkart.com:"
+					+ "<br/><br/><html><table border='1'><tr><td>Product Details</td><td>Shipping Address</td><td>Ordered Quantity</td><td>Price(Unit Rs.)</td><td>Sub Total(Unit Rs.)</td></tr>";
 					
 			cartEmail = mpm.cartDetails(orderNum);
 			for(int i = 0 ; i < cartEmail.size() ; i++){
@@ -419,12 +429,12 @@ public class MakePaymentAction extends ActionSupport{
 						"</tr>";
 			}
 			messageBody = messageBody	+ "</table></html>";
-			messageBody = messageBody	+ "\n\nPlease contact us should you have any questions or need further assistance."
-					+ "\n\n\nThank you for shopping with us!"
-					+ "\n\n..............................................................................................................."
-					+ "\n\nFlipkart.com... The Online Megastore!";
+			messageBody = messageBody	+ "<br/><br/>Please contact us should you have any questions or need further assistance."
+					+ "<br/><br/><br/>Thank you for shopping with us!"
+					+ "<br/><br/>..............................................................................................................."
+					+ "<br/><br/>Flipkart.com... The Online Megastore!";
 
-			if (EmailManager.sendMail(emailAdd, messageSubject,
+			if (EmailManager.sendHTMLEmail(emailAdd, messageSubject,
 					messageBody, RuntimeSettings.smtpFrom,
 					RuntimeSettings.smtpPassword)) {
 				
