@@ -408,7 +408,26 @@
 			<result name="tohome" type="tiles">/home.tiles</result>
 		</action>
 		<!-- ******************************* End of Product Page by ********************************** -->
-
+	<!-- ******************************* Payment ********************************** -->
+		<action name="ccEntry" class="com.flipkart.action.payment.MakePaymentAction"
+			method="creditPayment">
+			<result name="success" type="tiles">/success.tiles</result>
+			<result name="error" type="tiles">/paymentoptions.tiles</result>
+		</action>
+		<action name="dbEntry" class="com.flipkart.action.payment.MakePaymentAction"
+			method="debitPayment">
+			<result name="success" type="tiles">/success.tiles</result>
+			<result name="error" type="tiles">/paymentoptions.tiles</result>
+		</action>
+		<action name="bankSelect">
+			<result>/placeorder/bank.jsp</result>
+		</action>
+		<action name="bankEntry" class="com.flipkart.action.payment.MakePaymentAction"
+			method="bankPayment">
+			<result name="success" type="tiles">/success.tiles</result>
+			<result name="error" type="tiles">/paymentoptions.tiles</result>
+		</action>
+		<!-- ******************************* End of Payment ********************************** -->
 		<!-- product comparision by Ananda -->
 		<action name="compareproducts" class="com.flipkart.action.compareproduct.CompareAction"
 			method="execute">
