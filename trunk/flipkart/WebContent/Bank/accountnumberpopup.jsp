@@ -52,7 +52,7 @@
 								<td style="text-align: center"><a
 									href="selectAction?accountNumber=<s:property
 									value="accountNumber" />">
-										<i><img src="ViewResources/img/Select.png" height="20"
+										<i><img src="ViewResources/img/select.png" height="20"
 											width="20" /></i>
 								</a></td>
 							</tr>
