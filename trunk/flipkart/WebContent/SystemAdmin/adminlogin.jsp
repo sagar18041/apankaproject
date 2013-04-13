@@ -55,8 +55,9 @@
 									</div>
 								</td>
 							</tr>
+							
 							<tr>
-								<td height="40"><button type="submit"
+								<td height="40" valign="bottom"><button type="submit"
 										class="fk-button-blue pull-left">Sign In</button></td>
 							</tr>
 						</table>
