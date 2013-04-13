@@ -71,7 +71,7 @@
 						<br />
 
 
-						<table class="table">
+						<table class="table table-bordered">
 							<tr>
 								<th style="text-align: center">Attribute Name</th>
 								<th style="text-align: center">Attribute Value</th>
@@ -90,30 +90,31 @@
 									<td style="text-align: center"><a
 										href="admindeleteitemattributes?attribute=<s:property value="attribute"/>">
 											<i class="icon-trash"></i>
-									</a></td>
+									</a>
+									</td>
 								</tr>
 
 							</s:iterator>
 						</table>
 
-						<div align="center">
+						<div align="left">
 							<form action="admininsertitemattributes" class="form-inline"
 								id="newdetail" name="myform">
 
-								<input type="text" placeholder="Attribute Name" name="attribute">
-								<input type="text" placeholder="Attribute Value" name="value">
-								<input type="text" placeholder="Priority Level"
-									name="priorityLevel">
+								<input type="text" placeholder="Attribute Name" name="attribute" style="width:140px">
+								<input type="text" placeholder="Attribute Value" name="value" style="width:140px">
+								<input type="number" placeholder="Priority Level"
+									name="priorityLevel" min="0" max="2" style="width:70px">
 
-								<button type="submit" class="btn">Save</button>
-								<a href="#" class="btn btn-danger" onclick="hide()"> Cancel</a>
+								<button type="submit" class="btn btn-small">Save</button>
+								<a href="#" class="btn btn-small btn-danger" onclick="hide()"> Cancel</a>
 							</form>
 						</div>
 						<button class="btn btn-small btn-primary pull-right" type="button"
 							onclick="show()" id="addRow">Add Attribute</button>
 
 						<br /> <br /> <br />
-						<button class="btn btn-success pull-right" type="button" onsubmit="showSuccessMsg()">Finish</button>
+						<button class="btn btn-success pull-right" type="button" onclick="showSuccessMsg()">Finish</button>
 					</div>
 				</div>
 			</div>
