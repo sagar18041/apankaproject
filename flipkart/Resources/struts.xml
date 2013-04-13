@@ -481,6 +481,13 @@
 			<result name="success" type="tiles">/adminaddcategory.tiles</result>
 			<result name="error" type="tiles">/adminaddcategory.tiles</result>
 		</action>
+		
+		<action name="adminparentcategoryinit"
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="parentCategoryInit">
+			<result name="success" type="chain">adminaddcategory</result>
+		</action>
+
 
 		<action name="admincategoryinsert"
 			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
