@@ -416,7 +416,7 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 			<div class="input-append">
 				<input type="text" data-provide="typeahead" class="span4"
 					placeholder="Search for items" id="search" name="searchText"
-					data-source='<s:property value="autoCompleteList"/>'
+					data-source='<s:property value="autoCompleteList"/>' autocomplete="off"
 					onkeyup="callSearch()" value="<s:property value="searchText"/>" />
 
 
@@ -441,7 +441,8 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 								</option>
 							</s:else>
 						</s:iterator>
-					</select> <span class="add-on"><i class="icon-search"></i></span>
+					</select>
+					 <button class="add-on"><i class="icon-search"></i></button>
 
 				</div>
 			</div>
