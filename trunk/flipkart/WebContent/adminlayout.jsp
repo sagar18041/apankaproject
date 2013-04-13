@@ -19,6 +19,8 @@
 <script src="ViewResources/js/bootstrap.js"></script>
 <link href="ViewResources/css/bootstrap.css" rel="stylesheet">
 <link href="ViewResources/css/font-awesome.css" rel="stylesheet">
+<link href="ViewResources/css/pager.css" rel="stylesheet">
+<script src="ViewResources/jQuery/js/paging.js"></script>
 
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 <style>
