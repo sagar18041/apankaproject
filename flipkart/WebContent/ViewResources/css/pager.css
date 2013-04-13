@@ -1,0 +1,21 @@
+.pg-normal {
+	padding: 4px 12px;
+	line-height: 20px;
+	background-color: #A8CFFF;
+	border: 1px solid #dddddd;
+	display: inline-block;
+	cursor: pointer;
+	color: black;
+}
+
+.pg-selected {
+	padding: 4px 12px;
+	line-height: 20px;
+	background-color: #D0E6FF;
+	border: 1px solid #dddddd;
+	border-left-width: 0;
+	display: inline-block;
+	color: black;
+	font-weight: bold;
+	text-decoration: underline;
+}
