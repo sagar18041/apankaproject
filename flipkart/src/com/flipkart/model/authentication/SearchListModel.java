@@ -25,7 +25,7 @@ public class SearchListModel {
 		
 		System.out.println("Coming to query");
 		System.out.println("Parameter is " + category);
-		if(category == null || category.equals(" Category"))
+		if(category == null || category.equals(" Category") || category.equals("All Category"))
 			{	System.out.println("Query for null value");
 				sqlQuery = "SELECT distinct itemName AS field FROM fielditemview";
 			}
