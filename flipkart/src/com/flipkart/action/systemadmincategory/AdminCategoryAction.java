@@ -40,8 +40,11 @@ public class AdminCategoryAction extends ActionSupport{
 	public String initAddCategory(){
 
 		//fetch category levels from DB
-		levels=AdminCategoryModel.fetchLevels();
-
+		//levels=AdminCategoryModel.fetchLevels();
+		levels.clear();
+levels.add(0);
+levels.add(1);
+levels.add(2);
 		/*//fetch data to populate parentLists
 		parentCategories=AdminCategoryModel.fetchParentCategories();*/
 
@@ -152,6 +155,7 @@ public class AdminCategoryAction extends ActionSupport{
 			check=0;
 			checkParentCategory=0;
 			initAddCategory();
+			
 			return ERROR;
 		}
 		return SUCCESS;
