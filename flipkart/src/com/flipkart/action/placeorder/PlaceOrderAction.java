@@ -434,10 +434,6 @@ public class PlaceOrderAction extends ActionSupport {
 						addr[i] = tempAddr[j];
 				}
 			}
-			
-			for (int i = 0; i < cartList.size(); i++) {
-				System.out.println("addr::::"+addr[i]);
-			}
 
 			addressList = ShippingAddressModel.fetchAddrList(Integer
 					.parseInt(sess.get("userID").toString()));
