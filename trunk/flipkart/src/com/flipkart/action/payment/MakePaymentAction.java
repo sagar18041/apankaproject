@@ -161,6 +161,14 @@ public class MakePaymentAction extends ActionSupport{
 	public String creditPayment() throws MessagingException{
 		
 		/*
+		 * Task 1 -> Check if fields are not null
+		 */
+		if(cardName==null || cardNo==null || cvv==null || month==null || year==null){
+			addActionMessage("All fields are required");
+			return ERROR;
+		}
+		
+		/*
 		 * Show data in order Div
 		 */
 		cartList.clear();
@@ -174,23 +182,17 @@ public class MakePaymentAction extends ActionSupport{
 			grandTotal += 50;
 		}
 		
-		/*
-		 * Task 1 -> Check if fields are not null
-		 */
-		if(getCardName().equals(null) || getCardNo().equals(null) || getCvv().equals(null) || getMonth().equals(null) || getYear().equals(null)){
-			addActionError("All fields are required");
-			return ERROR;
-		}
+		
 		if(getCardName().equals("")){
-			addActionError("Please enter name on the card");
+			addActionMessage("Please enter name on the card");
 			return ERROR;
 		}
 		if(getCardNo().equals("")){
-			addActionError("Please enter card number");
+			addActionMessage("Please enter card number");
 			return ERROR;
 		}
 		if(getCvv().equals("") || getCvv().length() != 3){
-			addActionError("Please enter cvv");
+			addActionMessage("Please enter cvv");
 			return ERROR;
 		}
 		Calendar cal = Calendar.getInstance();
