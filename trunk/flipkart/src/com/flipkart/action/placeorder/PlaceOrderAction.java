@@ -29,7 +29,7 @@ public class PlaceOrderAction extends ActionSupport {
 	private ArrayList<String> existingAddrList;
 	private ArrayList<String> stateList;
 	private String addressid = "0";
-	private int check = 0;
+	private int check;
 	private String errorMsg = "";
 
 	/* used to save newly entered shipping address */
@@ -363,7 +363,7 @@ public class PlaceOrderAction extends ActionSupport {
 		boolean orderCheck = createOrder(flag);
 		if (!orderCheck) {
 			errorMsg = "Please provide all details";
-
+			// check = 1;
 			return ERROR;
 		}
 
@@ -409,13 +409,34 @@ public class PlaceOrderAction extends ActionSupport {
 			orderNum = sess.get("OrderNum").toString();
 		}
 
+		int item[] = new int[cartList.size()];
+		int tempAddr[] = new int[cartList.size()];
 		int addr[] = new int[cartList.size()];
+
 		if (mapping != null) {
 			if (mapping.equals("") || mapping.length() / cartList.size() != 4) {
 				return false;
 			}
+
 			for (int i = 0; i < cartList.size(); i++) {
-				addr[i] = Integer.parseInt(mapping.charAt(i * 4 + 2) + "");
+				item[i] = Integer.parseInt(mapping.charAt(i * 4) + "");
+			}
+
+			for (int i = 0; i < cartList.size(); i++) {
+				tempAddr[i] = Integer.parseInt(mapping.charAt(i * 4 + 2) + "");
+			}
+
+			for (int i = 0; i < cartList.size(); i++) {
+				for (int j = 0; j < cartList.size(); j++) {
+					if (item[j] != i + 1)
+						continue;
+					else
+						addr[i] = tempAddr[j];
+				}
+			}
+			
+			for (int i = 0; i < cartList.size(); i++) {
+				System.out.println("addr::::"+addr[i]);
 			}
 
 			addressList = ShippingAddressModel.fetchAddrList(Integer
@@ -516,7 +537,7 @@ public class PlaceOrderAction extends ActionSupport {
 		grandTotal = subTotal;
 		if (subTotal < 500 && subTotal != 0) {
 			grandTotal += 50;
-			//setAmountPayable(getAmountPayable() + 50);
+			// setAmountPayable(getAmountPayable() + 50);
 		}
 
 		// to update cart count on the cart icon in header
