@@ -75,36 +75,55 @@
 		<action name="emaillogin" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="fetchEmailID">
 			<interceptor-ref name="loginStack" />
+			<result name="success" type="chain">emailloginHome</result>
+		</action>
+		<action name="emailloginHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/emaillogin.tiles</result>
 		</action>
-
+		
+		
 		<action name="shippingaddress" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="fetchShippingAddr">
 			<interceptor-ref name="loginStack" />
+			<result name="success" type="chain">shippingaddressHome</result>
+		</action>
+		<action name="shippingaddressHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/shippingaddress.tiles</result>
 		</action>
+		
+		
 		<action name="ordersummary" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="fetchOrderSummary">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="tiles">/ordersummary.tiles</result>
+			<result name="success" type="chain">ordersummaryHome</result>
 			<result name="error" type="redirectAction">
 				<param name="actionName">shippingaddress</param>
 				<param name="errorMsg">${errorMsg}</param>
 			</result>
 		</action>
-
+		<action name="ordersummaryHome" class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/ordersummary.tiles</result>
+		</action>
+		
+		
 		<action name="deleteitem" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="deleteItemFromCart">
 			<interceptor-ref name="loginStack" />
+			<result name="success" type="chain">deleteitemHome</result>
+		</action>
+		<action name="deleteitemHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/ordersummary.tiles</result>
 		</action>
-
+		
+		
 		<action name="payment" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="goToPayment">
 			<interceptor-ref name="loginStack" />
+			<result name="success" type="chain">paymentHome</result>
+		</action>
+		<action name="paymentHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/paymentoptions.tiles</result>
 		</action>
-
 		<!-- ********************************* End of Place Order *********************************** -->
 
 
