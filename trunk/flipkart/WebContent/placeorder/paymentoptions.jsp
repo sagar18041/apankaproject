@@ -130,7 +130,7 @@
 					</s:if>-->
 					<s:if test="hasActionMessages()">
 					<div class="alert alert-error">
-					<s:actionerror/>
+					<s:actionmessage/>
 					</div>
 					</s:if>
 						<!-- *** -->
