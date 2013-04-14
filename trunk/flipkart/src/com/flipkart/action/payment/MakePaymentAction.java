@@ -177,13 +177,20 @@ public class MakePaymentAction extends ActionSupport{
 		/*
 		 * Task 1 -> Check if fields are not null
 		 */
+		if(getCardName().equals(null) || getCardNo().equals(null) || getCvv().equals(null) || getMonth().equals(null) || getYear().equals(null)){
+			addActionError("All fields are required");
+			return ERROR;
+		}
 		if(getCardName().equals("")){
+			addActionError("Please enter name on the card");
 			return ERROR;
 		}
 		if(getCardNo().equals("")){
+			addActionError("Please enter card number");
 			return ERROR;
 		}
 		if(getCvv().equals("") || getCvv().length() != 3){
+			addActionError("Please enter cvv");
 			return ERROR;
 		}
 		Calendar cal = Calendar.getInstance();
@@ -198,6 +205,7 @@ public class MakePaymentAction extends ActionSupport{
 	    System.out.println("Month " + enteredMonth);
 	    if(enteredYear <= y){
 	    	if(enteredMonth<m){
+	    		addActionError("Please enter correct date");
 	    		return ERROR;
 	    	}
 	    }
