@@ -34,7 +34,11 @@ public class TransactionModel {
 				transaction.setOrderID(rs.getString("orderID"));
 				transaction.setPaymentType(rs.getString("paymentType"));
 				transaction.setTransactionID(rs.getString("transactionID"));
-				transaction.setTransactionTime(rs.getString("transactionTime"));
+				String transactionTime = rs.getDate("transactionTime")
+						.toString()
+						+ " "
+						+ rs.getTime("transactionTime").toString();
+				transaction.setTransactionTime(transactionTime);
 				transactionList.add(transaction);
 
 			}

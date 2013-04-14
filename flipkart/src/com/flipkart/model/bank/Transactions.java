@@ -1,5 +1,6 @@
 package com.flipkart.model.bank;
 
+
 public class Transactions {
 
 	String transactionID;
