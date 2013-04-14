@@ -371,6 +371,7 @@ public class PlaceOrderAction extends ActionSupport {
 		if (amountPayable >= 500) {
 			setDeliveryCharge("Free");
 		} else {
+			amountPayable += 50;
 			setDeliveryCharge("50");
 		}
 
@@ -503,7 +504,7 @@ public class PlaceOrderAction extends ActionSupport {
 		grandTotal = subTotal;
 		if (subTotal < 500 && subTotal != 0) {
 			grandTotal += 50;
-			setAmountPayable(getAmountPayable() + 50);
+			//setAmountPayable(getAmountPayable() + 50);
 		}
 
 		// to update cart count on the cart icon in header
@@ -521,6 +522,7 @@ public class PlaceOrderAction extends ActionSupport {
 		if (amountPayable >= 500) {
 			setDeliveryCharge("Free");
 		} else if (amountPayable != 0) {
+			amountPayable += 50;
 			setDeliveryCharge("50");
 		}
 
