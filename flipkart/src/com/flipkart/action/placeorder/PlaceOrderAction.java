@@ -321,15 +321,17 @@ public class PlaceOrderAction extends ActionSupport {
 			grandTotal += 50;
 		}
 
-		if(mapping == null){
+		if (mapping == null) {
 			/*
-			 * check if no existing shipping addresses have been selected, ie, a new
-			 * shipping address has been entered
+			 * check if no existing shipping addresses have been selected, ie, a
+			 * new shipping address has been entered
 			 */
 			if (addressid.equals("0")) {
 				if (!shippingName.equals("") && !shippingAddr.equals("")
-						&& !shippingCity.equals("") && !shippingPhone.equals("")
-						&& !shippingCode.equals("") && !shippingState.equals("-1")) {
+						&& !shippingCity.equals("")
+						&& !shippingPhone.equals("")
+						&& !shippingCode.equals("")
+						&& !shippingState.equals("-1")) {
 
 					ShippingAddress newAddr = new ShippingAddress();
 					newAddr.setName(shippingName);
@@ -343,8 +345,8 @@ public class PlaceOrderAction extends ActionSupport {
 					/*
 					 * insert the newly entered address in the database
 					 */
-					addressid = ShippingAddressModel.insertShippingAddress(newAddr)
-							+ "";
+					addressid = ShippingAddressModel
+							.insertShippingAddress(newAddr) + "";
 				} else {
 					errorMsg = "Please provide all details";
 
@@ -355,10 +357,15 @@ public class PlaceOrderAction extends ActionSupport {
 
 		boolean flag = false;
 
-		if(sess.get("OrderNum") != null)
+		if (sess.get("OrderNum") != null)
 			flag = deleteItemFromDB(sess.get("emailAddress").toString());
 
-		createOrder(flag);
+		boolean orderCheck = createOrder(flag);
+		if (!orderCheck) {
+			errorMsg = "Please provide all details";
+
+			return ERROR;
+		}
 
 		for (int i = 0; i < cartList.size(); i++) {
 			cartList.get(i).setSubCategory(
@@ -384,7 +391,7 @@ public class PlaceOrderAction extends ActionSupport {
 	 * This method is used to save the items against their shipping addresses
 	 * and create a new order thereby.
 	 **************************************************************/
-	public void createOrder(boolean flag) {
+	public boolean createOrder(boolean flag) {
 
 		/*
 		 * insert the order in the database if selected for the first time, or
@@ -403,16 +410,19 @@ public class PlaceOrderAction extends ActionSupport {
 		}
 
 		int addr[] = new int[cartList.size()];
-		if(mapping != null) {
-			for(int i = 0; i < cartList.size(); i++) {
-				addr[i] = Integer.parseInt(mapping.charAt(i*4+2)+"");
-				System.out.println("**index**"+addr[i]);
+		if (mapping != null) {
+			if (mapping.equals("") || mapping.length() / cartList.size() != 4) {
+				return false;
 			}
-			
-			addressList = ShippingAddressModel.fetchAddrList(Integer.parseInt(sess.get("userID").toString()));
-			
-			for(int i = 0; i < cartList.size(); i++) {
-				addr[i] = addressList.get(addr[i]-1).getAddressID();
+			for (int i = 0; i < cartList.size(); i++) {
+				addr[i] = Integer.parseInt(mapping.charAt(i * 4 + 2) + "");
+			}
+
+			addressList = ShippingAddressModel.fetchAddrList(Integer
+					.parseInt(sess.get("userID").toString()));
+
+			for (int i = 0; i < cartList.size(); i++) {
+				addr[i] = addressList.get(addr[i] - 1).getAddressID();
 			}
 		}
 
@@ -424,16 +434,18 @@ public class PlaceOrderAction extends ActionSupport {
 			newOrder.setTotalPrice(cartList.get(i).getQuantity()
 					* cartList.get(i).getPrice());
 			newOrder.setEmailAddress(sess.get("emailAddress").toString());
-			if(mapping != null) {
+			if (mapping != null) {
 				newOrder.setAddressID(addr[i]);
 			} else {
 				newOrder.setAddressID(Integer.parseInt(addressid));
 			}
 			newOrder.setStatus("Processing");
-			newOrder.setShippingCharge(grandTotal-subTotal);
+			newOrder.setShippingCharge(grandTotal - subTotal);
 
 			ShippingAddressModel.insertOrder(newOrder);
 		}
+
+		return true;
 	}
 
 	/***************************************************************************
