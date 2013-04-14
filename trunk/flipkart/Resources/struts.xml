@@ -135,58 +135,73 @@
 			class="com.flipkart.action.accountmanagement.PersonalInformationAction"
 			method="displayPersonalInformation">
 			<interceptor-ref name="loginStack" />
+			<result name="success" type="chain">accountpageHome</result>
+		</action>
+		<action name="accountpageHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/accountpage.tiles</result>
 		</action>
-
+		
+		
+		
 		<action name="modifypersonalinformation"
 			class="com.flipkart.action.accountmanagement.PersonalInformationAction"
 			method="modifyPersonalInformation">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="tiles">/accountpage.tiles</result>
-			<result name="error" type="tiles">/accountpage.tiles</result>
+			<result name="success" type="chain">modifypersonalinformationHome</result>
+			<result name="error" type="chain">modifypersonalinformationHome</result>
 		</action>
-
+		<action name="modifypersonalinformationHome" class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/accountpage.tiles</result>
+		</action>
 		<!-- ================================ Change Password ================================ -->
 
 		<action name="passwordpage"
 			class="com.flipkart.action.accountmanagement.PasswordChangeAction"
 			method="loadPage">
 			<interceptor-ref name="loginStack" />
+			<result name="success" type="chain">passwordpageHome</result>
+		</action>
+		<action name="passwordpageHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/passwordpage.tiles</result>
 		</action>
-
+		
+		
 		<action name="modifypassword"
 			class="com.flipkart.action.accountmanagement.PasswordChangeAction"
 			method="modifyPassword">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="tiles">/passwordpage.tiles</result>
-			<result name="error" type="tiles">/passwordpage.tiles</result>
+			<result name="success" type="chain">passwordpageHome</result>
+			<result name="error" type="chain">passwordpageHome</result>
 		</action>
-
+	
 		<!-- ================================ Manage Addresses ================================ -->
 
 		<action name="addresspage"
 			class="com.flipkart.action.accountmanagement.AddressManagementAction"
 			method="loadPage">
 			<interceptor-ref name="loginStack" />
+			<result name="success" type="chain">addresspageHome</result>
+		</action>
+		<action name="addresspageHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/addresspage.tiles</result>
 		</action>
+
 
 
 		<action name="addaddress"
 			class="com.flipkart.action.accountmanagement.AddressManagementAction"
 			method="addAddress">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="tiles">/addresspage.tiles</result>
-			<result name="error" type="tiles">/addresspage.tiles</result>
+			<result name="success" type="chain">addresspageHome</result>
+			<result name="error" type="chain">addresspageHome</result>
 		</action>
 
 		<action name="deleteaddress"
 			class="com.flipkart.action.accountmanagement.AddressManagementAction"
 			method="deleteAddress">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="tiles">/addresspage.tiles</result>
-			<result name="error" type="tiles">/addresspage.tiles</result>
+			<result name="success" type="chain">addresspageHome</result>
+			<result name="error" type="chain">addresspageHome</result>
 		</action>
 
 
@@ -196,31 +211,39 @@
 			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
 			method="loadPage">
 			<interceptor-ref name="loginStack" />
+			<result name="success" type="chain">emailpageHome</result>
+		</action>
+		<action name="emailpageHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/emailpage.tiles</result>
 		</action>
-
+		
+		
 		<action name="modifyemail"
 			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
 			method="sendResetLink">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="tiles">/emailpage.tiles</result>
-			<result name="error" type="tiles">/emailpage.tiles</result>
+			<result name="success" type="chain">emailpageHome</result>
+			<result name="error" type="chain">emailpageHome</result>
 		</action>
+
 
 		<action name="emailupdate"
 			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
 			method="loadResetPage">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="tiles">/emailresetpage.tiles</result>
-			<result name="error" type="tiles">/emailresetpage.tiles</result>
+			<result name="success" type="chain">emailupdateHome</result>
+			<result name="error" type="chain">emailupdateHome</result>
 		</action>
-
+		<action name="emailupdateHome" class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/emailresetpage.tiles</result>
+		</action>
+		
 		<action name="emailreset"
 			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
 			method="resetEmail">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="tiles">/emailresetpage.tiles</result>
-			<result name="error" type="tiles">/emailresetpage.tiles</result>
+			<result name="success" type="chain">emailupdateHome</result>
+			<result name="error" type="chain">emailupdateHome</result>
 		</action>
 
 
@@ -229,16 +252,21 @@
 			class="com.flipkart.action.accountmanagement.DeactivateAccountAction"
 			method="init">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="tiles">/deactivateaccount.tiles</result>
-			<result name="error" type="tiles">/deactivateaccount.tiles</result>
+			<result name="success" type="chain">deactivateaccountpageHome</result>
+			<result name="error" type="chain">deactivateaccountpageHome</result>
 		</action>
-
+		<action name="deactivateaccountpageHome" class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/deactivateaccount.tiles</result>
+		</action>
+		
+		
+		
 		<action name="deactivateaccount"
 			class="com.flipkart.action.accountmanagement.DeactivateAccountAction"
 			method="deactivateAccount">
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">logout</result>
-			<result name="error" type="tiles">/deactivateaccount.tiles</result>
+			<result name="error" type="chain">deactivateaccountpageHome</result>
 		</action>
 
 
@@ -247,26 +275,32 @@
 			class="com.flipkart.action.accountmanagement.OrderHistoryAction"
 			method="loadPage">
 			<interceptor-ref name="loginStack" />
+			<result name="success" type="chain">viewordersHome</result>
+		</action>
+		<action name="viewordersHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/orderhistorypage.tiles</result>
 		</action>
-
 		<!-- ================================ Order Status ================================ -->
 		<action name="vieworderstatus"
 			class="com.flipkart.action.accountmanagement.OrderDetailsAction"
 			method="loadStatusPage">
 			<interceptor-ref name="loginStack" />
+			<result name="success" type="chain">vieworderstatusHome</result>
+		</action>
+		<action name="vieworderstatusHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/orderstatuspage.tiles</result>
 		</action>
-
 		<!-- ================================ Order Details ================================ -->
 		<action name="vieworderdetails"
 			class="com.flipkart.action.accountmanagement.OrderDetailsAction"
 			method="loadPage">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="tiles">/orderdetailspage.tiles</result>
-			<result name="error" type="tiles">/orderstatuspage.tiles</result>
+			<result name="success" type="chain">vieworderdetailsHome</result>
+			<result name="error" type="chain">vieworderstatusHome</result>
 		</action>
-
+		<action name="vieworderdetailsHome" class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/orderdetailspage.tiles</result>
+		</action>
 		<!-- ******************************* End of Account Information ********************************** -->
 
 
@@ -375,9 +409,13 @@
 		<action name="viewwishlist" class="com.flipkart.action.wishlist.WishlistAction"
 			method="viewWishlist">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="tiles">/viewWishlist.tiles</result>
+			<result name="success" type="chain">viewwishlistHome</result>
 			<result name="error" type="tiles">/carterror.tiles</result>
 		</action>
+		<action name="viewwishlistHome" class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/viewWishlist.tiles</result>
+		</action>
+
 
 		<action name="removeFromwishlist" class="com.flipkart.action.wishlist.WishlistAction"
 			method="removeFromWishlist">
@@ -450,11 +488,13 @@
 		<!-- product comparision by Ananda -->
 		<action name="compareproducts" class="com.flipkart.action.compareproduct.CompareAction"
 			method="execute">
-			<result name="success" type="tiles">/compareproducts.tiles</result>
+			<result name="success" type="chain">compareproductsHome</result>
 			<!-- <result name="input" type="tiles">/home.tiles</result> -->
 		</action>
 		<!-- Product comparison ends here -->
-
+		<action name="compareproductsHome" class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/compareproducts.tiles</result>
+		</action>
 		<!-- ================================== System Administration =============================== -->
 
 		<!-- ................. Admin Home & Login Start ................. -->
