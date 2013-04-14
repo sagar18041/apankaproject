@@ -66,8 +66,9 @@
 div[class="tooltip-inner"] {
 	white-space: pre-wrap;
 	width: 250px;
-/* 	color: #f89406;
- */	font-size: 12px;
+	/* 	color: #f89406;
+ */
+	font-size: 12px;
 }
 </style>
 
@@ -102,17 +103,37 @@ div[class="tooltip-inner"] {
 	
 	function mapItemToAddress(itemid,addrid) {
 		var str = document.getElementById('mapping');
+		var i, flag = 0;
 		
-		 if(str.value.charAt(0) == itemid) {
+		/* for(i=0; i<=str.value.length-4; i+4) {
+			if(str.value.charAt(i) == itemid) {
+				var temp = str.value.substring(0, i+2)+addrid+str.value.substring(i+3);
+				str.value = temp;
+				flag = 1;
+				break;
+			}
+		}
+		if(flag == 0)
+			str.value += itemid+'-'+addrid+','; */
+ 
+		
+		if(str.value.charAt(0) == itemid) {
 			var temp = str.value.substring(0, 2)+addrid+str.value.substring(3);
 			str.value = temp;
 		}else if(str.value.charAt(4) == itemid) {
 			var temp = str.value.substring(0, 6)+addrid+str.value.substring(7);
 			str.value = temp;
-		} else {
+		}else if(str.value.charAt(8) == itemid) {
+			var temp = str.value.substring(0, 10)+addrid+str.value.substring(11);
+			str.value = temp;
+		}else if(str.value.charAt(12) == itemid) {
+			var temp = str.value.substring(0, 14)+addrid+str.value.substring(15);
+			str.value = temp;
+		}else {
 			str.value += itemid+'-'+addrid+',';
-		} 
-		
+		}
+ 	
+		 console.log(str.value.length+":::"+str.value);
 	}
 	
 </script>
@@ -146,11 +167,11 @@ div[class="tooltip-inner"] {
 
 								<button type="button" class="btn btn-large active"
 									name="shippingorder" onclick="change(0)"
-									style="vertical-align: middle; margin-top: -2px;">
+									style="vertical-align: middle; margin-top: -2px; font-size: 14px; font-family: Georgia; font-weight: bold">
 									Single Order Shipping (SOS)</button>
 								<button type="button" class="btn btn-large" name="shippingorder"
 									onclick="change(1)"
-									style="vertical-align: middle; margin-top: -2px;">Multiple
+									style="vertical-align: middle; margin-top: -2px; font-size: 14px; font-family: Georgia; font-weight: bold">Multiple
 									Order Shipping (MOS)</button>
 							</div>
 						</s:if>
@@ -161,11 +182,11 @@ div[class="tooltip-inner"] {
 
 								<button type="button" class="btn btn-large" name="shippingorder"
 									onclick="change(0)"
-									style="vertical-align: middle; margin-top: -2px;">
+									style="vertical-align: middle; margin-top: -2px; font-size: 14px; font-family: Georgia; font-weight: bold">
 									Single Order Shipping (SOS)</button>
 								<button type="button" class="btn btn-large active"
 									name="shippingorder" onclick="change(1)"
-									style="vertical-align: middle; margin-top: -2px;">Multiple
+									style="vertical-align: middle; margin-top: -2px; font-size: 14px; font-family: Georgia; font-weight: bold">Multiple
 									Order Shipping (MOS)</button>
 							</div>
 						</s:if>
@@ -312,30 +333,39 @@ div[class="tooltip-inner"] {
 						<s:elseif test="%{#checkContent==1}">
 
 							<table class="table table-bordered">
+								<tr>
+									<td
+										style="font-size: 16px; font-family: Georgia; font-weight: bold; background-color: #E6E6E6;">Item
+										Description</td>
+									<td
+										style="font-size: 16px; font-family: Georgia; font-weight: bold; background-color: #E6E6E6">Click
+										to choose Address</td>
+								</tr>
 								<s:iterator value="cartList" status="prodTick">
 									<tr>
-										<td style="width: 50%;"><s:property
+										<td
+											style="width: 50%; font-size: 14px; font-family: Georgia; vertical-align: middle;"><s:property
 												value="itemDescription" /></td>
 										<td>
 											<div class="btn-group" data-toggle="buttons-radio">
 												<s:iterator value="existingAddrList" status="addrTick">
 													<s:if test="#addrTick.count == 3">
-														<button type="button" class="btn btn-large"
+														<button type="button" class="btn"
 															onclick="mapItemToAddress(<s:property value="#prodTick.count" />,<s:property value="#addrTick.count" />)"
 															name="<s:property value="#prodTick.count" />"
-															style="vertical-align: middle; margin-top: -2px;">
+															style="vertical-align: middle; margin-top: 15px; margin-left: 10px;">
 															<a href="#" data-placement="right" data-toggle="tooltip"
 																rel="tooltip" title="<s:property />"
-																style="text-decoration: none;">Address <s:property
+																style="text-decoration: none; ">Address <s:property
 																	value="#addrTick.count" /></a>
 														</button>
 														<br />
 													</s:if>
 													<s:else>
-														<button type="button" class="btn btn-large"
+														<button type="button" class="btn"
 															onclick="mapItemToAddress(<s:property value="#prodTick.count" />,<s:property value="#addrTick.count" />)"
 															name="<s:property value="#prodTick.count" />"
-															style="vertical-align: middle; margin-top: -2px;">
+															style="vertical-align: middle; margin-top: 15px; margin-left: 10px;">
 															<a href="#" data-placement="right" data-toggle="tooltip"
 																rel="tooltip" title="<s:property />"
 																style="text-decoration: none;">Address <s:property
@@ -352,7 +382,8 @@ div[class="tooltip-inner"] {
 								</s:iterator>
 
 							</table>
-							<input type="hidden" id="mapping" name="mapping" value="" /><br />
+							<input type="hidden" id="mapping" name="mapping" value="" />
+							<br />
 							<s:submit value="     Save & Continue     " theme="simple"
 								name="mosBtn" style="margin-left: 500px"
 								cssClass="btn btn-warning btn-large" />
@@ -393,6 +424,10 @@ div[class="tooltip-inner"] {
     }); */
 	
    
+	
+
+	
+
 	
 
 	
