@@ -116,7 +116,7 @@
 							Pay using Credit Card
 							<hr />
 							<!-- Error message -->
-							<s:if test="hasActionMessages()">
+						<!--	<s:if test="hasActionMessages()">
 						<div align="center">
 							<s:iterator value="actionMessages">
 								<div class="alert alert-error">
@@ -127,6 +127,11 @@
 							</s:iterator>
 
 						</div>
+					</s:if>-->
+					<s:if test="hasActionMessages()">
+					<div class="alert alert-error">
+					<s:actionerror/>
+					</div>
 					</s:if>
 						<!-- *** -->
 							<h5>Enter your card details</h5>
