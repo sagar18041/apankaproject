@@ -130,7 +130,31 @@
 	});
 
 	function callSearch() {
-		setInterval(funcSearch(), 100);
+		setInterval(function(){if (event.keyCode == 13) {
+			var search = document.getElementById("search").value;
+			alert("coming here with " + search);
+			if ((search == null) || (search === "")) {
+				//alert("null value");
+				return;
+			} else {
+				//alert("Run it");
+				var catId = document.getElementById("categorySel");
+				var category = catId.options[catId.selectedIndex].value;
+				// alert(category);
+				var temp = category;
+				var tempList = temp.split(" ");
+				//alert(tempList);
+				var categoryList;
+				if (tempList[0] == 'in')
+					categoryList = category.substring(3);
+				else
+					categoryList = category;
+
+				window.location = "searchPage?searchText=" + search
+						+ "&categorySel=" + categoryList;
+			}
+
+		}}, 5000);
 
 	}
 	function funcSearch() {
@@ -138,7 +162,7 @@
 		//alert("cming inside the function");
 		if (event.keyCode == 13) {
 			var search = document.getElementById("search").value;
-			//alert("coming here with " + search);
+			alert("coming here with " + search);
 			if ((search == null) || (search === "")) {
 				//alert("null value");
 				return;
