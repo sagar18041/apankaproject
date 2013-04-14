@@ -98,7 +98,7 @@ public class SearchItemAction extends ActionSupport{
 		
 		System.out.println("Items List = " + searchCatg.size());
 		//No Record found page
-		if(searchCatg.size() == 1 && searchCatg.get(0).noOfItems == 0){
+		if((searchCatg.size() == 0)){
 			return ERROR;
 		}
 		//***************************
