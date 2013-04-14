@@ -162,7 +162,7 @@
 				<br />
 
 				<table
-					class="table table-bordered table-condensed table-hover-aamir table-aamir"
+					class="table-bank table-bank-bordered table-bank-condensed table-bank-hover table-bank-striped"
 					id="results">
 					<tr>
 						<th style="text-align: center"><font size="3" face="Georgia">Customer
