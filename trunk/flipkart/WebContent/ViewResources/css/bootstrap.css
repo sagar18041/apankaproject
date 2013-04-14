@@ -4182,20 +4182,6 @@ a.thumbnail:hover {
   border-radius: 1px;
 }
 
-.table-aamir tbody tr:nth-child(odd) td,
-.table-aamir tbody tr:nth-child(odd) th {
-  background-color: #CEF0FF;
-}
-
-.table-aamir tbody tr:nth-child(even) td,
-.table-aamir tbody tr:nth-child(even) th {
-  background-color: #FFFFD7;
-}
-
-.table-hover-aamir tbody tr:hover td {
-  background-color: #E8FFD9;
-}
-
 /******************Aamir End*********************/
 .modal-footer:before,
 .modal-footer:after {
