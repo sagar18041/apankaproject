@@ -58,42 +58,59 @@
 		<div class="row-fluid">
 			<div class="span10 offset1">
 
-				<div align="center">
-					<font size="5" face="Georgia"><b>Net Banking Customers</b></font> <br />
+				<s:if test="recordList.size()!=0">
+
+					<div align="center">
+						<font size="5" face="Georgia"><b>Net Banking Customers</b></font>
+						<br /> <br />
+					</div>
+
 					<br />
-				</div>
 
-				<br />
-
-				<table
-					class="table-bank table-bank-bordered table-bank-condensed table-bank-hover table-bank-striped"
-					id="results">
-					<tr>
-						<th style="text-align: center"><font size="3" face="Georgia">Customer
-								Name</font></th>
-						<th style="text-align: center"><font size="3" face="Georgia">Account
-								Number</font></th>
-						<th style="text-align: center"><font size="3" face="Georgia">Balance
-								(INR)</font></th>
-						<th style="text-align: center"><font size="3" face="Georgia">Delete</font></th>
-					</tr>
-					<s:iterator value="recordList">
+					<table
+						class="table-bank table-bank-bordered table-bank-condensed table-bank-hover table-bank-striped"
+						id="results">
 						<tr>
-							<td style="text-align: center"><s:property
-									value="customerName" /></td>
-							<td style="text-align: center"><s:property
-									value="accountNumber" /></td>
-							<td style="text-align: center"><s:property value="balance" /></td>
-							<td style="text-align: center"><a
-								href="deleteEntry?accountNumber=<s:property
-									value="accountNumber" />">
-									<i class="icon-trash"></i>
-							</a></td>
+							<th style="text-align: center"><font size="3" face="Georgia">Customer
+									Name</font></th>
+							<th style="text-align: center"><font size="3" face="Georgia">Account
+									Number</font></th>
+							<th style="text-align: center"><font size="3" face="Georgia">Balance
+									(INR)</font></th>
+							<th style="text-align: center"><font size="3" face="Georgia">Delete</font></th>
 						</tr>
-					</s:iterator>
-				</table>
+						<s:iterator value="recordList">
+							<tr>
+								<td style="text-align: center"><s:property
+										value="customerName" /></td>
+								<td style="text-align: center"><s:property
+										value="accountNumber" /></td>
+								<td style="text-align: center"><s:property value="balance" /></td>
+								<td style="text-align: center"><a
+									href="deleteEntry?accountNumber=<s:property
+									value="accountNumber" />">
+										<i class="icon-trash"></i>
+								</a></td>
+							</tr>
+						</s:iterator>
+					</table>
 
-				<div id="pageNavPosition" align="center"></div>
+					<div id="pageNavPosition" align="center"></div>
+
+				</s:if>
+
+				<s:if test="recordList.size()==0">
+					<br />
+					<br />
+					<br />
+					<div class="alert alert-info" align="center">
+
+						<button type="button" class="close" data-dismiss="alert"></button>
+						<font size="5" face="Gerogia" color="orange"><b>Sorry!
+								No records found.</b></font>
+
+					</div>
+				</s:if>
 
 				<br />
 

@@ -154,67 +154,84 @@
 			</div>
 
 			<div class="span10 offset1">
+			
+				<s:if test="recordList.size()!=0">
+				
+					<div align="center">
+						<font size="5" face="Georgia"><b>Credit Cards</b></font> <br /> <br />
+					</div>
 
-				<div align="center">
-					<font size="5" face="Georgia"><b>Credit Cards</b></font> <br /> <br />
-				</div>
+					<br />
 
-				<br />
-
-				<table
-					class="table-bank table-bank-bordered table-bank-condensed table-bank-hover table-bank-striped"
-					id="results">
-					<tr>
-						<th style="text-align: center"><font size="3" face="Georgia">Customer
-								Name</font></th>
-						<th style="text-align: center"><font size="3" face="Georgia">Account
-								Number</font></th>
-						<th style="text-align: center"><font size="3" face="Georgia">Card
-								Number</font></th>
-						<th style="text-align: center"><font size="3" face="Georgia">CVV</font></th>
-						<th style="text-align: center"><font size="3" face="Georgia">Expiry
-								(MM/YYYY)</font></th>
-						<th style="text-align: center"><font size="3" face="Georgia">Credit
-								Limit</font></th>
-						<th style="text-align: center"><font size="3" face="Georgia">Delete</font></th>
-					</tr>
-					<s:iterator value="recordList">
+					<table
+						class="table-bank table-bank-bordered table-bank-condensed table-bank-hover table-bank-striped"
+						id="results">
 						<tr>
-
-							<td style="text-align: center"><font face="Arial"><s:property
-										value="customerName" /></font></td>
-
-							<td style="text-align: center"><font face="Arial"><s:property
-										value="accountNumber" /></font></td>
-
-							<td style="text-align: center"><font face="Arial"><s:property
-										value="cardNumber" /></font></td>
-
-							<td style="text-align: center"><font face="Arial"><s:property
-										value="cvv" /></font></td>
-
-							<td style="text-align: center"><font face="Arial"><s:property
-										value="expiry" /></font></td>
-
-							<td style="text-align: center"><font face="Arial"><s:property
-										value="creditLimit" /></font></td>
-
-							<td style="text-align: center"><a
-								href="deleteCCEntry?accountNumber=<s:property
-									value="accountNumber" />">
-									<i class="icon-trash"></i>
-							</a></td>
-
+							<th style="text-align: center"><font size="3" face="Georgia">Customer
+									Name</font></th>
+							<th style="text-align: center"><font size="3" face="Georgia">Account
+									Number</font></th>
+							<th style="text-align: center"><font size="3" face="Georgia">Card
+									Number</font></th>
+							<th style="text-align: center"><font size="3" face="Georgia">CVV</font></th>
+							<th style="text-align: center"><font size="3" face="Georgia">Expiry
+									(MM/YYYY)</font></th>
+							<th style="text-align: center"><font size="3" face="Georgia">Credit
+									Limit</font></th>
+							<th style="text-align: center"><font size="3" face="Georgia">Delete</font></th>
 						</tr>
-					</s:iterator>
-				</table>
+						<s:iterator value="recordList">
+							<tr>
 
-				<div id="pageNavPosition" align="center"></div>
+								<td style="text-align: center"><font face="Arial"><s:property
+											value="customerName" /></font></td>
+
+								<td style="text-align: center"><font face="Arial"><s:property
+											value="accountNumber" /></font></td>
+
+								<td style="text-align: center"><font face="Arial"><s:property
+											value="cardNumber" /></font></td>
+
+								<td style="text-align: center"><font face="Arial"><s:property
+											value="cvv" /></font></td>
+
+								<td style="text-align: center"><font face="Arial"><s:property
+											value="expiry" /></font></td>
+
+								<td style="text-align: center"><font face="Arial"><s:property
+											value="creditLimit" /></font></td>
+
+								<td style="text-align: center"><a
+									href="deleteCCEntry?accountNumber=<s:property
+									value="accountNumber" />">
+										<i class="icon-trash"></i>
+								</a></td>
+
+							</tr>
+						</s:iterator>
+					</table>
+
+					<div id="pageNavPosition" align="center"></div>
+				</s:if>
+
+				<s:if test="recordList.size()==0">
+					<br />
+					<br />
+					<br />
+					<div class="alert alert-info" align="center">
+
+						<button type="button" class="close" data-dismiss="alert"></button>
+						<font size="5" face="Gerogia" color="orange"><b>Sorry!
+								No records found.</b></font>
+
+					</div>
+				</s:if>
 
 				<br />
 				<div id="newdetail" class="well">
 
-					<font size="4" face="Georgia"><b>Add New Detail</b></font> <br /> <br />
+					<font size="4" face="Georgia"><b>Add New Detail</b></font> <br />
+					<br />
 					<s:form action="insertCCEntry" class="form-horizontal"
 						name="InsertEntry" onsubmit="return Validator()">
 						<table>

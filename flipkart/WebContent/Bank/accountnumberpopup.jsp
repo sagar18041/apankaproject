@@ -33,34 +33,54 @@
 						</tr>
 					</table>
 				</s:form>
-				<div id="result">
-					<table
-						class="table-bank table-bank-bordered table-bank-condensed table-bank-hover table-bank-striped"
-						id="results">
-						<tr>
-							<th style="text-align: center"><font size="3" face="Georgia">Customer
-									Name</font></th>
-							<th style="text-align: center"><font size="3" face="Georgia">Account
-									Number</font></th>
-							<th style="text-align: center"><font size="3" face="Georgia">Select</font></th>
-						</tr>
-						<s:iterator value="searchList">
-							<tr>
-								<td style="text-align: center"><s:property
-										value="customerName" /></td>
-								<td style="text-align: center"><s:property
-										value="accountNumber" /></td>
-								<td style="text-align: center"><a
-									href="selectAction?accountNumber=<s:property
-									value="accountNumber" />">
-										<i><img src="ViewResources/img/selectIcon.png" height="20"
-											width="20" /></i>
-								</a></td>
-							</tr>
-						</s:iterator>
-					</table>
 
-					<div id="pageNavPosition" align="center"></div>
+				<div id="result">
+
+					<s:if test="searchList.size()!=0">
+
+						<table
+							class="table-bank table-bank-bordered table-bank-condensed table-bank-hover table-bank-striped"
+							id="results">
+							<tr>
+								<th style="text-align: center"><font size="3"
+									face="Georgia">Customer Name</font></th>
+								<th style="text-align: center"><font size="3"
+									face="Georgia">Account Number</font></th>
+								<th style="text-align: center"><font size="3"
+									face="Georgia">Select</font></th>
+							</tr>
+							<s:iterator value="searchList">
+								<tr>
+									<td style="text-align: center"><s:property
+											value="customerName" /></td>
+									<td style="text-align: center"><s:property
+											value="accountNumber" /></td>
+									<td style="text-align: center"><a
+										href="selectAction?accountNumber=<s:property
+									value="accountNumber" />">
+											<i><img src="ViewResources/img/selectIcon.png"
+												height="20" width="20" /></i>
+									</a></td>
+								</tr>
+							</s:iterator>
+						</table>
+
+						<div id="pageNavPosition" align="center"></div>
+
+					</s:if>
+
+					<s:if test="searchList.size()==0">
+						<br />
+						<br />
+						<br />
+						<div class="alert alert-info" align="center">
+
+							<button type="button" class="close" data-dismiss="alert"></button>
+							<font size="5" face="Gerogia" color="orange"><b>Sorry!
+									No records found.</b></font>
+
+						</div>
+					</s:if>
 
 					<br />
 

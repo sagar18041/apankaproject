@@ -16,61 +16,75 @@
 
 			<div class="span10 offset1">
 
-				<div align="center">
-					<font size="5" face="Georgia"><b>Transactions</b></font> <br /> <br />
-				</div>
-				<br />
+				<s:if test="transactionList.size()!=0">
 
-				<table
-					class="table-bank table-bank-bordered table-bank-condensed table-bank-hover table-bank-striped"
-					id="results">
+					<div align="center">
+						<font size="5" face="Georgia"><b>Transactions</b></font> <br /> <br />
+					</div>
+					<br />
 
-					<tr>
-						<th style="text-align: center"><font size="3" face="Georgia">TransactionID</font></th>
-
-						<th style="text-align: center"><font size="3" face="Georgia">CustomerID</font></th>
-
-						<th style="text-align: center"><font size="3" face="Georgia">OrderID</font></th>
-
-						<th style="text-align: center"><font size="3" face="Georgia">Transaction
-								Time</font></th>
-
-						<th style="text-align: center"><font size="3" face="Georgia">Amount</font></th>
-
-						<th style="text-align: center"><font size="3" face="Georgia">Payment
-								Mode</font></th>
-
-					</tr>
-
-					<s:iterator value="transactionList">
+					<table
+						class="table-bank table-bank-bordered table-bank-condensed table-bank-hover table-bank-striped"
+						id="results">
 
 						<tr>
+							<th style="text-align: center"><font size="3" face="Georgia">TransactionID</font></th>
 
-							<td style="text-align: center"><s:property
-									value="transactionID" /></td>
+							<th style="text-align: center"><font size="3" face="Georgia">CustomerID</font></th>
 
-							<td style="text-align: center"><s:property
-									value="customerID" /></td>
+							<th style="text-align: center"><font size="3" face="Georgia">OrderID</font></th>
 
-							<td style="text-align: center"><s:property value="orderID" /></td>
+							<th style="text-align: center"><font size="3" face="Georgia">Transaction
+									Time</font></th>
 
-							<td style="text-align: center"><s:property
-									value="transactionTime" /></td>
+							<th style="text-align: center"><font size="3" face="Georgia">Amount</font></th>
 
-							<td style="text-align: center"><s:property value="amount" /></td>
-
-							<td style="text-align: center"><s:property
-									value="paymentType" /></td>
+							<th style="text-align: center"><font size="3" face="Georgia">Payment
+									Mode</font></th>
 
 						</tr>
 
-					</s:iterator>
+						<s:iterator value="transactionList">
 
-				</table>
+							<tr>
 
-				<div id="pageNavPosition" align="center"></div>
+								<td style="text-align: center"><s:property
+										value="transactionID" /></td>
 
-				<br />
+								<td style="text-align: center"><s:property
+										value="customerID" /></td>
+
+								<td style="text-align: center"><s:property value="orderID" /></td>
+
+								<td style="text-align: center"><s:property
+										value="transactionTime" /></td>
+
+								<td style="text-align: center"><s:property value="amount" /></td>
+
+								<td style="text-align: center"><s:property
+										value="paymentType" /></td>
+
+							</tr>
+
+						</s:iterator>
+
+					</table>
+
+					<div id="pageNavPosition" align="center"></div>
+
+					<br />
+
+				</s:if>
+
+				<s:if test="transactionList.size()==0">
+				<br /><br /><br />
+					<div class="alert alert-info" align="center">
+					
+						<button type="button" class="close" data-dismiss="alert"></button>
+						<font size="5" face="Gerogia" color="orange"><b>Sorry! No records found.</b></font>
+						
+					</div>
+				</s:if>
 
 			</div>
 		</div>
