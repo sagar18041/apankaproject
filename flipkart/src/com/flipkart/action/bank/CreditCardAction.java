@@ -6,7 +6,6 @@ import java.util.Map;
 import com.flipkart.model.bank.BankCustomer;
 import com.flipkart.model.bank.Card;
 import com.flipkart.model.bank.CreditCardModel;
-import com.flipkart.model.bank.DebitCardModel;
 import com.flipkart.util.MyUtilityFunctions;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
