@@ -1,0 +1,225 @@
+table-bank {
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.table-bank {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.table-bank th,
+.table-bank td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #dddddd;
+}
+.table-bank th {
+  font-weight: bold;
+  color:white;
+  background-image: url('../img/gvh2.png');
+}
+.table-bank thead th {
+  vertical-align: bottom;
+}
+.table-bank caption + thead tr:first-child th,
+.table-bank caption + thead tr:first-child td,
+.table-bank colgroup + thead tr:first-child th,
+.table-bank colgroup + thead tr:first-child td,
+.table-bank thead:first-child tr:first-child th,
+.table-bank thead:first-child tr:first-child td {
+  border-top: 0;
+}
+.table-bank tbody + tbody {
+  border-top: 2px solid #dddddd;
+}
+.table-bank-condensed th,
+.table-bank-condensed td {
+  padding: 4px 5px;
+}
+.table-bank-bordered {
+  border: 1px solid #dddddd;
+  border-collapse: separate;
+  *border-collapse: collapse;
+  border-left: 0;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.table-bank-bordered th,
+.table-bank-bordered td {
+  border-left: 1px solid #dddddd;
+}
+.table-bank-bordered caption + thead tr:first-child th,
+.table-bank-bordered caption + tbody tr:first-child th,
+.table-bank-bordered caption + tbody tr:first-child td,
+.table-bank-bordered colgroup + thead tr:first-child th,
+.table-bank-bordered colgroup + tbody tr:first-child th,
+.table-bank-bordered colgroup + tbody tr:first-child td,
+.table-bank-bordered thead:first-child tr:first-child th,
+.table-bank-bordered tbody:first-child tr:first-child th,
+.table-bank-bordered tbody:first-child tr:first-child td {
+  border-top: 0;
+}
+.table-bank-bordered thead:first-child tr:first-child th:first-child,
+.table-bank-bordered tbody:first-child tr:first-child td:first-child {
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+}
+.table-bank-bordered thead:first-child tr:first-child th:last-child,
+.table-bank-bordered tbody:first-child tr:first-child td:last-child {
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+}
+.table-bank-bordered thead:last-child tr:last-child th:first-child,
+.table-bank-bordered tbody:last-child tr:last-child td:first-child,
+.table-bank-bordered tfoot:last-child tr:last-child td:first-child {
+  -webkit-border-radius: 0 0 0 4px;
+  -moz-border-radius: 0 0 0 4px;
+  border-radius: 0 0 0 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomleft: 4px;
+}
+.table-bank-bordered thead:last-child tr:last-child th:last-child,
+.table-bank-bordered tbody:last-child tr:last-child td:last-child,
+.table-bank-bordered tfoot:last-child tr:last-child td:last-child {
+  -webkit-border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+}
+.table-bank-bordered caption + thead tr:first-child th:first-child,
+.table-bank-bordered caption + tbody tr:first-child td:first-child,
+.table-bank-bordered colgroup + thead tr:first-child th:first-child,
+.table-bank-bordered colgroup + tbody tr:first-child td:first-child {
+  -webkit-border-top-left-radius: 4px;
+  border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+}
+.table-bank-bordered caption + thead tr:first-child th:last-child,
+.table-bank-bordered caption + tbody tr:first-child td:last-child,
+.table-bank-bordered colgroup + thead tr:first-child th:last-child,
+.table-bank-bordered colgroup + tbody tr:first-child td:last-child {
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+}
+.table-bank-striped tbody tr:nth-child(odd) td,
+.table-bank-striped tbody tr:nth-child(odd) th {
+  background-color: #BAD0EF;
+}
+.table-bank-striped tbody tr:nth-child(even) td,
+.table-bank-striped tbody tr:nth-child(even) th {
+  background-color: #EAF7FB;
+}
+.table-bank-hover tbody tr:hover td {
+  background-color: white;
+}
+table-bank td[class*="span"],
+table-bank th[class*="span"],
+.row-fluid table-bank td[class*="span"],
+.row-fluid table-bank th[class*="span"] {
+  display: table-cell;
+  float: none;
+  margin-left: 0;
+}
+.table-bank td.span1,
+.table-bank th.span1 {
+  float: none;
+  width: 44px;
+  margin-left: 0;
+}
+.table-bank td.span2,
+.table-bank th.span2 {
+  float: none;
+  width: 124px;
+  margin-left: 0;
+}
+.table-bank td.span3,
+.table-bank th.span3 {
+  float: none;
+  width: 204px;
+  margin-left: 0;
+}
+.table-bank td.span4,
+.table-bank th.span4 {
+  float: none;
+  width: 284px;
+  margin-left: 0;
+}
+.table-bank td.span5,
+.table-bank th.span5 {
+  float: none;
+  width: 364px;
+  margin-left: 0;
+}
+.table-bank td.span6,
+.table-bank th.span6 {
+  float: none;
+  width: 444px;
+  margin-left: 0;
+}
+.table-bank td.span7,
+.table-bank th.span7 {
+  float: none;
+  width: 524px;
+  margin-left: 0;
+}
+.table-bank td.span8,
+.table-bank th.span8 {
+  float: none;
+  width: 604px;
+  margin-left: 0;
+}
+.table-bank td.span9,
+.table-bank th.span9 {
+  float: none;
+  width: 684px;
+  margin-left: 0;
+}
+.table-bank td.span10,
+.table-bank th.span10 {
+  float: none;
+  width: 764px;
+  margin-left: 0;
+}
+.table-bank td.span11,
+.table-bank th.span11 {
+  float: none;
+  width: 844px;
+  margin-left: 0;
+}
+.table-bank td.span12,
+.table-bank th.span12 {
+  float: none;
+  width: 924px;
+  margin-left: 0;
+}
+.table-bank tbody tr.success td {
+  background-color: #dff0d8;
+}
+.table-bank tbody tr.error td {
+  background-color: #f2dede;
+}
+.table-bank tbody tr.warning td {
+  background-color: #fcf8e3;
+}
+.table-bank tbody tr.info td {
+  background-color: #d9edf7;
+}
+.table-bank-hover tbody tr.success:hover td {
+  background-color: #d0e9c6;
+}
+.table-bank-hover tbody tr.error:hover td {
+  background-color: #ebcccc;
+}
+.table-bank-hover tbody tr.warning:hover td {
+  background-color: #faf2cc;
+}
+.table-bank-hover tbody tr.info:hover td {
+  background-color: #c4e3f3;
+}
