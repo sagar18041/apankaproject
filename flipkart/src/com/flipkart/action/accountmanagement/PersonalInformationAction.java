@@ -14,6 +14,8 @@ public class PersonalInformationAction extends ActionSupport{
 	private String mobileNumber;
 	private String gender;
 	private int genderFlag;
+	
+	private String actionMsg;
 	Map sess=ActionContext.getContext().getSession();
 	
 	public String getFirstName() {
@@ -75,6 +77,16 @@ public class PersonalInformationAction extends ActionSupport{
 	}
 
 
+	public String getActionMsg() {
+		return actionMsg;
+	}
+
+
+	public void setActionMsg(String actionMsg) {
+		this.actionMsg = actionMsg;
+	}
+
+
 	public String displayPersonalInformation(){
 		setUserID(Integer.valueOf(sess.get("userID").toString()));
 		PersonalInformation pi = new PersonalInformation();
@@ -118,7 +130,8 @@ public class PersonalInformationAction extends ActionSupport{
 		pi.setMobileNumber(mobileNumber);
 		int result = PersonalInformationModel.updateUserInformation(pi, userID);
 		if(result!=0){
-			addActionMessage("Your changes have been saved successfully.");
+			actionMsg="Your changes have been saved successfully.";
+			//addActionMessage("Your changes have been saved successfully.");
 			return SUCCESS;
 		}
 		else{
