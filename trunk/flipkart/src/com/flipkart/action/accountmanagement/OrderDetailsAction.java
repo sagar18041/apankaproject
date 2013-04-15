@@ -15,6 +15,8 @@ public class OrderDetailsAction extends ActionSupport{
 	private OrderDetails order;
 	private String orderNo;
 	private ArrayList<OrderDetails> products;
+	private String errorMsg;
+	private String actionMsg;
 	
 	public int getUserID() {
 		return userID;
@@ -53,13 +55,31 @@ public class OrderDetailsAction extends ActionSupport{
 		return SUCCESS;
 	}
 	
+	
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
+
+	public String getActionMsg() {
+		return actionMsg;
+	}
+
+	public void setActionMsg(String actionMsg) {
+		this.actionMsg = actionMsg;
+	}
+
 	public String loadPage(){
 		setUserID(Integer.valueOf(sess.get("userID").toString()));
 		order=OrderDetailsModel.getOrderSummary(userID, orderNo);
 		products=OrderDetailsModel.getProductDetails(userID, orderNo);
 		
 		if(order.getTotalItems()==0){
-			addActionError("Please enter proper Order Number");
+			errorMsg="Please enter proper Order Number";
+			//addActionError("");
 			return ERROR;
 		}
 		else{
