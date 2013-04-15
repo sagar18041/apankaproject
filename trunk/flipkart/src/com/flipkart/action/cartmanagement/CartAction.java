@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.flipkart.model.cartmanagement.Cart;
+import com.flipkart.model.cartmanagement.CartModel;
 import com.flipkart.model.wishlist.WishlistModel;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -17,7 +18,7 @@ public class CartAction extends ActionSupport {
 	private String itemName;
 	private Integer price;
 	private Integer itemID;
-	private int newQuantity;
+	private String newQuantity;
 	public static int firstItem = 0;
 	public static int divId1 = 100;
 	public static int divId2 = 200;
@@ -26,7 +27,8 @@ public class CartAction extends ActionSupport {
 	private String itemDeletedFromCart;
 	private String deliveryTime; 
 	private String thumbnail;
-	
+	private String errorMessage;
+
 	public String getThumbnail() {
 		return thumbnail;
 	}
@@ -41,6 +43,12 @@ public class CartAction extends ActionSupport {
 
 	public void setDeliveryTime(String deliveryTime) {
 		this.deliveryTime = deliveryTime;
+	}
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
 
 	Cart c;
@@ -137,11 +145,11 @@ public class CartAction extends ActionSupport {
 		this.itemDeletedFromCart = itemDeletedFromCart;
 	}
 
-	public int getNewQuantity() {
+	public String getNewQuantity() {
 		return newQuantity;
 	}
 
-	public void setNewQuantity(int newQuantity) {
+	public void setNewQuantity(String newQuantity) {
 		this.newQuantity = newQuantity;
 	}
 
@@ -171,6 +179,7 @@ public class CartAction extends ActionSupport {
 
 	public String addToCart() {
 		cartCount = 0;
+		errorMessage="";
 		setItemAddedToCart(itemName);
 		if (session.get("login") != null) {
 			moveToWishlistCheck.put("checkAddDisplay", "true");
@@ -207,12 +216,12 @@ public class CartAction extends ActionSupport {
 
 	public String addToCartFromWishlist() {
 		System.out.println("#####");
-	
-		 System.out.println("in add to cart from wishlist" +itemName+"   "+price+"   "+itemID +"   "+deliveryTime);
+		errorMessage="";
+		System.out.println("in add to cart from wishlist" +itemName+"   "+price+"   "+itemID +"   "+deliveryTime);
 		cartCount = 0;
 		setItemAddedToCart(itemName);
 		moveToWishlistCheck.put("checkAddDisplay", "true");
-		
+
 		if (firstItem == 0) {
 			System.out.println("in if...");
 			cartItems.add(makeObject());
@@ -266,6 +275,10 @@ public class CartAction extends ActionSupport {
 			 * System.out.println("item name in display after move to wishlist..."
 			 * +getItemMovedToWishlist());
 			 */
+			if( errorMessage!=null && (!(errorMessage.equals("")))){
+				addActionError(errorMessage);
+				System.out.println("will add error!!"+errorMessage);
+			}
 			return SUCCESS;
 		} else {
 			System.out.println("in add cart return error !!!");
@@ -276,10 +289,15 @@ public class CartAction extends ActionSupport {
 
 	public String updateCart() {
 		cartCount = 0;
-
-		System.out
-		.println("in update cart..." + itemID + "....." + newQuantity);
-
+		errorMessage="";
+		try{
+			int checkNumber = Integer.parseInt(newQuantity);
+		}
+		catch(Exception e){
+			System.out.println("in exception...");
+			errorMessage="Please enter a number in quantity";
+			return SUCCESS;
+		}
 		cartItems = (ArrayList<Cart>) cartSession.get("cartItems");
 		for (int i = 0; i < cartItems.size(); i++) {
 			/*
@@ -287,9 +305,15 @@ public class CartAction extends ActionSupport {
 			 * System.out.println("status.."+Cart.statusQuantity);
 			 */
 			if (cartItems.get(i).getItemID() == itemID) {
-				cartItems.get(i).setSubTotal(
-						cartItems.get(i).getPrice() * newQuantity);
-				cartItems.get(i).setQuantity(newQuantity);
+
+				if(Integer.parseInt(newQuantity) <= CartModel.checkAvailableQuantity(itemID)){
+					cartItems.get(i).setSubTotal(
+							cartItems.get(i).getPrice() * Integer.parseInt(newQuantity));
+					cartItems.get(i).setQuantity(Integer.parseInt(newQuantity));
+				}
+				else{
+					errorMessage = "The quantity for the item is more than available inventory.";
+				}
 			}
 		}
 
@@ -298,6 +322,7 @@ public class CartAction extends ActionSupport {
 
 	public String deleteCart() {
 		cartCount = 0;
+		errorMessage="";
 		moveToWishlistCheck.put("checkDeleteDisplay", "true");
 		int index = 0;
 		cartItems = (ArrayList<Cart>) cartSession.get("cartItems");
@@ -318,6 +343,7 @@ public class CartAction extends ActionSupport {
 	public String moveWishlist() {
 		cartCount = 0;
 		int index = 0;
+		errorMessage="";
 		moveToWishlistCheck.put("checkDisplay", "true");
 		cartItems = (ArrayList<Cart>) cartSession.get("cartItems");
 
