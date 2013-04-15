@@ -359,12 +359,12 @@ public class PlaceOrderAction extends ActionSupport {
 					}
 
 					if(shippingCode.length() != 6) {
-						errorMsg = "Pincodes should be 6 digits long";
+						errorMsg = "Pincode should be 6 digits long";
 
 						return ERROR;
 					}
 					if(shippingPhone.length() != 10) {
-						errorMsg = "Phone numbers should be 10 digits long";
+						errorMsg = "Phone number should be 10 digits long";
 
 						return ERROR;
 					}
