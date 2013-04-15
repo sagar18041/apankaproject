@@ -326,12 +326,48 @@ public class PlaceOrderAction extends ActionSupport {
 			 * check if no existing shipping addresses have been selected, ie, a
 			 * new shipping address has been entered
 			 */
+			System.out.println("size::"+shippingCode.length());
 			if (addressid.equals("0")) {
-				if (!shippingName.equals("") && !shippingAddr.equals("")
+
+				if(shippingName.equals("") || shippingAddr.equals("")
+						|| shippingCity.equals("")
+						|| shippingPhone.equals("")
+						|| shippingCode.equals("")
+						|| shippingState.equals("-1")) {
+					errorMsg = "Please provide all details";
+
+					return ERROR;
+				}
+				else if (!shippingName.equals("") && !shippingAddr.equals("")
 						&& !shippingCity.equals("")
 						&& !shippingPhone.equals("")
 						&& !shippingCode.equals("")
 						&& !shippingState.equals("-1")) {
+
+					try {
+						int code = Integer.parseInt(shippingCode);
+					} catch(NumberFormatException ne) {
+						errorMsg = "Please enter valid pincode";
+						return ERROR;
+					}
+
+					try {
+						long k = Long.parseLong(shippingPhone);
+					} catch(NumberFormatException ne) {
+						errorMsg = "Please enter valid phone number";
+						return ERROR;
+					}
+
+					if(shippingCode.length() != 6) {
+						errorMsg = "Pincodes should be 6 digits long";
+
+						return ERROR;
+					}
+					if(shippingPhone.length() != 10) {
+						errorMsg = "Phone numbers should be 10 digits long";
+
+						return ERROR;
+					}
 
 					ShippingAddress newAddr = new ShippingAddress();
 					newAddr.setName(shippingName);
@@ -347,10 +383,6 @@ public class PlaceOrderAction extends ActionSupport {
 					 */
 					addressid = ShippingAddressModel
 							.insertShippingAddress(newAddr) + "";
-				} else {
-					errorMsg = "Please provide all details";
-
-					return ERROR;
 				}
 			}
 		}
