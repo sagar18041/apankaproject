@@ -52,7 +52,19 @@
 									value="selectedItemName" /></font></td>
 					</tr>
 				</table>
-
+				<br/>
+				<br/>
+				
+				<p>
+				<b></b><s:label value="NOTE:" /></b>
+				<br/>
+				<s:label value="Kindly enter following three attributes (madatory):"/>
+				
+				<s:label value="Delivery Time (level-0), Warranty Details (level-1), Price (level-2)"/>
+				</p>
+				
+				<br/>
+				<br/>
 				<s:if test="existingAttributeList.size()!=0">
 					<br />
 					<br />
