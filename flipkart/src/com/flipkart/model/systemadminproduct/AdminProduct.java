@@ -3,7 +3,13 @@ package com.flipkart.model.systemadminproduct;
 public class AdminProduct {
 
 	private String productName, itemName, categoryName, attribute, value;
-	private int categoryID, productID, itemID, priorityLevel;
+	private int categoryID, productID, itemID, priorityLevel, availableQuantity;
+	public int getAvailableQuantity() {
+		return availableQuantity;
+	}
+	public void setAvailableQuantity(int availableQuantity) {
+		this.availableQuantity = availableQuantity;
+	}
 	private String thumbnail, productImage;
 
 	public String getProductName() {

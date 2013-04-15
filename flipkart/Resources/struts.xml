@@ -80,8 +80,8 @@
 		<action name="emailloginHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/emaillogin.tiles</result>
 		</action>
-		
-		
+
+
 		<action name="shippingaddress" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="fetchShippingAddr">
 			<interceptor-ref name="loginStack" />
@@ -90,8 +90,8 @@
 		<action name="shippingaddressHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/shippingaddress.tiles</result>
 		</action>
-		
-		
+
+
 		<action name="ordersummary" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="fetchOrderSummary">
 			<interceptor-ref name="loginStack" />
@@ -104,8 +104,8 @@
 		<action name="ordersummaryHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/ordersummary.tiles</result>
 		</action>
-		
-		
+
+
 		<action name="deleteitem" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="deleteItemFromCart">
 			<interceptor-ref name="loginStack" />
@@ -114,8 +114,8 @@
 		<action name="deleteitemHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/ordersummary.tiles</result>
 		</action>
-		
-		
+
+
 		<action name="payment" class="com.flipkart.action.placeorder.PlaceOrderAction"
 			method="goToPayment">
 			<interceptor-ref name="loginStack" />
@@ -140,15 +140,17 @@
 		<action name="accountpageHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/accountpage.tiles</result>
 		</action>
-		
-		
-		
+
+
+
 		<action name="modifypersonalinformation"
 			class="com.flipkart.action.accountmanagement.PersonalInformationAction"
 			method="modifyPersonalInformation">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="chain">modifypersonalinformationHome</result>
-			<result name="error" type="chain">modifypersonalinformationHome</result>
+			<result name="success" type="chain">modifypersonalinformationHome
+			</result>
+			<result name="error" type="chain">modifypersonalinformationHome
+			</result>
 		</action>
 		<action name="modifypersonalinformationHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/accountpage.tiles</result>
@@ -164,8 +166,8 @@
 		<action name="passwordpageHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/passwordpage.tiles</result>
 		</action>
-		
-		
+
+
 		<action name="modifypassword"
 			class="com.flipkart.action.accountmanagement.PasswordChangeAction"
 			method="modifyPassword">
@@ -173,7 +175,7 @@
 			<result name="success" type="chain">passwordpageHome</result>
 			<result name="error" type="chain">passwordpageHome</result>
 		</action>
-	
+
 		<!-- ================================ Manage Addresses ================================ -->
 
 		<action name="addresspage"
@@ -216,8 +218,8 @@
 		<action name="emailpageHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/emailpage.tiles</result>
 		</action>
-		
-		
+
+
 		<action name="modifyemail"
 			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
 			method="sendResetLink">
@@ -237,7 +239,7 @@
 		<action name="emailupdateHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/emailresetpage.tiles</result>
 		</action>
-		
+
 		<action name="emailreset"
 			class="com.flipkart.action.accountmanagement.EmailUpdateAction"
 			method="resetEmail">
@@ -258,9 +260,9 @@
 		<action name="deactivateaccountpageHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/deactivateaccount.tiles</result>
 		</action>
-		
-		
-		
+
+
+
 		<action name="deactivateaccount"
 			class="com.flipkart.action.accountmanagement.DeactivateAccountAction"
 			method="deactivateAccount">
@@ -465,7 +467,7 @@
 			<result name="tohome" type="tiles">/home.tiles</result>
 		</action>
 		<!-- ******************************* End of Product Page by ********************************** -->
-	<!-- ******************************* Payment ********************************** -->
+		<!-- ******************************* Payment ********************************** -->
 		<action name="ccEntry" class="com.flipkart.action.payment.MakePaymentAction"
 			method="creditPayment">
 			<result name="success" type="tiles">/success.tiles</result>
@@ -540,13 +542,12 @@
 			<result name="success" type="tiles">/adminaddcategory.tiles</result>
 			<result name="error" type="tiles">/adminaddcategory.tiles</result>
 		</action>
-		
+
 		<action name="adminparentcategoryinit"
 			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
 			method="parentCategoryInit">
 			<result name="success" type="chain">adminaddcategory</result>
 		</action>
-
 
 		<action name="admincategoryinsert"
 			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
@@ -576,8 +577,15 @@
 		<action name="admininsertproduct"
 			class="com.flipkart.action.systemadminproduct.AdminProductAction"
 			method="insertProductDetails">
-			<result name="success" type="chain">adminiteminit</result>
+			<result name="success" type="chain">adminproductinit</result>
 			<result name="error" type="tiles">/adminproductinit.tiles</result>
+		</action>
+
+		<action name="admindeleteproduct"
+			class="com.flipkart.action.systemadminproduct.AdminProductAction"
+			method="deleteProduct">
+			<result name="success" type="chain">adminproductinit</result>
+			<result name="error" type="chain">adminproductinit</result>
 		</action>
 
 		<action name="adminiteminit"
@@ -589,8 +597,28 @@
 		<action name="admininsertitem"
 			class="com.flipkart.action.systemadminproduct.AdminProductAction"
 			method="insertItemDetails">
-			<result name="success" type="chain">adminitemattributesinit</result>
+			<result name="success" type="chain">adminiteminit</result>
 			<result name="error" type="tiles">/adminiteminit.tiles</result>
+		</action>
+
+		<action name="admindeleteitem"
+			class="com.flipkart.action.systemadminproduct.AdminProductAction"
+			method="deleteItem">
+			<result name="success" type="chain">adminiteminit</result>
+			<result name="error" type="chain">adminiteminit</result>
+		</action>
+
+		<action name="adminselectitemforattribute"
+			class="com.flipkart.action.systemadminproduct.AdminProductAction"
+			method="initializeSelectItemPage">
+			<result name="success" type="tiles">/adminselectitemforattribute.tiles
+			</result>
+		</action>
+
+		<action name="adminstoreitemforattribute"
+			class="com.flipkart.action.systemadminproduct.AdminProductAction"
+			method="storeItemforAttribute">
+			<result name="success" type="chain">adminitemattributesinit</result>
 		</action>
 
 		<action name="adminitemattributesinit"
@@ -614,16 +642,27 @@
 			method="deleteAttribute">
 			<result name="success" type="chain">adminitemattributesinit</result>
 		</action>
-
-		<action name="adminsuccessproduct"
-			class="com.flipkart.action.systemadminproduct.AdminProductAction"
-			method="successProduct">
-			<result name="success" type="tiles">/adminsuccessproduct.tiles</result>
-		</action>
-
+		
 		<!-- ................. Product End ................. -->
 
-		<!-- ============================== Bank Begin (Aamir) =========================== -->
+		<!-- .......... Stock Management Start ............. -->
+		
+		<action name="updatequantity"
+			class="com.flipkart.action.stockmanagement.StockmanagementAction"
+			method="viewItems">
+			<result name="success" type="tiles">/stockmanagement.tiles</result>
+		</action>
+		<action name="updateQuantityInStock"
+			class="com.flipkart.action.stockmanagement.StockmanagementAction"
+			method="updateQuantityInStock">
+			<result name="success" type="chain">updatequantity</result>
+		</action>
+
+
+
+		<!-- ............ Stock Management End ............... -->
+
+		<!-- ============================= Bank Begin (Aamir) =========================== -->
 
 		<action name="netbankingviewentries" class="com.flipkart.action.bank.NetBankingAction"
 			method="viewEntries">

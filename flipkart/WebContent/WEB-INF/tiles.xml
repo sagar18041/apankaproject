@@ -66,8 +66,7 @@
 		<put-attribute name="body" value="/placeorder/paymentoptions.jsp" />
 	</definition>
 	<definition name="/success.tiles" extends="baselayout">
-		<put-attribute name="title"
-			value="flipkart" />
+		<put-attribute name="title" value="flipkart" />
 		<put-attribute name="body" value="/placeorder/successpay.jsp" />
 	</definition>
 	<!-- ***************************End of Place Order********************************** -->
@@ -295,19 +294,36 @@
 		<put-attribute name="body" value="/systemadminProduct/addnewitem.jsp" />
 	</definition>
 
+	<definition name="/adminselectitemforattribute.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Item Attributes" />
+		<put-attribute name="body"
+			value="/systemadminProduct/selectItemforAttributeAddition.jsp" />
+	</definition>
+	
 	<definition name="/adminitemattributesinit.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Item Attributes" />
 		<put-attribute name="body"
 			value="/systemadminProduct/additemattributes.jsp" />
 	</definition>
 
-	<definition name="/adminsuccessproduct.tiles" extends="adminlayout">
-		<put-attribute name="title" value="Flipkart.com: Success" />
-		<put-attribute name="body"
-			value="/systemadminProduct/successproduct.jsp" />
+
+	<!-- <definition name="/adminitemattributesinit.tiles" extends="adminlayout"> 
+		<put-attribute name="title" value="Flipkart.com: Item Attributes" /> <put-attribute 
+		name="body" value="/systemadminProduct/additemattributes_Step1.jsp" /> </definition> 
+		<definition name="/adminsuccessproduct.tiles" extends="adminlayout"> <put-attribute 
+		name="title" value="Flipkart.com: Success" /> <put-attribute name="body" 
+		value="/systemadminProduct/successproduct.jsp" /> </definition> -->
+	<!-- ................. Product End ................. -->
+
+
+	<!-- Stock Management Start -->
+
+	<definition name="/stockmanagement.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Admin Login" />
+		<put-attribute name="body" value="/stockmanagement/viewitems.jsp" />
 	</definition>
 
-	<!-- ................. Product End ................. -->
+	<!-- Stock Management End -->
 
 	<!-- ============================== End of System Administration =========================== -->
 </tiles-definitions>
