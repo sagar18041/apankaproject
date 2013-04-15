@@ -19,17 +19,23 @@ import com.flipkart.model.systemadminproduct.*;
 @SuppressWarnings("serial")
 public class AdminProductAction extends ActionSupport implements ServletRequestAware{
 
-	private String productName;
-	private String itemName;
-	private int categoryID;
+	private int productID=-1, itemID=-1, categoryID=-1;
+	private String productName="";
+	private String itemName="",selectedItemName="";
 	private int selectedCategoryID=-1;
-
-	HashMap<Integer,String> categoryList = new HashMap<Integer,String>();
-
-	ArrayList<AdminProduct> attributesList = new ArrayList<AdminProduct>();
+	private int selectedProductID=-1;
+	private int selectedItemID=-1;
 
 	private String attribute, value;
 	private int priorityLevel=-1;
+
+	HashMap<Integer,String> categoryList = new HashMap<Integer,String>();
+	HashMap<Integer,String> productList = new HashMap<Integer,String>();
+	HashMap<Integer,String> itemList = new HashMap<Integer,String>();
+
+	ArrayList<AdminProduct> existingAttributeList = new ArrayList<AdminProduct>();
+	ArrayList<AdminProduct> existingProductList = new ArrayList<AdminProduct>();
+	ArrayList<AdminProduct> existingItemList = new ArrayList<AdminProduct>();
 
 	private File thumbnail, productImage;
 	private String thumbnailContentType;
@@ -48,13 +54,20 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 	public String initializeProductPage(){
 
 		/*
+		 * already existing products
+		 */
+		existingProductList=AdminProductModel.fetchExistingProducts();
+
+		/*
 		 * initialize categoryList hash map to display in drop down list
 		 */
 		categoryList.clear();
 		categoryList=AdminProductModel.fetchCategoryList();
+
 		setProductName("");
 		setSelectedCategoryID(-1);
-		
+		setProductID(-1);
+
 		return SUCCESS;
 	}
 
@@ -62,8 +75,6 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 	 * To insert Product
 	 */
 	public String insertProductDetails(){
-
-		check=0;
 
 		try{
 			/* validating if values were selected*/
@@ -81,50 +92,61 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 
 					if(ret == -1){
 						addActionError("Sorry some error occurred. The new product was not added. Please try again.");
-						check=0;
+
 						//to re-initialize the category DDL 
 						initializeProductPage();
 						return ERROR;
-					}
-					else if (ret == 0){
-
-						/*fetch the productID of the newly inserted product*/
-						int newProductId=AdminProductModel.fetchNewProductID(Integer.parseInt(adminSession.get("categoryID").toString()));
-
-						if(newProductId == -1){
-							check=0;
-							addActionError("Sorry some error occurred. The new product was not added. Please try again.");
-							//to re-initialize the category DDL 
-							initializeProductPage();
-						}
-						else{
-							check=1;	
-							//putting new ProductID in session
-							adminSession.put("productID",newProductId);
-
-						}
 					}
 				}
 				else{
 					addActionError("This product already exists. Please enter another product name.");
 
-					//to re-initialize the category DDL 
+					//to re-initialize the page
 					initializeProductPage();
-					check=0;
+
 					return ERROR;
 				}
 			}
 			else{
-				check=0;
-				addActionError("Please select values for Product name and Category !");
-				//to re-initialize the category DDL 
+
+				addActionError("Please select values for all  feilds !");
+				//to re-initialize 
 				initializeProductPage();
 				return ERROR;
 			}
 
 		}catch(Exception e){
 			addActionError("Sorry some error occurred. The new product was not added. Please try again.");
-			//to re-initialize the category DDL 
+			//to re-initialize
+			initializeProductPage();
+			return ERROR;
+		}
+
+		return SUCCESS;
+	}
+
+	/*
+	 * to delete product
+	 */
+	public String deleteProduct(){
+
+		if(getProductID() != -1){
+
+			int ret;
+
+			ret=AdminProductModel.deleteProduct(getProductID());
+
+			if(ret==-1){
+				addActionError("Sorry some error occurred. The product was not deleted. Please try again.");
+				initializeProductPage();
+				return ERROR;
+			}
+			else{
+				initializeProductPage();
+			}
+		}
+		else{
+			addActionError("Sorry some error occurred. The product was not deleted. Please try again.");
 			initializeProductPage();
 			return ERROR;
 		}
@@ -138,7 +160,23 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 
 	public String initializeItemPage(){
 
+		/*
+		 * already existing products
+		 */
+		existingItemList=AdminProductModel.fetchExistingItems();
+
+		/*
+		 * initialize productList hash map to display in drop down list
+		 */
+		productList.clear();
+		productList=AdminProductModel.fetchProductList();
+
 		setItemName("");
+		setItemID(-1);
+		setSelectedProductID(-1);
+		setThumbnail(null);
+		setThumbnailFileName(null);
+		setThumbnailContentType(null);
 		return SUCCESS;
 
 	}
@@ -149,9 +187,7 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 	public String insertItemDetails(){
 
 		try {
-
 			//getting the thumbnail
-			
 			if(thumbnailFileName != null){
 				//get the path where photos will get uploaded
 				filePath = servletRequest.getSession().getServletContext().getRealPath("/uploads/itemthumbnails");
@@ -161,7 +197,7 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 
 				//create photoURL
 				photoURL = "uploads/itemthumbnails/" + photoName;
-				
+
 				//create new file with new path and name
 				File fileToCreate = new File(filePath, photoName);
 
@@ -169,99 +205,131 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 				FileUtils.copyFile(this.thumbnail, fileToCreate);
 			}
 			else{
-				initializeItemPage();
 				addActionError("Please select an image for Item-thumbnail.");
 				initializeItemPage();
 				return ERROR;
 			}
-				
+
 		} 
 		catch (Exception e) {
-			e.printStackTrace();
 			initializeItemPage();
 			addActionError(e.getMessage());
 			return ERROR;
 		}
 
-		
 		try{
-		
+
 			// validating if values were selected
-			if ( !getItemName().equals("") && !getItemName().equals(null) )
+			if (!getItemName().equals("") && !getItemName().equals(null) && getSelectedProductID() != -1)
 			{
+
+				System.out.println("item name:"+getItemName());
+				System.out.println("prodID"+getSelectedProductID());
+				System.out.println("filname:"+getThumbnailFileName());
+
 				int ret;  
 				ret= AdminProductModel.checkExistingItem(getItemName());
-				
+
 				if(ret == 0)
 				{
-					//fetching productID from Step1 via session
-				
-					int prodId= Integer.parseInt(adminSession.get("productID").toString());
-				
-					ret= AdminProductModel.insertNewItem(getItemName(), prodId, photoURL);
-					
+					//inserting the new item
+					ret= AdminProductModel.insertNewItem(getItemName(), getSelectedProductID(), photoURL);
+
 					if(ret == -1){
-						
 						addActionError("Sorry some error occurred. The new item was not added. Please try again.");
 						initializeItemPage();
-						check=0;
 						return ERROR;
-					}
-					else if (ret == 0){
-						
-						//fetch the itemID of the newly inserted product
-						int newItemId=AdminProductModel.fetchNewItemID(prodId);
-
-						if(newItemId == -1){
-							check=0;
-							initializeItemPage();
-							addActionError("Sorry some error occurred. The new item was not added. Please try again.");
-						}
-						else{
-							check=1;	
-							//putting new ItemID in session
-							adminSession.put("itemID",newItemId);
-						}
 					}
 				}
 				else{
 					addActionError("This item already exists. Please enter another item name.");
 					initializeItemPage();
-					check=0;
 					return ERROR;
 				}
 			}
 			else{
-				check=0;
-				addActionError("Please give a value for Item Name !");
+				addActionError("Please select values for all feilds !");
 				initializeItemPage();
 				return ERROR;
 			}
-
 		}catch(Exception e){
-			
 			addActionError("Sorry some error occurred. The new item was not added. Please try again.");
 			initializeItemPage();
 			return ERROR;
 		}
 		return SUCCESS;
-}
+	}
+
+	/*
+	 * to delete item
+	 */
+	public String deleteItem(){
+
+		if(getItemID() != -1){
+
+			int ret;
+
+			System.out.println("Item ID for deletion:"+getItemID());
+			ret=AdminProductModel.deleteItem(getItemID());
+
+			if(ret==-1){
+				addActionError("Sorry some error occurred. The item was not deleted. Please try again.");
+				initializeItemPage();
+				return ERROR;
+			}
+			else{
+				initializeItemPage();
+			}
+		}
+		else{
+			addActionError("Sorry some error occurred. The item was not deleted. Please try again.");
+			initializeItemPage();
+			return ERROR;
+		}
+
+		return SUCCESS;
+	}
+
+
+	public String initializeSelectItemPage(){
+
+		/*initialize itemList hash map to display in drop down list*/
+
+		itemList.clear();
+		itemList=AdminProductModel.fetchItemList();
+
+		setSelectedItemID(-1);
+
+		return SUCCESS;
+	}
+
+	public String storeItemforAttribute(){
+
+		System.out.println("getSelectedItemID()= "+getSelectedItemID());
+
+		adminSession.put("itemID", getSelectedItemID());
+
+		return SUCCESS;
+	}
 
 	/*
 	 * to initialize itemAttribute page
 	 */
 	public String initializeItemAttributePage(){
 
-		attributesList.clear();
-		//getting the newly created ItemID
-		int itemIDtemp=Integer.parseInt(adminSession.get("itemID").toString());
-		
-		attributesList=AdminProductModel.fetchItemAttributesList(itemIDtemp);
-		
+		existingAttributeList.clear();
+
+		int tempItemID = Integer.parseInt(adminSession.get("itemID").toString());
+		System.out.println("tempItemID="+tempItemID);
+
+		setSelectedItemName(AdminProductModel.fetchItemName(tempItemID));
+
+		existingAttributeList=AdminProductModel.fetchItemAttributesList(tempItemID);
+
 		setAttribute("");
 		setValue("");
 		setPriorityLevel(-1);
-		
+
 		return SUCCESS;
 
 	}
@@ -272,45 +340,45 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 	public String insertAttributeDetails(){
 
 		int itemIDtemp=Integer.parseInt(adminSession.get("itemID").toString());
-		
+		System.out.println("itemIDtemp="+itemIDtemp);
 		try{
-			
 			// validating if text boxes are empty
 			if ( !getAttribute().equals("") && !getAttribute().equals(null) && !getValue().equals("") && 
 					!getValue().equals(null) && getPriorityLevel() != -1)
 			{
 				int ret;  
 				ret= AdminProductModel.checkExistingAttributeForItem(getAttribute(), itemIDtemp);
-				
+
 				if(ret == 0)
 				{
-					
+
 					ret= AdminProductModel.insertNewItemAttribute(itemIDtemp, getAttribute(), getValue(), getPriorityLevel());
-					
+
 					if(ret == -1){
-						System.out.println("prob here");
+
 						addActionError("Sorry some error occurred. The new item attribute was not added. Please try again.");
 						initializeItemAttributePage();
-						
 						return ERROR;
+					}
+					else{
+						initializeItemAttributePage();
 					}
 				}
 				else{
 					addActionError("This attribute already exists for this item. Please enter another attribute name.");
 					initializeItemAttributePage();
-					
 					return ERROR;
 				}
 			}
 			else{
-				
+
 				addActionError("Please give a value for all the feilds !");
 				initializeItemAttributePage();
 				return ERROR;
 			}
 
 		}catch(Exception e){
-			
+
 			addActionError("Sorry some error occurred. The new attribute was not added. Please try again.");
 			initializeItemAttributePage();
 			return ERROR;
@@ -321,12 +389,12 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 	public String deleteAttribute(){
 
 		if(!(getAttribute() == null) && !(getAttribute()=="")){
-			
+
 			int ret;
 			int itemIDtemp=Integer.parseInt(adminSession.get("itemID").toString());
-			
+
 			ret=AdminProductModel.deleteAttribute(itemIDtemp, getAttribute());
-			
+
 			if(ret==-1){
 				addActionError("Sorry some error occurred. The attribute was not deleted. Please try again.");
 				initializeItemAttributePage();
@@ -341,15 +409,10 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 			initializeItemAttributePage();
 			return ERROR;
 		}
-			
+
 		return SUCCESS;
 	}
-	
-	public String successProduct(){
-		return SUCCESS;
-	}
-	
-	
+
 	//GETTERS & SETTERS
 
 	public String getProductName() {
@@ -465,11 +528,11 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 	}
 
 	public ArrayList<AdminProduct> getAttributesList() {
-		return attributesList;
+		return existingAttributeList;
 	}
 
 	public void setAttributesList(ArrayList<AdminProduct> attributesList) {
-		this.attributesList = attributesList;
+		this.existingAttributeList = attributesList;
 	}
 
 
@@ -487,6 +550,87 @@ public class AdminProductAction extends ActionSupport implements ServletRequestA
 
 	public void setSelectedCategoryID(int selectedCategoryID) {
 		this.selectedCategoryID = selectedCategoryID;
+	}
+
+	public ArrayList<AdminProduct> getExistingProductList() {
+		return existingProductList;
+	}
+
+	public void setExistingProductList(ArrayList<AdminProduct> existingProductList) {
+		this.existingProductList = existingProductList;
+	}
+
+	public ArrayList<AdminProduct> getExistingItemList() {
+		return existingItemList;
+	}
+
+	public void setExistingItemList(ArrayList<AdminProduct> existingItemList) {
+		this.existingItemList = existingItemList;
+	}
+
+	public int getProductID() {
+		return productID;
+	}
+
+	public void setProductID(int productID) {
+		this.productID = productID;
+	}
+
+	public ArrayList<AdminProduct> getExistingAttributeList() {
+		return existingAttributeList;
+	}
+
+	public void setExistingAttributeList(
+			ArrayList<AdminProduct> existingAttributeList) {
+		this.existingAttributeList = existingAttributeList;
+	}
+
+	public int getItemID() {
+		return itemID;
+	}
+
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
+	}
+
+	public HashMap<Integer, String> getProductList() {
+		return productList;
+	}
+
+	public void setProductList(HashMap<Integer, String> productList) {
+		this.productList = productList;
+	}
+
+	public HashMap<Integer, String> getItemList() {
+		return itemList;
+	}
+
+	public void setItemList(HashMap<Integer, String> itemList) {
+		this.itemList = itemList;
+	}
+
+	public int getSelectedProductID() {
+		return selectedProductID;
+	}
+
+	public void setSelectedProductID(int selectedProductID) {
+		this.selectedProductID = selectedProductID;
+	}
+
+	public int getSelectedItemID() {
+		return selectedItemID;
+	}
+
+	public void setSelectedItemID(int selectedItemID) {
+		this.selectedItemID = selectedItemID;
+	}
+
+	public String getSelectedItemName() {
+		return selectedItemName;
+	}
+
+	public void setSelectedItemName(String selectedItemName) {
+		this.selectedItemName = selectedItemName;
 	}
 
 }

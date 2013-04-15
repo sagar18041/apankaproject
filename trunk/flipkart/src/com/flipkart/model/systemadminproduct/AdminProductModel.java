@@ -59,6 +59,70 @@ public class AdminProductModel {
 		return categoryList;
 	}
 
+	public static HashMap<Integer,String> fetchProductList() {
+
+		HashMap<Integer,String> list = new HashMap<Integer,String>();
+		ArrayList<AdminProduct> productList = new ArrayList<AdminProduct>();
+
+		sqlQuery = "SELECT productID, productName FROM flipkart_product;";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				AdminProduct product = new AdminProduct();
+				product.setProductID(rs.getInt(1));
+				product.setProductName(rs.getString(2));
+				productList.add(product);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		/* 
+		 * adding arraylist entries to hashmap as (key,value) => (categoryID, categoryName)
+		 */
+		for(int i=0; i< productList.size();i++)
+			list.put(productList.get(i).getProductID(), productList.get(i).getProductName());
+
+		return list;
+	}
+
+	public static HashMap<Integer,String> fetchItemList() {
+
+		HashMap<Integer,String> list = new HashMap<Integer,String>();
+		ArrayList<AdminProduct> itemList = new ArrayList<AdminProduct>();
+
+		sqlQuery = "SELECT itemID, itemName FROM flipkart_item;";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				AdminProduct item = new AdminProduct();
+				item.setItemID(rs.getInt(1));
+				item.setItemName(rs.getString(2));
+				itemList.add(item);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		/* 
+		 * adding arraylist entries to hashmap as (key,value) => (categoryID, categoryName)
+		 */
+		for(int i=0; i< itemList.size();i++)
+			list.put(itemList.get(i).getItemID(), itemList.get(i).getItemName());
+
+		return list;
+	}
+
+	
+	
 
 	// PRODUCT RELATED FUNCTIONS
 
@@ -122,16 +186,12 @@ public class AdminProductModel {
 		return 0;
 	}		
 
-	/**
-	 * This method is used to fetch the latest ProductID
-	 * @param categoryID- Category to which the product belongs
-	 * @return productID for success, -1 for error
-	 */
+	/*
 	public static int fetchNewProductID(int categoryID){
 
 		int productID=0;
 
-		/* fetch the most recently entered productID*/
+		 fetch the most recently entered productID
 		sqlQuery = "SELECT productID FROM flipkart_product WHERE categoryID=? AND createdOn=(SELECT max(createdOn) FROM flipkart_product);";
 
 		try{
@@ -151,7 +211,7 @@ public class AdminProductModel {
 
 		return productID;
 	}
-
+*/
 
 	//ITEM RELATED FUNCTIONS
 
@@ -404,6 +464,126 @@ public class AdminProductModel {
 			return -1;
 		}
 		return 0;
+	}
+
+
+	public static ArrayList<AdminProduct> fetchExistingProducts() {
+		ArrayList<AdminProduct> productList = new ArrayList<AdminProduct>();
+
+		sqlQuery = "SELECT productName, (SELECT categoryName FROM flipkart_category WHERE " +
+				"flipkart_category.categoryID=flipkart_product.categoryID) AS categoryName, productID FROM flipkart_product;";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				AdminProduct product = new AdminProduct();
+
+				product.setProductName(rs.getString(1));
+				product.setCategoryName(rs.getString(2));
+				product.setProductID(rs.getInt(3));
+				productList.add(product);
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return productList;
+	}
+
+
+	public static int deleteProduct(int productID) {
+		sqlQuery = "DELETE FROM flipkart_product WHERE productID=?;";
+		conn = DbConnection.getConnection();
+
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setInt(1, productID);
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			return -1;
+		}
+		return 0;
+	}
+
+
+	public static ArrayList<AdminProduct> fetchExistingItems() {
+
+		ArrayList<AdminProduct> itemList = new ArrayList<AdminProduct>();
+
+		sqlQuery = "SELECT itemName, (SELECT productName FROM flipkart_product " +
+				"WHERE flipkart_product.productID=flipkart_item.productID) AS productName, availableQuantity, itemID FROM flipkart_item;";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				AdminProduct item = new AdminProduct();
+
+				item.setItemName(rs.getString(1));
+				item.setProductName(rs.getString(2));
+				item.setAvailableQuantity(rs.getInt(3));
+				item.setItemID(rs.getInt(4));
+				itemList.add(item);
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return itemList;
+	}
+
+
+	public static int deleteItem(int itemID) {
+		System.out.println("inside delete item method");
+		sqlQuery = "DELETE FROM flipkart_item WHERE itemID=?;";
+		conn = DbConnection.getConnection();
+
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setInt(1, itemID);
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			return -1;
+		}
+		return 0;
+	}
+
+	public static String fetchItemName(int itemID) {
+
+		String itemName="";
+		
+		sqlQuery = "SELECT itemName FROM flipkart_item WHERE itemID=?;";
+
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, itemID);
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				itemName=rs.getString(1);
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+
+		return itemName;
 	}
 
 }

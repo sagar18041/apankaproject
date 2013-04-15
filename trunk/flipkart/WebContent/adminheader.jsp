@@ -29,9 +29,9 @@
 
 				<s:if test="#session['login']==true">
 					<li><a href="adminhome" style="color: white;">Home</a></li>
-
+					<li><a href="updatequantity" style="color: white;">Stock Management</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" style="color: white;">Category<b
+						data-toggle="dropdown" style="color: white;">Categories<b
 							class="caret"></b></a>
 						<ul class="dropdown-menu pull-right">
 							<li><a href="adminviewcategory">View Category</a></li>
@@ -41,12 +41,12 @@
 					</li>
 
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" style="color: white;">Product<b
+						data-toggle="dropdown" style="color: white;">Products<b
 							class="caret"></b></a>
 						<ul class="dropdown-menu pull-right">
 							<li><a href="adminproductinit">Add New Product</a></li>
-							<li><a href="#">Add link</a></li>
-							<li><a href="#">Add link</a></li>
+							<li><a href="adminiteminit">Add New Item</a></li>
+							<li><a href="adminselectitemforattribute">Add New Item Attributes</a></li>
 						</ul>
 					</li>
 
