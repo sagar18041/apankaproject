@@ -85,7 +85,7 @@ public class PersonalInformationAction extends ActionSupport{
 		setGender(pi.getGender());
 		System.out.println(gender);
 		setMobileNumber(pi.getMobileNumber());
-		if(gender.equalsIgnoreCase("")){
+		if((gender==null)||(gender.equalsIgnoreCase(""))){
 			setGenderFlag(0);
 		}
 		else if(gender.equalsIgnoreCase("male")){
