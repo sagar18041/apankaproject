@@ -27,6 +27,8 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @SuppressWarnings("serial")
 public class HomeAction extends ActionSupport {
+	private String errorMsg;
+	private String actionMsg;
 
 	private ArrayList<String> categoryList = new ArrayList<String>();
 	private ArrayList<SearchList> sl = new ArrayList<SearchList>();
@@ -53,6 +55,22 @@ public class HomeAction extends ActionSupport {
 	public void setBrowsingHistoryItems(
 			ArrayList<RecentlyViewed> browsingHistoryItems) {
 		this.browsingHistoryItems = browsingHistoryItems;
+	}
+
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
+
+	public String getActionMsg() {
+		return actionMsg;
+	}
+
+	public void setActionMsg(String actionMsg) {
+		this.actionMsg = actionMsg;
 	}
 
 	String searchBy;
@@ -201,6 +219,13 @@ public class HomeAction extends ActionSupport {
 		// for (int i=0; i<browsingHistoryItems.size();i++) {
 		// System.out.println(browsingHistoryItems.get(i).getItemName()); }
 		//
+		if (errorMsg != null && !errorMsg.equals("")) {
+			addActionError(errorMsg);
+		}
+		if (actionMsg != null && !actionMsg.equals("")) {
+			addActionMessage(actionMsg);
+		}
+
 		return SUCCESS;
 	}
 
