@@ -13,6 +13,8 @@ public class DeactivateAccountAction extends ActionSupport {
 
 	String emailAddress;
 	String password;
+	private String errorMsg;
+
 
 	public String getEmailAddress() {
 		return emailAddress;
@@ -28,6 +30,14 @@ public class DeactivateAccountAction extends ActionSupport {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
 	}
 
 	@SuppressWarnings({ "rawtypes" })
@@ -48,7 +58,8 @@ public class DeactivateAccountAction extends ActionSupport {
 				MyUtilityFunctions.generateMD5(password))) {
 			DeactivateAccountModel.deactivateAccount(userID);
 		} else {
-			addActionError("Email/Password combination is wrong.");
+			errorMsg="Email/Password combination is wrong.";
+			//addActionError("");
 			return ERROR;
 		}
 		return SUCCESS;
