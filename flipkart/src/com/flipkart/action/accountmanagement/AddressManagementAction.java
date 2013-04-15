@@ -22,6 +22,8 @@ public class AddressManagementAction extends ActionSupport{
 	private String shippingState;
 	private String shippingCode;
 	private String shippingPhone;
+	private String errorMsg;
+	private String actionMsg;
 	Map sess=ActionContext.getContext().getSession();
 	
 	public int getUserID() {
@@ -50,6 +52,23 @@ public class AddressManagementAction extends ActionSupport{
 
 	public int getAddressId() {
 		return addressID;
+	}
+	
+
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
+
+	public String getActionMsg() {
+		return actionMsg;
+	}
+
+	public void setActionMsg(String actionMsg) {
+		this.actionMsg = actionMsg;
 	}
 
 	public void setAddressID(int addressID) {
@@ -143,18 +162,21 @@ public class AddressManagementAction extends ActionSupport{
 			int result = 0;
 			result = UserAddressModel.insertShippingAddress(ua, userID);
 			if(result!=0){
-				addActionMessage("Your changes have been successfully saved.");
+				actionMsg="Your changes have been successfully saved.";
+				//addActionMessage("");
 				loadDetails();
 				return SUCCESS;
 			}
 			else{
-				addActionError("Oops! Some error occured, please try again.");
+				errorMsg="Oops! Some error occured, please try again.";
+				//addActionError("");
 				loadDetails();
 				return ERROR;
 			}
 		}
 		else{
-			addActionError("Please provide all the details.");
+			errorMsg="Please provide all the details.";
+			//addActionError("");
 			loadDetails();
 			return ERROR;
 		}
@@ -170,7 +192,8 @@ public class AddressManagementAction extends ActionSupport{
 		}
 		else{
 			loadDetails();
-			addActionError("Sorry the address selected by you currently has an order for which payment has not been received.");
+			errorMsg="Sorry the address selected by you currently has an order for which payment has not been received.";
+			//addActionError("");
 			return ERROR;
 		}
 	}
