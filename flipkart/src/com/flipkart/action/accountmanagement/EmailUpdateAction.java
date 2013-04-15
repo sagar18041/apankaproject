@@ -22,6 +22,8 @@ public class EmailUpdateAction extends ActionSupport{
 	private String oldPassword;
 	private String newPassword;
 	private String retypedPassword;
+	private String errorMsg;
+	private String actionMsg;
 	
 	public int getUserID() {
 		return userID;
@@ -72,6 +74,22 @@ public class EmailUpdateAction extends ActionSupport{
 	}
 	
 	
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
+
+	public String getActionMsg() {
+		return actionMsg;
+	}
+
+	public void setActionMsg(String actionMsg) {
+		this.actionMsg = actionMsg;
+	}
+
 	public String loadPage(){
 		setUserID(Integer.valueOf(sess.get("userID").toString()));
 		setEmailAddress(sess.get("emailAddress").toString());
@@ -85,11 +103,13 @@ public class EmailUpdateAction extends ActionSupport{
 		Matcher m = p.matcher(newEmailAddress);
 		boolean validity = m.matches();
 		if(validity==false){
-			addActionError("Please specify a valid Email Address");
+			errorMsg="Please specify a valid Email Address";
+			//addActionError("");
 			return ERROR;
 		}
 		else if(emailAddress.equals(newEmailAddress)){
-			addActionError("Old and new emails are same. Please enter different email id.");
+			errorMsg="Old and new emails are same. Please enter different email id.";
+			//addActionError("");
 			return ERROR;
 		}
 		else{
@@ -110,11 +130,13 @@ public class EmailUpdateAction extends ActionSupport{
 			if (EmailManager.sendMail(newEmailAddress, messageSubject,
 					messageBody, RuntimeSettings.smtpFrom,
 					RuntimeSettings.smtpPassword)) {
-				addActionMessage("Email sent successfully.");
+				actionMsg="Email sent successfully.";
+				//addActionMessage("");
 				return SUCCESS;
 			}
 			else{
-				addActionError("Some error occured. Please try again.");
+				errorMsg="Some error occured. Please try again.";
+				//addActionError("");
 				return ERROR;
 			}
 		}
@@ -130,7 +152,8 @@ public class EmailUpdateAction extends ActionSupport{
 		setUserID(Integer.valueOf(sess.get("userID").toString()));
 		setEmailAddress(sess.get("emailAddress").toString());
 		if(oldPassword.equals("") || newPassword.equals("") || retypedPassword.equals("")){
-			addActionError("Password cannot be left empty.");
+			errorMsg="Password cannot be left empty.";
+			//addActionError("");
 			return ERROR;
 		}
 		else{
@@ -151,26 +174,31 @@ public class EmailUpdateAction extends ActionSupport{
 						result = UserEmailModel.modifyEmail(ue.getNewEmailAddress(),emailAddress,userID);
 						if(result!=0){
 							sess.put("emailAddress", ue.getNewEmailAddress());
-							addActionMessage("Your changes have been saved successfully.");
+							actionMsg="Your changes have been saved successfully.";
+							//addActionMessage("");
 							return SUCCESS;
 						}
 						else{
-							addActionError("Email Update failed. Please try again.");
+							errorMsg="Email Update failed. Please try again.";
+							//addActionError("");
 							return ERROR;
 						}
 					}
 					else{
-						addActionError("Some error has occured. Please try again.");
+						errorMsg="Some error has occured. Please try again.";
+						//addActionError("");
 						return ERROR;
 					}
 				}
 				else{
-					addActionError("Password change failed. New Passwords do not match.");
+					errorMsg="Password change failed. New Passwords do not match.";
+					//addActionError("");
 					return ERROR;
 				}
 			}
 			else{
-				addActionError("Email/Password combination is wrong.");
+				errorMsg="Email/Password combination is wrong.";
+				//addActionError("");
 				return ERROR;
 			}
 		}
