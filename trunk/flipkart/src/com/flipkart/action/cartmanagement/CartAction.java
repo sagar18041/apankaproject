@@ -262,11 +262,13 @@ public class CartAction extends ActionSupport {
 				cartCount++;
 			}
 			cartSession.put("cartCount", cartCount);
-			if (amountPayable > 300) {
+			if (amountPayable > 500) {
 				setDeliveryCharge("Free");
 			} else {
 				setDeliveryCharge("50");
+				setAmountPayable(getAmountPayable()+Integer.parseInt(getDeliveryCharge()));
 			}
+			
 			/*
 			 * System.out.println("item name in display after add..."+
 			 * getItemAddedToCart());
@@ -305,12 +307,19 @@ public class CartAction extends ActionSupport {
 			 * System.out.println("status.."+Cart.statusQuantity);
 			 */
 			if (cartItems.get(i).getItemID() == itemID) {
+				
+				if(Integer.parseInt(newQuantity) <= 0){
+					errorMessage = "Please enter a valid quantity.";
+					return SUCCESS;
+				}
+				
 
 				if(Integer.parseInt(newQuantity) <= CartModel.checkAvailableQuantity(itemID)){
 					cartItems.get(i).setSubTotal(
 							cartItems.get(i).getPrice() * Integer.parseInt(newQuantity));
 					cartItems.get(i).setQuantity(Integer.parseInt(newQuantity));
 				}
+				
 				else{
 					errorMessage = "The quantity for the item is more than available inventory.";
 				}
