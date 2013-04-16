@@ -480,7 +480,7 @@
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="redirectAction">home</result>
 			<result name="error" type="chain">rateandreview</result>
-			<result name="tohome" type="tiles">/home.tiles</result>
+			<result name="tohome" type="redirectAction">home</result>
 		</action>
 		<!-- ******************************* End of Product Page by ********************************** -->
 		<!-- ******************************* Payment ********************************** -->
