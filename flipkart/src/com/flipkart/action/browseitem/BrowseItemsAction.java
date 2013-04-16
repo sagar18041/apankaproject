@@ -39,9 +39,18 @@ public class BrowseItemsAction extends ActionSupport {
 		}
 		
 		public String browseOnSubCategory(){
-			System.out.println("Category is  " + getCategoryID());
+			System.out.println("Sub Category is  " + getCategoryID());
 			BrowseItemsModel bim = new BrowseItemsModel();
 			searchAttr = bim.fetchAttributeForSubCat(getCategoryID());
+			
+			System.out.println(" Browse ArryaList size " + searchAttr.size());
+			return SUCCESS;
+		}
+		
+		public String browseOnSubSubCategory(){
+			System.out.println("Sub Sub Category is  " + getCategoryID());
+			BrowseItemsModel bim = new BrowseItemsModel();
+			searchAttr = bim.fetchAttributeForSubSubCat(getCategoryID());
 			
 			System.out.println(" Browse ArryaList size " + searchAttr.size());
 			return SUCCESS;
