@@ -50,7 +50,7 @@
 					</div>
 				</s:if>
 
-				<table cellpadding="5" class="table table-bordered">
+				<table class="table table-bordered" id="results">
 					<tr>
 						<th>Select</th>
 						<th>Category Name</th>
@@ -72,13 +72,24 @@
 								</s:if>
 						</tr>
 					</s:iterator>
-				</table>
 
+				</table>
+				<div id="pageNavPosition" align="center"></div>
 				<!-- 'Submit' button -->
 				<s:submit cssClass="btn btn-primary" value="ACTIVATE" align="left"
 					action="adminchangestatuscategory" />
 			</s:form>
 		</div>
 	</div>
+
+	<script type="text/javascript">
+		var pager = new Pager('results', 5);
+		pager.init();
+		pager.showPageNav('pager', 'pageNavPosition');
+		pager.showPage(1);
+	</script>
+	<br />
+	<br />
+	<br />
 </body>
 </html>
