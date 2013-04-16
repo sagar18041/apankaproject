@@ -13,19 +13,19 @@
 
 <table class="table table-bordered">
 <tr>
-<s:iterator value="prod" var="prod1">
+<s:iterator value="prodcompare" var="prod1">
 
 <td>
 <div class="span4"><s:property value="itemName"/><br /><br /><img src='<s:property value="thumbnail"/>' height="150px" width="120px"/>
 <br /></div>
 <div class="span4">
-<s:iterator value="attrib" var="attr1">
+<s:iterator value="attribcompare" var="attr1">
 <s:if test="%{#attr1.itemID==#prod1.itemID}">
 <hr />
-<s:property value="#attr1.value"/>
+<s:property value="#attr1.attribute" />:&nbsp;<s:property value="#attr1.value"/>
 <br />
 
-</s:if>
+</s:if> 
 
 </s:iterator>
 </div>
