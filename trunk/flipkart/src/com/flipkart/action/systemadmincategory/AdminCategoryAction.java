@@ -48,12 +48,12 @@ public class AdminCategoryAction extends ActionSupport{
 		/*//fetch data to populate parentLists
 		parentCategories=AdminCategoryModel.fetchParentCategories();*/
 
-		//if(checkParentCategory==0){
+		if(checkParentCategory==0){
 			setLevel(-1);
 			setSelectedCategoryID(-1);
 			setParentCategory("");
 			setCategoryName("");
-		//}
+		}
 
 		return SUCCESS;
 	}
