@@ -151,8 +151,6 @@
 </div>
 
 <br /><br />
-<div style="border-style:solid; border-color:#E9E9E9; border-width:1px;" class="row">
-recomendation will here
-</div>
+
 </body>
 </html>
