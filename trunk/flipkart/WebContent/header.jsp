@@ -404,7 +404,7 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 													</s:url>
 													<s:if
 														test="%{#subsubcatList.catalogueID==#subcatList.catalogueParentID && #subsubcatList.catalogueLevel==2}">
-														<li><a href="<s:property value="#dispsubsubCat" />"><s:property
+														<li><a href="browseSubSubCategory?categoryID=<s:property value="#subsubcatList.catalogueID" />"><s:property
 																	value="#subsubcatList.catalogueName" /></a></li>
 													</s:if>
 												</s:iterator>
