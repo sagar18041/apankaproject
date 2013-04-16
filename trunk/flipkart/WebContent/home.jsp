@@ -89,10 +89,10 @@
 				<ul class="thumbnails">
 			<s:iterator value="prodtopselling" var="producttopselling">
 			<li class="span2">
-					<div align="center" class="thumbnail">
+					<div align="center" class="thumbnail" style="height:250px">
 			
 				<a href="displayitem.action?itemID=<s:property value="#producttopselling.itemID" />"><h5><s:property value="#producttopselling.itemName"/></h5>
-				<img src="<s:property value="#producttopselling.thumbnail"/>" height="120px" width="60px" alt="" /></a>
+				<img src="<s:property value="#producttopselling.thumbnail"/>" height="50px" width="60px" alt="" /></a>
 			<s:iterator value="topsellingitm" var="itmtopselling">
 			<s:if test="%{#producttopselling.itemID == #itmtopselling.key}">
 			<s:iterator value="#itmtopselling.value" var ="attbtopselling">
