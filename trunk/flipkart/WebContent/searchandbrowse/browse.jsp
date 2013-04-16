@@ -93,11 +93,11 @@
      	<li><s:property value="value"/></li>
      	</s:iterator>
      	</ul></a>
-     	<!-- Compare product by Ananda -->
+     	<!-- Compare product by Ananda Category=='Cameras'-->
      	<s:if test="%{Category=='Cameras'}">
      	<s:set var="item" value="itemID" />
      	
-		<s:checkbox cssClass="check" name="itemID" fieldValue="%{item}" label="Add to compare"> Add to compare </s:checkbox>
+		<s:checkbox cssClass="check" name="itemID" value = "" fieldValue="%{item}" label="Add to compare"> Add to compare </s:checkbox>
 		<br />
 		
 		<script>
