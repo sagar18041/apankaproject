@@ -29,7 +29,7 @@
 
 				<s:if test="#session['login']==true">
 					<li><a href="adminhome" style="color: white;">Home</a></li>
-					<!-- <li><a href="updatequantity" style="color: white;">Stock Management</a></li> -->
+					<li><a href="stockmanagementinit" style="color: white;">Stock Management</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" style="color: white;">Categories<b
 							class="caret"></b></a>

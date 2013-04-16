@@ -126,7 +126,7 @@
 		<put-attribute name="title" value="Flipkart.com: Order Information" />
 		<put-attribute name="body" value="/useraccount/orderdetails.jsp" />
 	</definition>
-	
+
 	<!-- ================================ My Ratings ================================ -->
 	<definition name="/ratingspage.tiles" extends="baselayout">
 		<put-attribute name="title" value="Flipkart.com: My Ratings" />
@@ -301,33 +301,38 @@
 		<put-attribute name="body" value="/systemadminProduct/addnewitem.jsp" />
 	</definition>
 
-	<definition name="/adminselectitemforattribute.tiles" extends="adminlayout">
+	<definition name="/adminselectitemforattribute.tiles"
+		extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Item Attributes" />
 		<put-attribute name="body"
 			value="/systemadminProduct/selectItemforAttributeAddition.jsp" />
 	</definition>
-	
+
 	<definition name="/adminitemattributesinit.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Item Attributes" />
 		<put-attribute name="body"
 			value="/systemadminProduct/additemattributes.jsp" />
 	</definition>
 
-
-	<!-- <definition name="/adminitemattributesinit.tiles" extends="adminlayout"> 
-		<put-attribute name="title" value="Flipkart.com: Item Attributes" /> <put-attribute 
-		name="body" value="/systemadminProduct/additemattributes_Step1.jsp" /> </definition> 
-		<definition name="/adminsuccessproduct.tiles" extends="adminlayout"> <put-attribute 
-		name="title" value="Flipkart.com: Success" /> <put-attribute name="body" 
-		value="/systemadminProduct/successproduct.jsp" /> </definition> -->
 	<!-- ................. Product End ................. -->
 
 
 	<!-- Stock Management Start -->
 
+
+	<definition name="/stockmanagementinit.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Stock Management" />
+		<put-attribute name="body" value="/stockmanagement/showItemStock.jsp" />
+	</definition>
+
+	<definition name="/stockmanagementorder.tiles" extends="adminlayout">
+		<put-attribute name="title" value="Flipkart.com: Stock Management" />
+		<put-attribute name="body" value="/stockmanagement/successReorder.jsp" />
+	</definition>
+
 	<definition name="/stockmanagement.tiles" extends="adminlayout">
-		<put-attribute name="title" value="Flipkart.com: Admin Login" />
-		<put-attribute name="body" value="/stockmanagement/viewitems.jsp" />
+		<put-attribute name="title" value="Flipkart.com: Stock Management" />
+		<put-attribute name="body" value="/stockmanagement/sellerPage.jsp" />
 	</definition>
 
 	<!-- Stock Management End -->
