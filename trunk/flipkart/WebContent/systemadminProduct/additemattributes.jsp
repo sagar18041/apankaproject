@@ -34,6 +34,39 @@
 	function showSuccessMsg() {
 		window.location = "adminsuccessproduct";
 	}
+	
+	function Validator() {
+
+		var level = /^[0-2]$/;
+		
+		if (myform.attribute.value == "") {
+			alert("Please enter attribute name.");
+			myform.attribute.focus();
+			return (false);
+		}
+
+		if (myform.value.value == "") {
+			alert("Please enter attribute value.");
+			myform.value.focus();
+			return (false);
+		}
+
+		if (myform.priorityLevel.value == "") {
+			alert("Please enter a priority.");
+			myform.priorityLevel.focus();
+			return (false);
+		}
+		
+		if (!(myform.priorityLevel.value.match(level))) {
+
+			alert("Priority can be 0, 1 or 2 only.");
+			myform.priorityLevel.focus();
+			return (false);
+
+		}
+		
+		return (true);
+	}
 </script>
 </head>
 <body onload="hide()">
@@ -130,7 +163,7 @@
 
 				<div align="left">
 					<form action="admininsertitemattributes" class="form-inline"
-						id="newdetail" name="myform">
+						id="newdetail" name="myform" onsubmit="return Validator()">
 
 						<input type="text" placeholder="Attribute Name" name="attribute"
 							style="width: 140px"> <input type="text"
