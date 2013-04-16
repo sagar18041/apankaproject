@@ -16,6 +16,19 @@ public class BrowseItemsModel {
 	static String sqlQuery="";
 	static Connection conn = null;
 	
+	
+	/**
+	 * Searches for category
+	 * How query works-
+	 * get the category name for the categoryID
+	 * fetches all the values for categoryname from fielditemview
+	 * Now separates the attribute values
+	 * 
+	 * Data is like this --- arrayList of attributes which contains another arraylist of attributes
+	 * First arraylist contains itemid , price and second arraylist contains attributes with priority 1 and 2
+	 * @param categoryID
+	 * @return
+	 */
 	public ArrayList<SearchAttribute> fetchAttribute(int categoryID){
 		ArrayList<SearchAttribute> seAtt = new ArrayList<SearchAttribute>();
 		
@@ -68,7 +81,11 @@ public class BrowseItemsModel {
 				
 				ArrayList<Attributes> atbs = new ArrayList<Attributes>();
 				try{
-				//	conn=DbConnection.getConnection();
+					/*
+					 * Arraylist for attributes
+					 * 
+					 */
+				
 					ps=conn.prepareStatement(sqlQuery);
 					rs1=ps.executeQuery();
 					System.out.println("Before While");
@@ -99,6 +116,18 @@ public class BrowseItemsModel {
 	}
 	
 	
+	/**
+	 * Searches for subcategory
+	 * How query works-
+	 * get the category name for the categoryID
+	 * fetches all the values for categoryname from fielditemview
+	 * Now separates the attribute values
+	 * 
+	 * Data is like this --- arrayList of attributes which contains another arraylist of attributes
+	 * First arraylist contains itemid , price and second arraylist contains attributes with priority 1 and 2
+	 * @param categoryID
+	 * @return
+	 */
 	public ArrayList<SearchAttribute> fetchAttributeForSubCat(int categoryID){
 		ArrayList<SearchAttribute> seAtt = new ArrayList<SearchAttribute>();
 		
@@ -151,7 +180,11 @@ public class BrowseItemsModel {
 				
 				ArrayList<Attributes> atbs = new ArrayList<Attributes>();
 				try{
-				//	conn=DbConnection.getConnection();
+					/*
+					 * Arraylist for attributes
+					 * 
+					 */
+				
 					ps=conn.prepareStatement(sqlQuery);
 					rs1=ps.executeQuery();
 					System.out.println("Before While");
@@ -181,6 +214,19 @@ public class BrowseItemsModel {
 		return seAtt;
 	}
 	
+	
+	/**
+	 * Searches for subsubcategory
+	 * How query works-
+	 * get the category name for the categoryID
+	 * fetches all the values for categoryname from fielditemview
+	 * Now separates the attribute values
+	 * 
+	 * Data is like this --- arrayList of attributes which contains another arraylist of attributes
+	 * First arraylist contains itemid , price and second arraylist contains attributes with priority 1 and 2
+	 * @param categoryID
+	 * @return
+	 */
 	public ArrayList<SearchAttribute> fetchAttributeForSubSubCat(int categoryID){
 		ArrayList<SearchAttribute> seAtt = new ArrayList<SearchAttribute>();
 		
@@ -233,7 +279,12 @@ public class BrowseItemsModel {
 				
 				ArrayList<Attributes> atbs = new ArrayList<Attributes>();
 				try{
-				//	conn=DbConnection.getConnection();
+					
+					/*
+					 * Arraylist for attributes
+					 * 
+					 */
+				
 					ps=conn.prepareStatement(sqlQuery);
 					rs1=ps.executeQuery();
 					System.out.println("Before While");

@@ -6,6 +6,10 @@ import com.flipkart.model.browseitem.BrowseItemsModel;
 import com.flipkart.model.searchitem.SearchAttribute;
 import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * @author neha
+ *
+ */
 public class BrowseItemsAction extends ActionSupport {
 		public int categoryID;
 		ArrayList<SearchAttribute> searchAttr = new ArrayList<SearchAttribute>();
@@ -29,6 +33,10 @@ public class BrowseItemsAction extends ActionSupport {
 			
 		}
 		
+		/**
+		 * It searched for category only
+		 * @return
+		 */
 		public String browseOnCategory(){
 			System.out.println("Category is  " + getCategoryID());
 			BrowseItemsModel bim = new BrowseItemsModel();
@@ -38,6 +46,10 @@ public class BrowseItemsAction extends ActionSupport {
 			return SUCCESS;
 		}
 		
+		/**
+		 * It searches for subCategory
+		 * @return
+		 */
 		public String browseOnSubCategory(){
 			System.out.println("Sub Category is  " + getCategoryID());
 			BrowseItemsModel bim = new BrowseItemsModel();
@@ -47,6 +59,11 @@ public class BrowseItemsAction extends ActionSupport {
 			return SUCCESS;
 		}
 		
+		
+		/**
+		 * It searches for subsubcategory
+		 * @return
+		 */
 		public String browseOnSubSubCategory(){
 			System.out.println("Sub Sub Category is  " + getCategoryID());
 			BrowseItemsModel bim = new BrowseItemsModel();
