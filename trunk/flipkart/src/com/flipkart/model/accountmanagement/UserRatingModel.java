@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import com.flipkart.util.DbConnection;
 
 public class UserRatingModel {
@@ -29,7 +28,25 @@ public class UserRatingModel {
 				rating.setProductID(rs.getInt(1));
 				rating.setRatingStar(rs.getInt(2));
 				
-				ratings.add(rating);
+				ResultSet innerset = null;
+				PreparedStatement innerps = null;
+				String innerQuery = "select fi.itemID, fp.productName, fia.value, fi.thumbnail " +
+									"from flipkart_item fi, flipkart_itemattributes fia, flipkart_product fp " +
+									"where fp.productID=fi.productID and fia.itemID=fi.itemID and fia.attribute='Price' " +
+									"and fp.productID=? limit 1;";
+				innerps=conn.prepareStatement(innerQuery);
+				innerps.setInt(1, rating.getProductID());
+				innerset=innerps.executeQuery();
+				
+				while(innerset.next()){
+					rating.setProductName(innerset.getString(2));
+					rating.setPrice(innerset.getString(3));
+					rating.setThumbnail(innerset.getString(4));
+					rating.setProductID(innerset.getInt(1));
+					ratings.add(rating);
+					
+				}
+							
 			}
 			
 		}catch(Exception e){
