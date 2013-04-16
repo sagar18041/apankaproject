@@ -126,8 +126,15 @@
 		<put-attribute name="title" value="Flipkart.com: Order Information" />
 		<put-attribute name="body" value="/useraccount/orderdetails.jsp" />
 	</definition>
+	
+	<!-- ================================ My Ratings ================================ -->
+	<definition name="/ratingspage.tiles" extends="baselayout">
+		<put-attribute name="title" value="Flipkart.com: My Ratings" />
+		<put-attribute name="body" value="/useraccount/ratings.jsp" />
+	</definition>
 
 	<!-- ******************************* End of Account Information ********************************** -->
+
 
 
 
