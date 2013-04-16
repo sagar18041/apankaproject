@@ -326,7 +326,7 @@ public class PlaceOrderAction extends ActionSupport {
 			 * check if no existing shipping addresses have been selected, ie, a
 			 * new shipping address has been entered
 			 */
-			System.out.println("size::"+shippingCode.length());
+			//System.out.println("size::"+shippingCode.length());
 			if (addressid.equals("0")) {
 
 				if(shippingName.equals("") || shippingAddr.equals("")
