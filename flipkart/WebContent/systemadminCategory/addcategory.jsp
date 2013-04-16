@@ -59,6 +59,15 @@
 		var cat = document.getElementById("parentCategory");
 		document.getElementById("selectedCategoryID").value = cat[cat.selectedIndex].value;
 	}
+	
+	setTimeout(function() {
+	    $('#successMsg').fadeOut('slow');
+	}, 5000);
+	
+	setTimeout(function() {
+	    $('#errorMsg').fadeOut('slow');
+	}, 5000);
+	
 </script>
 
 </head>
@@ -76,7 +85,7 @@
 			<s:if test="hasActionErrors()">
 				<br />
 				<s:iterator value="actionErrors">
-					<div class="alert alert-warning">
+					<div class="alert alert-warning" id="errorMsg">
 						<button type="button" class="close" data-dismiss="alert">&times;</button>
 						<s:property />
 					</div>
@@ -115,8 +124,7 @@
 								</span>
 								<s:select list="parentCategories" headerKey="-1"
 									headerValue="Choose Parent Category" id="parentCategory"
-									theme="simple" cssClass="chzn-select" style="width:257px"
-									onchange="onCategoryChange()" />
+									theme="simple" cssClass="chzn-select" onchange="onCategoryChange()" />
 							</div>
 
 						</td>
