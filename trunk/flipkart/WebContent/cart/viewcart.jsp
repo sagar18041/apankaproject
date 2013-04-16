@@ -148,6 +148,19 @@ if(window.history.forward(1) != null)
 					</div>
 					<%-- <s:property value="%{#session.checkDisplay}" /> --%>
 
+					<s:if test="hasActionErrors()">
+						<div align="center">
+							<s:iterator value="actionErrors">
+								<div class="alert alert-info">
+									 <i class="icon-remove icon-2x"></i>&nbsp;&nbsp;
+									<s:property/>
+								</div>
+							</s:iterator>
+
+						</div>
+					</s:if>
+
+
 					<s:set name="count" value="%{cartCount}" />
 					<s:if test="%{#count>0}">
 
