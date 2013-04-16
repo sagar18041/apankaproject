@@ -478,7 +478,7 @@
 		<action name="saverateandreview" class="com.flipkart.action.browseitem.ProductAction"
 			method="saveRateAndReview">
 			<interceptor-ref name="loginStack" />
-			<result name="success" type="tiles">/home.tiles</result>
+			<result name="success" type="redirectAction">home</result>
 			<result name="error" type="chain">rateandreview</result>
 			<result name="tohome" type="tiles">/home.tiles</result>
 		</action>
