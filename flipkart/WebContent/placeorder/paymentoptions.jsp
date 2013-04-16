@@ -168,7 +168,7 @@
 
 									<tr>
 										<td>CVV No</td>
-										<td><s:textfield required="true" label="cvv" size="3"
+										<td><s:password required="true" label="cvv" size="3"
 												cssStyle="width:37px;" name="cvv"/></td>
 									</tr>
 								</table>
@@ -211,7 +211,7 @@
 
 									<tr>
 										<td>CVV No</td>
-										<td><s:textfield required="true" label="cvv" size="3"
+										<td><s:password required="true" label="cvv" size="3"
 												cssStyle="width:37px;" name="cvv"/></td>
 									</tr>
 								</table>
