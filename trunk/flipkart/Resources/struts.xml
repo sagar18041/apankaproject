@@ -163,10 +163,10 @@
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">passwordpageHome</result>
 		</action>
+		
 		<action name="passwordpageHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/passwordpage.tiles</result>
 		</action>
-
 
 		<action name="modifypassword"
 			class="com.flipkart.action.accountmanagement.PasswordChangeAction"
@@ -257,11 +257,10 @@
 			<result name="success" type="chain">deactivateaccountpageHome</result>
 			<result name="error" type="chain">deactivateaccountpageHome</result>
 		</action>
+		
 		<action name="deactivateaccountpageHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/deactivateaccount.tiles</result>
 		</action>
-
-
 
 		<action name="deactivateaccount"
 			class="com.flipkart.action.accountmanagement.DeactivateAccountAction"
@@ -282,6 +281,7 @@
 		<action name="viewordersHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/orderhistorypage.tiles</result>
 		</action>
+		
 		<!-- ================================ Order Status ================================ -->
 		<action name="vieworderstatus"
 			class="com.flipkart.action.accountmanagement.OrderDetailsAction"
@@ -292,6 +292,7 @@
 		<action name="vieworderstatusHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/orderstatuspage.tiles</result>
 		</action>
+		
 		<!-- ================================ Order Details ================================ -->
 		<action name="vieworderdetails"
 			class="com.flipkart.action.accountmanagement.OrderDetailsAction"
@@ -303,6 +304,18 @@
 		<action name="vieworderdetailsHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/orderdetailspage.tiles</result>
 		</action>
+		
+		<!-- ================================ My Ratings ================================ -->
+		<action name="viewmyratings"
+			class="com.flipkart.action.accountmanagement.UserRatingsAction"
+			method="loadRatingsPage">
+			<interceptor-ref name="loginStack" />
+			<result name="success" type="chain">viewratingsHome</result>
+		</action>
+		<action name="viewratingsHome" class="com.flipkart.action.authentication.HomeAction">
+			<result name="success" type="tiles">/ratingspage.tiles</result>
+		</action>
+		
 		<!-- ******************************* End of Account Information ********************************** -->
 
 
