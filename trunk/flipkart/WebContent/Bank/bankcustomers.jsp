@@ -90,6 +90,8 @@
 						class="table-bank table-bank-bordered table-bank-condensed table-bank-hover table-bank-striped"
 						id="results">
 						<tr>
+							<th style="text-align: center"><font size="3" face="Georgia">CustomerID
+							</font></th>
 							<th style="text-align: center"><font size="3" face="Georgia">Customer
 									Name</font></th>
 							<th style="text-align: center"><font size="3" face="Georgia">Account
@@ -103,6 +105,8 @@
 						<s:iterator value="customerList">
 
 							<tr>
+								<td style="text-align: center"><font face="Arial"><s:property
+											value="customerID" /></font></td>
 								<td style="text-align: center"><font face="Arial"><s:property
 											value="customerName" /></font></td>
 								<td style="text-align: center"><font face="Arial"><s:property
