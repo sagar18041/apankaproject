@@ -37,8 +37,10 @@
 	function onLevelSelect() {
 		var element = document.getElementById("level");
 
-		if (element.selectedIndex == -1) {
+		if (element.selectedIndex == 0) {
 			element.value = -1;
+			document.getElementById("newdetail").style.display = "none";
+			return;
 		}
 		var selectedLevel = element.options[element.selectedIndex].text;
 
@@ -92,10 +94,11 @@
 			</s:if>
 
 			<s:form action="admincategoryinsert" theme="simple" method="post">
-				
+
 				<s:hidden name="checkParentCategory" id="checkParentCategory" />
-				
+
 				<s:hidden name="selectedCategoryID" id="selectedCategoryID" />
+				
 				<table class="table table-bordered table-hover">
 					<tr>
 						<td>Category Level</td>
@@ -110,11 +113,10 @@
 							</div>
 						</td>
 					</tr>
-					
+
 					<tr id="newdetail">
 						<td>Parent Category</td>
 						<td>
-
 							<div class="input-prepend">
 								<span class="add-on"> <i class="icon-signal"
 									style="color: black;"> </i>
@@ -127,12 +129,13 @@
 
 						</td>
 					</tr>
+					
 					<tr>
 						<td>New Category Name</td>
 						<td><s:textfield name="categoryName" theme="simple"
 								placeholder="Please enter Category Name" cssClass="input-xlarge" /></td>
 					</tr>
-					
+
 				</table>
 
 				<s:submit value="ADD CATEGORY" cssClass="btn btn-primary"
