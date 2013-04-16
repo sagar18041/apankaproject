@@ -34,11 +34,11 @@
 	function showSuccessMsg() {
 		window.location = "adminsuccessproduct";
 	}
-	
+
 	function Validator() {
 
 		var level = /^[0-2]$/;
-		
+
 		if (myform.attribute.value == "") {
 			alert("Please enter attribute name.");
 			myform.attribute.focus();
@@ -56,7 +56,7 @@
 			myform.priorityLevel.focus();
 			return (false);
 		}
-		
+
 		if (!(myform.priorityLevel.value.match(level))) {
 
 			alert("Priority can be 0, 1 or 2 only.");
@@ -64,7 +64,7 @@
 			return (false);
 
 		}
-		
+
 		return (true);
 	}
 </script>
@@ -80,24 +80,25 @@
 
 				<table class="table table-bordered">
 					<tr>
-						<td style="text-align: center"><font
-							style="font-size: 28px;"> <b>Item Name :</b> <s:property
-									value="selectedItemName" /></font></td>
+						<td style="text-align: center"><font style="font-size: 28px;">
+								<b>Item Name :</b> <s:property value="selectedItemName" />
+						</font></td>
 					</tr>
 				</table>
-				<br/>
-				<br/>
-				
+				<br /> <br />
+
 				<p>
-				<b></b><s:label value="NOTE:" /></b>
-				<br/>
-				<s:label value="Kindly enter following three attributes (madatory):"/>
-				
-				<s:label value="Delivery Time (level-0), Warranty Details (level-1), Price (level-2)"/>
+					<b></b>
+					<s:label value="NOTE:" />
+					</b> <br />
+					<s:label
+						value="Kindly enter following three attributes (<b>mandatory</b>):" />
+
+					<s:label
+						value="Delivery Time (level-0), Warranty Details (level-1), Price (level-2)" />
 				</p>
-				
-				<br/>
-				<br/>
+
+				<br />
 				<s:if test="existingAttributeList.size()!=0">
 					<br />
 					<br />
@@ -110,7 +111,7 @@
 
 					<!-- display existing items  -->
 
-					<table class="table table-bordered">
+					<table class="table table-bordered" id="results">
 						<tr>
 							<th style="text-align: center">Attribute Name</th>
 							<th style="text-align: center">Attribute Value</th>
@@ -182,6 +183,14 @@
 			</div>
 		</div>
 	</div>
-
+	<script type="text/javascript">
+		var pager = new Pager('results', 5);
+		pager.init();
+		pager.showPageNav('pager', 'pageNavPosition');
+		pager.showPage(1);
+	</script>
+	<br />
+	<br />
+	<br />
 </body>
 </html>

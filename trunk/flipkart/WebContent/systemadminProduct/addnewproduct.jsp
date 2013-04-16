@@ -41,7 +41,7 @@
 					<br />
 					
 					<!-- display existing products  -->
-					<table class="table table-bordered">
+					<table class="table table-bordered" id="results">
 						<tr>
 							<th style="text-align: center">Product Name</th>
 							<th style="text-align: center">Product Category</th>
@@ -122,6 +122,14 @@
 			</div>
 		</div>
 	</div>
-
+<script type="text/javascript">
+		var pager = new Pager('results', 5);
+		pager.init();
+		pager.showPageNav('pager', 'pageNavPosition');
+		pager.showPage(1);
+	</script>
+	<br />
+	<br />
+	<br />
 </body>
 </html>
