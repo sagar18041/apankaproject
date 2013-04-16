@@ -28,7 +28,7 @@
 			document.getElementById("newdetail").style.display = "none";	
 		}
 		//if page is loaded after selecting level=1,2
-		else{
+		else if(elem ==1){
 			document.getElementById("newdetail").style.display = "block";
 		}
 	}
@@ -46,12 +46,10 @@
 
 		/* if parent is needed */
 		if (selectedLevel != 0) {
-			
 			document.getElementById("newdetail").style.display = "block";
 			window.location="adminparentcategoryinit?level=" + selectedLevel;
 			
-		} else {
-			
+		} else if (selectedLevel == 0) {
 			document.getElementById("newdetail").style.display = "none";
 		}
 	}
@@ -64,7 +62,7 @@
 </script>
 
 </head>
-<body onload="hideParentCategory()">
+<body onload="hideParentCategory()" onhaschange="hideParentCategory()">
 	<div id="option">
 		<ul class="nav nav-tabs">
 			<li><a href="#tabs-viewCategory">View Categories</a></li>
@@ -98,7 +96,7 @@
 				<s:hidden name="checkParentCategory" id="checkParentCategory" />
 
 				<s:hidden name="selectedCategoryID" id="selectedCategoryID" />
-				
+
 				<table class="table table-bordered table-hover">
 					<tr>
 						<td>Category Level</td>
@@ -111,13 +109,7 @@
 									onChange="onLevelSelect()" headerValue="Choose Level"
 									theme="simple" cssClass="chzn-select" title="Choose Level" />
 							</div>
-						</td>
-					</tr>
-
-					<tr id="newdetail">
-						<td>Parent Category</td>
-						<td>
-							<div class="input-prepend">
+							<div class="input-prepend" id="newdetail">
 								<span class="add-on"> <i class="icon-signal"
 									style="color: black;"> </i>
 								</span>
@@ -129,8 +121,7 @@
 
 						</td>
 					</tr>
-					
-					<tr>
+ 					<tr>
 						<td>New Category Name</td>
 						<td><s:textfield name="categoryName" theme="simple"
 								placeholder="Please enter Category Name" cssClass="input-xlarge" /></td>

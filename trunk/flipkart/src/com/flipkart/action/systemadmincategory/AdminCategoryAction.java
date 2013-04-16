@@ -47,8 +47,17 @@ public class AdminCategoryAction extends ActionSupport{
 		levels.add(2);
 		/*//fetch data to populate parentLists
 		parentCategories=AdminCategoryModel.fetchParentCategories();*/
-
+		System.out.println("checkParentCategory="+checkParentCategory);
+		
 		if(checkParentCategory==0){
+			setLevel(-1);
+			setSelectedCategoryID(-1);
+			setParentCategory("");
+			setCategoryName("");
+		}
+		if(check==1)
+		{
+			checkParentCategory=0;
 			setLevel(-1);
 			setSelectedCategoryID(-1);
 			setParentCategory("");
@@ -138,6 +147,8 @@ public class AdminCategoryAction extends ActionSupport{
 					else{
 						/* if the inserts were successful send the mail to admin*/
 						sendMailCategoryAddition();
+						checkParentCategory=0;
+						check=1;
 						initAddCategory();
 					}
 				}
