@@ -19,6 +19,15 @@
 			}
 		});
 	});
+	
+	setTimeout(function() {
+	    $('#successMsg').fadeOut('slow');
+	}, 5000);
+	
+	setTimeout(function() {
+	    $('#errorMsg').fadeOut('slow');
+	}, 5000);
+	
 </script>
 
 </head>
@@ -37,7 +46,7 @@
 				<s:if test="hasActionErrors()">
 					<br />
 					<s:iterator value="actionErrors">
-						<div class="alert alert-warning">
+						<div class="alert alert-warning" id="errorMsg">
 							<button type="button" class="close" data-dismiss="alert">&times;</button>
 							<s:property />
 						</div>
@@ -50,34 +59,56 @@
 					</div>
 				</s:if>
 
-				<table class="table table-bordered" id="results">
-					<tr>
-						<th>Select</th>
-						<th>Category Name</th>
-						<th>Activation Status</th>
+				<s:if test="verificationcategoryList.size()!=0">
+					<br />
+					<br />
+					<br />
 
-					</tr>
-					<s:iterator value="verificationcategoryList">
+					<table class="table table-bordered" id="results">
 						<tr>
+							<th>Select</th>
+							<th>Category Name</th>
+							<th>Activation Status</th>
 
-							<td><s:checkbox name="checkCategory"
-									fieldValue="%{categoryID}"
-									value="%{categoryID in checkCategory}" /></td>
-
-							<td><s:property value="categoryName" /></td>
-
-							<!-- /* 0=pending, 1=active, 2=inactive*/ -->
-							<td><s:if test="%{status == 0}">
-									<span style="color: red">PENDING</span>
-								</s:if>
 						</tr>
-					</s:iterator>
+						<s:iterator value="verificationcategoryList">
+							<tr>
 
-				</table>
-				<div id="pageNavPosition" align="center"></div>
-				<!-- 'Submit' button -->
-				<s:submit cssClass="btn btn-primary" value="ACTIVATE" align="left"
-					action="adminchangestatuscategory" />
+								<td><s:checkbox name="checkCategory"
+										fieldValue="%{categoryID}"
+										value="%{categoryID in checkCategory}" /></td>
+
+								<td><s:property value="categoryName" /></td>
+
+								<!-- /* 0=pending, 1=active, 2=inactive*/ -->
+								<td><s:if test="%{status == 0}">
+										<span style="color: red">PENDING</span>
+									</s:if>
+							</tr>
+						</s:iterator>
+
+					</table>
+					<div id="pageNavPosition" align="center"></div>
+
+				</s:if>
+
+				<s:elseif test="verificationcategoryList.size()==0">
+					<br />
+
+					<div class="alert alert-info" align="center">
+
+						<button type="button" class="close" data-dismiss="alert"></button>
+						<font size="3" color="orange"><b>Currently there are no
+								pending requests for verification.</b></font>
+
+					</div>
+				</s:elseif>
+
+				<s:if test="verificationcategoryList.size()!=0">
+					<!-- 'Submit' button -->
+					<s:submit cssClass="btn btn-primary" value="ACTIVATE" align="left"
+						action="adminchangestatuscategory" />
+				</s:if>
 			</s:form>
 		</div>
 	</div>
