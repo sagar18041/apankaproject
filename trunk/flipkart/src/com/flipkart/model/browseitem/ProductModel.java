@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.flipkart.model.recommendation.RecentlyViewed;
 import com.flipkart.util.DbConnection;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 /**
  * @author bril
@@ -19,6 +20,49 @@ public class ProductModel {
 	static String sqlQuery="";
 	static Connection conn = null;
 	
+	
+	//get 5 items
+	public Product getFiveItemDetails(Integer productID) {
+		Product prod = new Product();
+		sqlQuery = "select itemID, itemName, productID, thumbnail from flipkart_item where productID = ? LIMIT 1;";
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, productID);
+			rs=ps.executeQuery();
+			
+			if(rs.next()){
+				prod.setItemID(rs.getInt(1));
+				prod.setItemName(rs.getString(2));
+				prod.setAvailableQuantity(rs.getInt(3));
+				prod.setProductID(rs.getInt(4));
+				prod.setThumbnail(rs.getString(5));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return prod;
+	}
+
+	
+	//get any 5 products
+	public ArrayList<Integer> getAnyFiveProductDetails(int catID) {
+		ArrayList<Integer> pd = new ArrayList<>();	
+		sqlQuery = "select productID from flipkart_product WHERE categoryID = ? LIMIT 5;";
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, catID);
+			rs=ps.executeQuery();
+			
+			if(rs.next()){
+				pd.add(rs.getInt(1));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return pd;
+	}
 	
 	/**
 	 * funtion to fetch product details
@@ -99,6 +143,27 @@ public class ProductModel {
 		return attrib;
 	}
 
+	public ArrayList<Attributes> getVerySpecificProductAttributes(Integer itemID) {
+		ArrayList<Attributes> attrib  = new ArrayList<Attributes>();
+		sqlQuery = "SELECT itemID, attribute, value FROM flipkart_itemattributes WHERE itemID = ? AND priorityLevel IN ( 2 );";
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, itemID);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				Attributes attribute = new Attributes();
+				attribute.setItemID(rs.getInt(1));
+				attribute.setAttribute(rs.getString(2));
+				attribute.setValue(rs.getString(3));
+				attrib.add(attribute);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return attrib;
+	}
+	
 	/**
 	 * function to fetch the reviews of product
 	 * @param productID
@@ -371,5 +436,24 @@ public class ProductModel {
 			e.printStackTrace();
 		}
 		return variantList;
+	}
+
+
+	public ArrayList<Integer> getTrendingItemIDs(int num) {
+		ArrayList<Integer> itemIDS  = new ArrayList<Integer>();
+		sqlQuery = "SELECT  Count(itemID) as count, itemID from flipkart_order GROUP BY itemID" +
+				" DESC ORDER BY count DESC LIMIT ?;";
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, num);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				itemIDS.add(rs.getInt(2));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return itemIDS;
 	}	
 }
