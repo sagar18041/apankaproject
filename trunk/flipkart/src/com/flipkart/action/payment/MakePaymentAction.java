@@ -260,6 +260,10 @@ public class MakePaymentAction extends ActionSupport{
 	 * @throws MessagingException 
 	 */
 	public String debitPayment() throws MessagingException{
+		if(cardName==null || cardNo==null || cvv==null || month==null || year==null){
+			addActionMessage("All fields are required");
+			return ERROR;
+		}
 		
 		/*
 		 * Show data in order Div
@@ -279,12 +283,15 @@ public class MakePaymentAction extends ActionSupport{
 		 * Task 1 -> Check if fields are not null
 		 */
 		if(getCardName().equals("")){
+			addActionMessage("Please enter name on the card");
 			return ERROR;
 		}
 		if(getCardNo().equals("")){
+			addActionMessage("Please enter card number");
 			return ERROR;
 		}
 		if(getCvv().equals("") || getCvv().length() != 3){
+			addActionMessage("Please enter cvv number");
 			return ERROR;
 		}
 		Calendar cal = Calendar.getInstance();
@@ -299,6 +306,7 @@ public class MakePaymentAction extends ActionSupport{
 	    
 	    if(enteredYear <= y){
 	    	if(enteredMonth<m){
+	    		addActionMessage("Please enter correct expiry date");
 	    		return ERROR;
 	    	}
 	    }
@@ -364,11 +372,13 @@ public class MakePaymentAction extends ActionSupport{
 		/*
 		 * Task 1 -> Check if fields are not null
 		 */
-		if(getCustomerid().equals(""))
+		if(getCustomerid().equals("") || (!getCustomerid().matches("[0-9]*")))
 		{
+			addActionMessage("Please enter correct customer id");
 			return ERROR;
 		}
 	    if(getPassword().equals("")){
+	    	addActionMessage("Please enter password");
 	    	return ERROR;
 	    }
 	    /*
