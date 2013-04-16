@@ -14,25 +14,27 @@ import com.opensymphony.xwork2.ActionSupport;
 public class CompareAction extends ActionSupport{
 	
 	private ArrayList<Integer> itemID = new ArrayList<Integer>();
-	private ArrayList<Attributes> attrib = new ArrayList<Attributes>();
-	private ArrayList<Product> prod = new ArrayList<Product>();
+	private ArrayList<Attributes> attribcompare = new ArrayList<Attributes>();
+	private ArrayList<Product> prodcompare = new ArrayList<Product>();
 	
-	public ArrayList<Attributes> getAttrib() {
-		return attrib;
+	
+
+
+	public ArrayList<Attributes> getAttribcompare() {
+		return attribcompare;
 	}
 
-	public void setAttrib(ArrayList<Attributes> attrib) {
-		this.attrib = attrib;
+	public void setAttribcompare(ArrayList<Attributes> attribcompare) {
+		this.attribcompare = attribcompare;
 	}
 
-	public ArrayList<Product> getProd() {
-		return prod;
+	public ArrayList<Product> getProdcompare() {
+		return prodcompare;
 	}
 
-	public void setProd(ArrayList<Product> prod) {
-		this.prod = prod;
+	public void setProdcompare(ArrayList<Product> prodcompare) {
+		this.prodcompare = prodcompare;
 	}
-
 
 	public ArrayList<Integer> getItemID() {
 		return itemID;
@@ -44,16 +46,16 @@ public class CompareAction extends ActionSupport{
 
 	public String execute() {
 //		for (int i=0;i<itemID.size();i++) {
-//			System.out.println(itemID.get(i));
-//		}
+//			System.out.println("id"  + itemID.get(i));
+//		}		
 		CompareModel compareProduct = new CompareModel();
 		ProductModel productModel = new ProductModel();
-		prod = compareProduct.getProductDetails(itemID);
+		prodcompare = compareProduct.getProductDetails(itemID);
 		//System.out.println(prod.size());
 		for (int i = 0; i < itemID.size(); i++) {
-			attrib.addAll(productModel.getProductAttributes(itemID.get(i)));
+			attribcompare.addAll(productModel.getProductAttributes(itemID.get(i)));
 		}
-		System.out.println(attrib.size());
+		System.out.println(attribcompare.size());
 		return SUCCESS;
 	}
 }
