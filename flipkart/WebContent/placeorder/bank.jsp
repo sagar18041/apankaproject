@@ -25,7 +25,11 @@
 		</div>
 		<br/><br/><br/><br/><br/><br/>
 		<div class="span3"></div>
-		
+		<s:if test="hasActionMessages()">
+					<div class="alert alert-error">
+					<s:actionmessage/>
+					</div>
+					</s:if>
 		<div align="center">
 				<s:form theme="simple" method="post" action="bankEntry">
 					<table>
