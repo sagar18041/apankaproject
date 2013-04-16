@@ -5,6 +5,7 @@ package com.flipkart.action.authentication;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +16,15 @@ import com.flipkart.model.authentication.Catalogue;
 import com.flipkart.model.authentication.HomeModel;
 import com.flipkart.model.authentication.SearchList;
 import com.flipkart.model.authentication.SearchListModel;
+import com.flipkart.model.browseitem.Attributes;
+import com.flipkart.model.browseitem.Product;
 import com.flipkart.model.browseitem.ProductModel;
 import com.flipkart.model.cartmanagement.Cart;
+import com.flipkart.model.compareproduct.CompareModel;
 import com.flipkart.model.recommendation.RecentlyViewed;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 /**
  * @author Team404
@@ -30,9 +35,90 @@ public class HomeAction extends ActionSupport {
 	private String errorMsg;
 	private String actionMsg;
 
+	
+	//top selling
+	HashMap<Integer, ArrayList<Attributes>> topsellingitm = new HashMap<Integer, ArrayList<Attributes>>();
+	public HashMap<Integer, ArrayList<Attributes>> getTopsellingitm() {
+		return topsellingitm;
+	}
+
+
+
+	public void setTopsellingitm(
+			HashMap<Integer, ArrayList<Attributes>> topsellingitm) {
+		this.topsellingitm = topsellingitm;
+	}
+
+
+
+	private ArrayList<Attributes> attribtopselling = new ArrayList<Attributes>();
+	private ArrayList<Product> prodtopselling = new ArrayList<Product>();
+	
+	public ArrayList<Attributes> getAttribtopselling() {
+		return attribtopselling;
+	}
+
+
+
+	public void setAttribtopselling(ArrayList<Attributes> attribtopselling) {
+		this.attribtopselling = attribtopselling;
+	}
+
+
+
+	public ArrayList<Product> getProdtopselling() {
+		return prodtopselling;
+	}
+
+
+
+	public void setProdtopselling(ArrayList<Product> prodtopselling) {
+		this.prodtopselling = prodtopselling;
+	}
+
+
+
+	HashMap<Integer, ArrayList<Attributes>> trendingitm = new HashMap<Integer, ArrayList<Attributes>>();
+	public HashMap<Integer, ArrayList<Attributes>> getTrendingitm() {
+		return trendingitm;
+	}
+
+
+
+	public void setTrendingitm(HashMap<Integer, ArrayList<Attributes>> trendingitm) {
+		this.trendingitm = trendingitm;
+	}
+	private ArrayList<Attributes> attrib = new ArrayList<Attributes>();
+	private ArrayList<Product> prod = new ArrayList<Product>();
+	public ArrayList<Attributes> getAttrib() {
+		return attrib;
+	}
+
+	
+
+	public void setAttrib(ArrayList<Attributes> attrib) {
+		this.attrib = attrib;
+	}
+
+	public ArrayList<Product> getProd() {
+		return prod;
+	}
+
+	public void setProd(ArrayList<Product> prod) {
+		this.prod = prod;
+	}
 	private ArrayList<String> categoryList = new ArrayList<String>();
 	private ArrayList<SearchList> sl = new ArrayList<SearchList>();
 	private ArrayList<Catalogue> catalogueList = new ArrayList<Catalogue>();
+	private ArrayList<Catalogue> parentCatalogueList = new ArrayList<Catalogue>();
+	public ArrayList<Catalogue> getParentCatalogueList() {
+		return parentCatalogueList;
+	}
+
+	public void setParentCatalogueList(ArrayList<Catalogue> parentCatalogueList) {
+		this.parentCatalogueList = parentCatalogueList;
+	}
+
 	ArrayList<Cart> cartItems = new ArrayList<Cart>();
 	@SuppressWarnings("rawtypes")
 	Map cartSession = ActionContext.getContext().getSession();
@@ -159,6 +245,7 @@ public class HomeAction extends ActionSupport {
 		// System.out.println("Category is " + getCategorySel());
 		HomeModel hm = new HomeModel();
 		categoryList = hm.getCategoryList();
+		parentCatalogueList = hm.getParentCatalogueList();
 
 		// get all catalogue details to populate menu list
 		catalogueList = hm.getCatalogueList();
@@ -219,6 +306,38 @@ public class HomeAction extends ActionSupport {
 		// for (int i=0; i<browsingHistoryItems.size();i++) {
 		// System.out.println(browsingHistoryItems.get(i).getItemName()); }
 		//
+		
+		// get top 5 trending items
+		ProductModel productModel = new ProductModel();
+		CompareModel compareProduct = new CompareModel();
+		ArrayList<Integer> itmid = new ArrayList<Integer>();
+		itmid = pm.getTrendingItemIDs(2);
+		
+		prod = compareProduct.getProductDetails(itmid);
+		
+		
+		for (int i = 0; i < itmid.size(); i++) {
+			//System.out.println(itmid.get(i));
+			attrib.addAll(productModel.getVerySpecificProductAttributes(itmid.get(i)));
+			//System.out.println(attrib.get(i).getAttribute());
+			trendingitm.put(itmid.get(i), attrib);
+		}
+		
+		
+		//get top selling items
+		ArrayList<Integer> itmidtopselling = new ArrayList<Integer>();
+		itmidtopselling = pm.getTrendingItemIDs(10);
+		
+		 prodtopselling = compareProduct.getProductDetails(itmidtopselling);
+		
+		
+		for (int i = 0; i < itmidtopselling.size(); i++) {
+			
+			attribtopselling.addAll(productModel.getVerySpecificProductAttributes(itmidtopselling.get(i)));
+	
+			topsellingitm.put(itmidtopselling.get(i), attribtopselling);
+		}
+		
 		if (errorMsg != null && !errorMsg.equals("")) {
 			addActionError(errorMsg);
 		}
