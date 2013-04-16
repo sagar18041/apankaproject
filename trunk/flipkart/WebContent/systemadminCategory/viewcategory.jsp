@@ -39,12 +39,15 @@
 						<th style="text-align: center">Parent Category</th>
 						<th style="text-align: center">Level</th>
 						<th style="text-align: center">Activation Status</th>
+						<th style="text-align: center">Delete</th>
 					</tr>
 					<s:iterator value="categoryList">
 						<tr>
-							<td style="text-align: left"><s:property value="categoryName" /></td>
+							<td style="text-align: left"><s:property
+									value="categoryName" /></td>
 
-							<td style="text-align: center"><s:if test="%{parentCategory == categoryName}">
+							<td style="text-align: center"><s:if
+									test="%{parentCategory == categoryName}">
 									-
 								</s:if> <s:else>
 									<s:property value="parentCategory" />
@@ -62,6 +65,11 @@
 								</s:elseif> <s:else>
 									<s:property value="status" />
 								</s:else></td>
+
+							<td style="text-align: center"><a
+								href="admindeletecategory?categoryID=<s:property value="categoryID"/>">
+									<i class="icon-trash"></i>
+							</a></td>
 						</tr>
 					</s:iterator>
 				</table>

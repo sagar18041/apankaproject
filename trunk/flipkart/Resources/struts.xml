@@ -544,6 +544,13 @@
 			method="fetchCategoryList">
 			<result name="success" type="tiles">/adminviewcategory.tiles</result>
 		</action>
+		
+		<action name="admindeletecategory"
+			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
+			method="deleteCategory">
+			<result name="success" type="chain">adminviewcategory</result>
+			<result name="error" type="chain">adminviewcategory</result>
+		</action>
 
 		<action name="adminverifycategory"
 			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
@@ -557,6 +564,7 @@
 			method="initAddCategory">
 			<result name="success" type="tiles">/adminaddcategory.tiles</result>
 			<result name="error" type="tiles">/adminaddcategory.tiles</result>
+			
 		</action>
 
 		<action name="adminparentcategoryinit"
@@ -570,6 +578,7 @@
 			method="insertNewCategory">
 			<result name="success" type="chain">adminaddcategory</result>
 			<result name="error" type="tiles">/adminaddcategory.tiles</result>
+			
 		</action>
 
 		<action name="adminchangestatuscategory"

@@ -3,6 +3,7 @@ package com.flipkart.model.systemadmincategory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,7 +26,8 @@ public class AdminCategoryModel {
 		ArrayList<AdminCategory> categoryList = new ArrayList<AdminCategory>();
 
 		sqlQuery = "SELECT categoryName, status, B.level," +
-				"(SELECT categoryName FROM flipkart_category A WHERE A.categoryID=C.parentID) AS parentCategory " +
+				"(SELECT categoryName FROM flipkart_category A WHERE A.categoryID=C.parentID) AS parentCategory, " +
+				"B.categoryID " +
 				"FROM flipkart_category B, flipkart_path C " +
 				"WHERE B.categoryID=C.categoryID ORDER BY B.level;";
 
@@ -40,7 +42,9 @@ public class AdminCategoryModel {
 				category.setStatus(rs.getInt(2));
 				category.setLevel(rs.getInt(3));
 				category.setParentCategory(rs.getString(4));
+				category.setCategoryID(rs.getInt(5));
 				categoryList.add(category);
+				
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -334,6 +338,25 @@ public class AdminCategoryModel {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+
+
+	public static int deleteCategory(int categoryID) {
+		sqlQuery = "DELETE FROM flipkart_category WHERE categoryID=?;";
+		conn = DbConnection.getConnection();
+
+		try {
+			ps = conn.prepareStatement(sqlQuery);
+			ps.setInt(1, categoryID);
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			return -1;
+		}
+		return 0;
 	}	
 
 }

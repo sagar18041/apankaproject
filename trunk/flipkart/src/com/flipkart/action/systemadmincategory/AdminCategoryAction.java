@@ -8,6 +8,7 @@ import com.flipkart.model.placeorder.ShippingAddress;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.flipkart.model.systemadmincategory.*;
+import com.flipkart.model.systemadminproduct.AdminProductModel;
 import com.flipkart.util.EmailManager;
 import com.flipkart.util.RuntimeSettings;
 
@@ -21,7 +22,8 @@ public class AdminCategoryAction extends ActionSupport{
 	int level=-1;
 	String parentCategory;
 	private int selectedCategoryID=-1;
-
+	private int categoryID=-1;
+	
 	HashMap<Integer,String> parentCategories = new HashMap<Integer,String>();
 
 	private ArrayList<Integer> levels = new ArrayList<Integer>();  
@@ -34,9 +36,38 @@ public class AdminCategoryAction extends ActionSupport{
 			categoryList.clear();
 
 		categoryList=AdminCategoryModel.fetchCategoryList();
+		
+		setCategoryID(-1);
 		return SUCCESS;
 	}
 
+	public String deleteCategory(){
+		
+		if(getCategoryID() != -1){
+			System.out.println("getCategoryID()"+getCategoryID());
+			int ret;
+
+			ret=AdminCategoryModel.deleteCategory(getCategoryID());
+
+			if(ret==-1){
+				addActionError("Sorry some error occurred. The category was not deleted. Please try again.");
+				fetchCategoryList();
+				return ERROR;
+			}
+			else{
+				fetchCategoryList();
+			}
+		}
+		else{
+			addActionError("Sorry some error occurred. The category was not deleted. Please try again.");
+			fetchCategoryList();
+			return ERROR;
+		}
+System.out.println("success delete");
+		return SUCCESS;
+
+	}
+	
 	public String initAddCategory(){
 
 		//fetch category levels from DB
@@ -343,6 +374,14 @@ public class AdminCategoryAction extends ActionSupport{
 
 	public void setCheckParentCategory(int checkParentCategory) {
 		this.checkParentCategory = checkParentCategory;
+	}
+
+	public int getCategoryID() {
+		return categoryID;
+	}
+
+	public void setCategoryID(int categoryID) {
+		this.categoryID = categoryID;
 	}
 
 }
