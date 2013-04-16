@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.flipkart.util.DbConnection;
 
 public class StockmanagementModel {
+	
 	static PreparedStatement ps = null;
 	static ResultSet rs = null;
 	static String sqlQuery = "";
@@ -38,6 +39,7 @@ public class StockmanagementModel {
 		}
 		return allItems;
 	}
+	
 	public static int getItemPrice(int itemID){
 		PreparedStatement pes = null;
 		ResultSet res = null;
@@ -75,7 +77,7 @@ public class StockmanagementModel {
 		}
 	}
 	public static void insertTransaction(int itemID,int price,int quantity){
-		System.out.println("in insert transaction"+itemID+"...."+price+"..."+quantity);
+		
 		sqlQuery="insert into flipkart_sellertransaction (sellerID,itemID,quantity,totalPrice) values(?,?,?,?);";
 		try {
 			conn=DbConnection.getConnection();
@@ -89,4 +91,57 @@ public class StockmanagementModel {
 			e.printStackTrace();
 		}
 	}
+	
+	public static ArrayList<Stockmanagement> getItemsBelowThreshold() {
+
+		allItems.clear();
+		
+		//assuming thresholdLevel to be 10
+		sqlQuery = "SELECT itemID, itemName, availableQuantity FROM flipkart_item A WHERE " +
+				"availableQuantity<=10 AND itemID IN " +
+				"(SELECT itemID FROM flipkart_itemattributes WHERE attribute='price');";
+		
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				Stockmanagement obj=new Stockmanagement();
+				obj.setItemID(rs.getInt(1));
+				obj.setItemName(rs.getString(2));
+				obj.setAvailableQuantity(rs.getInt(3));
+				allItems.add(obj);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return allItems;
+	}
+	
+
+	public static ArrayList<Stockmanagement> getSellerInfo() {
+
+		ArrayList<Stockmanagement> sellers = new ArrayList<Stockmanagement>(); 
+		
+		sqlQuery = "SELECT sellerID, sellerName, sellerEmailID FROM flipkart_seller;";
+		
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			rs=ps.executeQuery();
+
+			while(rs.next()){
+				Stockmanagement obj=new Stockmanagement();
+				obj.setSellerID(rs.getInt(1));
+				obj.setSellerName(rs.getString(2));
+				obj.setSellerEmail(rs.getString(3));
+				sellers.add(obj);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return sellers;
+	}
+	
 }

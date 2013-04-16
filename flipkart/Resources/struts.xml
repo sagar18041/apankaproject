@@ -163,11 +163,10 @@
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="chain">passwordpageHome</result>
 		</action>
-		
+
 		<action name="passwordpageHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/passwordpage.tiles</result>
 		</action>
-
 		<action name="modifypassword"
 			class="com.flipkart.action.accountmanagement.PasswordChangeAction"
 			method="modifyPassword">
@@ -257,11 +256,10 @@
 			<result name="success" type="chain">deactivateaccountpageHome</result>
 			<result name="error" type="chain">deactivateaccountpageHome</result>
 		</action>
-		
+
 		<action name="deactivateaccountpageHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/deactivateaccount.tiles</result>
 		</action>
-
 		<action name="deactivateaccount"
 			class="com.flipkart.action.accountmanagement.DeactivateAccountAction"
 			method="deactivateAccount">
@@ -281,7 +279,7 @@
 		<action name="viewordersHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/orderhistorypage.tiles</result>
 		</action>
-		
+
 		<!-- ================================ Order Status ================================ -->
 		<action name="vieworderstatus"
 			class="com.flipkart.action.accountmanagement.OrderDetailsAction"
@@ -292,7 +290,7 @@
 		<action name="vieworderstatusHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/orderstatuspage.tiles</result>
 		</action>
-		
+
 		<!-- ================================ Order Details ================================ -->
 		<action name="vieworderdetails"
 			class="com.flipkart.action.accountmanagement.OrderDetailsAction"
@@ -304,7 +302,7 @@
 		<action name="vieworderdetailsHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/orderdetailspage.tiles</result>
 		</action>
-		
+
 		<!-- ================================ My Ratings ================================ -->
 		<action name="viewmyratings"
 			class="com.flipkart.action.accountmanagement.UserRatingsAction"
@@ -315,7 +313,7 @@
 		<action name="viewratingsHome" class="com.flipkart.action.authentication.HomeAction">
 			<result name="success" type="tiles">/ratingspage.tiles</result>
 		</action>
-		
+
 		<!-- ******************************* End of Account Information ********************************** -->
 
 
@@ -387,7 +385,7 @@
 			<result name="success" type="chain">searchBrowse</result>
 		</action>
 		<action name="browseSubSubCategory" class="com.flipkart.action.browseitem.BrowseItemsAction">
-		<result name="success" type="chain">searchBrowse</result>
+			<result name="success" type="chain">searchBrowse</result>
 		</action>
 		<!-- ================================ End of Browse Page ===================================== -->
 
@@ -544,7 +542,7 @@
 			method="fetchCategoryList">
 			<result name="success" type="tiles">/adminviewcategory.tiles</result>
 		</action>
-		
+
 		<action name="admindeletecategory"
 			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
 			method="deleteCategory">
@@ -564,7 +562,7 @@
 			method="initAddCategory">
 			<result name="success" type="tiles">/adminaddcategory.tiles</result>
 			<result name="error" type="tiles">/adminaddcategory.tiles</result>
-			
+
 		</action>
 
 		<action name="adminparentcategoryinit"
@@ -578,15 +576,14 @@
 			method="insertNewCategory">
 			<result name="success" type="chain">adminaddcategory</result>
 			<result name="error" type="tiles">/adminaddcategory.tiles</result>
-			
+
 		</action>
 
 		<action name="adminchangestatuscategory"
 			class="com.flipkart.action.systemadmincategory.AdminCategoryAction"
 			method="changeStatusCategory">
-			<result name="success" type="tiles">/adminverifycategory.tiles
-			</result>
-			<result name="error" type="tiles">/adminverifycategory.tiles</result>
+			<result name="success" type="chain">adminverifycategory</result>
+			<result name="error" type="chain">adminverifycategory</result>
 		</action>
 
 		<!-- ................. Category End ................. -->
@@ -667,23 +664,36 @@
 			method="deleteAttribute">
 			<result name="success" type="chain">adminitemattributesinit</result>
 		</action>
-		
+
 		<!-- ................. Product End ................. -->
 
 		<!-- .......... Stock Management Start ............. -->
-		
+
+		<action name="stockmanagementinit"
+			class="com.flipkart.action.stockmanagement.StockmanagementAction"
+			method="initializeStockMgmtPage">
+			<result name="success" type="tiles">/stockmanagementinit.tiles
+			</result>
+		</action>
+
+		<action name="orderitemstock"
+			class="com.flipkart.action.stockmanagement.StockmanagementAction"
+			method="orderItemStock">
+			<result name="success" type="tiles">/stockmanagementorder.tiles</result>
+			<result name="error" type="chain">stockmanagementinit</result>
+		</action>
+
 		<action name="updatequantity"
 			class="com.flipkart.action.stockmanagement.StockmanagementAction"
 			method="viewItems">
 			<result name="success" type="tiles">/stockmanagement.tiles</result>
 		</action>
+
 		<action name="updateQuantityInStock"
 			class="com.flipkart.action.stockmanagement.StockmanagementAction"
 			method="updateQuantityInStock">
 			<result name="success" type="chain">updatequantity</result>
 		</action>
-
-
 
 		<!-- ............ Stock Management End ............... -->
 

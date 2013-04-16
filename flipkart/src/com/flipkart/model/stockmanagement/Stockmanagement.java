@@ -1,10 +1,15 @@
 package com.flipkart.model.stockmanagement;
 
 public class Stockmanagement {
+	
 	private int itemID;
 	private String itemName;
 	private int availableQuantity;
 	private int price;
+	
+	private int sellerID;
+	private String sellerName;
+	private String sellerEmail;
 	
 	public int getItemID() {
 		return itemID;
@@ -30,5 +35,22 @@ public class Stockmanagement {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+	public int getSellerID() {
+		return sellerID;
+	}
+	public void setSellerID(int sellerID) {
+		this.sellerID = sellerID;
+	}
+	public String getSellerName() {
+		return sellerName;
+	}
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
+	}
+	public String getSellerEmail() {
+		return sellerEmail;
+	}
+	public void setSellerEmail(String sellerEmail) {
+		this.sellerEmail = sellerEmail;
+	}
 }

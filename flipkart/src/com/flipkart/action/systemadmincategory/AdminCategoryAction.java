@@ -223,7 +223,7 @@ System.out.println("success delete");
 		 */
 		checkVerification=0;
 
-		if(checkCategory != null){
+		if(checkCategory != null && checkCategory.length !=0){
 			for(int i=0;i<checkCategory.length;i++){
 				try{
 					AdminCategoryModel.changeStatusCategory(Integer.parseInt(checkCategory[i]));
@@ -232,7 +232,7 @@ System.out.println("success delete");
 				}
 				catch(Exception e){
 					checkVerification=0;
-					addActionError("Some error occurred during enrollment. Please try again.");
+					addActionError("Some error occurred during verification. Please try again.");
 					return ERROR;
 				}
 			}
