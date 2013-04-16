@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
 <!DOCTYPE html "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -20,28 +21,32 @@
 	<div class="row">
 		<div class="span3">
 			<ul class="thumbnails">
-				<li class="span3">
+			<s:iterator value="prod" var="product">
+			<li class="span3">
 					<div align="center" class="thumbnail">
+			
+				<a href="displayitem.action?itemID=<s:property value="#product.itemID" />"><h5><s:property value="#product.itemName"/></h5>
+				<img src="<s:property value="#product.thumbnail"/>" height="120px" width="60px" alt="" /></a>
+			<s:iterator value="trendingitm" var="itm">
+			<s:if test="%{#product.itemID == #itm.key}">
+			<s:iterator value="#itm.value" var ="attb">
+			<s:if test="%{#attb.itemID == #itm.key}">
+			<br /> <br />
+				<font color="#B40404"><b>Rs.
+								<s:property value="#attb.value"/></b></font>
+								</s:if>
+			</s:iterator>
+  			<br />
+  						</s:if>
+			</s:iterator>
 
-						<h5>Product Category</h5>
-						<img src="ViewResources/img/1.jpg" alt=""><br /> <a
-							href="#">Item Name</a><br /> <font color="#B40404"><b>Rs.
-								500</b></font><br /> <a href="#">Link to product category
-							&rsaquo;&rsaquo;</a>
-					</div>
-				</li>
-				<li class="span3">
-					<div align="center" class="thumbnail">
-						<h5>Product Category</h5>
-						<img src="ViewResources/img/2.jpg" alt=""><br /> <a
-							href="#">Item Name</a><br /> <font color="#B40404"><b>Rs.
-								500</b></font><br /> <a href="#">Link to product category
-							&rsaquo;&rsaquo;</a>
-
-					</div>
-				</li>
+			
+			</div>
+			</s:iterator>
 			</ul>
+			
 		</div>
+		
 		<div class="span9">
 
 			<div class="row">
@@ -76,67 +81,45 @@
 					style="background-color: #E9E9E9; padding: 2px 5px 5px 5px; height: 30px; border-bottom-style: solid; border-bottom-width: 5px; border-bottom-color: #C78407;">
 					<div>
 						<h5>
-							<a href="">Category Name</a>
+							Top Selling Products
 						</h5>
 					</div>
 				</div>
 				<div class="span9" style="margin-top: 10px; margin-bottom: 10px">
-					<div class="span2">
-						<img src="ViewResources/img/2.jpg" alt=""><br /> <a
-							href="#">Item Name</a><br /> <font color="#B40404"><b>Rs.
-								500</b></font><br />
-						<ul>
-							<li>some featres</li>
-							<li>some featres</li>
-							<li>some featres</li>
-						</ul>
-					</div>
-					<div class="span2">zxcz</div>
-					<div class="span2">zxcz</div>
-					<div class="span2">zxcz</div>
-				</div>
-				<div>
-					<span style="background-color: #E9E9E9;">Featured: <a
-						href="">Best Seller </a>|<a href=""> Android </a>|
-					</span>
-				</div>
+				<ul class="thumbnails">
+			<s:iterator value="prodtopselling" var="producttopselling">
+			<li class="span2">
+					<div align="center" class="thumbnail">
+			
+				<a href="displayitem.action?itemID=<s:property value="#producttopselling.itemID" />"><h5><s:property value="#producttopselling.itemName"/></h5>
+				<img src="<s:property value="#producttopselling.thumbnail"/>" height="120px" width="60px" alt="" /></a>
+			<s:iterator value="topsellingitm" var="itmtopselling">
+			<s:if test="%{#producttopselling.itemID == #itmtopselling.key}">
+			<s:iterator value="#itmtopselling.value" var ="attbtopselling">
+			<s:if test="%{#attbtopselling.itemID == #itmtopselling.key}">
+			<br /> <br />
+				<font color="#B40404"><b>Rs.
+								<s:property value="#attbtopselling.value"/></b></font>
+								</s:if>
+			</s:iterator>
+  			<br />
+  						</s:if>
+			</s:iterator>
+
+			
+			</div>
+			</s:iterator>
+			</ul>
 			</div>
 			<br /> <br />
-			<div>
-				<div
-					style="background-color: #E9E9E9; padding: 2px 5px 5px 5px; height: 30px; border-bottom-style: solid; border-bottom-width: 5px; border-bottom-color: #C78407;">
-					<div>
-						<h5>
-							<a href="">Category Name</a>
-						</h5>
-					</div>
-				</div>
-				<div class="span9" style="margin-top: 10px; margin-bottom: 10px">
-					<div class="span2">
-						<img src="ViewResources/img/2.jpg" alt=""><br /> <a
-							href="#">Item Name</a><br /> <font color="#B40404"><b>Rs.
-								500</b></font><br />
-						<ul>
-							<li>some featres</li>
-							<li>some featres</li>
-							<li>some featres</li>
-						</ul>
-					</div>
-					<div class="span2">zxcz</div>
-					<div class="span2">zxcz</div>
-					<div class="span2">zxcz</div>
-				</div>
-				<div>
-					<span style="background-color: #E9E9E9;">Featured: <a
-						href="">Best Seller </a>|<a href=""> Android </a>|
-					</span>
-				</div>
-			</div>
+			
 
 		</div>
 	</div>
 	<br />
 	<br />
+	</div>
+	<div class="row" style="hieght:"> </div>
 	<div class="row-fluid"
 			style="border-style: solid; border-color: #6E6E6E; border-width: 1px;">
 			<div class="span4"
