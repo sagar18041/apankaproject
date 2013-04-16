@@ -33,27 +33,27 @@
 
 		<div id="tabs-viewCategory">
 			<s:form action="adminviewcategory" theme="simple">
-				<table class="table table-bordered">
+				<table class="table table-bordered" id="results">
 					<tr>
-						<th>Category Name</th>
-						<th>Parent Category</th>
-						<th>Level</th>
-						<th>Activation Status</th>
+						<th style="text-align: center">Category Name</th>
+						<th style="text-align: center">Parent Category</th>
+						<th style="text-align: center">Level</th>
+						<th style="text-align: center">Activation Status</th>
 					</tr>
 					<s:iterator value="categoryList">
 						<tr>
-							<td><s:property value="categoryName" /></td>
+							<td style="text-align: left"><s:property value="categoryName" /></td>
 
-							<td><s:if test="%{parentCategory == categoryName}">
+							<td style="text-align: center"><s:if test="%{parentCategory == categoryName}">
 									-
 								</s:if> <s:else>
 									<s:property value="parentCategory" />
 								</s:else></td>
 
-							<td><s:property value="level" /></td>
+							<td style="text-align: center"><s:property value="level" /></td>
 
 							<!-- /* 0=pending, 1=active, 2=inactive*/ -->
-							<td><s:if test="%{status == 1}">
+							<td style="text-align: center"><s:if test="%{status == 1}">
 									<span style="color: green">ACTIVE</span>
 								</s:if> <s:elseif test="%{status == 2}">
 									<span style="color: grey">INACTIVE</span>
@@ -65,8 +65,18 @@
 						</tr>
 					</s:iterator>
 				</table>
+				<div id="pageNavPosition" align="center"></div>
 			</s:form>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var pager = new Pager('results', 10);
+		pager.init();
+		pager.showPageNav('pager', 'pageNavPosition');
+		pager.showPage(1);
+	</script>
+	<br />
+	<br />
+	<br />
 </body>
 </html>
