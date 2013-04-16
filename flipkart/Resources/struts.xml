@@ -386,8 +386,7 @@
 			method="browseOnSubCategory">
 			<result name="success" type="chain">searchBrowse</result>
 		</action>
-		<action name="browseSubSubCategory" class="com.flipkart.action.browseitem.BrowseItemsAction"
-			method="browseOnSubSubCategory">
+		<action name="browseSubSubCategory" class="com.flipkart.action.browseitem.BrowseItemsAction">
 		<result name="success" type="chain">searchBrowse</result>
 		</action>
 		<!-- ================================ End of Browse Page ===================================== -->
@@ -473,7 +472,7 @@
 			method="rateAndReview">
 			<interceptor-ref name="loginStack" />
 			<result name="success" type="tiles">/rateandreview.tiles</result>
-			<result name="tohome" type="tiles">/home.tiles</result>
+			<result name="tohome" type="redirectAction">home</result>
 			<result name="error" type="tiles">/rateandreview.tiles</result>
 		</action>
 		<action name="saverateandreview" class="com.flipkart.action.browseitem.ProductAction"
