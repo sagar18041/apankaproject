@@ -154,7 +154,7 @@ public class MakePaymentAction extends ActionSupport{
 	 * 2. Check if the card number is valid
 	 * 3. Check if amount is less than available amount and credit card limit
 	 * 4. if all successful then make an entry in bank transaction and update order table
-	 * 5. Update bank table and deduct the amount from totalamount
+	 * 5. Update bank table and deduct the amount from totalamount and reduce the quantity
 	 * @return
 	 * @throws MessagingException 
 	 */
@@ -239,6 +239,13 @@ public class MakePaymentAction extends ActionSupport{
 		 */
 		if(checkFlag)
 			checkFlag = mpm.updateBankAmount(getCardNo() , (int)grandTotal , "cc");
+		
+		if(checkFlag)
+		{
+			for (int i = 0; i < cartList.size(); i++) {
+			 checkFlag = mpm.updateAvailableQuantity(cartList.get(i).getQuantity() , cartList.get(i).getItemID());
+			}
+		}
 		
 		if(checkFlag)
 			{
@@ -336,6 +343,15 @@ public class MakePaymentAction extends ActionSupport{
 		 */
 		if(checkFlag)
 			checkFlag = mpm.updateBankAmount(getCardNo() , (int)grandTotal , "db");
+		
+		if(checkFlag)
+		{
+			for (int i = 0; i < cartList.size(); i++) {
+			 checkFlag = mpm.updateAvailableQuantity(cartList.get(i).getQuantity() , cartList.get(i).getItemID());
+			}
+		}
+		
+		
 		if(checkFlag)
 			{
 			sendEmail(orderNum); // send email
@@ -406,6 +422,14 @@ public class MakePaymentAction extends ActionSupport{
 		 */
 		if(checkFlag)
 			checkFlag = mpm.updateBankAmountForNetBanking(Integer.parseInt(getCustomerid()), (int)grandTotal);
+		
+		if(checkFlag)
+		{
+			for (int i = 0; i < cartList.size(); i++) {
+			 checkFlag = mpm.updateAvailableQuantity(cartList.get(i).getQuantity() , cartList.get(i).getItemID());
+			}
+		}
+		
 		
 		if(checkFlag)
 			{

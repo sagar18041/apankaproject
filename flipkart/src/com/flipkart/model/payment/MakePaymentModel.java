@@ -137,7 +137,10 @@ public class MakePaymentModel {
 		 * Insert records in banktransaction for each orderid for the ordernumber 
 		 */ 
 		int customerId = 0;
-		sqlQuery = "select customerid from bank where accountnumber = (select accountnumber from creditcard where cardNumber = ?)";
+		if(paymentType.equals("creditCard"))
+			sqlQuery = "select customerid from bank where accountnumber = (select accountnumber from creditcard where cardNumber = ?)";
+		else if(paymentType.equals("debitCard"))
+			sqlQuery = "select customerid from bank where accountnumber = (select accountnumber from debitcard where cardNumber = ?)";
 		System.out.println("Update Query 1 = " + sqlQuery);
 		try{
 			conn=DbConnection.getConnection();
@@ -403,6 +406,31 @@ public class MakePaymentModel {
 			ps=conn.prepareStatement(sqlQuery);
 			ps.setInt(1, amt);
 			ps.setInt(2, customerid);
+			ps.executeUpdate();
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	
+	/**
+	 * Update quantity from flipkart_item table on successful payment
+	 * @param quantity
+	 * @param itemId
+	 * @return
+	 */
+	public boolean updateAvailableQuantity(int quantity , int itemId){
+		
+		sqlQuery = "update flipkart_item set availableQuantity = (availableQuantity-?) where itemID=?";
+		System.out.println("Balance Update " + sqlQuery);
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, quantity);
+			ps.setInt(2, itemId);
 			ps.executeUpdate();
 		}
 		catch(Exception ex){
