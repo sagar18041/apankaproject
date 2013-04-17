@@ -210,7 +210,7 @@
 				<li id="li_home"><a href="home" style="color: white;">Home</a></li>
 				<li id="li_account"><a href="accountpage"
 						style="color: white;">Account</a></li>
-					<li><a href="viewwishlist" style="color: white;">Wishlist</a></li>
+					<!-- <li><a href="viewwishlist" style="color: white;">Wishlist</a></li>  -->
 				<s:if test="#session['login']==null">
 					<!--  <li><a data-toggle="modal" href="#loginmodal"
 						style="color: white;"
@@ -393,9 +393,9 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 												<s:property value="#subcatList.catalogueParentID" />
 											</s:param>
 										</s:url>
-										<li class="dropdown-submenu"><a href="browseSubCategory?categoryID=<s:property value="#subcatList.catalogueParentID" />"><s:property
+										 <li class="dropdown-submenu"><a href="browseSubCategory?categoryID=<s:property value="#subcatList.catalogueParentID" />"><s:property
 													value="#subcatList.catalogueName" /></a>
-											<ul class="dropdown-menu">
+											<!-- <ul class="dropdown-menu">
 												<s:iterator value="catalogueList" var="subsubcatList">
 													<s:url action="displaycategory.action" var="dispsubsubCat">
 														<s:param name="categoryID">
@@ -408,7 +408,7 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 																	value="#subsubcatList.catalogueName" /></a></li>
 													</s:if>
 												</s:iterator>
-											</ul></li>
+											</ul>--></li>
 									</s:if>
 								</s:iterator>
 							</ul></li>
