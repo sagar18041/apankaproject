@@ -197,6 +197,7 @@ public class CartAction extends ActionSupport {
 				firstItem = 1;
 			} else {
 				cartItems = (ArrayList<Cart>) cartSession.get("cartItems");
+				
 				for (int i = 0; i < cartItems.size(); i++) {
 					if (cartItems.get(i).getItemID() == itemID) {
 						return SUCCESS;
