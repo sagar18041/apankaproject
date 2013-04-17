@@ -498,7 +498,7 @@
 		<action name="bankEntry" class="com.flipkart.action.payment.MakePaymentAction"
 			method="bankPayment">
 			<result name="success" type="tiles">/success.tiles</result>
-			<result name="error" type="tiles">/paymentoptions.tiles</result>
+			<result name="error">/placeorder/bank.jsp</result>
 		</action>
 		<!-- ******************************* End of Payment ********************************** -->
 		<!-- product comparision by Ananda -->
