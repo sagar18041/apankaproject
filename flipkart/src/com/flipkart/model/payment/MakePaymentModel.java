@@ -23,7 +23,7 @@ public class MakePaymentModel {
 	 * @param year
 	 * @return Flag = true is card validates false if doesn't
 	 */
-	public Boolean validateCard(String cardNo , String cardName , int cvv , String Month , int year , String orderNo , String card){
+	public Boolean validateCard(String cardNo , String cardName , int cvv , String Month , int year , String orderNo , String card , int cost){
 		
 		Boolean flag = false;
 		/*
@@ -31,29 +31,31 @@ public class MakePaymentModel {
 		 */
 		if(card.equals("cc")){
 			sqlQuery = "select distinct 'true' as flag from creditcard cc join bank b on b.accountNumber=cc.accountNumber " +
-					" where cc.accountNumber = ? and cc.expiryMonth= ? and cc.expiryYear= ? " +
-					" and cc.cvv= ? and b.customerName= ?" ;
+					" where cc.cardNumber='" + cardNo + "' and cc.expiryMonth='" + Month + "' and cc.expiryYear=" + year +
+					" and cc.cvv=" + cvv + " and b.customerName= '" + cardName +"' and b.balance > " + cost ;
 		}
 		else if(card.equals("db")){
 			sqlQuery = "select distinct 'true' as flag from debitcard db join bank b on b.accountNumber=db.accountNumber " +
-					" where db.accountNumber = ? and db.expiryMonth= ? and db.expiryYear= ? " +
-					" and db.cvv= ? and b.customerName= ?" ;
+					" where db.cardNumber ='" + cardNo + "' and db.expiryMonth='" + Month + "' and db.expiryYear=" + year +
+					" and db.cvv=" + cvv + " and b.customerName= '" + cardName +"' and b.balance > " + cost;
 		}
 		System.out.println("Validate Query 1 = " + sqlQuery);
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
-			ps.setString(1, cardNo);
+			/*ps.setString(1, cardNo);
 			ps.setString(2, Month);
 			ps.setInt(3, year);
 			ps.setInt(4, cvv);
 			ps.setString(5, cardName);
-			
+			*/
 			rs=ps.executeQuery();
 
-			while(rs.next()){
+			if(rs.next()){
 				flag = rs.getBoolean("flag");
 			}
+			else
+				return false;
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -77,9 +79,11 @@ public class MakePaymentModel {
 				ps.setString(3, orderNo);
 				rs=ps.executeQuery();
 
-				while(rs.next()){
+				if(rs.next()){
 					flag = rs.getBoolean("flag");
 				}
+				else
+					return false;
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -96,9 +100,11 @@ public class MakePaymentModel {
 				ps.setString(2, orderNo);
 				rs=ps.executeQuery();
 
-				while(rs.next()){
+				if(rs.next()){
 					flag = rs.getBoolean("flag");
 				}
+				else
+					return false;
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -303,10 +309,10 @@ public class MakePaymentModel {
 	 * @param password
 	 * @return
 	 */
-	public boolean validateBank(int customerid , String password){
+	public boolean validateBank(int customerid , String password , int cost){
 		boolean flag = false;
 		sqlQuery = "select 'true' flag from netbanking n join bank b on b.accountNumber = n.accountNumber " +
-		"where b.customerID=" + customerid + " and n.password='" + password + "'";
+		"where b.customerID=" + customerid + " and n.password='" + password + "' and b.balance > " + cost;
 		System.out.println("Bank validation " + sqlQuery);
 		try{
 			conn=DbConnection.getConnection();
@@ -314,9 +320,11 @@ public class MakePaymentModel {
 			//ps.setInt(1, customerid);
 			//ps.setString(2, password);
 			rs=ps.executeQuery(sqlQuery);
-			while(rs.next()){
+			if(rs.next()){
 				flag = rs.getBoolean("flag");
 			}
+			else
+				return false;
 		}catch(Exception ex){
 			ex.printStackTrace();
 			return false;

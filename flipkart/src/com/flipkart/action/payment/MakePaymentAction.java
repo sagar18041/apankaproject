@@ -204,14 +204,19 @@ public class MakePaymentAction extends ActionSupport{
 	    
 	    int enteredMonth=Integer.parseInt(month);
 	    int enteredYear=Integer.parseInt(year);
-	    System.out.println("Month " + enteredMonth);
+	    System.out.println("Month " + enteredMonth + "Year " + enteredYear);
 	    if(enteredYear <= y){
 	    	if(enteredMonth<m){
-	    		addActionError("Please enter correct date");
+	    		addActionMessage("Please enter correct date");
 	    		return ERROR;
 	    	}
 	    }
 	    
+	   int year = Integer.parseInt(getYear()) + 2012;
+	   String mon = getMonth();
+	   if(enteredMonth < 10){
+		   mon = "0" + mon;
+	   }
 	    /*
 	     * Task 2 and 3 - > Validate card and amount
 	     */
@@ -219,10 +224,11 @@ public class MakePaymentAction extends ActionSupport{
 	    orderNum =  sess.get("OrderNum").toString();
 	    Boolean cardFlag = true;
 	    MakePaymentModel mpm = new MakePaymentModel();
-	    cardFlag = mpm.validateCard(getCardNo(), getCardName(), Integer.parseInt(getCvv()), getMonth(), Integer.parseInt(getYear()) , orderNum , "cc");
+	    cardFlag = mpm.validateCard(getCardNo(), getCardName(), Integer.parseInt(getCvv()), mon, year , orderNum , "cc" , (int)grandTotal);
 		System.out.println("Card Validation = " + cardFlag);
 	    
 		if(!cardFlag){
+			addActionMessage("Please check the details again.");
 			return ERROR;
 		}
 		/*
@@ -254,7 +260,10 @@ public class MakePaymentAction extends ActionSupport{
 				return SUCCESS;
 			}
 		else
-			return ERROR;
+			{
+				addActionMessage("There is some error , Please try again.");
+				return ERROR;
+			}
 	}
 	
 	/**
@@ -318,6 +327,12 @@ public class MakePaymentAction extends ActionSupport{
 	    	}
 	    }
 	    
+	    int year = Integer.parseInt(getYear()) + 2012;
+		   String mon = getMonth();
+		   if(enteredMonth < 10){
+			   mon = "0" + mon;
+		   }
+		   
 	    /*
 	     * Task 2 and 3 - > Validate card and amount
 	     */
@@ -325,10 +340,11 @@ public class MakePaymentAction extends ActionSupport{
 	    orderNum =  sess.get("OrderNum").toString();
 	    Boolean cardFlag = true;
 	    MakePaymentModel mpm = new MakePaymentModel();
-	    cardFlag = mpm.validateCard(getCardNo(), getCardName(), Integer.parseInt(getCvv()), getMonth(), Integer.parseInt(getYear()) , orderNum , "db");
+	    cardFlag = mpm.validateCard(getCardNo(), getCardName(), Integer.parseInt(getCvv()), mon, year , orderNum , "db" , (int)grandTotal);
 		System.out.println("Card Validation = " + cardFlag);
 	    
 		if(!cardFlag){
+			addActionMessage("Please check the details again.");
 			return ERROR;
 		}
 		/*
@@ -359,7 +375,10 @@ public class MakePaymentAction extends ActionSupport{
 				return SUCCESS;
 			}
 		else
-			return ERROR;
+			{
+				addActionMessage("There is some error , please try again.");
+				return ERROR;
+			}
 	}
 	
 	/**
@@ -404,10 +423,11 @@ public class MakePaymentAction extends ActionSupport{
 	    orderNum =  sess.get("OrderNum").toString();
 	    Boolean cardFlag = true;
 	    MakePaymentModel mpm = new MakePaymentModel();
-	    cardFlag = mpm.validateBank(Integer.parseInt(getCustomerid()), getPassword());
+	    cardFlag = mpm.validateBank(Integer.parseInt(getCustomerid()), getPassword() , (int)grandTotal);
 		System.out.println("Bank Validation = " + cardFlag);
 	    
 		if(!cardFlag){
+			addActionMessage("Please check the details again");
 			return ERROR;
 		}
 		/*
@@ -438,7 +458,11 @@ public class MakePaymentAction extends ActionSupport{
 				return SUCCESS;
 			}
 		else
+		{
+			addActionMessage("There is some error please try again");
 			return ERROR;
+		}
+			
 		
 		
 	}
