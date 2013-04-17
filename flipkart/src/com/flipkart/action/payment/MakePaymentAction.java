@@ -5,11 +5,9 @@ import java.util.Calendar;
 import java.util.Map;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
-import com.flipkart.model.authentication.ForgotPasswordModel;
+import com.flipkart.action.authentication.HomeAction;
+import com.flipkart.action.cartmanagement.CartAction;
 import com.flipkart.model.authentication.SignUpModel;
 import com.flipkart.model.cartmanagement.Cart;
 import com.flipkart.model.payment.CartForEmail;
@@ -257,6 +255,8 @@ public class MakePaymentAction extends ActionSupport{
 			{
 			sendEmail(orderNum); // send email
 			sess.remove("cartItems"); //remove from session
+			CartAction.firstItem=0;
+			HomeAction.loadFirstTime = 1;
 				return SUCCESS;
 			}
 		else
@@ -372,6 +372,8 @@ public class MakePaymentAction extends ActionSupport{
 			{
 			sendEmail(orderNum); // send email
 			sess.remove("cartItems"); //remove from session
+			HomeAction.loadFirstTime = 1;
+			CartAction.firstItem=0;
 				return SUCCESS;
 			}
 		else
@@ -455,6 +457,8 @@ public class MakePaymentAction extends ActionSupport{
 			{
 			sendEmail(orderNum); // send email
 			sess.remove("cartItems"); //remove from session
+			CartAction.firstItem=0;
+			HomeAction.loadFirstTime = 1;
 				return SUCCESS;
 			}
 		else
