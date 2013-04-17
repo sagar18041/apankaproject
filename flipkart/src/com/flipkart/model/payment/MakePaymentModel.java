@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.flipkart.util.DbConnection;
+import com.flipkart.util.MyUtilityFunctions;
 
 public class MakePaymentModel {
 	static PreparedStatement ps=null;
@@ -312,7 +313,7 @@ public class MakePaymentModel {
 	public boolean validateBank(int customerid , String password , int cost){
 		boolean flag = false;
 		sqlQuery = "select 'true' flag from netbanking n join bank b on b.accountNumber = n.accountNumber " +
-		"where b.customerID=" + customerid + " and n.password='" + password + "' and b.balance > " + cost;
+		"where b.customerID=" + customerid + " and n.password='" + MyUtilityFunctions.generateMD5(password) + "'";
 		System.out.println("Bank validation " + sqlQuery);
 		try{
 			conn=DbConnection.getConnection();
