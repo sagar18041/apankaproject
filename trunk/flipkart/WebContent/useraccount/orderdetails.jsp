@@ -239,8 +239,7 @@ ol,ul {
 									rowspan="1">
 									<ul>
 										<!-- Review product link -->
-										<li class="bmargin5"><a href="#"
-											title="Review this product">Review Product</a></li>
+										<li class="bmargin5"><a href="rateandreview.action?itemID=<s:property value="itemID"/>">Review Product</a></li>
 										<!--  Cancel link -->
 
 									</ul>
