@@ -34,7 +34,7 @@
 					<!-- item ID <s:property value="itemID"/><br />  -->
 					<strong><s:property value="itemName" /></strong>
 					<br />
-					<span
+					<!-- <span
 						class="rating-static rating-<s:property value="finalRating"/>0"> </span>
 						<s:property value = "numberOfUserRated"/> Ratings | 
 						<a href="#RW"><s:property value = "numberOfReviews"/> Reviews</a> | 
@@ -44,17 +44,17 @@
 						<s:else>
 							<a href="rateandreview.action?itemID=<s:property value="itemID"/>"> Rate & Review</a>
 						</s:else>
-						
+						-->
 						
 						<br /><br />
-					<img src="ViewResources/img/wishlist.png" />
+					<!--<img src="ViewResources/img/wishlist.png" />
 					<s:if test="%{addedToWishList}">
 							Added to wishlist. <a href="viewwishlist">Browse Wishlist</a>
 						</s:if>
 						<s:else>
 							<a href="addToWishlist?itemID=<s:property value="itemID" />" >Add to wishlist</a>
 						</s:else>
-					
+					  -->
 					<!-- Product ID<s:property value="productID"/><br />  -->
 					<s:hidden name="itemID" value="%{itemID}" />
 					<s:hidden name="itemName" value="%{itemName}" />
@@ -175,8 +175,9 @@
 			</div>
 		</div>
 		<hr />
+		  
 		<!-- Display Product Review -->
-		<h4><a id="RW">Reviews</a></h4>
+		<!--<h4><a id="RW">Reviews</a></h4>
 		<s:iterator value="review">
 			<div class="row-fluid">
 				<div class="span2">
@@ -192,7 +193,7 @@
 		</s:iterator>
 		<!-- End of Product Review -->
 		<!-- End of Product Display -->
-
+		
 
 		<div class="row-fluid"
 			style="border-style: solid; border-color: #6E6E6E; border-width: 1px;">
