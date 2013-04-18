@@ -29,6 +29,15 @@
 	</definition>
 	<!-- end of Admin Layout -->
 
+	<!-- added by Suvadra : Seller Layout -->
+	<definition name="sellerlayout" template="/adminlayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/sellerheader.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/adminfooter.jsp" />
+	</definition>
+	<!-- end of Seller Layout -->
+
 	<!-- added by Aamir : lookup Layout -->
 	<definition name="lookuplayout" template="/lookuplayout.jsp">
 		<put-attribute name="title" value="" />
@@ -325,16 +334,18 @@
 		<put-attribute name="body" value="/stockmanagement/showItemStock.jsp" />
 	</definition>
 
+
 	<definition name="/stockmanagementorder.tiles" extends="adminlayout">
 		<put-attribute name="title" value="Flipkart.com: Stock Management" />
-		<put-attribute name="body" value="/stockmanagement/successReorder.jsp" />
+		<put-attribute name="body"
+			value="/stockmanagement/successReorder.jsp" />
 	</definition>
 
-	<definition name="/stockmanagement.tiles" extends="adminlayout">
+	<!-- Seller Page, hence seller Layout -->
+	<definition name="/stockmanagement.tiles" extends="sellerlayout">
 		<put-attribute name="title" value="Flipkart.com: Stock Management" />
 		<put-attribute name="body" value="/stockmanagement/sellerPage.jsp" />
 	</definition>
-
 	<!-- Stock Management End -->
 
 	<!-- ============================== End of System Administration =========================== -->

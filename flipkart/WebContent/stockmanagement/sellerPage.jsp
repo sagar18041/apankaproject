@@ -5,9 +5,9 @@
 <html>
 <head>
 <script type="text/javascript">
-setTimeout(function() {
-	    $('#mydiv').fadeOut('slow');
-	}, 3000);
+	setTimeout(function() {
+		$('#mydiv').fadeOut('slow');
+	}, 5000);
 </script>
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -16,8 +16,8 @@ setTimeout(function() {
 <body>
 	<div class="span9">
 
-
 		<s:set name="itemNameUpdated" value="%{itemNameUpdated}" />
+
 		<s:if test="%{itemNameUpdated != null}">
 
 			<div id="mydiv" align="center" class="alert alert-info">
@@ -41,11 +41,10 @@ setTimeout(function() {
 			<s:iterator value="allItems" status="i">
 
 				<tr>
-
 					<td><s:property value="%{itemName}" /></td>
 					<td><s:property value="%{availableQuantity}" /></td>
 					<td><s:property value="%{price}" /></td>
-					<td><input type="text" name="newQuantity" style="width: 45px;" /></td>
+					<td><s:textfield name="newQuantity" style="width: 45px;" /></td>
 					<td><a
 						href="updateQuantityInStock?itemID=<s:property value="itemID"/>&itemNameUpdated=<s:property value="%{itemName}" />"
 						class="btn">Save</a></td>
@@ -53,6 +52,7 @@ setTimeout(function() {
 
 			</s:iterator>
 		</table>
+		<br /> <br /> <a href="home.action" class="btn btn-primary">Go To Flipkart Home</a>
 	</div>
 </body>
 </html>
