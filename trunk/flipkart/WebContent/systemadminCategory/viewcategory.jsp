@@ -32,6 +32,7 @@
 		</ul>
 
 		<div id="tabs-viewCategory">
+
 			<s:form action="adminviewcategory" theme="simple">
 
 				<s:if test="categoryList.size()!=0">

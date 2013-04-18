@@ -79,7 +79,7 @@
 								<font size="3" face="Georgia"><b>Select a Seller</b></font> <br />
 								<br />
 							</div>
-							<br />
+
 
 							<s:radio theme="simple" name="checkedSeller" list="sellers" listKey="sellerID"
 								listValue="sellerName" />

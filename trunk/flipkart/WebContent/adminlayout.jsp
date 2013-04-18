@@ -80,9 +80,7 @@
 
 		<hr />
 	</div>
-	<!--  <div class="container">
-		<tiles:insertAttribute name="footer" />
-	</div>-->
+
 </body>
 
 </html>
