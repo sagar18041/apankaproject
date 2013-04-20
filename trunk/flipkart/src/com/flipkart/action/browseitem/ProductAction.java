@@ -33,6 +33,27 @@ public class ProductAction extends ActionSupport {
 	private ArrayList<Catalogue> catalogueList = new ArrayList<Catalogue>();
 	private ArrayList<SearchList> sl = new ArrayList<SearchList>();
 	
+	
+	//offer
+	Integer offerPercent;
+	Integer OfferedPrice;
+	
+	public Integer getOfferedPrice() {
+		return OfferedPrice;
+	}
+
+	public void setOfferedPrice(Integer offeredPrice) {
+		OfferedPrice = offeredPrice;
+	}
+
+	public Integer getOfferPercent() {
+		return offerPercent;
+	}
+
+	public void setOfferPercent(Integer offerPercent) {
+		this.offerPercent = offerPercent;
+	}
+
 	String searchBy;
 	String autoCompleteList;
 	public String categorySel;
@@ -253,7 +274,16 @@ public class ProductAction extends ActionSupport {
 
 		//get product attributes
 		attrib = pm.getProductAttributes(itemID);
-
+		
+		//get offer 
+		offerPercent  = pm.getOfferPercent(itemID);
+		for (int i=0; i<attrib.size(); i++) {
+			if (attrib.get(i).getAttribute().equalsIgnoreCase("Price")) {
+				OfferedPrice = Integer.parseInt(attrib.get(i).getValue()) - (Integer.parseInt(attrib.get(i).getValue()) * offerPercent)/100;
+			}
+		}
+System.out.println(OfferedPrice);
+System.out.println("offer percent " + offerPercent);
 		//review are based on product not on variants so 
 		//get productID from ItemID and pass it to get reviews.
 		Integer productID = pm.getProductID(itemID);
