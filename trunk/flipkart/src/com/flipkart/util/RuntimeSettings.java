@@ -12,7 +12,7 @@ public class RuntimeSettings {
 	public static final String SERVER_IP = "localhost";
 	public static String databaseName = "flipkart";
 	public static String dbUserID = "root";
-	public static String dbPassword = "101187"; 
+	public static String dbPassword = "password"; 
 	public static String RUN_MODE = "Test"; // "Production"; //
 	public static boolean IS_IN_DEBUG_MODE = true; // false; //
 	public static int portNo = 3306;// 5432; //
