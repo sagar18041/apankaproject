@@ -455,5 +455,23 @@ public class ProductModel {
 			e.printStackTrace();
 		}
 		return itemIDS;
+	}
+
+
+	public Integer getOfferPercent(Integer itemID) {
+		Integer offerPercent = 0;
+		sqlQuery = "SELECT  offerPercent FROM flipkart_offer WHERE itemID = ? AND validDate > NOW();";
+		try{
+			conn=DbConnection.getConnection();
+			ps=conn.prepareStatement(sqlQuery);
+			ps.setInt(1, itemID);
+			rs=ps.executeQuery();
+			while(rs.next()){
+				offerPercent = (rs.getInt(1));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return offerPercent;
 	}	
 }
