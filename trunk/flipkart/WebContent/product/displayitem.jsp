@@ -79,7 +79,12 @@
 					<div class="span4">
 
 						<s:iterator value="attrib" var="attr1">
+						
+						
+						
+						
 							<s:if test="%{#attr1.attribute=='Price'}">
+							<s:if test="%{offerPercent == 0}">
 		<br />
 								<b><font size="3" color="#B40404">Rs. <s:property
 											value="#attr1.value" /></font></b>
@@ -87,6 +92,19 @@
 								<font size="1" color="#A4A4A4">Inclusive of taxes</font>
 
 								<s:hidden name="price" value="%{#attr1.value}" />
+							
+							</s:if>
+							<s:else>
+							<br />
+							
+								<strike>Rs. <s:property value="#attr1.value" /></strike><br />
+											<b> <font size="3" color="#B40404">Rs. <s:property value="OfferedPrice" />
+											</font></b> (<s:property value="offerPercent" />% Off)
+								<br />
+								<font size="1" color="#A4A4A4">Inclusive of taxes</font>
+
+								<s:hidden name="price" value="%{#attr1.value}" />
+							</s:else>
 							</s:if>
 						</s:iterator>
 					</div>
