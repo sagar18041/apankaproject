@@ -85,24 +85,7 @@
 				</div>
 				<!-- ************* End of category Box**************** -->
 				<br/>
-		<ul class="thumbnails">
- 		<li class="span3">
-    	<div align="center" class="thumbnail">
-    	<h5>Product Category</h5>
-      	<img src="ViewResources/img/1.jpg" alt=""><br />
-     	<a href="#">Item Name</a><br /><font color="#B40404"><b>Rs. 500</b></font><br />
-     	<a href="#">Link to product category &rsaquo;&rsaquo;</a>
-    	</div>
-  		</li>
-  		<li class="span3">
-    	<div align="center" class="thumbnail">
-    	<h5>Product Category</h5>
-      	<img src="ViewResources/img/2.jpg" alt=""><br />
-     	<a href="#">Item Name</a><br /><font color="#B40404"><b>Rs. 500</b></font><br />
-     	<a href="#">Link to product category &rsaquo;&rsaquo;</a>
-    	</div>
-  		</li>
-		</ul>
+		
 	</div>
 	<div class="span9">
 	<div class="row">
