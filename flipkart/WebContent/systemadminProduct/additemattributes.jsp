@@ -92,8 +92,7 @@
 					<s:label value="NOTE:" />
 					</b> <br />
 					<s:label
-						value="Kindly enter following three attributes (<b>mandatory</b>):" />
-
+						value="Kindly enter following three attributes (mandatory):-" />
 					<s:label
 						value="Delivery Time (level-0), Warranty Details (level-1), Price (level-2)" />
 				</p>

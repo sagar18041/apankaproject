@@ -5,6 +5,14 @@
 <html>
 <head>
 <script type="text/javascript">
+	function updateQuantityInStock(x, y) {
+
+		var z = document.getElementById(x).value;
+		window.location = "updateQuantityInStock?itemID=" + y + "&newQuantity="
+				+ z;
+
+	}
+
 	setTimeout(function() {
 		$('#mydiv').fadeOut('slow');
 	}, 5000);
@@ -16,18 +24,17 @@
 <body>
 	<div class="span9">
 
-		<s:set name="itemNameUpdated" value="%{itemNameUpdated}" />
+<s:if test="hasActionErrors()">
+						<div align="center">
+							<s:iterator value="actionErrors">
+								<div class="alert alert-info">
+									<br /> <i class="icon-remove icon-2x"></i>&nbsp;&nbsp;
+									<s:property/>
+								</div>
+							</s:iterator>
 
-		<s:if test="%{itemNameUpdated != null}">
-
-			<div id="mydiv" align="center" class="alert alert-info">
-				The quantity of item <b><s:property value="%{itemNameUpdated}" /></b>
-				has been updated.
-			</div>
-
-		</s:if>
-
-
+						</div>
+					</s:if>
 
 		<table class="table table-striped table-bordered">
 			<tr>
@@ -44,15 +51,18 @@
 					<td><s:property value="%{itemName}" /></td>
 					<td><s:property value="%{availableQuantity}" /></td>
 					<td><s:property value="%{price}" /></td>
-					<td><s:textfield name="newQuantity" style="width: 45px;" /></td>
-					<td><a
-						href="updateQuantityInStock?itemID=<s:property value="itemID"/>&itemNameUpdated=<s:property value="%{itemName}" />"
+					<td><input type="text" name="newQuantity" id="<s:property value="%{#i.count}" />"
+						style="width: 45px;" /></td>
+					<td><a href="#"
+						onclick="updateQuantityInStock(<s:property value="%{#i.count}" />,<s:property value="%{itemID}" />);"
 						class="btn">Save</a></td>
+
 				</tr>
 
 			</s:iterator>
 		</table>
-		<br /> <br /> <a href="home.action" class="btn btn-primary">Go To Flipkart Home</a>
+		<br /> <br /> <a href="home.action" class="btn btn-primary">Go
+			To Flipkart Home</a>
 	</div>
 </body>
 </html>

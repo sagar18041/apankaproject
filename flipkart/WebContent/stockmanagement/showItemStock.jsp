@@ -14,10 +14,7 @@
 		});
 	});
 
-	/* function onSellerSelect() {
-		var cat = document.getElementById("sellers");
-		document.getElementById("selectedProductID").value = cat[cat.selectedIndex].value;
-	} */
+
 </script>
 </head>
 <body>
