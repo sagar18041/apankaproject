@@ -326,7 +326,6 @@ public class PlaceOrderAction extends ActionSupport {
 			 * check if no existing shipping addresses have been selected, ie, a
 			 * new shipping address has been entered
 			 */
-			//System.out.println("size::"+shippingCode.length());
 			if (addressid.equals("0")) {
 
 				if(shippingName.equals("") || shippingAddr.equals("")
@@ -419,16 +418,16 @@ public class PlaceOrderAction extends ActionSupport {
 		return SUCCESS;
 	}
 
-	/**************************************************************
+	/***************************************************************************
 	 * This method is used to save the items against their shipping addresses
 	 * and create a new order thereby.
-	 **************************************************************/
-	public boolean createOrder(boolean flag) {
-
-		/*
-		 * insert the order in the database if selected for the first time, or
-		 * update it's entry with the new shipping address if already existing
+	 ***************************************************************************/
+	public boolean createOrder(boolean flag) {	
+		
+		/*generate a random order number if items selected for the first time
+		 * or get the order number from the session
 		 */
+		
 		String orderNum = "";
 		if (!flag) {
 			int rand = 1000000 + (int) (Math.random() * ((100000000 - 1000000) + 1));
@@ -441,6 +440,10 @@ public class PlaceOrderAction extends ActionSupport {
 			orderNum = sess.get("OrderNum").toString();
 		}
 
+		
+		/*
+		 * getting the itemid-addrid mapping and parsing it
+		 */
 		int item[] = new int[cartList.size()];
 		int tempAddr[] = new int[cartList.size()];
 		int addr[] = new int[cartList.size()];
@@ -475,6 +478,11 @@ public class PlaceOrderAction extends ActionSupport {
 			}
 		}
 
+		
+		/*
+		 * insert the order for each item in cart in the database if selected for the first time, or
+		 * update it's entry with the new shipping address if already existing
+		 */
 		for (int i = 0; i < cartList.size(); i++) {
 			Order newOrder = new Order();
 			newOrder.setOrderNumber(orderNum);
@@ -505,6 +513,8 @@ public class PlaceOrderAction extends ActionSupport {
 	 * @return true if any such entry is present
 	 ***************************************************************************/
 	public boolean deleteItemFromDB(String emailID) {
+		
+		//find all items in the current order of the user
 		ArrayList<Integer> items = ShippingAddressModel.findAllOrders(emailID);
 
 		// find those items which are not there in cart anymore
