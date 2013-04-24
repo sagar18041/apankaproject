@@ -1,0 +1,78 @@
+CREATE OR REPLACE VIEW fielditemview AS
+SELECT fi.itemID AS itemID, fi.itemName AS itemName, fc.categoryName AS category, 'Name' AS attrName, fsc.categoryName AS subCategory, fssc.categoryName AS subsubCategory , "" as subsubsubCategory
+FROM flipkart_item fi
+INNER JOIN flipkart_product fp ON fi.productID = fp.productID
+INNER JOIN flipkart_path fpa ON fpa.categoryID = fp.categoryID
+INNER JOIN flipkart_category fssc ON fssc.categoryID = fpa.categoryID
+INNER JOIN flipkart_category fsc ON fsc.categoryID = fpa.parentID
+INNER JOIN flipkart_path fpc ON fpc.categoryID = fsc.categoryID
+INNER JOIN flipkart_category fc ON fpc.parentID = fc.categoryID
+WHERE fpa.level = 2
+UNION
+SELECT fi.itemID AS itemID, fi.itemName AS itemName, fc.categoryName AS category, 'Name' AS attrName, fsc.categoryName AS subCategory, "" AS subsubCategory , "" as subsubsubCategory
+FROM flipkart_item fi
+INNER JOIN flipkart_product fp on fi.productID = fp.productID
+INNER JOIN flipkart_path fpa on fpa.categoryID = fp.categoryID
+INNER JOIN flipkart_category fsc on fsc.categoryID = fpa.categoryID
+INNER JOIN flipkart_category fc on fc.categoryID= fpa.parentID
+WHERE fpa.level = 1
+UNION
+SELECT fi.itemID AS itemID, fi.itemName AS itemName, fc.categoryName AS category, 'Name' AS attrName, "" AS subCategory, "" AS subsubCategory, "" as subsubsubCategory
+FROM flipkart_item fi 
+INNER JOIN flipkart_product fp on fi.productID = fp.productID
+INNER JOIN flipkart_path fpa on fpa.categoryID = fp.categoryID
+INNER JOIN flipkart_category fc on fc.categoryID = fpa.categoryID
+WHERE fpa.level = 0
+UNION
+SELECT fa.itemID as itemID , fa.value as itemName , fc.categoryName as category , fa.attribute as attrName , fsc.categoryName as subCategory, fssc.categoryName AS subsubCategory , "" as subsubsubCategory
+FROM flipkart_itemattributes fa
+INNER JOIN flipkart_item fi on fi.itemID = fa.itemID
+INNER JOIN flipkart_product fp ON fi.productID = fp.productID
+INNER JOIN flipkart_path fpa ON fpa.categoryID = fp.categoryID
+INNER JOIN flipkart_category fssc ON fssc.categoryID = fpa.categoryID
+INNER JOIN flipkart_category fsc ON fsc.categoryID = fpa.parentID
+INNER JOIN flipkart_path fpc ON fpc.categoryID = fsc.categoryID
+INNER JOIN flipkart_category fc ON fpc.parentID = fc.categoryID
+WHERE fpa.level = 2
+UNION
+SELECT fa.itemID as itemID , fa.value as itemName , fc.categoryName as category , fa.attribute as attrName , fsc.categoryName as subCategory, "" AS subsubCategory , "" as subsubsubCategory
+FROM flipkart_itemattributes fa
+INNER JOIN flipkart_item fi on fi.itemID = fa.itemID
+INNER JOIN flipkart_product fp on fi.productID = fp.productID
+INNER JOIN flipkart_path fpa on fpa.categoryID = fp.categoryID
+INNER JOIN flipkart_category fsc on fsc.categoryID = fpa.categoryID
+INNER JOIN flipkart_category fc on fc.categoryID= fpa.parentID
+WHERE fpa.level = 1
+UNION
+SELECT fi.itemID AS itemID, fi.itemName AS itemName, fc.categoryName AS category, 'Name' AS attrName, "" AS subCategory, "" AS subsubCategory, "" as subsubsubCategory
+FROM flipkart_itemattributes fa 
+INNER JOIN flipkart_item fi on fi.itemID = fa.itemID
+INNER JOIN flipkart_product fp on fi.productID = fp.productID
+INNER JOIN flipkart_path fpa on fpa.categoryID = fp.categoryID
+INNER JOIN flipkart_category fc on fc.categoryID = fpa.categoryID
+WHERE fpa.level = 0
+UNION
+SELECT fi.itemID AS itemID, fi.itemName AS itemName, fc.categoryName AS category, 'Name' AS attrName, fsc.categoryName AS subCategory, fssc.categoryName AS subsubCategory , fsssc.categoryName as subsubsubCategory
+FROM flipkart_item fi
+INNER JOIN flipkart_product fp ON fi.productID = fp.productID
+INNER JOIN flipkart_path fpa ON fpa.categoryID = fp.categoryID
+INNER JOIN flipkart_category fsssc on fsssc.categoryID = fpa.categoryID
+INNER JOIN flipkart_category fssc ON fssc.categoryID = fpa.parentID
+INNER JOIN flipkart_path fpsc ON fpsc.categoryID = fssc.categoryID
+INNER JOIN flipkart_category fsc ON fsc.categoryID = fpsc.parentID
+INNER JOIN flipkart_path fpc ON fpc.categoryID = fsc.categoryID
+INNER JOIN flipkart_category fc ON fpc.parentID = fc.categoryID
+WHERE fpa.level = 3
+UNION
+SELECT fa.itemID as itemID , fa.value as itemName , fc.categoryName as category , fa.attribute as attrName , fsc.categoryName as subCategory, fssc.categoryName AS subsubCategory , fsssc.categoryName as subsubsubCategory
+FROM flipkart_itemattributes fa
+INNER JOIN flipkart_item fi on fi.itemID = fa.itemID
+INNER JOIN flipkart_product fp ON fi.productID = fp.productID
+INNER JOIN flipkart_path fpa ON fpa.categoryID = fp.categoryID
+INNER JOIN flipkart_category fsssc on fsssc.categoryID = fpa.categoryID
+INNER JOIN flipkart_category fssc ON fssc.categoryID = fpa.parentID
+INNER JOIN flipkart_path fpsc ON fpsc.categoryID = fssc.categoryID
+INNER JOIN flipkart_category fsc ON fsc.categoryID = fpsc.parentID
+INNER JOIN flipkart_path fpc ON fpc.categoryID = fsc.categoryID
+INNER JOIN flipkart_category fc ON fpc.parentID = fc.categoryID
+WHERE fpa.level = 3
