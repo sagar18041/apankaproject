@@ -384,7 +384,8 @@
 			method="browseOnSubCategory">
 			<result name="success" type="chain">searchBrowse</result>
 		</action>
-		<action name="browseSubSubCategory" class="com.flipkart.action.browseitem.BrowseItemsAction">
+		<action name="browseSubSubCategory" class="com.flipkart.action.browseitem.BrowseItemsAction"
+		method="browseOnSubSubCategory">
 			<result name="success" type="chain">searchBrowse</result>
 		</action>
 		<!-- ================================ End of Browse Page ===================================== -->
