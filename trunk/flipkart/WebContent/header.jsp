@@ -393,9 +393,10 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 												<s:property value="#subcatList.catalogueParentID" />
 											</s:param>
 										</s:url>
+										<!-- 3rd Level -->
 										 <li class="dropdown-submenu"><a href="browseSubCategory?categoryID=<s:property value="#subcatList.catalogueParentID" />"><s:property
 													value="#subcatList.catalogueName" /></a>
-											<!-- <ul class="dropdown-menu">
+											 <ul class="dropdown-menu">
 												<s:iterator value="catalogueList" var="subsubcatList">
 													<s:url action="displaycategory.action" var="dispsubsubCat">
 														<s:param name="categoryID">
@@ -404,11 +405,11 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 													</s:url>
 													<s:if
 														test="%{#subsubcatList.catalogueID==#subcatList.catalogueParentID && #subsubcatList.catalogueLevel==2}">
-														<li><a href="browseSubSubCategory?categoryID=<s:property value="#subsubcatList.catalogueID" />"><s:property
+														<li><a href="browseSubSubCategory?categoryID=<s:property value="#subsubcatList.catalogueParentID" />"><s:property
 																	value="#subsubcatList.catalogueName" /></a></li>
 													</s:if>
 												</s:iterator>
-											</ul>--></li>
+											</ul></li>
 									</s:if>
 								</s:iterator>
 							</ul></li>
