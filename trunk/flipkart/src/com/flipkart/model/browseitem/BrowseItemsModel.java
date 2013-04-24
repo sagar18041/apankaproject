@@ -55,7 +55,7 @@ public class BrowseItemsModel {
 					"FROM flipkart_category " +
 					"WHERE categoryID = " + categoryID +
 					")" + 
-					")" +
+					")AND fiv.attrName in ('Name' , 'Price')" +
 					") AS bi " +
 					"GROUP BY bi.itemID";
 		System.out.println("Sql query is " + sqlQuery);
@@ -154,7 +154,7 @@ public class BrowseItemsModel {
 					"FROM flipkart_category " +
 					"WHERE categoryID = " + categoryID +
 					")" + 
-					")" +
+					")AND fiv.attrName in ('Name' , 'Price')" +
 					") AS bi " +
 					"GROUP BY bi.itemID";
 		System.out.println("Sql query is " + sqlQuery);
@@ -253,7 +253,7 @@ public class BrowseItemsModel {
 					"FROM flipkart_category " +
 					"WHERE categoryID = " + categoryID +
 					")" + 
-					")" +
+					")AND fiv.attrName in ('Name' , 'Price')" +
 					") AS bi " +
 					"GROUP BY bi.itemID";
 		System.out.println("Sql query is " + sqlQuery);
