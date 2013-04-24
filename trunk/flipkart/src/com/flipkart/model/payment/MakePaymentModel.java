@@ -208,7 +208,7 @@ public class MakePaymentModel {
 		/*
 		 * Data for orderNumber
 		 */
-		sqlQuery = "Select orderID , orderNumber , itemID , quantity , totalPrice , addressID , status , (quantity*totalPrice) as subTotal from flipkart_order where orderNumber='" + orderNumber + "'";
+		sqlQuery = "Select orderID , orderNumber , itemID , quantity , (totalPrice/quantity) as totalPrice , addressID , status , totalPrice as subTotal from flipkart_order where orderNumber='" + orderNumber + "'";
 		System.out.println("Cart Details Query " + sqlQuery);
 		try{
 			conn=DbConnection.getConnection();
