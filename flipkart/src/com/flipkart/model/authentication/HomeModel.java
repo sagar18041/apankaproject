@@ -24,7 +24,7 @@ public class HomeModel {
 	 */
 	public ArrayList<String> getCategoryList() {
 		ArrayList<String> categoryList  = new ArrayList<String>();
-		sqlQuery = "select categoryName from flipkart_category where level = ?;";
+		sqlQuery = "select categoryName from flipkart_category where level = ? and status = 1;";
 		try{
 			//MyLog.log("SQL = " + sqlQuery);
 			conn=DbConnection.getConnection();
@@ -51,7 +51,7 @@ public class HomeModel {
 	public ArrayList<Catalogue> getCatalogueList() throws SQLException {
 		ArrayList<Catalogue> catalogueList = new ArrayList<Catalogue>();
 		sqlQuery = "select fc.categoryName, fp.categoryID, fp.parentID, fp.level " +
-				"from flipkart_category fc, flipkart_path fp where fc.categoryID = fp.categoryID;";
+				"from flipkart_category fc, flipkart_path fp where fc.categoryID = fp.categoryID and fc.status=1;";
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
@@ -77,7 +77,7 @@ public class HomeModel {
 	public ArrayList<Catalogue> getParentCatalogueList() throws SQLException {
 		ArrayList<Catalogue> catalogueList = new ArrayList<Catalogue>();
 		sqlQuery = "select fc.categoryName, fp.categoryID, fp.parentID, fp.level " +
-				"from flipkart_category fc, flipkart_path fp where fc.categoryID = fp.categoryID AND fc.level = ?;";
+				"from flipkart_category fc, flipkart_path fp where fc.categoryID = fp.categoryID AND fc.level = ? and fc.status=1;";
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
