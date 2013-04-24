@@ -406,10 +406,25 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 													<s:if
 														test="%{#subsubcatList.catalogueID==#subcatList.catalogueParentID && #subsubcatList.catalogueLevel==2}">
 														<li><a href="browseSubSubCategory?categoryID=<s:property value="#subsubcatList.catalogueParentID" />"><s:property
-																	value="#subsubcatList.catalogueName" /></a></li>
+																	value="#subsubcatList.catalogueName" /></a>
+														<!-- ***** 4th Level***** -->
+												<!-- 					 <ul class="dropdown-menu">
+												<s:iterator value="catalogueList" var="subsubsubcatList">
+													<s:url action="displaycategory.action" var="dispsubsubCat">
+														<s:param name="categoryID">
+															<s:property value="#subsubcatList.catalogueParentID" />
+														</s:param>
+													</s:url>
+													<s:if
+														test="%{#subsubsubcatList.catalogueID==#subsubcatList.catalogueParentID && #subsubsubcatList.catalogueLevel==2}">
+														<li><a href="browseSubSubSubCategory?categoryID=<s:property value="#subsubsubcatList.catalogueParentID" />"><s:property
+																	value="#subsubsubcatList.catalogueName" /></a></li></s:if></s:iterator></ul> -->
+														<!-- End 4th Level -->			
+																	</li>
 													</s:if>
 												</s:iterator>
-											</ul></li>
+											</ul>
+											</li>
 									</s:if>
 								</s:iterator>
 							</ul></li>
@@ -432,7 +447,7 @@ onclick="show('forgotpassword','signup','login')">Login</a></li>-->
 		<s:form action="searchPage" method="get" theme="simple"
 			cssClass="form-inline" style="display: inline;">
 			<div class="input-append">
-				<input type="text" data-provide="typeahead" class="span4"
+				<input type="text" data-provide="typeahead" class="span4" data-items="5"
 					placeholder="Search for items" id="search" name="searchText"
 					data-source='<s:property value="autoCompleteList"/>' autocomplete="off"
 					onkeyup="callSearch()" value="<s:property value="searchText"/>" />

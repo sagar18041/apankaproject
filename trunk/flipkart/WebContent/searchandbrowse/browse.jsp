@@ -81,7 +81,7 @@
 <table>
 	<tr>
 	
-	<s:iterator value="searchAttr">
+	<s:iterator value="searchAttr" >
 	<td>
 <div class="span3" style="margin-top:10px; margin-bottom:10px">
 <div class="span2">
