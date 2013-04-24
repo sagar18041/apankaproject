@@ -112,7 +112,9 @@ public class StockmanagementModel {
 	}
 
 	/*
-	 * gets items below threshold value (10) and who have an attribute price {needed to be displayed in seller page}
+	 * gets items below threshold value (10) and
+	 * which have not yet been re-ordered (thresholdflag=0) 
+	 * who have an attribute price {needed to be displayed in seller page}
 	 */
 	public static ArrayList<Stockmanagement> getItemsBelowThreshold() {
 
@@ -120,7 +122,7 @@ public class StockmanagementModel {
 
 		//assuming thresholdLevel to be 10
 		sqlQuery = "SELECT itemID, itemName, availableQuantity FROM flipkart_item A WHERE " +
-				"availableQuantity<=10 AND itemID IN " +
+				"availableQuantity<=10 AND thresholdflag=0 AND itemID IN " +
 				"(SELECT itemID FROM flipkart_itemattributes WHERE attribute='price');";
 
 		try{

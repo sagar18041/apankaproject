@@ -46,7 +46,7 @@
 					<s:form action="orderitemstock" theme="simple" method="post">
 
 						<!-- display existing items  -->
-						<table class="table table-bordered">
+						<table class="table table-bordered" id="results">
 							<tr>
 								<th style="text-align: center">Select</th>
 								<th style="text-align: center">Item Name</th>
@@ -118,7 +118,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		var pager = new Pager('results', 10);
+		var pager = new Pager('results', 5);
 		pager.init();
 		pager.showPageNav('pager', 'pageNavPosition');
 		pager.showPage(1);
