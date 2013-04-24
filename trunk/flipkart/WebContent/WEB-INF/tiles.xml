@@ -232,11 +232,11 @@
 
 	<!-- ================================Search ================================ -->
 	<definition name="/search.tiles" extends="baselayout">
-		<put-attribute name="title" value="Search" />
+		<put-attribute name="title" value="Browse" />
 		<put-attribute name="body" value="/searchandbrowse/search.jsp" />
 	</definition>
 	<definition name="/searchError.tiles" extends="baselayout">
-		<put-attribute name="title" value="Search" />
+		<put-attribute name="title" value="Browse" />
 		<put-attribute name="body" value="/searchandbrowse/searchError.jsp" />
 	</definition>
 	<!-- ******************************* End of Search ********************************** -->
