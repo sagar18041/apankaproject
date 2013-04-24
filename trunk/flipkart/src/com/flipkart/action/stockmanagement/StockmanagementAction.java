@@ -16,14 +16,17 @@ public class StockmanagementAction extends ActionSupport{
 	private String newQuantity;
 	private String errMsg;
 
-	String[] checkItems;
-	int checkedSeller=-1;
+	String[] checkItems; /* to get the items whose checkbox has been checked */
+	int checkedSeller=-1; /* to get the sellerID selected from the radiobuttonlist */
 	int sellerIDFromMail=-1;
 
-	ArrayList<Stockmanagement> allItems=new ArrayList<Stockmanagement>();
-	ArrayList<Stockmanagement> itemsBelowThreshold = new ArrayList<Stockmanagement>();
-	ArrayList<Stockmanagement> sellers = new ArrayList<Stockmanagement>();
+	ArrayList<Stockmanagement> allItems=new ArrayList<Stockmanagement>(); /* for seller page, to show the items who thresholdFlag is 1  */
+	ArrayList<Stockmanagement> itemsBelowThreshold = new ArrayList<Stockmanagement>(); /* for admin page, to show items below 10 qty */
+	ArrayList<Stockmanagement> sellers = new ArrayList<Stockmanagement>(); /* to get the list of sellers */
 
+	/*
+	 * for admin stockmgmt initialization
+	 */
 	public String initializeStockMgmtPage(){
 
 		itemsBelowThreshold = StockmanagementModel.getItemsBelowThreshold();
@@ -33,6 +36,9 @@ public class StockmanagementAction extends ActionSupport{
 		return SUCCESS;
 	}
 
+	/*
+	 * after admin has selected items and seller for reorder
+	 */
 	public String orderItemStock(){
 
 		//If all values were not selected
@@ -74,11 +80,14 @@ public class StockmanagementAction extends ActionSupport{
 	}
 
 
+	/*
+	 * sending mail to selected seller for reorder of selected items
+	 */
 	public void sendReorderEmail(int sellerID, ArrayList<Stockmanagement> itemList) throws MessagingException{
-		//MakePaymentModel mpm = new MakePaymentModel();
 
+		//the link on which seller will click and come to Seller page
 		String link = "http://localhost:8080/flipkart/updatequantity?sellerIDFromMail="+sellerID;
-		String emailAdd= "flipkart.team403.seller@gmail.com";
+		String emailAdd= "flipkart.team403.seller@gmail.com"; /* default seller ID for our Flipkart. every seller in DB will have this email only */
 
 		System.out.println("Link is: "+ link);
 
@@ -116,6 +125,9 @@ public class StockmanagementAction extends ActionSupport{
 
 	}
 
+	/*
+	 * seller page initialization
+	 */
 	public String viewItems(){
 
 		System.out.println("in stock mgmt action :::"+errMsg);
@@ -130,6 +142,9 @@ public class StockmanagementAction extends ActionSupport{
 		return SUCCESS;
 	}
 
+	/*
+	 * method called when a seller updates the qty of any item
+	 */
 	public String updateQuantityInStock(){
 
 		System.out.println("in update qty:::"+itemID+"..."+newQuantity);
