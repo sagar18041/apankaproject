@@ -16,14 +16,16 @@ public class StockmanagementModel {
 	static Connection conn = null;
 	static ArrayList<Stockmanagement> allItems=new ArrayList<Stockmanagement>();
 
-	//ThresholdFlag = 1 means REORDER REQUESTED
+	/*
+	 * method called to get all items whose threshold flag is 1, i.e. have been reordered
+	 */
 	public static ArrayList<Stockmanagement> fetchAllItems(){
 		allItems.clear();
 		sqlQuery = "select itemID,itemName,availableQuantity from flipkart_item where thresholdflag=?;";
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
-			ps.setInt(1, 1);
+			ps.setInt(1, 1); //ThresholdFlag = 1 means REORDER REQUESTED
 			rs=ps.executeQuery();
 
 			while(rs.next()){
@@ -40,6 +42,9 @@ public class StockmanagementModel {
 		return allItems;
 	}
 
+	/*
+	 * get price of an item
+	 */
 	public static int getItemPrice(int itemID){
 		PreparedStatement pes = null;
 		ResultSet res = null;
@@ -54,7 +59,6 @@ public class StockmanagementModel {
 
 			if(res.next()){
 				return res.getInt(1);
-				//System.out.println("item attributes   "+res.getString(1)+"::::"+res.getString(2));
 			}
 		}
 
@@ -64,9 +68,12 @@ public class StockmanagementModel {
 		return 0;
 	}
 
+	/*
+	 * seller updating the qty of an item
+	 */
 	public static void updateQuantityInStock(int itemID,int newQuantity){
 
-			System.out.println("in updateQuantityInStock: newQty"+newQuantity);
+		System.out.println("in updateQuantityInStock: newQty"+newQuantity);
 		sqlQuery="update flipkart_item set availableQuantity=?,thresholdflag=? where itemID=?;";
 
 		try{
@@ -81,10 +88,13 @@ public class StockmanagementModel {
 		}
 	}
 
+	/*
+	 * seller transaction getting recorded in sellertransaction table
+	 */
 	public static void insertTransaction(int itemID,int price,int quantity){
 
 		System.out.println("in insert transaction: price, qty: "+price+ " "+quantity);
-		
+
 		sqlQuery="INSERT INTO flipkart_sellertransaction (sellerID,itemID,quantity,totalPrice) " +
 				"VALUES (?,?,?,?);";
 		try {
@@ -95,12 +105,15 @@ public class StockmanagementModel {
 			ps.setInt(3, quantity);
 			ps.setInt(4, price * quantity);
 			ps.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/*
+	 * gets items below threshold value (10) and who have an attribute price {needed to be displayed in seller page}
+	 */
 	public static ArrayList<Stockmanagement> getItemsBelowThreshold() {
 
 		allItems.clear();
@@ -129,6 +142,9 @@ public class StockmanagementModel {
 	}
 
 
+	/*
+	 * get Seller information to be displayed on admin stock mgmt page
+	 */
 	public static ArrayList<Stockmanagement> getSellerInfo() {
 
 		ArrayList<Stockmanagement> sellers = new ArrayList<Stockmanagement>(); 
@@ -153,6 +169,9 @@ public class StockmanagementModel {
 		return sellers;
 	}
 
+	/*
+	 * get info abt an item 
+	 */
 	public static Stockmanagement getItemInfo(int itemID) {
 
 		Stockmanagement item = new Stockmanagement(); 
@@ -178,23 +197,9 @@ public class StockmanagementModel {
 		return item;
 	}
 
-/*	//ThresholdFlag = 0 means NO REORDER REQUESTED
-	public static void SetThresholdFlag0(int tempItemID) {
-
-		sqlQuery="UPDATE flipkart_item SET thresholdflag=0 where itemID=?;";
-
-		try{
-			conn=DbConnection.getConnection();
-			ps=conn.prepareStatement(sqlQuery);
-			ps.setInt(1, tempItemID);
-			ps.executeUpdate();
-
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-*/
-	//ThresholdFlag = 1 means REORDER is REQUESTED
+	/*
+	 * set thresholdflag=1 for all the items the admin has re-ordered
+	 */
 	public static void SetThresholdFlag1(int tempItemID) {
 
 		sqlQuery="UPDATE flipkart_item SET thresholdflag=1 where itemID=?;";
@@ -202,7 +207,7 @@ public class StockmanagementModel {
 		try{
 			conn=DbConnection.getConnection();
 			ps=conn.prepareStatement(sqlQuery);
-			ps.setInt(1, tempItemID);
+			ps.setInt(1, tempItemID);//ThresholdFlag = 1 means REORDER is REQUESTED
 			ps.executeUpdate();
 
 		}catch(Exception e){
